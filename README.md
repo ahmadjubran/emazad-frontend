@@ -14,11 +14,10 @@ This is a simple bidding app that allows users to bid on items and the highest b
 ## Technologies
 
 - React
-- Node.js
-- Express
-- PostgreSQL
-- Sequelize
+- CSS
 - Socket.io
 - Axios
 - React Router
 - Redux
+
+
