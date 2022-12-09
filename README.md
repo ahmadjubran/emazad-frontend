@@ -20,4 +20,3 @@ This is a simple bidding app that allows users to bid on items and the highest b
 - React Router
 - Redux
 
-
