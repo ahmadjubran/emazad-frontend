@@ -1,20 +1,28 @@
 import './App.css';
+
+import Login from './components/auth/Login';
+import Signup from './components/auth/Signup';
+
 import NavBar from './components/header/NavBar';
 import Profile from './components/Profile';
 import Hero from './components/hero/Hearo';
 function App() {
   return (
-    <div>
-      <div className="main-container">
+    <div>    
         <header className="header">
           <NavBar />
-        </header>
-        <div className='profile-container'>
+         </header>
+          
+        <div className='profile-container'> 
+         <Hero />
           <Profile />
         </div>
-      </div>
-      <Hero />
-      <div>space</div>
+          
+
+        <Login />
+        <Signup />
+
+
     </div>
   );
 }
