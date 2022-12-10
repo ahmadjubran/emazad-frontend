@@ -1,6 +1,3 @@
-
-
-
 export default function Profile() {
   // if the user is visitng his own profile, show:
   // favorite auctions, favorite sellers and remove the report button, email, phone number 
@@ -17,20 +14,19 @@ export default function Profile() {
           <h2 className="user-auctions">Auctions</h2>
           <h2 className="user-bids">Bids</h2>
 
-          </div>
-          <div className="user-details">
-            <div> Email </div>
-            <div> Phone Number </div>
-            <div> Followers </div>
-            <div> Following </div>
-            <div> Favorite Auctions </div>
-              
         </div>
-          <button className="report-user-button"> Report User </button>
-      </div>  
+        <div className="user-details">
+          <div> Email </div>
+          <div> Phone Number </div>
+          <div> Followers </div>
+          <div> Following </div>
+          <div> Favorite Auctions </div>
+
+        </div>
+        <button className="report-user-button"> Report User </button>
+      </div>
     </div>
 
   )
 }
 
- 
