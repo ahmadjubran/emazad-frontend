@@ -1,18 +1,26 @@
 import './App.css';
-import logo from './assets/logo.png';
-import Login from './components/auth/Login';
 
+import Login from './components/auth/Login';
 import Signup from './components/auth/Signup';
+
+import NavBar from './components/header/NavBar';
+import Profile from './components/Profile';
 
 function App() {
   return (
-    <div className="App">
-      Hello Bid-Hammers!
-      <img src={logo} alt="logo" />
+    <div>
+    
+        <header className="header">
+          <NavBar />
+         </header>
+          
+        <div className='profile-container'> 
+          <Profile />
+        </div>
+          
 
-      <Login />
-
-      <Signup />
+        <Login />
+        <Signup />
 
 
     </div>
