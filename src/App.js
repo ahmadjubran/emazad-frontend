@@ -21,7 +21,7 @@ function App() {
         <Categories />
         <ListOfItems />
       </div>
-
+      
       <Login />
       <Signup />
     </div>
