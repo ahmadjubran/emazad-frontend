@@ -28,7 +28,7 @@ export default function Profile() {
         <img src='https://cours-informatique-gratuit.fr/wp-content/uploads/2017/10/avatar.png' width='190px' alt='profile' />
       </div>
       <div className='profile-info'>
-        <h1>{user.fullName}</h1>
+        {user && <h1>{user}</h1>}
         <HStack>
           <Button className="user-auctions"> <MdSell /> Auctions</Button>
           <Button className="user-bids"> <ImHammer2 /> Bids</Button>
