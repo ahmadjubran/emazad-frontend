@@ -26,3 +26,4 @@ yarn-error.log*
 # custom files
 /CSS.md
 /Routes&Keys.md
+/colors.css
