@@ -6,7 +6,7 @@ import Signup from "./components/auth/Signup";
 import Categories from "./components/Categories";
 import ListOfItems from "./components/Categories/ListOfItems";
 import NavBar from "./components/header/NavBar";
-import Hero from "./components/hero/Hearo";
+import Hero from "./components/hero/Hero";
 import Profile from "./components/Profile";
 function App() {
   return (

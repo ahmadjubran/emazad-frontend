@@ -9,7 +9,7 @@ import {
   requestSignup,
   signupSuccess,
   signupFail,
-  signupPasswordFailure,
+  // signupPasswordFailure,
 } from "../features/authSlicer";
 
 import base64 from "base-64";
