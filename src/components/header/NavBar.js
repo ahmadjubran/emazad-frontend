@@ -1,6 +1,7 @@
 import logo from '../../assets/logo.png';
 import '../../styles/Nav.css';
-
+import { UnorderedList, ListItem, Flex } from '@chakra-ui/layout';
+import { useMediaQuery } from '@chakra-ui/react'
 export default function NavBar() {
 
   // if the user is logged in, show:
@@ -10,39 +11,39 @@ export default function NavBar() {
 
 
   return (
-    <nav className="nav-container">
+    <Flex className="nav-bar" display="flex" justifyContent="space-between" alignItems="center" padding="20px" width="100%" height="100px" backgroundColor="#f5f5f5">
       <div className="nav-logo">
         <img src={logo} alt="logo" width='75px'/>
       </div>
-      <div className="nav-links">
-        <ul>
-          <li>
+      <div >
+        <UnorderedList display="flex" listStyleType="none" gap="20px">
+          <ListItem>
             <a href="#">Home</a>
-          </li>
+          </ListItem>
 
-          <li>
+          <ListItem>
             <a href="#">Auctions</a>
-          </li>
+          </ListItem>
 
-          <li>
+          <ListItem>
             <a href="#">Contact Us</a>
-          </li>
+          </ListItem>
           
-          <li>
+          <ListItem>
             <a href="#">About eMazad</a>
-          </li>
+          </ListItem>
            
-          <li>
+          <ListItem>
             <a href="#">Login</a>
-          </li>
+          </ListItem>
 
-        </ul>
+        </UnorderedList>
       </div>
 
 
 
 
-    </nav>
+    </Flex>
  
   )
 }
