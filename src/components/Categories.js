@@ -1,3 +1,4 @@
+import { Box, Center, Flex, Grid, GridItem, Text } from "@chakra-ui/react";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getItems } from "../store/actions/itemActions";
@@ -6,45 +7,60 @@ import { selectItems } from "../store/features/itemSlicer";
 function Categories() {
   const dispatch = useDispatch();
   const items = useSelector(selectItems);
-
   console.log(items);
 
+  const categorieBox = (category) => {
+    return (
+      <GridItem>
+        <Box
+          w="350px"
+          h="250px"
+          bgImage={`url(https://source.unsplash.com/1600x900/?${category})`}
+          bgRepeat="no-repeat"
+          bgSize="cover"
+          cursor="pointer"
+          onClick={() => getItems(dispatch, "active", category)}
+          borderRadius="lg"
+          overflow="hidden"
+          opacity="0.9"
+          _hover={{ opacity: "1", transition: "0.3s" }}
+        >
+          <Center
+            w="100%"
+            h="100%"
+            bg="rgba(0,0,0,0.5)"
+            color="white"
+            fontSize="2xl"
+            fontWeight="bold"
+            textTransform="capitalize"
+          >
+            {category}
+          </Center>
+        </Box>
+      </GridItem>
+    );
+  };
+
   return (
-    <div>
-      <h2>Categories</h2>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", placeItems: "center", gridGap: "1rem" }}>
-        <card onClick={() => getItems(dispatch, "active", "electronics")} style={{ cursor: "pointer" }}>
-          <img src="https://picsum.photos/350/250" alt="random" />
-          <h3>Category 1</h3>
-          <p>Category 1 description</p>
-        </card>
-        <card onClick={() => getItems(dispatch, "active", "clothes")} style={{ cursor: "pointer" }}>
-          <img src="https://picsum.photos/350/250" alt="random" />
-          <h3>Category 2</h3>
-          <p>Category 2 description</p>
-        </card>
-        <card onClick={() => getItems(dispatch, "active", "realestate")} style={{ cursor: "pointer" }}>
-          <img src="https://picsum.photos/350/250" alt="random" />
-          <h3>Category 3</h3>
-          <p>Category 3 description</p>
-        </card>
-        <card onClick={() => getItems(dispatch, "active", "pets")} style={{ cursor: "pointer" }}>
-          <img src="https://picsum.photos/350/250" alt="random" />
-          <h3>Category 4</h3>
-          <p>Category 4 description</p>
-        </card>
-        <card onClick={() => getItems(dispatch, "active", "vehicles")} style={{ cursor: "pointer" }}>
-          <img src="https://picsum.photos/350/250" alt="random" />
-          <h3>Category 5</h3>
-          <p>Category 5 description</p>
-        </card>
-        <card onClick={() => getItems(dispatch, "active", "others")} style={{ cursor: "pointer" }}>
-          <img src="https://picsum.photos/350/250" alt="random" />
-          <h3>Category 6</h3>
-          <p>Category 6 description</p>
-        </card>
-      </div>
-    </div>
+    <Flex direction="column" p="6" justifyContent="center" alignItems="center" bg="gray.100" gap="8">
+      <Text
+        fontSize="4xl"
+        fontWeight="bold"
+        cursor="pointer"
+        onClick={() => getItems(dispatch)}
+        textTransform="uppercase"
+      >
+        Categories
+      </Text>
+      <Grid templateColumns={{ base: "repeat(1, 1fr)", md: "repeat(2, 1fr)", lg: "repeat(3, 1fr)" }} gap={6}>
+        {categorieBox("electronics")}
+        {categorieBox("clothes")}
+        {categorieBox("vehicles")}
+        {categorieBox("pets")}
+        {categorieBox("realestate")}
+        {categorieBox("others")}
+      </Grid>
+    </Flex>
   );
 }
 
