@@ -1,3 +1,5 @@
+import { useDispatch, useSelector } from 'react-redux'
+import { selectUser } from '../store/features/authSlicer'
 import '../styles/Profile.css'
 import { FiMail } from 'react-icons/fi'
 import { FiSettings } from 'react-icons/fi'
@@ -5,12 +7,18 @@ import { ImHammer2 } from 'react-icons/im'
 import { MdSell } from 'react-icons/md'
 import { BsFillTelephoneFill } from 'react-icons/bs'
 import { MdReportGmailerrorred } from 'react-icons/md'
-
+import {Button, HStack} from '@chakra-ui/react'
 export default function Profile() {
   // if the user is visitng his own profile, show:
   // favorite auctions, favorite sellers and remove the report button, email, phone number 
   // if the user is visiting another user profile, show:
   // the report button
+
+    const dispatch = useDispatch()
+    // const user = useSelector(selectUser)
+    const {user} = useSelector (state => state.auth)
+
+
   return (
 
     
@@ -20,15 +28,15 @@ export default function Profile() {
         <img src='https://cours-informatique-gratuit.fr/wp-content/uploads/2017/10/avatar.png' width='190px' alt='profile' />
       </div>
       <div className='profile-info'>
-        <h1>John Doe</h1>
-        <div className="user-activity">
-          <button className="user-auctions"> <MdSell /> Auctions</button>
-          <button className="user-bids"> <ImHammer2 /> Bids</button>
+        <h1>{user.fullName}</h1>
+        <HStack>
+          <Button className="user-auctions"> <MdSell /> Auctions</Button>
+          <Button className="user-bids"> <ImHammer2 /> Bids</Button>
           {/* if it is not the user own page, render the report button */}
-          <button className="user-settings"> <FiSettings /> Settings</button>
+          <Button className="user-settings"> <FiSettings /> Settings</Button>
 
 
-        </div>
+        </HStack>
         <div className="user-details">
           <div> <FiMail size='20px' /> Email </div>
           <div> <BsFillTelephoneFill size='20px' /> Phone Number </div>
