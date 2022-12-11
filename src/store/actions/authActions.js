@@ -66,7 +66,7 @@ export const login = (dispatch, payload) => {
     password: payload.target.password.value,
   };
 
-  console.log(user)
+  console.log(user);
 
   const encodedUser = base64.encode(`${user.email}:${user.password}`);
 
@@ -74,7 +74,6 @@ export const login = (dispatch, payload) => {
     if (payload.error) {
       console.log("logged in error in 1st if");
       dispatch(loginFail(payload.error));
-
     } else {
       dispatch(loginRequest());
       axios
@@ -96,13 +95,11 @@ export const login = (dispatch, payload) => {
         })
         .catch((err) => {
           dispatch(loginFail(err.response.data));
-
         });
     }
   } catch (error) {
     console.log("logged in error in 2nd catch");
     dispatch(loginFail(error));
-
   }
 };
 
