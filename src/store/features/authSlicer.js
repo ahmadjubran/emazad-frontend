@@ -1,24 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const userInfo = localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo")) : null;
-const token = localStorage.getItem("token") ? JSON.parse(localStorage.getItem("token")) : null;
+const token = localStorage.getItem("token") ? localStorage.getItem("token") : null;
 
 const initialState = {
   isAuth: token ? true : false,
-  user: {
-    userID: userInfo ? userInfo.id : "",
-    userName: userInfo ? userInfo.userName : "",
-    fullName: userInfo ? userInfo.fullName : "",
-    email: userInfo ? userInfo.email : "",
-    confirmed: userInfo ? userInfo.confirmed : false,
-    phoneNumber: userInfo ? userInfo.phoneNumber : "",
-    gender: userInfo ? userInfo.gender : "",
-    birthDate: userInfo ? userInfo.birthDate : "",
-    image: userInfo ? userInfo.image : "",
-    status: userInfo ? userInfo.status : "",
-    role: userInfo ? userInfo.role : "",
-    token: token ? token : "",
-  },
+  user: userInfo,
   loading: false,
   error: null,
 };
@@ -34,20 +21,7 @@ export const authSlice = createSlice({
     loginSuccess: (state, action) => {
       state.loading = false;
       state.isAuth = true;
-      state.user = {
-        userID: action.payload.id,
-        userName: action.payload.userName,
-        fullName: action.payload.fullName,
-        email: action.payload.email,
-        confirmed: action.payload.confirmed,
-        phoneNumber: action.payload.phoneNumber,
-        gender: action.payload.gender,
-        birthDate: action.payload.birthDate,
-        image: action.payload.image,
-        status: action.payload.status,
-        role: action.payload.role,
-        token: action.payload.token,
-      };
+      state.user = action.payload;
     },
 
     loginFail: (state, action) => {
@@ -100,6 +74,9 @@ export const {
   signupPasswordFailure,
 } = authSlice.actions;
 
-export const authActions = authSlice.actions;
+export const selectIsAuth = (state) => state.auth.isAuth;
+export const selectUser = (state) => state.auth.user;
+export const selectLoading = (state) => state.auth.loading;
+export const selectError = (state) => state.auth.error;
 
 export default authSlice.reducer;
