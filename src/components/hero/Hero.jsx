@@ -1,7 +1,7 @@
 import React from 'react';
 import imgAction from '../../assets/logo.png';
-import './hearo.css';
-function Hearo() {
+import './hero.css';
+function Hero() {
   return (
     <div className='landing'>
       <div className='container'>
@@ -18,4 +18,4 @@ function Hearo() {
   )
 }
 
-export default Hearo;
+export default Hero;

@@ -1,28 +1,28 @@
-import './App.css';
+import "./App.css";
 
-import Login from './components/auth/Login';
-import Signup from './components/auth/Signup';
+import Login from "./components/auth/Login";
+import Signup from "./components/auth/Signup";
 
-import NavBar from './components/header/NavBar';
-import Profile from './components/Profile';
-import Hero from './components/hero/Hearo';
+import Categories from "./components/Categories";
+import ListOfItems from "./components/Categories/ListOfItems";
+import NavBar from "./components/header/NavBar";
+import Hero from "./components/hero/Hero";
+import Profile from "./components/Profile";
 function App() {
   return (
     <div>
       <header className="header">
         <NavBar />
       </header>
-
-      <div className='profile-container'>
+      <div className="profile-container">
+        <Hero />
+        <Profile />
+        <Categories />
+        <ListOfItems />
       </div>
-      <Hero />
-      <Profile />
-
 
       <Login />
       <Signup />
-
-
     </div>
   );
 }
