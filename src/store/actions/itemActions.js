@@ -28,7 +28,9 @@ export const getItems = (dispatch, status, category, subCategory) => {
     } else if (status && category && !subCategory) {
       url = `${process.env.REACT_APP_HEROKU_API_KEY}/items/${status}/${category}`;
     } else if (status && category && subCategory) {
-      url = `${process.env.REACT_APP_HEROKU_API_KEY}/items/${status}/${category}/${subCategory}`;
+      url = `${process.env.REACT_APP_HEROKU_API_KEY}/items/${status}/${category}/${
+        subCategory === "All" ? "" : subCategory
+      }`;
     }
 
     axios
