@@ -3,6 +3,7 @@ import "fontsource-inter/500.css";
 import { getTrend } from '../../store/actions/trendindAction';
 import { useDispatch, useSelector } from 'react-redux';
 import '../../App.css';
+import Title from "../Title";
 import {
     Heading,
     Button,
@@ -24,12 +25,9 @@ function SliderCom() {
         getTrend(dispatch);
     }, [dispatch]);
 
-    // time down counter function 
     const timeDown = (time) => {
         const now = new Date().getTime();
-        console.log(time)
-        const distance = new Date(time) - now;
-        console.log(distance);
+        const distance = new Date(time).getTime() - now;
         const days = Math.floor(distance / (1000 * 60 * 60 * 24));
         const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
@@ -39,9 +37,9 @@ function SliderCom() {
 
     return (
         <div className="container">
+            <Title> Trending </Title>
             <ChakraCarousel gap={32}>
-                {trendingItems.trendItems.slice(0, 12).map((post, index) => (
-
+                {trendingItems.trendItems.slice(0, 11).map((post, index) => (
                     <Flex
                         key={index}
                         boxShadow="rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px"
@@ -74,7 +72,9 @@ function SliderCom() {
                                 p={0}
                                 mb={2}
                             >
-                                <Image src={post.itemImage} alt="itemImage"
+
+                                <Image src={post.itemImage[0].startsWith("http") ? post.itemImage[0] :
+                                    `https://eMazad.herokuapp.com/${post.itemImage[0].split("/").pop()}`} alt="itemImage"
                                     objectFit={"cover"}
                                     objectPosition={"center"}
                                     w="full"
@@ -111,7 +111,49 @@ function SliderCom() {
                                 </Tag>
                             </HStack>
                         </HStack>
-                        <HStack justifyContent="space-between" w="full" ps={5} pb={5} pe={5}>
+                        {new Date(post.endDate).getTime() > new Date().getTime() ?
+                            <HStack justifyContent="space-between" w="full" ps={5} pb={5} pe={5}>
+                                <HStack>
+                                    <Tag
+                                        size="sm"
+                                        variant="solid"
+                                        colorScheme="blue"
+                                    >
+                                        Time Left : {timeDown(post.endDate)}
+                                    </Tag>
+                                </HStack>
+                                <Button
+                                    size="sm"
+                                    variant="outline"
+                                    colorScheme="blue"
+                                >
+                                    Bid Now
+                                </Button>
+                            </HStack>
+                            :
+                            <HStack justifyContent="space-between" w="full" ps={5} pb={5} pe={5}>
+                                <HStack>
+                                    <Tag
+                                        size="sm"
+                                        variant="solid"
+                                        colorScheme="blue"
+                                    >
+                                        Time Left : 0d 0h 0m 0s
+                                    </Tag>
+                                </HStack>
+                                <Button
+                                    size="sm"
+                                    variant="outline"
+                                    colorScheme="blue"
+                                >
+                                    The Bid is Over
+                                </Button>
+                            </HStack>
+                        }
+
+
+
+                        {/* <HStack justifyContent="space-between" w="full" ps={5} pb={5} pe={5}>
                             <HStack>
                                 <Tag
                                     size="sm"
@@ -130,7 +172,7 @@ function SliderCom() {
                                 Bid Now
                             </Button>
                         </HStack>
-
+ */}
 
                     </Flex>
                 ))}

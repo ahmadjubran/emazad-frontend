@@ -24,6 +24,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addBid } from "../../store/actions/bidActions";
 import { selectUser } from "../../store/features/authSlicer";
 import { selectItems } from "../../store/features/itemSlicer";
+import Title from '../Title';
 
 export default function ListOfItems() {
   const dispatch = useDispatch();
@@ -55,9 +56,9 @@ export default function ListOfItems() {
 
   return (
     <Flex direction="column" p="6" justifyContent="center" alignItems="center" gap="8" mx={{ base: "0", md: "6" }}>
-      <Text fontSize="4xl" fontWeight="bold" textTransform="uppercase">
+      <Title>
         Items
-      </Text>
+      </Title>
       {isSmallerThan375 ? (
         <Menu>
           <MenuButton as={Button} rightIcon={<MdMenu />}>

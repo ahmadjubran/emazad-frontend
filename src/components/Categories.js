@@ -3,6 +3,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getItems } from "../store/actions/itemActions";
 import { selectItems } from "../store/features/itemSlicer";
+import Title from "./Title";
 
 function Categories() {
   const dispatch = useDispatch();
@@ -43,7 +44,7 @@ function Categories() {
 
   return (
     <Flex direction="column" p="6" justifyContent="center" alignItems="center" bg="gray.100" gap="8">
-      <Text
+      {/* <Text
         fontSize="4xl"
         fontWeight="bold"
         cursor="pointer"
@@ -51,7 +52,8 @@ function Categories() {
         textTransform="uppercase"
       >
         Categories
-      </Text>
+      </Text> */}
+      <Title>Categories</Title>
       <Grid templateColumns={{ base: "repeat(1, 1fr)", md: "repeat(2, 1fr)", lg: "repeat(3, 1fr)" }} gap={6}>
         {categorieBox("electronics")}
         {categorieBox("clothes")}

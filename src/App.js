@@ -24,10 +24,11 @@ function App() {
       </header>
       <Routes>
 
-      {/* <div className="profile-container"> */}
+        {/* <div className="profile-container"> */}
         <Route exact path="/" element={<>
-        <Hero /> 
-        <SliderCom />
+          <Hero />
+          <SliderCom />
+          <Categories />
         </>
         } />
         {/* <Hero /> */}
@@ -35,14 +36,14 @@ function App() {
         {/* <Profile /> */}
         {/* <Route exact path="/categories" element={<Categories />} />
         <Route exact path="/categories/item" element={<ListOfItems />} /> */}
-      {/* </div> */}
+        {/* </div> */}
 
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/signup" element={<Signup />} />
 
       </Routes>
 
-      <Categories /> 
+
       <ListOfItems />
 
     </BrowserRouter>
