@@ -1,0 +1,141 @@
+{
+  "categories": [
+    {
+      "name": "electronics",
+      "image": "https://source.unsplash.com/800x450/?electronics",
+      "subcategories": [
+        "All",
+        "Phone",
+        "Laptop",
+        "Tablet",
+        "Camera",
+        "TV",
+        "Headphone",
+        "Speaker",
+        "Smartwatch",
+        "SmartHome",
+        "Drone",
+        "Gaming",
+        "Accessories"
+      ]
+    },
+    {
+      "name": "clothes",
+      "image": "https://source.unsplash.com/800x450/?clothes",
+      "subcategories": [
+        "All",
+        "Men",
+        "Women",
+        "Kids",
+        "Baby",
+        "Shoes",
+        "Accessories",
+        "Bags",
+        "Watches",
+        "Jewelry",
+        "Sunglasses",
+        "Underwear",
+        "Sportswear",
+        "Lingerie",
+        "Swimwear",
+        "Maternity"
+      ]
+    },
+    {
+      "name": "vehicles",
+      "image": "https://source.unsplash.com/800x450/?vehicles",
+      "subcategories": [
+        "All",
+        "Car",
+        "Motorcycle",
+        "Scooter",
+        "Bicycle",
+        "ATV",
+        "Boat",
+        "JetSki",
+        "Snowmobile",
+        "RV",
+        "Trailer",
+        "Truck",
+        "Bus",
+        "Tractor",
+        "Aircraft",
+        "Helicopter",
+        "Train",
+        "Ship"
+      ]
+    },
+    {
+      "name": "pets",
+      "image": "https://source.unsplash.com/800x450/?pets",
+      "subcategories": [
+        "All",
+        "Dog",
+        "Cat",
+        "Bird",
+        "Fish",
+        "Reptile",
+        "Rodent",
+        "Horse",
+        "Farm",
+        "SmallPet",
+        "Wildlife"
+      ]
+    },
+    {
+      "name": "realestate",
+      "image": "https://source.unsplash.com/800x450/?realestate",
+      "subcategories": [
+        "All",
+        "House",
+        "Apartment",
+        "Condo",
+        "Townhouse",
+        "Land",
+        "Commercial",
+        "Industrial",
+        "Farm",
+        "Ranch",
+        "Lot",
+        "Vacation",
+        "Other"
+      ]
+    },
+    {
+      "name": "others",
+      "image": "https://source.unsplash.com/800x450/?others",
+      "subcategories": [
+        "All",
+        "Books",
+        "Movies",
+        "Music",
+        "Games",
+        "Toys",
+        "Collectibles",
+        "Art",
+        "Antiques",
+        "Crafts",
+        "Home",
+        "Garden",
+        "Tools",
+        "Office",
+        "Industrial",
+        "Business",
+        "Industrial",
+        "Services",
+        "Jobs",
+        "Education",
+        "Travel",
+        "Tickets",
+        "Food",
+        "Drink",
+        "Health",
+        "Beauty",
+        "Sports",
+        "Outdoors",
+        "Hobbies",
+        "Other"
+      ]
+    }
+  ]
+}
