@@ -122,7 +122,6 @@ function SliderCom() {
                                 </Tag>
                             </HStack>
                             <Button
-
                                 size="sm"
                                 variant="outline"
                                 colorScheme="blue"
