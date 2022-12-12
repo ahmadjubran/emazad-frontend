@@ -8,6 +8,7 @@ import ListOfItems from "./components/Categories/ListOfItems";
 import NavBar from "./components/header/NavBar";
 import Hero from "./components/hero/Hero";
 import Profile from "./components/Profile";
+import SliderCom from "./components/trending/SliderCom";
 function App() {
   return (
     <div>
@@ -16,6 +17,7 @@ function App() {
       </header>
       <div className="profile-container">
         <Hero />
+        <SliderCom />
         <Profile />
         <Categories />
         <ListOfItems />
