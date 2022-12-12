@@ -8,7 +8,7 @@ import ListOfItems from "./components/Categories/ListOfItems";
 import NavBar from "./components/header/NavBar";
 import Hero from "./components/hero/Hero";
 import Profile from "./components/Profile";
-
+import SliderCom from "./components/trending/SliderCom";
 // import { useSelector } from "react-redux";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -22,15 +22,14 @@ function App() {
       <header className="header">
         <NavBar />
       </header>
-
-       
-
-
-
       <Routes>
 
       {/* <div className="profile-container"> */}
-        <Route exact path="/" element={<Hero />} />
+        <Route exact path="/" element={<>
+        <Hero /> 
+        <SliderCom />
+        </>
+        } />
         {/* <Hero /> */}
         <Route exact path="/profile" element={<Profile />} />
         {/* <Profile /> */}
