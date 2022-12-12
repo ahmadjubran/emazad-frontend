@@ -1,5 +1,5 @@
-import { UnorderedList, ListItem, useMediaQuery, Button } from "@chakra-ui/react"
-
+import Norifications from "./Notifications"
+import { UnorderedList, ListItem, useMediaQuery, Button, HStack } from "@chakra-ui/react"
 import { useSelector, useDispatch } from "react-redux"
 import { logout } from "../../store/actions/authActions"
 
@@ -16,7 +16,7 @@ const dispatch = useDispatch()
         <> 
         {isLargerThan768 &&
         <div >
-        <UnorderedList display="flex" listStyleType="none" gap="20px">
+        <UnorderedList display="flex" listStyleType="none" gap="20px" alignItems={'center'}>
           <ListItem>
             <a href="/">Home</a>
           </ListItem>
@@ -34,9 +34,14 @@ const dispatch = useDispatch()
           </ListItem>
 
           {isAuth ? 
+          <>
+           <ListItem>
+           <Norifications />
+           </ListItem> 
             <ListItem>
               <a href="/profile">Profile</a>
             </ListItem>  
+            </>
             :
             <ListItem>
               <a href="/login">Login</a>
@@ -75,6 +80,7 @@ const dispatch = useDispatch()
           </ListItem>
 
         </UnorderedList>
+        
         </div>
 }
                 

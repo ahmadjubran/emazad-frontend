@@ -19,9 +19,8 @@ import {
   Avatar,
   Flex,
   HStack,
-   useDisclosure
+  useDisclosure
 } from '@chakra-ui/react';
-
 
 
 export default function Profile() {
@@ -45,7 +44,9 @@ export default function Profile() {
   const [userImage, setUserImage] = useState('')
 
 
-  // get profile data from backend
+  //Functions:
+
+  // get profile data from backend 1
   const getProfileData = async () => {
     const res = await axios.get(`${process.env.REACT_APP_HEROKU_API_KEY}/profile/1`, {
       // there is a problem with the server, it doesn't let users to get data without authorization
@@ -64,7 +65,48 @@ export default function Profile() {
 
 
   }
+  // to get the sold auctions posted by the user 1
+  const userSoldAuctions = async () => {
+    const res = await axios.get(`${process.env.REACT_APP_HEROKU_API_KEY}/userSoldItems/1`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    });
+    console.log(res)
+  }
 
+  // to get the active auctions posted by the user 1
+
+  const userActiveAuctions = async () => {
+    const res = await axios.get(`${process.env.REACT_APP_HEROKU_API_KEY}/userActiveItems/1`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    });
+    console.log(res)
+  }
+
+  // to get the bids made by the user 1
+
+
+  const userBids = async () => {
+    const res = await axios.get(`${process.env.REACT_APP_HEROKU_API_KEY}/userEngagedItems/1`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    });
+    console.log(res)
+  }
+
+  // to get user 1's reviews
+  const userReviews = async () => {
+    const res = await axios.get(`${process.env.REACT_APP_HEROKU_API_KEY}/userRating/1`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    });
+    console.log(res)
+  }
 
   const handleImageUpload = (e) => {
     const file = e.target.files[0]
@@ -88,7 +130,7 @@ export default function Profile() {
     <div className='profile'>
       <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"></link>
       <div className='profile-img'>
-        <Avatar src={userImage} width='190px' height='190px' alt='profile' cursor={'pointer'} style={{ borderRadius: '50%'}} as={Button} onClick={(e)=> handleImageUpload}/>
+        <Avatar src={userImage} width='190px' height='190px' alt='profile' cursor={'pointer'} style={{ borderRadius: '50%' }} as={Button} onClick={(e) => handleImageUpload} />
       </div>
       <button onClick={getProfileData}> Get Data </button>
       <div className='profile-info'>
