@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import categories from "../assets/categories.json";
 import { getItems } from "../store/actions/itemActions";
+import Title from "./Title";
 
 function Categories() {
   const dispatch = useDispatch();
@@ -19,6 +20,7 @@ function Categories() {
       >
         Categories
       </Text>
+      <Title>Categories</Title>
       <Grid templateColumns={{ base: "repeat(1, 1fr)", md: "repeat(2, 1fr)", lg: "repeat(3, 1fr)" }} gap={6}>
         {categories.categories.map((category, index) => (
           <GridItem key={index}>
