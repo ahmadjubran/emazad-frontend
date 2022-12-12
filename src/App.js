@@ -2,6 +2,7 @@ import "./App.css";
 
 import Login from "./components/auth/Login";
 import Signup from "./components/auth/Signup";
+import Verification from "./components/auth/Verification";
 
 import Categories from "./components/Categories";
 import ListOfItems from "./components/Categories/ListOfItems";
@@ -40,6 +41,7 @@ function App() {
 
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/signup" element={<Signup />} />
+        <Route exact path="/verification/:id" element={<Verification />} />
 
       </Routes>
 

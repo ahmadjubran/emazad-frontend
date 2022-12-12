@@ -1,25 +1,14 @@
 import axios from "axios";
 
-import {
-  loginRequest,
-  loginSuccess,
-  loginFail,
-  logoutSuccess,
-  logoutFail,
-  requestSignup,
-  signupSuccess,
-  signupFail,
-  // signupPasswordFailure,
-} from "../features/authSlicer";
+import { authRequest, authFail, signupSuccess, loginSuccess, logoutSuccess } from "../features/authSlicer";
 
 import base64 from "base-64";
 
 export const signUp = (dispatch, payload) => {
   payload.preventDefault();
-  console.log(payload);
 
   if (payload.target.password.value === payload.target.confirmPassword.value) {
-    dispatch(requestSignup());
+    dispatch(authRequest());
 
     const data = {
       userName: payload.target.userName.value,
@@ -34,29 +23,26 @@ export const signUp = (dispatch, payload) => {
 
     try {
       if (payload.error) {
-        dispatch(signupFail(payload.error));
+        dispatch(authFail(payload.error));
       } else {
-        dispatch(requestSignup());
+        dispatch(authRequest());
         axios
           .post(`${process.env.REACT_APP_HEROKU_API_KEY}/signup`, data)
           .then((res) => {
             dispatch(signupSuccess(res.data));
 
-            /// send email to this man by using this res.data.email / heroku/verifictaoin/{res.data.id}
-
             // to be removed later
             window.location.href = "/login";
           })
           .catch((err) => {
-            dispatch(signupFail(err));
+            dispatch(authFail(err.response.data));
           });
       }
     } catch (error) {
-      dispatch(signupFail(error));
+      dispatch(authFail(error.response.data));
     }
   } else {
-    // dispatch(signupPasswordFailure());
-    dispatch(signupFail("The password entered does not match! Please try again."));
+    dispatch(authFail("The password entered does not match! Please try again."));
   }
 };
 
@@ -72,10 +58,9 @@ export const login = (dispatch, payload) => {
 
   try {
     if (payload.error) {
-      console.log("logged in error in 1st if");
-      dispatch(loginFail(payload.error));
+      dispatch(authFail(payload.error));
     } else {
-      dispatch(loginRequest());
+      dispatch(authRequest());
       axios
         .post(
           `${process.env.REACT_APP_HEROKU_API_KEY}/login`,
@@ -94,12 +79,11 @@ export const login = (dispatch, payload) => {
           localStorage.setItem("userID", res.data.id);
         })
         .catch((err) => {
-          dispatch(loginFail(err.response.data));
+          dispatch(authFail(err.response.data));
         });
     }
   } catch (error) {
-    console.log("logged in error in 2nd catch");
-    dispatch(loginFail(error));
+    dispatch(authFail(error));
   }
 };
 
@@ -111,6 +95,53 @@ export const logout = (dispatch) => {
     localStorage.removeItem("username");
     localStorage.removeItem("userID");
   } catch (error) {
-    dispatch(logoutFail(error));
+    dispatch(authFail(error));
+  }
+};
+
+export const verifyEmail = (dispatch, payload) => {
+  payload.preventDefault();
+
+  const user = {
+    email: payload.target.email.value,
+    password: payload.target.password.value,
+  };
+
+  const encodedUser = base64.encode(`${user.email}:${user.password}`);
+
+  try {
+    if (payload.error) {
+      dispatch(authFail(payload.error));
+    } else {
+      dispatch(authRequest());
+
+      const url = window.location.href;
+      const urlArray = url.split("/");
+      const id = urlArray[urlArray.length - 1];
+
+      axios
+        .post(
+          `${process.env.REACT_APP_HEROKU_API_KEY}/verification/${id}`,
+          {},
+          {
+            headers: {
+              Authorization: `Basic ${encodedUser}`,
+            },
+          }
+        )
+        .then((res) => {
+          dispatch(loginSuccess(res.data));
+          localStorage.setItem("token", res.data.token);
+          localStorage.setItem("userInfo", JSON.stringify(res.data));
+          localStorage.setItem("username", res.data.userName);
+          localStorage.setItem("userID", res.data.id);
+          window.location.href = "/";
+        })
+        .catch((err) => {
+          dispatch(authFail(err.response.data));
+        });
+    }
+  } catch (error) {
+    dispatch(authFail(error));
   }
 };
