@@ -11,15 +11,6 @@ function Categories() {
 
   return (
     <Flex direction="column" p="6" justifyContent="center" alignItems="center" bg="gray.100" gap="8">
-      <Text
-        fontSize="4xl"
-        fontWeight="bold"
-        cursor="pointer"
-        onClick={() => getItems(dispatch)}
-        textTransform="uppercase"
-      >
-        Categories
-      </Text>
       <Title>Categories</Title>
       <Grid templateColumns={{ base: "repeat(1, 1fr)", md: "repeat(2, 1fr)", lg: "repeat(3, 1fr)" }} gap={6}>
         {categories.categories.map((category, index) => (
