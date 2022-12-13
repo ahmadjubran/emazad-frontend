@@ -54,19 +54,17 @@ function App() {
 
         <Route exact path="/About" element={<About />} />
         <Route exact path="/Contact" element={<Contact />} />
-      </Routes>
 
-      <Categories /> 
-      <ListOfItems />
-        <Footer/>
+
 
         <Route exact path="/verification/:id" element={<Verification />} />
 
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
       </Routes>
+      <Footer />
 
-    </BrowserRouter>
+    </BrowserRouter >
   );
 }
 
