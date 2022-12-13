@@ -7,15 +7,21 @@ import {
   Heading,
   Alert,
   AlertIcon,
-  Link,
   FormControl,
-  FormLabel,
   Select,
   FormHelperText,
   Input,
   Button,
   Flex,
+  InputGroup,
+  InputLeftElement,
 } from "@chakra-ui/react";
+
+import { Link } from "react-router-dom";
+
+import { BsFillPersonFill, BsFillTelephoneFill, BsFillCalendarDateFill } from "react-icons/bs";
+import { TfiEmail } from "react-icons/tfi";
+import { FaUserAstronaut, FaLock, FaGenderless, FaImage } from "react-icons/fa";
 
 import { useSelector, useDispatch } from "react-redux";
 import { signUp } from "../../store/actions/authActions";
@@ -27,70 +33,90 @@ function Signup() {
   const loading = useSelector((state) => state.auth.loading);
 
   return (
-    <Flex direction={{ base: "column", md: "row" }} justify="center" align="center" w="100%" h="100vh">
-      <VStack
-        borderColor="blue.500"
-        borderRadius="lg"
-        borderWidth="2px"
-        textAlign="center"
-        p="5em"
-        m="2em"
-        w={{ base: "90vw", sm: "80vw", lg: "50vw", xl: "40vw" }}
-        alignItems="stretch"
-        spacing={50}
-        mb="5em"
+    <Flex direction={{ base: "column", md: "row" }} justify="center" align="center" w="100%" h="90vh">
+      
+      <VStack 
+      w="100%" 
+      h="100%" 
+      bgImage="https://bia.lighting/wp-content/uploads/2016/04/Sign-Up-Background.png" 
+      justify="center" 
+      align="center"
+      borderRadius="300px" 
+      bgSize="cover" 
+      bgPosition="center" 
+      bgRepeat="no-repeat"
       >
-        <Heading>Signup</Heading>
+
+        <Heading  color="white" fontSize="4xl" fontWeight="bold" mb="1em">Create Account</Heading>
 
         <Form onSubmit={(e) => signUp(dispatch, e)}>
-          <FormControl pb="2em" borderColor="blue.500" isRequired>
-            <FormLabel>Email</FormLabel>
-            <Input type="email" name="email" placeholder="email" autoComplete="email" />
-            <FormHelperText textAlign="left">We'll never share your email.</FormHelperText>
+
+          <FormControl pb="1em" borderColor="teal.500" isRequired>
+            <InputGroup>
+              <InputLeftElement pointerEvents="none" children={<BsFillPersonFill color="white.300" />} />
+              <Input type="text" name="fullName" placeholder="Full Name" autoComplete="name" focusBorderColor='white' variant='filled' color='teal' bgColor="white"/>
+            </InputGroup>
           </FormControl>
 
-          <FormControl pb="2em" borderColor="blue.500" isRequired>
-            <FormLabel>Username</FormLabel>
-            <Input type="text" name="userName" placeholder="username" autoComplete="username" />
-            <FormHelperText textAlign="left">Choose a unique username.</FormHelperText>
+          <FormControl pb="1em" borderColor="blue.500" isRequired>
+            <InputGroup>
+              <InputLeftElement pointerEvents="none" children={<FaUserAstronaut color="gray.300" />} />
+              <Input type="text" name="userName" placeholder="Username" autoComplete="username" focusBorderColor='white' variant='filled'/>
+            </InputGroup>
+            <FormHelperText textAlign="left" color="white">Choose a unique username.</FormHelperText>
           </FormControl>
 
-          <FormControl pb="2em" borderColor="blue.500" isRequired>
-            <FormLabel>Full Name</FormLabel>
-            <Input type="text" name="fullName" placeholder="full name" autoComplete="name" />
+          <FormControl pb="1em" borderColor="blue.500" isRequired>
+            <InputGroup>
+              <InputLeftElement pointerEvents="none" children={<TfiEmail color="gray.300" />} />
+              <Input type="email" name="email" placeholder="Email" autoComplete="email" focusBorderColor='white' variant='filled'/>
+            </InputGroup>
+            <FormHelperText textAlign="left" color="white">We'll never share your email.</FormHelperText>
           </FormControl>
 
-          <FormControl pb="2em" borderColor="blue.500" isRequired>
-            <FormLabel>Phone Number</FormLabel>
-            <Input type="text" name="phoneNumber" placeholder="phone number" autoComplete="tel" />
+          <FormControl pb="1em" borderColor="blue.500" isRequired>
+            <InputGroup>
+              <InputLeftElement pointerEvents="none" children={<FaLock color="gray.300" />} />
+              <Input type="password" name="password" placeholder="password" autoComplete="new-password" focusBorderColor='white' variant='filled'/>
+            </InputGroup>
           </FormControl>
 
-          <FormControl pb="2em" borderColor="blue.500" isRequired>
-            <FormLabel>Password</FormLabel>
-            <Input type="password" name="password" placeholder="password" autoComplete="new-password" />
+          <FormControl pb="1em" borderColor="blue.500" isRequired>
+            <InputGroup>
+              <InputLeftElement pointerEvents="none" children={<FaLock color="gray.300" />} />
+              <Input type="password" name="confirmPassword" placeholder="Confirm Password" autoComplete="new-password" focusBorderColor='white' variant='filled'/>
+            </InputGroup>
           </FormControl>
 
-          <FormControl pb="2em" borderColor="blue.500" isRequired>
-            <FormLabel>Confirm Password</FormLabel>
-            <Input type="password" name="confirmPassword" placeholder="confirm password" autoComplete="new-password" />
+          <FormControl pb="1em" borderColor="blue.500" isRequired>
+            <InputGroup>
+              <InputLeftElement pointerEvents="none" children={<BsFillTelephoneFill color="gray.300" />} />
+              <Input type="text" name="phoneNumber" placeholder="Phone Number" autoComplete="tel" focusBorderColor='white' variant='filled'/>
+            </InputGroup>
+          </FormControl>
+
+          <FormControl pb="1em" borderColor="blue.500">
+            <InputGroup>
+              <Select name="gender" focusBorderColor='white' variant='filled' icon={<FaGenderless color="gray.300" />}>
+                <option value="" icon={<FaGenderless color="gray.300" />}>Select Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </Select>
+            </InputGroup>
+          </FormControl>
+
+          <FormControl pb="1em" borderColor="blue.500">
+            <InputGroup>
+              <InputLeftElement pointerEvents="none" children={<BsFillCalendarDateFill color="gray.300" />} />
+              <Input type="date" name="birthDate" placeholder="Birth Date" autoComplete="bday" required focusBorderColor='white' variant='filled'/>
+            </InputGroup>
           </FormControl>
 
           <FormControl pb="2em" borderColor="blue.500">
-            <FormLabel>Gender</FormLabel>
-            <Select name="gender">
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-            </Select>
-          </FormControl>
-
-          <FormControl pb="2em" borderColor="blue.500">
-            <FormLabel>Birth Date</FormLabel>
-            <Input type="date" name="birthDate" placeholder="birth date" autoComplete="bday" required />
-          </FormControl>
-
-          <FormControl pb="2em" borderColor="blue.500">
-            <FormLabel>Image</FormLabel>
-            <Input type="file" name="image" placeholder="image" autoComplete="image" />
+            <InputGroup>
+              <InputLeftElement pointerEvents="none" children={<FaImage color="gray.300" />} />
+              <Input type="file" name="image" placeholder="Upload Image" autoComplete="image" focusBorderColor='white' variant='filled' />
+            </InputGroup>
           </FormControl>
 
           {error && (
@@ -100,16 +126,17 @@ function Signup() {
             </Alert>
           )}
 
-          <Text>{loading ? "Loading..." : ""}</Text>
+          <Text color="white">{loading ? 'Submitting' : ""}</Text>
 
           <Button colorScheme="blue" type="submit" mb="1rem">
             Sign Up
           </Button>
 
+
           <Text>
             Already Registered?{" "}
-            <Link color="blue.500" href="/login">
-              Sign in
+            <Link to='/login' style={{ color: "white", textDecoration: "none",}}>
+              Login
             </Link>
           </Text>
         </Form>
