@@ -79,6 +79,7 @@ export default function Filter() {
       </UnorderedList>
     );
   };
+
   return isSmallerThan768 ? (
     <Flex justifyContent="space-between" alignItems="center">
       <Text fontSize="4xl" fontWeight="bold" textTransform="uppercase">

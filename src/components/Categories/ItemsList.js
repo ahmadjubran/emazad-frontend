@@ -47,7 +47,17 @@ export default function ItemsList() {
             justifyContent="center"
             gap="2"
           >
-            <Image src={item.itemImage} alt={item.itemTitle} w="100%" objectFit="cover" h="200px" />
+            <Image
+              src={
+                item.itemImage[0].startsWith("http")
+                  ? item.itemImage[0]
+                  : `${process.env.REACT_APP_HEROKU_API_KEY}/${item.itemImage[0].split("/").pop()}`
+              }
+              alt={item.itemTitle}
+              w="100%"
+              objectFit="cover"
+              h="200px"
+            />
             <Text fontSize="xl" fontWeight="bold" textTransform="capitalize">
               {item.itemTitle}
             </Text>
@@ -55,15 +65,27 @@ export default function ItemsList() {
               {timeLeft(item).days}d {timeLeft(item).hours}h {timeLeft(item).minutes}m {timeLeft(item).seconds}s
             </Text>
             <Text fontSize="xl" fontWeight="bold" textTransform="capitalize">
-              {item.latestBid}$
+              {item.latestBid !== 0 ? item.latestBid : item.initialPrice}$
             </Text>
             <Button
               colorScheme="teal"
               variant="outline"
-              onClick={() => addBid(dispatch, item.id, item.latestBid + item.initialPrice * 0.01)}
+              onClick={() =>
+                addBid(
+                  dispatch,
+                  item.id,
+                  item.latestBid !== 0
+                    ? Math.ceil(item.latestBid + item.initialPrice * 0.01)
+                    : Math.ceil(item.initialPrice + item.initialPrice * 0.01)
+                )
+              }
               disabled={user === null}
             >
-              Bid Now {item.latestBid + item.initialPrice * 0.01}$
+              Bid Now{" "}
+              {item.latestBid !== 0
+                ? Math.ceil(item.latestBid + item.initialPrice * 0.01)
+                : Math.ceil(item.initialPrice + item.initialPrice * 0.01)}
+              $
             </Button>
           </Flex>
         </GridItem>

@@ -3,6 +3,7 @@ import { Button, ListItem, UnorderedList, useMediaQuery } from "@chakra-ui/react
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { logout } from "../../store/actions/authActions";
+import Norifications from "./Notifications";
 
 export default function NavLinks() {
   const [isLessThan768] = useMediaQuery("(max-width: 768px)");
@@ -15,7 +16,7 @@ export default function NavLinks() {
     <>
       {isLargerThan768 && (
         <div>
-          <UnorderedList display="flex" listStyleType="none" gap="20px">
+          <UnorderedList display="flex" listStyleType="none" gap="20px" alignItems="center">
             <ListItem>
               <Link to="/">Home</Link>
             </ListItem>
@@ -33,9 +34,14 @@ export default function NavLinks() {
             </ListItem>
 
             {isAuth ? (
-              <ListItem>
-                <Link to="/profile">Profile</Link>
-              </ListItem>
+              <>
+                <ListItem>
+                  <Link to="/profile">Profile</Link>
+                </ListItem>
+                <ListItem>
+                  <Norifications />
+                </ListItem>
+              </>
             ) : (
               <ListItem>
                 <Link to="/login">Login</Link>
@@ -51,11 +57,11 @@ export default function NavLinks() {
         <div>
           <UnorderedList display="flex" listStyleType="none" gap="20px" flexDirection="column" alignItems="center">
             <ListItem>
-              <Link to="#">Home</Link>
+              <Link to="/">Home</Link>
             </ListItem>
 
             <ListItem>
-              <Link to="#">Auctions</Link>
+              <Link to="/categories">Auctions</Link>
             </ListItem>
 
             <ListItem>
@@ -66,9 +72,21 @@ export default function NavLinks() {
               <Link to="#">About eMazad</Link>
             </ListItem>
 
-            <ListItem>
-              <Link to="#">Login</Link>
-            </ListItem>
+            {isAuth ? (
+              <>
+                <ListItem>
+                  <Link to="/profile">Profile</Link>
+                </ListItem>
+                <ListItem>
+                  <Norifications />
+                </ListItem>
+              </>
+            ) : (
+              <ListItem>
+                <Link to="/login">Login</Link>
+              </ListItem>
+            )}
+            {isAuth && <Button onClick={() => logout(dispatch)}>Logout</Button>}
           </UnorderedList>
         </div>
       )}

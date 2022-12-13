@@ -203,7 +203,6 @@ const Slider = ({
                 >
                     <GoChevronLeft boxSize={9} />
                 </Button>
-                {console.log(positions.length)}
                 <Progress
                     value={(positions.length * (activeItem + 1))}
                     alignSelf="center"
@@ -393,7 +392,6 @@ const Item = ({
     const handleKeyDown = (event) => event.key === "Tab" && setUserDidTab(true);
 
     return (
-        console.log(activeItem),
         <Flex
             onFocus={handleFocus}
             onBlur={handleBlur}

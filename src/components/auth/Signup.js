@@ -40,41 +40,39 @@ function Signup() {
         spacing={50}
         mb="5em"
       >
-
         <Heading>Signup</Heading>
 
         <Form onSubmit={(e) => signUp(dispatch, e)}>
-
           <FormControl pb="2em" borderColor="blue.500" isRequired>
             <FormLabel>Email</FormLabel>
-            <Input type="email" name="email" placeholder="email" autoComplete="email"/>
+            <Input type="email" name="email" placeholder="email" autoComplete="email" />
             <FormHelperText textAlign="left">We'll never share your email.</FormHelperText>
           </FormControl>
 
           <FormControl pb="2em" borderColor="blue.500" isRequired>
             <FormLabel>Username</FormLabel>
-            <Input type="text" name="userName" placeholder="username" autoComplete="username"/>
+            <Input type="text" name="userName" placeholder="username" autoComplete="username" />
             <FormHelperText textAlign="left">Choose a unique username.</FormHelperText>
           </FormControl>
 
           <FormControl pb="2em" borderColor="blue.500" isRequired>
             <FormLabel>Full Name</FormLabel>
-            <Input type="text" name="fullName" placeholder="full name" autoComplete="name"/>
+            <Input type="text" name="fullName" placeholder="full name" autoComplete="name" />
           </FormControl>
 
           <FormControl pb="2em" borderColor="blue.500" isRequired>
             <FormLabel>Phone Number</FormLabel>
-            <Input type="text" name="phoneNumber" placeholder="phone number" autoComplete="tel"/>
+            <Input type="text" name="phoneNumber" placeholder="phone number" autoComplete="tel" />
           </FormControl>
 
           <FormControl pb="2em" borderColor="blue.500" isRequired>
             <FormLabel>Password</FormLabel>
-            <Input type="password" name="password" placeholder="password" autoComplete="new-password"/>
+            <Input type="password" name="password" placeholder="password" autoComplete="new-password" />
           </FormControl>
 
           <FormControl pb="2em" borderColor="blue.500" isRequired>
             <FormLabel>Confirm Password</FormLabel>
-            <Input type="password" name="confirmPassword" placeholder="confirm password" autoComplete="new-password"/>
+            <Input type="password" name="confirmPassword" placeholder="confirm password" autoComplete="new-password" />
           </FormControl>
 
           <FormControl pb="2em" borderColor="blue.500">
@@ -95,21 +93,25 @@ function Signup() {
             <Input type="file" name="image" placeholder="image" autoComplete="image" />
           </FormControl>
 
-
-          { error &&
-              <Alert status='error' variant='left-accent' mb="1em">
-                <AlertIcon /> 
-                {error}
-              </Alert>}
+          {error && (
+            <Alert status="error" variant="left-accent" mb="1em">
+              <AlertIcon />
+              {error}
+            </Alert>
+          )}
 
           <Text>{loading ? "Loading..." : ""}</Text>
 
           <Button colorScheme="blue" type="submit" mb="1rem">
-              Sign Up
+            Sign Up
           </Button>
 
-          <Text>Already Registered? <Link color='blue.500' href="/signin">Sign in</Link></Text>
-          
+          <Text>
+            Already Registered?{" "}
+            <Link color="blue.500" href="/login">
+              Sign in
+            </Link>
+          </Text>
         </Form>
       </VStack>
     </Flex>

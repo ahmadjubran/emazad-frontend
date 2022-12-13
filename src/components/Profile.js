@@ -54,7 +54,6 @@ export default function Profile() {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }
     });
-    console.log(res)
     setUserName(res.data.userName)
     setUserEmail(res.data.email)
     setUserPhone(res.data.phone)
@@ -72,7 +71,6 @@ export default function Profile() {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }
     });
-    console.log(res)
   }
 
   // to get the active auctions posted by the user 1
@@ -83,7 +81,6 @@ export default function Profile() {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }
     });
-    console.log(res)
   }
 
   // to get the bids made by the user 1
@@ -95,7 +92,6 @@ export default function Profile() {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }
     });
-    console.log(res)
   }
 
   // to get user 1's reviews
@@ -105,7 +101,6 @@ export default function Profile() {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }
     });
-    console.log(res)
   }
 
   const handleImageUpload = (e) => {
@@ -118,7 +113,6 @@ export default function Profile() {
       }
     })
       .then(res => {
-        console.log(res)
         setUserImage(res.data.image)
       })
       .catch(err => console.log(err))
