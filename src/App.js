@@ -8,7 +8,7 @@ import Categories from "./components/Categories";
 import Items from "./components/item/Items";
 import NavBar from "./components/header/NavBar";
 import Hero from "./components/main/hero/Hero";
-import Profile from "./components/Profile";
+import Profile from "./components/profile/Profile";
 import SliderCom from "./components/main/trending/SliderCom";
 // import { useSelector } from "react-redux";
 
