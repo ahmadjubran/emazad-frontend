@@ -192,7 +192,7 @@ const Slider = ({
                 {children}
             </Box>
 
-            <Flex w={`${itemWidth}px`} mt={`${gap / 2}px`} mx="auto">
+            <Flex w={`${itemWidth}px`} mt={`${gap / 2}px`} mx="auto" mb={5}>
                 <Button
                     onClick={handleDecrementClick}
                     onFocus={handleFocus}
@@ -203,9 +203,8 @@ const Slider = ({
                 >
                     <GoChevronLeft boxSize={9} />
                 </Button>
-
                 <Progress
-                    value={(positions.length * activeItem)}
+                    value={(positions.length * (activeItem + 1))}
                     alignSelf="center"
                     borderRadius="2px"
                     bg="base.d100"
@@ -393,7 +392,6 @@ const Item = ({
     const handleKeyDown = (event) => event.key === "Tab" && setUserDidTab(true);
 
     return (
-        console.log(activeItem),
         <Flex
             onFocus={handleFocus}
             onBlur={handleBlur}

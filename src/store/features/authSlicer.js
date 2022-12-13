@@ -14,8 +14,18 @@ export const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    loginRequest: (state) => {
+    authRequest: (state) => {
       state.loading = true;
+    },
+
+    authFail: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+
+    signupSuccess: (state, action) => {
+      state.loading = false;
+      state.error = null;
     },
 
     loginSuccess: (state, action) => {
@@ -24,55 +34,16 @@ export const authSlice = createSlice({
       state.user = action.payload;
     },
 
-    loginFail: (state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    },
-
     logoutSuccess: (state) => {
       state.isAuth = false;
       state.user = {};
       state.loading = false;
       state.error = null;
     },
-
-    logoutFail: (state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    },
-
-    requestSignup: (state) => {
-      state.loading = true;
-    },
-
-    signupSuccess: (state, action) => {
-      state.loading = false;
-      state.error = null;
-    },
-
-    signupFail: (state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    },
-
-    // signupPasswordFailure: (state, action) => {
-    //   state.loading = false;
-    //   state.error = "The password entered does not match! Please try again.";
-    // },
   },
 });
 
-export const {
-  loginRequest,
-  loginSuccess,
-  loginFail,
-  logoutSuccess,
-  logoutFail,
-  requestSignup,
-  signupSuccess,
-  signupFail,
-  signupPasswordFailure,
-} = authSlice.actions;
+export const { authRequest, authFail, signupSuccess, loginSuccess, logoutSuccess } = authSlice.actions;
 
 export const selectIsAuth = (state) => state.auth.isAuth;
 export const selectUser = (state) => state.auth.user;

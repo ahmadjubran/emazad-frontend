@@ -1,83 +1,105 @@
-import { UnorderedList, ListItem, useMediaQuery, Button } from "@chakra-ui/react"
+import { Button, ListItem, UnorderedList, useMediaQuery } from "@chakra-ui/react";
 
-import { useSelector, useDispatch } from "react-redux"
-import { logout } from "../../store/actions/authActions"
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { logout } from "../../store/actions/authActions";
+import Norifications from "./Notifications";
 
+export default function NavLinks() {
+  const [isLessThan768] = useMediaQuery("(max-width: 768px)");
+  const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
 
-export default function NavLinks () {
+  const isAuth = useSelector((state) => state.auth.isAuth);
+  const dispatch = useDispatch();
 
-const [isLessThan768] = useMediaQuery("(max-width: 768px)")
-const [isLargerThan768] = useMediaQuery("(min-width: 768px)")
+  return (
+    <>
+      {isLargerThan768 && (
+        <div>
+          <UnorderedList display="flex" listStyleType="none" gap="20px" alignItems="center">
+            <ListItem>
+              <Link to="/">Home</Link>
+            </ListItem>
 
-const isAuth = useSelector((state) => state.auth.isAuth)
-const dispatch = useDispatch()
-
-    return (
-        <> 
-        {isLargerThan768 &&
-        <div >
-        <UnorderedList display="flex" listStyleType="none" gap="20px">
-          <ListItem>
-            <a href="/">Home</a>
-          </ListItem>
-
-          <ListItem>
-            <a href="/categories">Auctions</a>
-          </ListItem>
 
           <ListItem>
-            <a href="/Contact">Contact Us</a>
+            <Link to="/Contact">Contact Us</Link>
           </ListItem>
           
           <ListItem>
-            <a href="/About">About eMazad</a>
+            <Link to="/About">About eMazad</Link>
           </ListItem>
 
-          {isAuth ? 
             <ListItem>
-              <a href="/profile">Profile</a>
-            </ListItem>  
-            :
+              <Link to="/categories">Auctions</Link>
+            </ListItem>
+
+
             <ListItem>
-              <a href="/login">Login</a>
-            </ListItem> 
-            }
+              <Link to="#">Contact Us</Link>
+            </ListItem>
 
-          {isAuth &&
-          <Button onClick={() => logout(dispatch)}>Logout</Button>
-          }
+            <ListItem>
+              <Link to="#">About eMazad</Link>
+            </ListItem>
 
-        </UnorderedList>
-      </div>
-      }
+            {isAuth ? (
+              <>
+                <ListItem>
+                  <Link to="/profile">Profile</Link>
+                </ListItem>
+                <ListItem>
+                  <Norifications />
+                </ListItem>
+              </>
+            ) : (
+              <ListItem>
+                <Link to="/login">Login</Link>
+              </ListItem>
+            )}
 
-        {isLessThan768 &&
-        <div >
-        <UnorderedList display="flex" listStyleType="none" gap="20px" flexDirection="column" alignItems="center">
-          <ListItem>
-            <a href="#">Home</a>
-          </ListItem>
-
-          <ListItem>
-            <a href="#">Auctions</a>
-          </ListItem>
-
-          <ListItem>
-            <a href="#">Contact Us</a>
-          </ListItem>
-          
-          <ListItem>
-            <a href="#">About eMazad</a>
-          </ListItem>
-           
-          <ListItem>
-            <a href="#">Login</a>
-          </ListItem>
-
-        </UnorderedList>
+            {isAuth && <Button onClick={() => logout(dispatch)}>Logout</Button>}
+          </UnorderedList>
         </div>
-}
-                
-      </>
-    )
+      )}
+
+      {isLessThan768 && (
+        <div>
+          <UnorderedList display="flex" listStyleType="none" gap="20px" flexDirection="column" alignItems="center">
+            <ListItem>
+              <Link to="/">Home</Link>
+            </ListItem>
+
+            <ListItem>
+              <Link to="/categories">Auctions</Link>
+            </ListItem>
+
+            <ListItem>
+              <Link to="#">Contact Us</Link>
+            </ListItem>
+
+            <ListItem>
+              <Link to="#">About eMazad</Link>
+            </ListItem>
+
+            {isAuth ? (
+              <>
+                <ListItem>
+                  <Link to="/profile">Profile</Link>
+                </ListItem>
+                <ListItem>
+                  <Norifications />
+                </ListItem>
+              </>
+            ) : (
+              <ListItem>
+                <Link to="/login">Login</Link>
+              </ListItem>
+            )}
+            {isAuth && <Button onClick={() => logout(dispatch)}>Logout</Button>}
+          </UnorderedList>
+        </div>
+      )}
+    </>
+  );
 }
