@@ -15,32 +15,22 @@ export default function NavLinks() {
   return (
     <>
       {isLargerThan768 && (
-        <div>
+        
           <UnorderedList display="flex" listStyleType="none" gap="20px" alignItems="center">
             <ListItem>
               <Link to="/">Home</Link>
             </ListItem>
 
+            <ListItem>
+              <Link to="/contact">Contact Us</Link>
+            </ListItem>
 
-          <ListItem>
-            <Link to="/Contact">Contact Us</Link>
-          </ListItem>
-          
-          <ListItem>
-            <Link to="/About">About eMazad</Link>
-          </ListItem>
+            <ListItem>
+              <Link to="/about">About</Link>
+            </ListItem>
 
             <ListItem>
               <Link to="/categories">Auctions</Link>
-            </ListItem>
-
-
-            <ListItem>
-              <Link to="#">Contact Us</Link>
-            </ListItem>
-
-            <ListItem>
-              <Link to="#">About eMazad</Link>
             </ListItem>
 
             {isAuth ? (
@@ -48,6 +38,7 @@ export default function NavLinks() {
                 <ListItem>
                   <Link to="/profile">Profile</Link>
                 </ListItem>
+
                 <ListItem>
                   <Norifications />
                 </ListItem>
@@ -60,26 +51,27 @@ export default function NavLinks() {
 
             {isAuth && <Button onClick={() => logout(dispatch)}>Logout</Button>}
           </UnorderedList>
-        </div>
+          
       )}
 
       {isLessThan768 && (
-        <div>
+       
           <UnorderedList display="flex" listStyleType="none" gap="20px" flexDirection="column" alignItems="center">
+
             <ListItem>
               <Link to="/">Home</Link>
             </ListItem>
 
             <ListItem>
+              <Link to="/contact">Contact Us</Link>
+            </ListItem>
+
+            <ListItem>
+              <Link to="/about">About</Link>
+            </ListItem>
+
+            <ListItem>
               <Link to="/categories">Auctions</Link>
-            </ListItem>
-
-            <ListItem>
-              <Link to="#">Contact Us</Link>
-            </ListItem>
-
-            <ListItem>
-              <Link to="#">About eMazad</Link>
             </ListItem>
 
             {isAuth ? (
@@ -87,6 +79,7 @@ export default function NavLinks() {
                 <ListItem>
                   <Link to="/profile">Profile</Link>
                 </ListItem>
+
                 <ListItem>
                   <Norifications />
                 </ListItem>
@@ -96,9 +89,10 @@ export default function NavLinks() {
                 <Link to="/login">Login</Link>
               </ListItem>
             )}
+
             {isAuth && <Button onClick={() => logout(dispatch)}>Logout</Button>}
           </UnorderedList>
-        </div>
+      
       )}
     </>
   );

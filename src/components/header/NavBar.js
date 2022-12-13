@@ -1,5 +1,6 @@
 import logo from "../../assets/logo.png";
-import "../../styles/Nav.css";
+import NavLinks from "./NavLinks";
+
 import {
   Flex,
   Drawer,
@@ -10,15 +11,13 @@ import {
   DrawerCloseButton,
   useDisclosure,
 } from "@chakra-ui/react";
-import NavLinks from "./NavLinks";
 import { useMediaQuery } from "@chakra-ui/react";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { Link } from "react-router-dom";
+
+
 export default function NavBar() {
-  // if the user is logged in, show:
-  // The logout button, sell on eMazad button, and the user's name
-  // if the user is not logged in, show:
-  // The login button
-  // for a responsive navbar, use the useMediaQuery hook
+
   const [isLessThan768] = useMediaQuery("(max-width: 768px)");
   const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -35,10 +34,12 @@ export default function NavBar() {
           height="100px"
           backgroundColor="#f5f5f5"
         >
-          <div className="nav-logo">
+          <Link to="/">
             <img src={logo} alt="logo" width="75px" />
-          </div>
+          </Link>
+
           <NavLinks />
+
         </Flex>
       )}
 
