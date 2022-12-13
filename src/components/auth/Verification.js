@@ -7,13 +7,17 @@ import {
   Heading,
   Alert,
   AlertIcon,
-  Link,
   FormControl,
-  FormLabel,
   Input,
   Button,
   Flex,
+  InputLeftElement,
+  InputGroup,
 } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
+import { TfiEmail } from "react-icons/tfi";
+import { FaLock } from "react-icons/fa";
+
 
 import { useSelector, useDispatch } from "react-redux";
 import { verifyEmail } from "../../store/actions/authActions";
@@ -26,29 +30,33 @@ function Verification() {
 
   return (
     <Flex direction={{ base: "column", md: "row" }} justify="center" align="center" w="100%" h="70vh">
-      <VStack
-        borderColor="blue.500"
-        borderRadius="lg"
-        borderWidth="2px"
-        textAlign="center"
-        p="5em"
-        m="2em"
-        w={{ base: "90vw", sm: "80vw", lg: "50vw", xl: "40vw" }}
-        alignItems="stretch"
-        spacing={100}
-        mb="5em"
+      <VStack 
+        w="100%" 
+        h="100%" 
+        bgImage="https://bia.lighting/wp-content/uploads/2016/04/Sign-Up-Background.png" 
+        justify="center" 
+        align="center"
+        borderRadius="300px" 
+        bgSize="cover" 
+        bgPosition="center" 
+        bgRepeat="no-repeat"
       >
-        <Heading>Login</Heading>
+        <Heading  color="white" fontSize="4xl" fontWeight="bold" mb="1em">Login to Verify!</Heading>
 
         <Form onSubmit={(e) => verifyEmail(dispatch, e)}>
+
           <FormControl pb="2em" borderColor="blue.500" isRequired>
-            <FormLabel requiredIndicator>Email</FormLabel>
-            <Input type="email" name="email" placeholder="email" autoComplete="email" />
+            <InputGroup>
+              <InputLeftElement pointerEvents="none" children={<TfiEmail color="gray.300" />} />
+              <Input type="email" name="email" placeholder="email" autoComplete="email" focusBorderColor='white' variant='filled'/>
+            </InputGroup>
           </FormControl>
 
           <FormControl pb="3em" borderColor="blue.500" isRequired>
-            <FormLabel requiredIndicator>Password</FormLabel>
-            <Input type="password" name="password" placeholder="password" autoComplete="current-password" required />
+            <InputGroup>
+              <InputLeftElement pointerEvents="none" children={<FaLock color="gray.300" />} />
+              <Input type="password" name="password" placeholder="password" autoComplete="current-password" focusBorderColor='white' variant='filled'/>
+            </InputGroup>
           </FormControl>
 
           {error && (
@@ -66,8 +74,8 @@ function Verification() {
 
           <Text>
             Don't have an account?{" "}
-            <Link color="blue.500" href="/signup">
-              Sign up now
+            <Link to="/signup" style={{ color: "white", textDecoration: "none",}}>
+              Signup now
             </Link>
           </Text>
 
