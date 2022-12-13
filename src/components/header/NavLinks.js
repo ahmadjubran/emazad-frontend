@@ -26,11 +26,11 @@ const dispatch = useDispatch()
           </ListItem>
 
           <ListItem>
-            <a href="#">Contact Us</a>
+            <a href="/Contact">Contact Us</a>
           </ListItem>
           
           <ListItem>
-            <a href="#">About eMazad</a>
+            <a href="/About">About eMazad</a>
           </ListItem>
 
           {isAuth ? 

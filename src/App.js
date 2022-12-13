@@ -11,7 +11,12 @@ import Profile from "./components/Profile";
 import SliderCom from "./components/trending/SliderCom";
 // import { useSelector } from "react-redux";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import About from "./components/About";
+import "@fortawesome/fontawesome-free/css/all.min.css";
 
+import "./assets/styles/tailwind.css";
+import Contact from "./components/Contact";
+import Footer from "./components/footer/Footer";
 function App() {
 
   // const isAuth = useSelector((state) => state.auth.isAuth);
@@ -39,12 +44,13 @@ function App() {
 
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/signup" element={<Signup />} />
-
+        <Route exact path="/About" element={<About />} />
+        <Route exact path="/Contact" element={<Contact />} />
       </Routes>
 
       <Categories /> 
       <ListOfItems />
-
+        <Footer/>
     </BrowserRouter>
   );
 }
