@@ -21,9 +21,19 @@ export default function NavLinks() {
               <Link to="/">Home</Link>
             </ListItem>
 
+
+          <ListItem>
+            <Link to="/Contact">Contact Us</Link>
+          </ListItem>
+          
+          <ListItem>
+            <Link to="/About">About eMazad</Link>
+          </ListItem>
+
             <ListItem>
               <Link to="/categories">Auctions</Link>
             </ListItem>
+
 
             <ListItem>
               <Link to="#">Contact Us</Link>
