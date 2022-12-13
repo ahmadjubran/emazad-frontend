@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import "fontsource-inter/500.css";
-import { getTrend } from "../../store/actions/trendindAction";
+import { getTrend } from "../../../store/actions/trendindAction";
 import { useDispatch, useSelector } from "react-redux";
-import "../../App.css";
-import Title from "../Title";
+import "../../../App.css";
+import Title from "../../Title";
 import { Heading, Button, VStack, HStack, Text, Flex, Tag, Image, Box } from "@chakra-ui/react";
 
 import ChakraCarousel from "./ChakraCarousel";

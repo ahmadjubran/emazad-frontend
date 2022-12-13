@@ -1,5 +1,5 @@
 import React from 'react';
-import imgAction from '../../assets/logo.png';
+import imgAction from '../../../assets/logo.png';
 import './hero.css';
 function Hero() {
   return (
@@ -19,3 +19,8 @@ function Hero() {
 }
 
 export default Hero;
+
+// will be edited later after creating ADD ITEM PAGE
+
+// 1. go to sign up with text
+// 2. go to add item with text

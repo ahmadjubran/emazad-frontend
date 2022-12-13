@@ -5,11 +5,11 @@ import Signup from "./components/auth/Signup";
 import Verification from "./components/auth/Verification";
 
 import Categories from "./components/Categories";
-import Items from "./components/Categories/Items";
+import Items from "./components/item/Items";
 import NavBar from "./components/header/NavBar";
-import Hero from "./components/hero/Hero";
+import Hero from "./components/main/hero/Hero";
 import Profile from "./components/Profile";
-import SliderCom from "./components/trending/SliderCom";
+import SliderCom from "./components/main/trending/SliderCom";
 // import { useSelector } from "react-redux";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -52,8 +52,8 @@ function App() {
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/signup" element={<Signup />} />
 
-        <Route exact path="/About" element={<About />} />
-        <Route exact path="/Contact" element={<Contact />} />
+        <Route exact path="/about" element={<About />} />
+        <Route exact path="/contact" element={<Contact />} />
 
 
 
