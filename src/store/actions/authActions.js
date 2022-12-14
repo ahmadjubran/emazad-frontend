@@ -77,6 +77,10 @@ export const login = (dispatch, payload) => {
           localStorage.setItem("userInfo", JSON.stringify(res.data));
           localStorage.setItem("username", res.data.userName);
           localStorage.setItem("userID", res.data.id);
+
+          // redirect to home page without refreshing the page
+          window.location.href = "/";
+
         })
         .catch((err) => {
           dispatch(authFail(err.response.data));

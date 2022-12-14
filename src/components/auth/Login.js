@@ -1,6 +1,4 @@
 import React from "react";
-
-import Form from "react-bootstrap/Form";
 import {
   VStack,
   Text,
@@ -35,14 +33,14 @@ function Login() {
         bgImage="https://bia.lighting/wp-content/uploads/2016/04/Sign-Up-Background.png" 
         justify="center" 
         align="center"
-        borderRadius="300px" 
+        // borderRadius="300px" 
         bgSize="cover" 
         bgPosition="center" 
         bgRepeat="no-repeat"
       >
         <Heading  color="white" fontSize="4xl" fontWeight="bold" mb="1em">Welcome Back!</Heading>
 
-        <Form onSubmit={(e) => login(dispatch, e)}>
+        <form onSubmit={(e) => login(dispatch, e)}>
 
           <FormControl pb="2em" borderColor="blue.500" isRequired>
             <InputGroup>
@@ -78,7 +76,7 @@ function Login() {
             </Link>
           </Text>
 
-        </Form>
+        </form>
       </VStack>
     </Flex>
   );
