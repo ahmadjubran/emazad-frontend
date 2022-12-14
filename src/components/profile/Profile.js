@@ -1,14 +1,15 @@
+import NewAuction from './StartNewAuction';
+import ProfilePopover from './ProfilePopover';
 import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
 import { useState } from 'react'
 // import { selectUser } from '../../store/features/authSlicercer'
 import '../../styles/Profile.css'
 import { FiMail, FiSettings } from 'react-icons/fi'
-import {FaPlus} from 'react-icons/fa'
 import { ImHammer2 } from 'react-icons/im'
 import { GiStarsStack } from 'react-icons/gi'
 import { BsFillTelephoneFill, BsThreeDotsVertical, BsChatSquareQuote, BsFillPersonFill, BsFillCalendarCheckFill } from 'react-icons/bs'
-import { MdReportGmailerrorred, MdSell, MdReportProblem, MdOutlineFavorite, MdReviews, MdOutlineEmail } from 'react-icons/md'
+import { MdSell, MdReportProblem, MdOutlineFavorite, MdReviews, MdOutlineEmail } from 'react-icons/md'
 import {
   Popover,
   PopoverTrigger,
@@ -22,20 +23,13 @@ import {
   Flex,
   HStack,
   useDisclosure,
-  AvatarGroup,
   Box,
   Grid,
-  Icon,
   Image,
-  Link,
-  Switch,
   Text,
-  useColorMode,
   useMediaQuery,
   useColorModeValue
 } from '@chakra-ui/react';
-
-
 
 
 export default function Profile() {
@@ -58,14 +52,20 @@ export default function Profile() {
   const borderProfileColor = useColorModeValue("white", "transparent");
   const emailColor = useColorModeValue("gray.400", "gray.300");
 
+  // current date in the format of yyyy-mm-dd-hh-mm-ss:
+  const currentDate = new Date().toISOString().slice(0, 19).replace('T', '-');
+
   //States:
 
   const [userName, setUserName] = useState('Abu Al Shabab')
   const [userEmail, setUserEmail] = useState('')
   const [userPhone, setUserPhone] = useState('')
   const [userGender, setUserGender] = useState('')
+  const [userRating, setUserRating] = useState(0)
   const [userBirthDate, setUserBirthDate] = useState('')
+  const [joinDate, setJoinDate] = useState('')
   const [userImage, setUserImage] = useState('')
+  const [profileActiveAuctions, setProfileActiveAuctions] = useState([])
 
 
   //Functions:
@@ -78,13 +78,19 @@ export default function Profile() {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }
     });
+    console.log(currentDate)
+    console.log(res.data)
+    userReviews()
+    userBids()
+    userActiveAuctions()
     setUserName(res.data.userName)
     setUserEmail(res.data.email)
     setUserPhone(res.data.phone)
     setUserImage(res.data.image)
     setUserBirthDate(res.data.birthDate)
-    setUserPhone(res.data.phone)
+    setUserPhone(res.data.phoneNumber)
     setUserGender(res.data.gender)
+    setJoinDate(res.data.createdAt)
 
 
   }
@@ -105,6 +111,8 @@ export default function Profile() {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }
     });
+    console.log(res.data)
+    setProfileActiveAuctions(res.data)
   }
 
   // to get the bids made by the user 1
@@ -116,6 +124,7 @@ export default function Profile() {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }
     });
+    console.log(res.data)
   }
 
   // to get user 1's reviews
@@ -125,6 +134,9 @@ export default function Profile() {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }
     });
+    let averageRating = res.data.averageRating
+    averageRating = res.data.averageRating.toFixed(2)
+    setUserRating(`${averageRating}/5`)
   }
 
   const handleImageUpload = (e) => {
@@ -145,7 +157,6 @@ export default function Profile() {
   return (
 
     <div className='profile'>
-      <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"></link>
       <button onClick={getProfileData}> Get Data </button>
 
       {isLessThan768 &&
@@ -160,65 +171,9 @@ export default function Profile() {
               <Button className="user-bids" width='112.31px'> <ImHammer2 size='18px' /> Bids </Button>
               <Button className="user-settings"> <MdReviews /> Reviews </Button>
 
-
               <Flex justifyContent="center" mt={4}>
-                <Popover placement="bottom" isLazy>
-                  <PopoverTrigger>
-                    <IconButton
-                      aria-label="More server options"
-                      icon={<BsThreeDotsVertical />}
-                      variant="solid"
-                      w="fit-content"
-                    />
-                  </PopoverTrigger>
-                  <PopoverContent w="fit-content" _focus={{ boxShadow: 'none' }}>
-                    <PopoverArrow />
-                    <PopoverBody>
-                      <Stack>
-                        <Button
-                          w="194px"
-                          variant="ghost"
-                          rightIcon={<BsChatSquareQuote />}
-                          justifyContent="space-between"
-                          fontWeight="normal"
-                          fontSize="sm">
-                          Message
-                        </Button>
-                        <Button
-                          w="194px"
-                          variant="ghost"
-                          rightIcon={<MdOutlineFavorite />}
-                          justifyContent="space-between"
-                          fontWeight="normal"
-                          fontSize="sm">
-                          Favorite Auctions
-                        </Button>
-                        <Button
-                          w="194px"
-                          variant="ghost"
-                          rightIcon={<FiSettings />}
-                          justifyContent="space-between"
-                          fontWeight="normal"
-                          fontSize="sm" >
-                          Settings</Button>
-
-                        <Button
-                          w="194px"
-                          variant="ghost"
-                          rightIcon={<MdReportProblem />}
-                          justifyContent="space-between"
-                          fontWeight="normal"
-                          colorScheme="red"
-                          fontSize="sm">
-                          Report User
-                        </Button>
-                      </Stack>
-                    </PopoverBody>
-                  </PopoverContent>
-                </Popover>
+              <ProfilePopover/>
               </Flex>
-
-
 
             </HStack>
             <div className="user-details">
@@ -234,7 +189,6 @@ export default function Profile() {
       {isLargerThan768 &&
         <Flex
           direction={{ sm: "column", md: "row" }}
-          mb='24px'
           maxH='330px'
           justifyContent={{ sm: "center", md: "space-between" }}
           align='center'
@@ -244,10 +198,12 @@ export default function Profile() {
           borderColor={borderProfileColor}
           bg={'#f7fafc'}
           p='24px'
-          borderRadius='20px'>
+          borderRadius='20px'
+          mb ='0'
+          pb='0'
+          >
           <Flex
             align='left'
-            mb={{ sm: "10px", md: "0px" }}
             direction={{ sm: "column", md: "row" }}
             w={{ sm: "100%" }}
             textAlign={{ sm: "center", md: "start" }}>
@@ -278,10 +234,7 @@ export default function Profile() {
           <Flex
             direction={{ sm: "column", lg: "row" }}
             w={{ sm: "100%", md: "50%", lg: "auto" }}
-            alignItems="center"
-
-
-          >
+            alignItems="center" >
 
             <Flex
               align='center'
@@ -313,60 +266,7 @@ export default function Profile() {
               <Button className="user-settings"> <MdReviews /> Reviews </Button>
 
             </Flex>
-            <Popover placement="bottom" isLazy>
-              <PopoverTrigger>
-                <IconButton
-                  aria-label="More server options"
-                  icon={<BsThreeDotsVertical />}
-                  variant="solid"
-                  w="fit-content"
-                />
-              </PopoverTrigger>
-              <PopoverContent w="fit-content" _focus={{ boxShadow: 'none' }}>
-                <PopoverArrow />
-                <PopoverBody>
-                  <Stack>
-                    <Button
-                      w="194px"
-                      variant="ghost"
-                      rightIcon={<BsChatSquareQuote />}
-                      justifyContent="space-between"
-                      fontWeight="normal"
-                      fontSize="sm">
-                      Message
-                    </Button>
-                    <Button
-                      w="194px"
-                      variant="ghost"
-                      rightIcon={<MdOutlineFavorite />}
-                      justifyContent="space-between"
-                      fontWeight="normal"
-                      fontSize="sm">
-                      Favorite Auctions
-                    </Button>
-                    <Button
-                      w="194px"
-                      variant="ghost"
-                      rightIcon={<FiSettings />}
-                      justifyContent="space-between"
-                      fontWeight="normal"
-                      fontSize="sm" >
-                      Settings</Button>
-
-                    <Button
-                      w="194px"
-                      variant="ghost"
-                      rightIcon={<MdReportProblem />}
-                      justifyContent="space-between"
-                      fontWeight="normal"
-                      colorScheme="red"
-                      fontSize="sm">
-                      Report User
-                    </Button>
-                  </Stack>
-                </PopoverBody>
-              </PopoverContent>
-            </Popover>
+            <ProfilePopover/>
           </Flex>
 
         </Flex>
@@ -375,12 +275,11 @@ export default function Profile() {
 
       {/* // Personal Information of This Profile  */}
 
-
-      <Grid templateColumns={{ sm: "1fr", xl: "repeat(3, 1fr)" }} gap='22px' bg={'#f7fafc'}>
-        <Box p='16px'>
+      <Grid templateColumns={{ sm: "1fr", xl: "repeat(3, 1fr)" }} gap='22px' bg={'#f7fafc'} m='0'>
+        <Box p='24px'>
           <Box p='12px 5px' mb='12px'>
             <Text fontSize='lg' color={textColor} fontWeight='bold'>
-              About Abu Al Shabab
+              About {userName}
             </Text>
           </Box>
 
@@ -395,7 +294,7 @@ export default function Profile() {
                   fontSize='md'
                   color='gray.400'
                   fontWeight='400'>
-                  Rating: 4.92/5 (4)
+                  Rating: {userRating}
                 </Text>
               </Flex>
 
@@ -418,7 +317,7 @@ export default function Profile() {
                   fontSize='md'
                   color='gray.400'
                   fontWeight='400'>
-                  abualshabab@youth.com
+                  {userEmail}
 
                 </Text>
               </Flex>
@@ -431,7 +330,7 @@ export default function Profile() {
                   fontSize='md'
                   color='gray.400'
                   fontWeight='400'>
-                  +962 777 888 444
+                  {`962 ${userPhone}`}
 
                 </Text>
               </Flex>
@@ -449,13 +348,23 @@ export default function Profile() {
               Bids made by {userName}
             </Text>
           </Box>
-          <Box px='5px'>
+          <Box px='5px' overflowY="auto" maxHeight="150px">
             <Flex direction='column'>
-              <Button  minW='100%'>
+              <Button  minW='100%' mb={'6px'} >
                 Has bidden on HP Laptop 2021
               </Button>
-              
-            
+              <Button  minW='100%' mb={'6px'}>
+                Has bidden on HP Laptop 2021
+              </Button>
+              <Button  minW='100%'mb={'6px'} >
+                Has bidden on HP Laptop 2021
+              </Button>
+              <Button  minW='100%'mb={'6px'} >
+                Has bidden on HP Laptop 2021
+              </Button>
+              <Button  minW='100%'mb={'6px'} >
+                Has bidden on HP Laptop 2021
+              </Button>
               
             </Flex>
           </Box>
@@ -482,112 +391,56 @@ export default function Profile() {
             templateColumns={{ sm: "1fr", md: "1fr 1fr", xl: "repeat(4, 1fr)" }}
             templateRows={{ sm: "1fr 1fr 1fr auto", md: "1fr 1fr", xl: "1fr" }}
             gap='24px'>
-            <Flex direction='column'>
-              <Box mb='20px' position='relative' borderRadius='15px'>
-                <Image src='https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Kia_Sephia_front_20071205.jpg/640px-Kia_Sephia_front_20071205.jpg' borderRadius='15px' />
-                <Box
+
+            {profileActiveAuctions.map((auction, index) => (
+              <Flex direction='column'  key={index}>
+
+              <Box key={index} mb='20px' position='relative' borderRadius='15px'>
+              <Image src={auction.itemImage[0]} borderRadius='15px' />
+              <Box
                   w='100%'
                   h='100%'
                   position='absolute'
                   top='0'
                   borderRadius='15px'
-                  bg='linear-gradient(360deg, rgba(49, 56, 96, 0.16) 0%, rgba(21, 25, 40, 0.88) 100%)'></Box>
-              </Box>
-              <Flex direction='column'>
+                  bg='linear-gradient(360deg, rgba(49, 56, 96, 0.16) 0%, rgba(21, 25, 40, 0.88) 120%)'></Box>
+
+                    </Box>
+                    <Flex direction='column'>
                 <Text
                   fontSize='xl'
                   color={textColor}
                   fontWeight='bold'
                   mb='10px'>
-                  Kia Sivia 1999
+                  {auction.itemTitle}
                 </Text>
                 <Text fontSize='md' color='gray.400' fontWeight='400' mb='20px'>
-                 4 good, wakaleh.
+                 {auction.itemDescription}
                 </Text>
                 <Flex justifyContent='space-between'>
-                  <Button variant='dark' minW='110px' h='36px'>
+                  <Button variant='dark' minW='110px' h='36px' >
                     VIEW AUCTION
                   </Button>
-                  <AvatarGroup size='xs'>
-                    <Avatar name='Mahmoud'  />
-                    <Avatar name='Baklulu Al Mushtari'  />
-                    <Avatar name='Abu Bantaloon'  />
-                    <Avatar name='Cholo' />
-                  </AvatarGroup>
-                </Flex>
-              </Flex>
-            </Flex>
-            <Flex direction='column'>
-              <Box mb='20px' position='relative' borderRadius='15px'>
-                <Image src='https://www.bobswatches.com/rolex-blog/wp-content/uploads/2014/05/hottest-rolex-watches-6.jpg' borderRadius='15px' width='450px' height='280px'/>
-                <Box
-                  w='100%'
-                  h='100%'
-                  position='absolute'
-                  top='0'
-                  borderRadius='15px'
-                  bg='linear-gradient(360deg, rgba(49, 56, 96, 0.16) 0%, rgba(21, 25, 40, 0.88) 100%)'></Box>
-              </Box>
-              <Flex direction='column'>
-                <Text
-                  fontSize='xl'
-                  color={textColor}
+                  <Text
+                  fontSize='sm'
+                  color={emailColor}
                   fontWeight='bold'
                   mb='10px'>
-                  Real Rolex Handwatch
+                  {`3 days remaining `}
                 </Text>
-                <Text fontSize='md' color='gray.400' fontWeight='400' mb='20px'>
-                  Made in 2010, in Switzerland, 100% real.
-                </Text>
-                <Flex justifyContent='space-between'>
-                  <Button variant='dark' minW='110px' h='36px'>
-                    VIEW AUCTION
-                  </Button>
+                 
                 </Flex>
               </Flex>
-            </Flex>
-            <Button
-              p='0px'
-              bg='transparent'
-              border='1px solid lightgray'
-              borderRadius='15px'
-              minHeight={{ sm: "200px", md: "100%" }}>
-              <Flex direction='column' justifyContent='center' align='center'>
-                <Icon as={FaPlus} color={textColor} fontSize='lg' mb='12px' />
-                <Text fontSize='lg' color={textColor} fontWeight='bold'>
-                  Start a New Auction
-                </Text>
-              </Flex>
-            </Button>
+                    </Flex>
+
+            ))}
+            
+            
+           
+           <NewAuction textColor={textColor}/>
           </Grid>
           </Box>
       </Box>
-
-
-      {/* //Rating */}
-
-      <div className='review-container'>
-        <div className='stars'>
-          <form action="">
-            <input className="star star-5" id="star-5-2" type="radio" name="star" />
-            <label className="star star-5" htmlFor="star-5-2">  </label>
-            <input className="star star-4" id="star-4-2" type="radio" name="star" />
-            <label className="star star-4" htmlFor="star-4-2"></label>
-            <input className="star star-3" id="star-3-2" type="radio" name="star" />
-            <label className="star star-3" htmlFor="star-3-2"></label>
-            <input className="star star-2" id="star-2-2" type="radio" name="star" />
-            <label className="star star-2" htmlFor="star-2-2"></label>
-            <input className="star star-1" id="star-1-2" type="radio" name="star" />
-            <label className="star star-1" htmlFor="star-1-2"></label>
-            <div className="rev-box">
-              <textarea className="review" col="30" name="review"></textarea>
-              <label className="review" htmlFor="review">Breif Review</label>
-            </div>
-          </form>
-
-        </div>
-
-      </div>
 
     </div>
 

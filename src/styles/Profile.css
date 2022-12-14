@@ -5,7 +5,6 @@
 /* font-family: "Bree Serif", serif; */
 
 
-
 .profile {
     font-family: 'Ubuntu', sans-serif;
 	width: 100%;
@@ -14,50 +13,16 @@
     font-family: "Poppins", sans-serif;
 }
 
-.profile-img {
-    display: flex;
-    justify-content: center;
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    border: 5px solid #fff;
-    box-shadow: 0 0 0 7px rgba(0,0,0,0.1);
-    margin: 0 auto;
-    margin-bottom: 1em;
-    align-items: center;
-}
-
-.profile-info {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    font-size: 16px;
-    
-}
-
-.user-activity {
-    display: flex;
-    flex-direction: row;
-  
-}
-
-.user-activity button {
-    width: 110px;
-    padding: 3px;
-    margin-bottom: 8px;
-}
 
 /* review style: */
 
 
 .review-container{
-  width: 93%;
+  width: 50%;
   max-width: 350px;
   text-align: center;
   margin: 4% auto;
-  padding: 30px 0;
+  padding: 20px 0;
   background:  #18778C;
   color: #D7D7D9;
   border-radius: 5px;
@@ -70,7 +35,7 @@ div.title{
 }
 
 div.stars{
-  width: 270px;
+  width: 200px;
   display: inline-block;
 }
 
@@ -80,8 +45,8 @@ input.star{
 
 label.star {
   float: right;
-  padding: 10px;
-  font-size: 36px;
+  padding: 2px;
+  font-size: 25px;
   color: #5BCCD9;
   transition: all .2s;
 }
