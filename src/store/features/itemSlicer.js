@@ -2,16 +2,23 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   items: [],
+  item: {},
   loading: false,
   error: null,
+  userRating: {},
 };
 
 export const itemSlice = createSlice({
   name: "item",
   initialState,
   reducers: {
-    getItemsRequest: (state) => {
+    ItemRequest: (state) => {
       state.loading = true;
+    },
+
+    ItemFail: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
     },
 
     getItemsSuccess: (state, action) => {
@@ -19,13 +26,9 @@ export const itemSlice = createSlice({
       state.items = action.payload;
     },
 
-    getItemsFailure: (state, action) => {
+    getItemSuccess: (state, action) => {
       state.loading = false;
-      state.error = action.payload;
-    },
-
-    addItemRequest: (state) => {
-      state.loading = true;
+      state.item = action.payload;
     },
 
     addItemSuccess: (state, action) => {
@@ -33,27 +36,9 @@ export const itemSlice = createSlice({
       state.items = [...state.items, action.payload];
     },
 
-    addItemFailure: (state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    },
-
-    deleteItemRequest: (state) => {
-      state.loading = true;
-    },
-
     deleteItemSuccess: (state, action) => {
       state.loading = false;
       state.items = state.items.filter((item) => item.id !== action.payload);
-    },
-
-    deleteItemFailure: (state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    },
-
-    updateItemRequest: (state) => {
-      state.loading = true;
     },
 
     updateItemSuccess: (state, action) => {
@@ -61,45 +46,40 @@ export const itemSlice = createSlice({
       state.items = state.items.map((item) => (item.id === action.payload.id ? action.payload : item));
     },
 
-    updateItemFailure: (state, action) => {
+    addCommentSuccess: (state, action) => {
       state.loading = false;
-      state.error = action.payload;
-    },
-
-    addBidRequest: (state) => {
-      state.loading = true;
+      state.item = { ...state.item, Comments: [...state.item.Comments, action.payload] };
     },
 
     addBidSuccess: (state, action) => {
       state.loading = false;
+      state.item = { ...state.item, Bids: [...state.item.Bids, action.payload] };
+      state.items = state.items.map((item) => (item.id === action.payload.ItemId ? state.item : item));
     },
 
-    addBidFailure: (state, action) => {
+    getUserRatingSuccess: (state, action) => {
       state.loading = false;
-      state.error = action.payload;
+      state.userRating = action.payload;
     },
   },
 });
 
 export const {
-  getItemsRequest,
+  ItemRequest,
+  ItemFail,
   getItemsSuccess,
-  getItemsFailure,
-  addItemRequest,
+  getItemSuccess,
   addItemSuccess,
-  addItemFailure,
-  deleteItemRequest,
   deleteItemSuccess,
-  deleteItemFailure,
-  updateItemRequest,
   updateItemSuccess,
-  updateItemFailure,
-  addBidRequest,
+  addCommentSuccess,
   addBidSuccess,
-  addBidFailure,
+  getUserRatingSuccess,
 } = itemSlice.actions;
 
 export const selectItems = (state) => state.item.items;
+export const selectItem = (state) => state.item.item;
+export const selectUserRating = (state) => state.item.userRating;
 export const selectLoading = (state) => state.item.loading;
 export const selectError = (state) => state.item.error;
 
