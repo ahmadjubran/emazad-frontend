@@ -6,6 +6,7 @@ import Verification from "./components/auth/Verification";
 
 import Categories from "./components/Categories";
 import Items from "./components/item/Items";
+import Item from "./components/item/Item";
 import NavBar from "./components/header/NavBar";
 import Hero from "./components/main/hero/Hero";
 import Profile from "./components/profile/Profile";
@@ -51,6 +52,7 @@ function App() {
         <Route path="/categories" element={<Categories />} />
 
         <Route path="/items" element={<Items />} />
+        <Route path="/item/:id" element={<Item />} />
 
         <Route exact path="/login" element={<Login />} />
 
@@ -68,9 +70,8 @@ function App() {
 
         <Route exact path="/admin" element={<Admin />} />
       </Routes>
-      {/* <Footer /> */}
-
-    </BrowserRouter >
+      <Footer />
+    </BrowserRouter>
   );
 }
 

@@ -1,23 +1,19 @@
 import axios from "axios";
 
 import {
-  addItemFailure,
-  addItemRequest,
+  ItemFail,
+  ItemRequest,
   addItemSuccess,
-  deleteItemFailure,
-  deleteItemRequest,
+  getItemSuccess,
   deleteItemSuccess,
-  getItemsFailure,
-  getItemsRequest,
   getItemsSuccess,
-  updateItemFailure,
-  updateItemRequest,
+  getUserRatingSuccess,
   updateItemSuccess,
 } from "../features/itemSlicer";
 
 export const getItems = (dispatch, status, category, subCategory) => {
   try {
-    dispatch(getItemsRequest());
+    dispatch(ItemRequest());
 
     let url = "";
 
@@ -54,7 +50,33 @@ export const getItems = (dispatch, status, category, subCategory) => {
         }
       })
       .catch((err) => {
-        dispatch(getItemsFailure(err));
+        dispatch(ItemFail(err));
+      });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const getItem = (dispatch, id) => {
+  try {
+    dispatch(ItemRequest());
+
+    axios
+      .get(`${process.env.REACT_APP_HEROKU_API_KEY}/item/${id}`)
+      .then((res) => {
+        dispatch(getItemSuccess(res.data));
+        dispatch(ItemRequest());
+        axios
+          .get(`${process.env.REACT_APP_HEROKU_API_KEY}/userRating/${res.data.User.id}`)
+          .then((res) => {
+            dispatch(getUserRatingSuccess(res.data));
+          })
+          .catch((err) => {
+            dispatch(ItemFail(err));
+          });
+      })
+      .catch((err) => {
+        dispatch(ItemFail(err));
       });
   } catch (err) {
     console.log(err);
@@ -62,7 +84,7 @@ export const getItems = (dispatch, status, category, subCategory) => {
 };
 
 export const addItem = (dispatch, payload) => {
-  dispatch(addItemRequest());
+  dispatch(ItemRequest());
 
   axios
     .post(`${process.env.REACT_APP_HEROKU_API_KEY}/items`, payload)
@@ -70,12 +92,12 @@ export const addItem = (dispatch, payload) => {
       dispatch(addItemSuccess(res.data));
     })
     .catch((err) => {
-      dispatch(addItemFailure(err));
+      dispatch(ItemFail(err));
     });
 };
 
 export const deleteItem = (dispatch, payload) => {
-  dispatch(deleteItemRequest());
+  dispatch(ItemRequest());
 
   axios
     .delete(`${process.env.REACT_APP_HEROKU_API_KEY}/items/${payload}`)
@@ -83,12 +105,12 @@ export const deleteItem = (dispatch, payload) => {
       dispatch(deleteItemSuccess(payload));
     })
     .catch((err) => {
-      dispatch(deleteItemFailure(err));
+      dispatch(ItemFail(err));
     });
 };
 
 export const updateItem = (dispatch, payload) => {
-  dispatch(updateItemRequest());
+  dispatch(ItemRequest());
 
   axios
     .put(`${process.env.REACT_APP_HEROKU_API_KEY}/items/${payload.id}`, payload)
@@ -96,6 +118,6 @@ export const updateItem = (dispatch, payload) => {
       dispatch(updateItemSuccess(res.data));
     })
     .catch((err) => {
-      dispatch(updateItemFailure(err));
+      dispatch(ItemFail(err));
     });
 };
