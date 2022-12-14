@@ -55,13 +55,13 @@ const theme = extendTheme({
       fontSize: ["2xl", "3xl", "4xl"],
       fontWeight: "bold",
       lineHeight: "shorter",
-      letterSpacing: "wide",
+      letterSpacing: "tight",
     },
     h2: {
       fontSize: ["lg", "xl", "2xl"],
       fontWeight: "semibold",
       lineHeight: "shorter",
-      letterSpacing: "wide",
+      letterSpacing: "tight",
     },
     h3: {
       fontSize: ["sm", "md", "lg"],
@@ -136,22 +136,53 @@ const theme = extendTheme({
       },
     },
 
-    // Input: {
-    //   varients: {
-    //     signup: {
-    //       focusBorderColor: "white",
-    //       variant: "filled",
-    //       color: "teal",
-    //       bgColor: "white",
-    //       _hover: {
-    //         bgColor: "white",
-    //       },
-    //       _focus: {
-    //         bgColor: "white",
-    //       },
-    //     },
-    //   },
-    // },
+    Input: {
+      baseStyle: {
+        borderRadius: "md",
+      },
+      variants: {
+        auth: {
+          field: {
+            bg: "grey.100",
+            color: "black.100",
+            _hover: {
+              bg: "grey.200",
+              borderColor: "mediumBlue.200",
+            },
+            _focus: {
+              bg: "grey.200",
+              borderColor: "lightBlue.100",
+              color: "black.100",
+              shadow: "none",
+            },
+          },
+        },
+      },
+    },
+
+    Select: {
+      baseStyle: {
+        borderRadius: "md",
+      },
+      variants: {
+        auth: {
+          field: {
+            bg: "grey.100",
+            color: "black.100",
+            _hover: {
+              bg: "grey.200",
+              borderColor: "mediumBlue.200",
+            },
+            _focus: {
+              bg: "grey.200",
+              borderColor: "lightBlue.100",
+              color: "black.100",
+              shadow: "none",
+            },
+          },
+        },
+      },
+    },
 
     // Textarea: {
     //   variants: {
@@ -171,8 +202,6 @@ const theme = extendTheme({
     //     }),
     //   },
     // },
-
-    // Select: {},
 
     // Checkbox: {},
     // breakpoints: {

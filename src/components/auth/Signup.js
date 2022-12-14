@@ -46,75 +46,75 @@ function Signup() {
       bgRepeat="no-repeat"
       >
 
-        <Heading  color="white" fontSize="4xl" fontWeight="bold" mb="1em">Create Account</Heading>
+        <Heading  textStyle="h1" color="white.100" mb="1em">Create Account</Heading>
 
         <form onSubmit={(e) => signUp(dispatch, e)}>
 
           <FormControl pb="1em" borderColor="teal.500" isRequired>
             <InputGroup>
-              <InputLeftElement pointerEvents="none" children={<BsFillPersonFill color="white.300" />} />
-              <Input type="text" name="fullName" placeholder="Full Name" autoComplete="name" focusBorderColor='white' variant='filled' color='teal' bgColor="white"/>
+              <InputLeftElement pointerEvents="none" children={<BsFillPersonFill/>} />
+              <Input type="text" name="fullName" placeholder="Full Name" autoComplete="name" variant='auth'/>
             </InputGroup>
           </FormControl>
 
           <FormControl pb="1em" borderColor="blue.500" isRequired>
             <InputGroup>
-              <InputLeftElement pointerEvents="none" children={<FaUserAstronaut color="gray.300" />} />
-              <Input type="text" name="userName" placeholder="Username" autoComplete="username" focusBorderColor='white' variant='filled'/>
+              <InputLeftElement pointerEvents="none" children={<FaUserAstronaut/>} />
+              <Input type="text" name="userName" placeholder="Username" autoComplete="username" variant='auth'/>
             </InputGroup>
             <FormHelperText textAlign="left" color="white">Choose a unique username.</FormHelperText>
           </FormControl>
 
           <FormControl pb="1em" borderColor="blue.500" isRequired>
             <InputGroup>
-              <InputLeftElement pointerEvents="none" children={<TfiEmail color="gray.300" />} />
-              <Input type="email" name="email" placeholder="Email" autoComplete="email" focusBorderColor='white' variant='filled'/>
+              <InputLeftElement pointerEvents="none" children={<TfiEmail/>} />
+              <Input type="email" name="email" placeholder="Email" autoComplete="email" variant='auth'/>
             </InputGroup>
             <FormHelperText textAlign="left" color="white">We'll never share your email.</FormHelperText>
           </FormControl>
 
           <FormControl pb="1em" borderColor="blue.500" isRequired>
             <InputGroup>
-              <InputLeftElement pointerEvents="none" children={<FaLock color="gray.300" />} />
-              <Input type="password" name="password" placeholder="password" autoComplete="new-password" focusBorderColor='white' variant='filled'/>
+              <InputLeftElement pointerEvents="none" children={<FaLock />} />
+              <Input type="password" name="password" placeholder="password" autoComplete="new-password" variant='auth'/>
             </InputGroup>
           </FormControl>
 
           <FormControl pb="1em" borderColor="blue.500" isRequired>
             <InputGroup>
-              <InputLeftElement pointerEvents="none" children={<FaLock color="gray.300" />} />
-              <Input type="password" name="confirmPassword" placeholder="Confirm Password" autoComplete="new-password" focusBorderColor='white' variant='filled'/>
+              <InputLeftElement pointerEvents="none" children={<FaLock />} />
+              <Input type="password" name="confirmPassword" placeholder="Confirm Password" autoComplete="new-password" variant='auth'/>
             </InputGroup>
           </FormControl>
 
           <FormControl pb="1em" borderColor="blue.500" isRequired>
             <InputGroup>
-              <InputLeftElement pointerEvents="none" children={<BsFillTelephoneFill color="gray.300" />} />
-              <Input type="text" name="phoneNumber" placeholder="Phone Number" autoComplete="tel" focusBorderColor='white' variant='filled'/>
+              <InputLeftElement pointerEvents="none" children={<BsFillTelephoneFill />} />
+              <Input type="text" name="phoneNumber" placeholder="Phone Number" autoComplete="tel" variant='auth'/>
             </InputGroup>
           </FormControl>
 
-          <FormControl pb="1em" borderColor="blue.500">
+          <FormControl pb="1em" borderColor="blue.500" isRequired>
             <InputGroup>
-              <Select name="gender" focusBorderColor='white' variant='filled' icon={<FaGenderless color="gray.300" />}>
-                <option value="" icon={<FaGenderless color="gray.300" />}>Select Gender</option>
+              <Select name="gender" variant='auth' icon={<FaGenderless  />}>
+                <option value="" icon={<FaGenderless color="grey.300" />}>Select Gender</option>
                 <option value="male">Male</option>
                 <option value="female">Female</option>
               </Select>
             </InputGroup>
           </FormControl>
 
-          <FormControl pb="1em" borderColor="blue.500">
+          <FormControl pb="1em" borderColor="blue.500" isRequired>
             <InputGroup>
               <InputLeftElement pointerEvents="none" children={<BsFillCalendarDateFill color="gray.300" />} />
-              <Input type="date" name="birthDate" placeholder="Birth Date" autoComplete="bday" required focusBorderColor='white' variant='filled'/>
+              <Input type="date" name="birthDate" placeholder="Birth Date" autoComplete="bday" variant='auth'/>
             </InputGroup>
           </FormControl>
 
-          <FormControl pb="2em" borderColor="blue.500">
+          <FormControl pb="2em" borderColor="blue.500" isRequired>
             <InputGroup>
               <InputLeftElement pointerEvents="none" children={<FaImage color="gray.300" />} />
-              <Input type="file" name="image" placeholder="Upload Image" autoComplete="image" focusBorderColor='white' variant='filled' />
+              <Input type="file" name="image" placeholder="Upload Image" autoComplete="image" variant='auth' />
             </InputGroup>
           </FormControl>
 

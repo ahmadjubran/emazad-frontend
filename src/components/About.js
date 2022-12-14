@@ -8,8 +8,6 @@ import Yaseer from "../assets/img/yaseer.jpg";
 import Feras from "../assets/img/Feras.jpg";
 // components
 
-
-
 export default function About() {
   return (
     <>
@@ -30,14 +28,13 @@ export default function About() {
           </div>
           <div className="container relative mx-auto">
             <div className="items-center flex flex-wrap">
-              <div className="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center">
+              <div className="w-full lg:w-9/12 px-4 ml-auto mr-auto text-center">
                 <div className="pr-12">
                   <h1 className="text-white font-semibold text-5xl">
-                    Your story starts with us.
+                    ABOUT US
                   </h1>
                   <p className="mt-4 text-lg text-blueGray-200">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    eMazad is an online auction website that allows users to bid on and sell a wide variety of products in a safe and secure environment, it is easy to use and has a simple interface. It hosts a huge number of auctions in real time and you can bid on any item you want within a minutes.
                   </p>
                 </div>
               </div>
@@ -70,12 +67,12 @@ export default function About() {
               <div className="lg:pt-12 pt-6 w-full md:w-4/12 px-4 text-center">
                 <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
                   <div className="px-4 py-5 flex-auto">
-                    <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-red-400">
-                      <i className="fas fa-award"></i>
+                    <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-emerald-400">
+                      <i class="fa-solid fa-shield-halved"></i>
                     </div>
-                    <h6 className="text-xl font-semibold">Awarded Agency</h6>
+                    <h6 className="text-xl font-semibold">Secure</h6>
                     <p className="mt-2 mb-4 text-blueGray-500">
-                      If a listing requires you to have a business license, brokers or authorized representatives can bid for you.
+                      Your data and items are safe with us. We use the latest security technologies to protect your data.
                     </p>
                   </div>
                 </div>
@@ -87,9 +84,9 @@ export default function About() {
                     <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-lightBlue-400">
                       <i className="fas fa-retweet"></i>
                     </div>
-                    <h6 className="text-xl font-semibold">Free Revisions</h6>
+                    <h6 className="text-xl font-semibold">Free</h6>
                     <p className="mt-2 mb-4 text-blueGray-500">
-                      Individuals, businesses, and dealers can buy and sell vehicles.
+                      You can create an account and start bidding for free. No hidden fees. 
                     </p>
                   </div>
                 </div>
@@ -98,12 +95,14 @@ export default function About() {
               <div className="pt-6 w-full md:w-4/12 px-4 text-center">
                 <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
                   <div className="px-4 py-5 flex-auto">
-                    <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-emerald-400">
+                    <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-red-400">
                       <i className="fas fa-fingerprint"></i>
                     </div>
-                    <h6 className="text-xl font-semibold">Verified Company</h6>
+                    <h6 className="text-xl font-semibold">Simple Interface</h6>
                     <p className="mt-2 mb-4 text-blueGray-500">
-                      Offers both clean and salvage titles
+                      Sign up and starting bidding right now! 
+                      <br></br>
+                      See how it's easy to use? 
                     </p>
                   </div>
                 </div>
@@ -269,11 +268,9 @@ export default function About() {
           <div className="container mx-auto px-4">
             <div className="flex flex-wrap justify-center text-center mb-24">
               <div className="w-full lg:w-6/12 px-4">
-                <h2 className="text-4xl font-semibold">Here are our heroes</h2>
+                <h2 className="text-4xl font-semibold">Meet our Developers</h2>
                 <p className="text-lg leading-relaxed m-4 text-blueGray-500">
-                  According to the National Oceanic and Atmospheric
-                  Administration, Ted, Scambos, NSIDClead scentist, puts the
-                  potentially record maximum.
+                  Take a moment to meet our amazing team of developers. They work hard to make sure you have the best experience possible.
                 </p>
               </div>
             </div>
@@ -286,7 +283,7 @@ export default function About() {
                     className="shadow-lg rounded-full mx-auto max-w-120-px"
                   />
                   <div className="pt-6 text-center">
-                    <h5 className="text-xl font-bold">Saeed</h5>
+                    <h5 className="text-xl font-bold">Saeed Kokash</h5>
                     <p className="mt-1 text-sm text-blueGray-400 uppercase font-semibold">
                       Web Developer
                     </p>
@@ -505,10 +502,10 @@ export default function About() {
             <div className="flex flex-wrap text-center justify-center">
               <div className="w-full lg:w-6/12 px-4">
                 <h2 className="text-4xl font-semibold text-white">
-                  Bid for something
+                  Start Your Own Auction Now
                 </h2>
                 <p className="text-lg leading-relaxed mt-4 mb-4 text-blueGray-400">
-                  Bid for something you want to buy and win it with the lowest bid price
+                  Bid on your favorite items and win them at the lowest price.
 
                 </p>
               </div>
@@ -522,7 +519,7 @@ export default function About() {
                   Excelent Services
                 </h6>
                 <p className="mt-2 mb-4 text-blueGray-400">
-                  If a listing requires you to have a business license, brokers or authorized representatives can bid for you.
+                  We provide the best services for our customers. We have 24 hours support for our loyal customers.
                 </p>
               </div>
               <div className="w-full lg:w-3/12 px-4 text-center">
@@ -533,7 +530,7 @@ export default function About() {
                   Grow your market
                 </h5>
                 <p className="mt-2 mb-4 text-blueGray-400">
-                  Individuals, businesses, and dealers can buy and sell vehicles.
+                  Create your own auction and sell your items to the world. The more you sell, the more you earn.
                 </p>
               </div>
               <div className="w-full lg:w-3/12 px-4 text-center">

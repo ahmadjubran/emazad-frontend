@@ -38,21 +38,21 @@ function Login() {
         bgPosition="center" 
         bgRepeat="no-repeat"
       >
-        <Heading  color="white" fontSize="4xl" fontWeight="bold" mb="1em">Welcome Back!</Heading>
+        <Heading textStyle="h1" color="white.100" mb="1em">Welcome Back!</Heading>
 
         <form onSubmit={(e) => login(dispatch, e)}>
 
           <FormControl pb="2em" borderColor="blue.500" isRequired>
             <InputGroup>
-              <InputLeftElement pointerEvents="none" children={<TfiEmail color="gray.300" />} />
-              <Input type="email" name="email" placeholder="email" autoComplete="email" focusBorderColor='white' variant='filled'/>
+              <InputLeftElement pointerEvents="none" children={<TfiEmail/>} />
+              <Input type="email" name="email" placeholder="email" autoComplete="email" variant='auth'/>
             </InputGroup>
           </FormControl>
 
           <FormControl pb="3em" borderColor="blue.500" isRequired>
             <InputGroup>
-              <InputLeftElement pointerEvents="none" children={<FaLock color="gray.300" />} />
-              <Input type="password" name="password" placeholder="password" autoComplete="current-password" focusBorderColor='white' variant='filled'/>
+              <InputLeftElement pointerEvents="none" children={<FaLock />} />
+              <Input type="password" name="password" placeholder="password" autoComplete="current-password" variant='auth'/>
             </InputGroup>
           </FormControl>
 
@@ -65,11 +65,11 @@ function Login() {
 
           <Text>{loading ? "Loading..." : ""}</Text>
 
-          <Button colorScheme="blue" type="submit" mb="1rem">
+          <Button variant="primary" type="submit" mb="1rem">
             Login
           </Button>
 
-          <Text>
+          <Text >
             Don't have an account?{" "}
             <Link to='/signup' style={{ color: "white", textDecoration: "none",}}>
               Signup
