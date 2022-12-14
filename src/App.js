@@ -18,6 +18,8 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import "./assets/styles/tailwind.css";
 import Contact from "./components/Contact";
 import Footer from "./components/footer/Footer";
+import Admin from "./components/admin/Admin";
+
 function App() {
   // const isAuth = useSelector((state) => state.auth.isAuth);
 
@@ -47,22 +49,26 @@ function App() {
         <Route exact path="/categories/item" element={<ListOfItems />} /> */}
         {/* </div> */}
         <Route path="/categories" element={<Categories />} />
+
         <Route path="/items" element={<Items />} />
 
         <Route exact path="/login" element={<Login />} />
+
         <Route exact path="/signup" element={<Signup />} />
 
         <Route exact path="/about" element={<About />} />
+
         <Route exact path="/contact" element={<Contact />} />
-
-
 
         <Route exact path="/verification/:id" element={<Verification />} />
 
         <Route path="/login" element={<Login />} />
+
         <Route path="/signup" element={<Signup />} />
+
+        <Route exact path="/admin" element={<Admin />} />
       </Routes>
-      <Footer />
+      {/* <Footer /> */}
 
     </BrowserRouter >
   );
