@@ -1,6 +1,5 @@
 import React from "react";
 
-import Form from "react-bootstrap/Form";
 import {
   VStack,
   Text,
@@ -41,7 +40,7 @@ function Signup() {
       bgImage="https://bia.lighting/wp-content/uploads/2016/04/Sign-Up-Background.png" 
       justify="center" 
       align="center"
-      borderRadius="300px" 
+      // borderRadius="300px" 
       bgSize="cover" 
       bgPosition="center" 
       bgRepeat="no-repeat"
@@ -49,7 +48,7 @@ function Signup() {
 
         <Heading  color="white" fontSize="4xl" fontWeight="bold" mb="1em">Create Account</Heading>
 
-        <Form onSubmit={(e) => signUp(dispatch, e)}>
+        <form onSubmit={(e) => signUp(dispatch, e)}>
 
           <FormControl pb="1em" borderColor="teal.500" isRequired>
             <InputGroup>
@@ -128,7 +127,9 @@ function Signup() {
 
           <Text color="white">{loading ? 'Submitting' : ""}</Text>
 
-          <Button colorScheme="blue" type="submit" mb="1rem">
+          <Button 
+          variant="primary"
+          type="submit" mb="1rem">
             Sign Up
           </Button>
 
@@ -139,7 +140,7 @@ function Signup() {
               Login
             </Link>
           </Text>
-        </Form>
+        </form>
       </VStack>
     </Flex>
   );
