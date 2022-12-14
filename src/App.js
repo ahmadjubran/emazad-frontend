@@ -20,7 +20,7 @@ import "./assets/styles/tailwind.css";
 import Contact from "./components/Contact";
 import Footer from "./components/footer/Footer";
 import Admin from "./components/admin/Admin";
-
+import Subscribe from "./components/main/Subscribe";
 function App() {
   // const isAuth = useSelector((state) => state.auth.isAuth);
 
@@ -70,8 +70,12 @@ function App() {
 
         <Route exact path="/admin" element={<Admin />} />
       </Routes>
+
+      <Subscribe />
       <Footer />
-    </BrowserRouter>
+
+    </BrowserRouter >
+
   );
 }
 
