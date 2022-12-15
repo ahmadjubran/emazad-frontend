@@ -33,7 +33,6 @@ function Login() {
         bgImage="https://bia.lighting/wp-content/uploads/2016/04/Sign-Up-Background.png" 
         justify="center" 
         align="center"
-        // borderRadius="300px" 
         bgSize="cover" 
         bgPosition="center" 
         bgRepeat="no-repeat"
@@ -42,14 +41,14 @@ function Login() {
 
         <form onSubmit={(e) => login(dispatch, e)}>
 
-          <FormControl pb="2em" borderColor="blue.500" isRequired>
+          <FormControl pb="2em" isRequired>
             <InputGroup>
               <InputLeftElement pointerEvents="none" children={<TfiEmail/>} />
               <Input type="email" name="email" placeholder="email" autoComplete="email" variant='auth'/>
             </InputGroup>
           </FormControl>
 
-          <FormControl pb="3em" borderColor="blue.500" isRequired>
+          <FormControl pb="3em" isRequired>
             <InputGroup>
               <InputLeftElement pointerEvents="none" children={<FaLock />} />
               <Input type="password" name="password" placeholder="password" autoComplete="current-password" variant='auth'/>
