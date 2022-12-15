@@ -24,12 +24,21 @@ import { FaUserAstronaut, FaLock, FaGenderless, FaImage } from "react-icons/fa";
 
 import { useSelector, useDispatch } from "react-redux";
 import { signUp } from "../../store/actions/authActions";
+import { validateImage, uploadUserImage } from "../../store/actions/authActions";
 
 function Signup() {
   const dispatch = useDispatch();
 
   const error = useSelector((state) => state.auth.error);
   const loading = useSelector((state) => state.auth.loading);
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const imageURL = await uploadUserImage();
+    console.log(imageURL);
+    // signup the user
+    signUp(dispatch, e, imageURL);
+  }
 
   return (
     <Flex direction={{ base: "column", md: "row" }} justify="center" align="center" w="100%" h="90vh">
@@ -40,7 +49,6 @@ function Signup() {
       bgImage="https://bia.lighting/wp-content/uploads/2016/04/Sign-Up-Background.png" 
       justify="center" 
       align="center"
-      // borderRadius="300px" 
       bgSize="cover" 
       bgPosition="center" 
       bgRepeat="no-repeat"
@@ -48,7 +56,7 @@ function Signup() {
 
         <Heading  textStyle="h1" color="white.100" mb="1em">Create Account</Heading>
 
-        <form onSubmit={(e) => signUp(dispatch, e)}>
+        <form onSubmit={(e) => handleSubmit(e)}>
 
           <FormControl pb="1em" borderColor="teal.500" isRequired>
             <InputGroup>
@@ -111,10 +119,10 @@ function Signup() {
             </InputGroup>
           </FormControl>
 
-          <FormControl pb="2em" borderColor="blue.500" isRequired>
+          <FormControl pb="2em" borderColor="blue.500" >
             <InputGroup>
               <InputLeftElement pointerEvents="none" children={<FaImage color="gray.300" />} />
-              <Input type="file" name="image" placeholder="Upload Image" autoComplete="image" variant='auth' />
+              <Input type="file" name="image" placeholder="Upload Image" autoComplete="image" variant='auth' onChange={(e) => validateImage(e)}/>
             </InputGroup>
           </FormControl>
 

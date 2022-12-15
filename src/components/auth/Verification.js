@@ -1,6 +1,4 @@
 import React from "react";
-
-import Form from "react-bootstrap/Form";
 import {
   VStack,
   Text,
@@ -17,7 +15,6 @@ import {
 import { Link } from "react-router-dom";
 import { TfiEmail } from "react-icons/tfi";
 import { FaLock } from "react-icons/fa";
-
 
 import { useSelector, useDispatch } from "react-redux";
 import { verifyEmail } from "../../store/actions/authActions";
@@ -36,26 +33,25 @@ function Verification() {
         bgImage="https://bia.lighting/wp-content/uploads/2016/04/Sign-Up-Background.png" 
         justify="center" 
         align="center"
-        borderRadius="300px" 
         bgSize="cover" 
         bgPosition="center" 
         bgRepeat="no-repeat"
       >
-        <Heading  color="white" fontSize="4xl" fontWeight="bold" mb="1em">Login to Verify!</Heading>
+        <Heading  textStyle="h1" color="white.100" mb="1em">Login to Verify!</Heading>
 
-        <Form onSubmit={(e) => verifyEmail(dispatch, e)}>
+        <form onSubmit={(e) => verifyEmail(dispatch, e)}>
 
-          <FormControl pb="2em" borderColor="blue.500" isRequired>
+          <FormControl pb="2em" isRequired>
             <InputGroup>
               <InputLeftElement pointerEvents="none" children={<TfiEmail color="gray.300" />} />
-              <Input type="email" name="email" placeholder="email" autoComplete="email" focusBorderColor='white' variant='filled'/>
+              <Input type="email" name="email" placeholder="email" autoComplete="email" variant='auth'/>
             </InputGroup>
           </FormControl>
 
-          <FormControl pb="3em" borderColor="blue.500" isRequired>
+          <FormControl pb="3em" isRequired>
             <InputGroup>
               <InputLeftElement pointerEvents="none" children={<FaLock color="gray.300" />} />
-              <Input type="password" name="password" placeholder="password" autoComplete="current-password" focusBorderColor='white' variant='filled'/>
+              <Input type="password" name="password" placeholder="password" autoComplete="current-password" variant='auth'/>
             </InputGroup>
           </FormControl>
 
@@ -68,7 +64,7 @@ function Verification() {
 
           <Text>{loading ? "Loading..." : ""}</Text>
 
-          <Button colorScheme="blue" type="submit" mb="1rem">
+          <Button variant="primary" type="submit" mb="1rem">
             Verify!
           </Button>
 
@@ -79,7 +75,7 @@ function Verification() {
             </Link>
           </Text>
 
-        </Form>
+        </form>
       </VStack>
     </Flex>
   );

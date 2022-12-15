@@ -4,7 +4,30 @@ import { authRequest, authFail, signupSuccess, loginSuccess, logoutSuccess } fro
 
 import base64 from "base-64";
 
-export const signUp = (dispatch, payload) => {
+let image = null;
+export const validateImage = (payload) => {
+  const file = payload.target.files[0];
+  if (file.size >= 1048576) {
+    return alert("Max file size is 1MB");
+  } else {
+    // assign the file value to the image variable
+    console.log("image added successfully", file);
+    return (image = file);
+  }
+};
+
+export const uploadUserImage = async () => {
+  if(!image) return null;
+  const data = new FormData();
+  data.append("file", image);
+  data.append("upload_preset", "emazad_app");
+  return axios.post("https://api.cloudinary.com/v1_1/skokash/image/upload", data).then((res) => {
+    console.log("image uploaded successfully", res.data.url);
+    return res.data.url;
+  });
+};
+
+export const signUp = (dispatch, payload, imageURL) => {
   payload.preventDefault();
 
   if (payload.target.password.value === payload.target.confirmPassword.value) {
@@ -18,8 +41,10 @@ export const signUp = (dispatch, payload) => {
       phoneNumber: payload.target.phoneNumber.value,
       gender: payload.target.gender.value,
       birthDate: payload.target.birthDate.value,
-      image: payload.target.image.value || null,
+      image: imageURL || null,
     };
+
+    console.log(data)
 
     try {
       if (payload.error) {
@@ -32,7 +57,7 @@ export const signUp = (dispatch, payload) => {
             dispatch(signupSuccess(res.data));
 
             // to be removed later
-            window.location.href = "/login";
+            // window.location.href = "/login";
           })
           .catch((err) => {
             dispatch(authFail(err.response.data));
@@ -80,7 +105,6 @@ export const login = (dispatch, payload) => {
 
           // redirect to home page without refreshing the page
           window.location.href = "/";
-
         })
         .catch((err) => {
           dispatch(authFail(err.response.data));

@@ -11,6 +11,7 @@ import NavBar from "./components/header/NavBar";
 import Hero from "./components/main/hero/Hero";
 import Profile from "./components/profile/Profile";
 import SliderCom from "./components/main/trending/SliderCom";
+import AddItem from "./components/item/AddItem";
 // import { useSelector } from "react-redux";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -21,6 +22,7 @@ import Contact from "./components/Contact";
 import Footer from "./components/footer/Footer";
 import Admin from "./components/admin/Admin";
 import Subscribe from "./components/main/Subscribe";
+import EditItem from "./components/item/EditItem";
 function App() {
   // const isAuth = useSelector((state) => state.auth.isAuth);
 
@@ -61,6 +63,8 @@ function App() {
         <Route exact path="/about" element={<About />} />
 
         <Route exact path="/contact" element={<Contact />} />
+
+        <Route exact path="/additem" element={<AddItem />} />
 
         <Route exact path="/verification/:id" element={<Verification />} />
 
