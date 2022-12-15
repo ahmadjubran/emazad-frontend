@@ -42,21 +42,21 @@ export default function Profile() {
   // const user = useSelector(selectUser)
   const { user } = useSelector(state => state.auth)
   const { isOpen, onOpen, onClose } = useDisclosure();
-
+  
   const [isLessThan768] = useMediaQuery("(max-width: 768px)");
   const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
-
+  
   const textColor = useColorModeValue("gray.700", "white");
   const iconColor = useColorModeValue("blue.500", "white");
   const bgProfile = useColorModeValue("hsla(0,0%,100%,.8)", "navy.800");
   const borderProfileColor = useColorModeValue("white", "transparent");
   const emailColor = useColorModeValue("gray.400", "gray.300");
-
+  
   // current date in the format of yyyy-mm-dd-hh-mm-ss:
   const currentDate = new Date().toISOString().slice(0, 19).replace('T', '-');
-
+  
   //States:
-
+  
   const [userName, setUserName] = useState('Abu Al Shabab')
   const [userEmail, setUserEmail] = useState('')
   const [userPhone, setUserPhone] = useState('')
@@ -66,6 +66,7 @@ export default function Profile() {
   const [joinDate, setJoinDate] = useState('')
   const [userImage, setUserImage] = useState('')
   const [profileActiveAuctions, setProfileActiveAuctions] = useState([])
+  const [renderComponent, setRenderComponent] = useState('Auctions')
 
 
   //Functions:
@@ -165,13 +166,10 @@ export default function Profile() {
   }
 
 
-  // render either Auctions or Bids component depending on the button clicked
-  const [renderComponent, setRenderComponent] = useState('Auctions')
   const handleRenderComponent = (e) => {
     setRenderComponent(e.target.name)
   }
 
-  // the bids component is not rendered immediately, useEffect to fix that
   useEffect(() => {
     setRenderComponent(renderComponent)
   }, )
