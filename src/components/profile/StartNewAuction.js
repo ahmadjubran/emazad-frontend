@@ -10,7 +10,8 @@ export default function NewAuction(props) {
         bg='transparent'
         border='1px solid lightgray'
         borderRadius='15px'
-        minHeight={{ sm: "200px", md: "100%" }}>
+        minHeight={{ sm: "200px", md: "100%" }}
+        height='300px'>
         <Flex direction='column' justifyContent='center' align='center'>
           <Icon as={FaPlus} color={props.textColor} fontSize='lg' mb='12px' />
           <Text fontSize='lg' color={props.textColor} fontWeight='bold'>

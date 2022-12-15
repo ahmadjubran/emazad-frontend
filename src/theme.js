@@ -106,10 +106,10 @@ const theme = extendTheme({
           },
         },
         secondary: {
-          bg: "lightBlue.200",
+          bg: "lightBlue.300",
           color: "white.100",
           _hover: {
-            bg: "lightBlue.300",
+            bg: "lightBlue.200",
           },
         },
         tertiary: {
@@ -181,6 +181,12 @@ const theme = extendTheme({
             },
           },
         },
+      },
+    },
+
+    shadows: {
+      blueShadow: {
+        100: "0 0 0 3px #1e96b0",
       },
     },
 

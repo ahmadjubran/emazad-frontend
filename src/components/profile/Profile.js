@@ -1,8 +1,9 @@
 import NewAuction from './StartNewAuction';
 import ProfilePopover from './ProfilePopover';
+import bidsBG from '../../assets/img/ProfileWavesBG.png';
 import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 // import { selectUser } from '../../store/features/authSlicercer'
 import '../../styles/Profile.css'
 import { FiMail, FiSettings } from 'react-icons/fi'
@@ -11,12 +12,8 @@ import { GiStarsStack } from 'react-icons/gi'
 import { BsFillTelephoneFill, BsThreeDotsVertical, BsChatSquareQuote, BsFillPersonFill, BsFillCalendarCheckFill } from 'react-icons/bs'
 import { MdSell, MdReportProblem, MdOutlineFavorite, MdReviews, MdOutlineEmail } from 'react-icons/md'
 import {
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-  PopoverBody,
-  PopoverArrow,
   IconButton,
+  GridItem,
   Button,
   Stack,
   Avatar,
@@ -28,7 +25,10 @@ import {
   Image,
   Text,
   useMediaQuery,
-  useColorModeValue
+  useColorModeValue,
+  VStack,
+  Container,
+  SimpleGrid
 } from '@chakra-ui/react';
 
 
@@ -42,21 +42,21 @@ export default function Profile() {
   // const user = useSelector(selectUser)
   const { user } = useSelector(state => state.auth)
   const { isOpen, onOpen, onClose } = useDisclosure();
-
+  
   const [isLessThan768] = useMediaQuery("(max-width: 768px)");
   const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
-
+  
   const textColor = useColorModeValue("gray.700", "white");
   const iconColor = useColorModeValue("blue.500", "white");
   const bgProfile = useColorModeValue("hsla(0,0%,100%,.8)", "navy.800");
   const borderProfileColor = useColorModeValue("white", "transparent");
   const emailColor = useColorModeValue("gray.400", "gray.300");
-
+  
   // current date in the format of yyyy-mm-dd-hh-mm-ss:
   const currentDate = new Date().toISOString().slice(0, 19).replace('T', '-');
-
+  
   //States:
-
+  
   const [userName, setUserName] = useState('Abu Al Shabab')
   const [userEmail, setUserEmail] = useState('')
   const [userPhone, setUserPhone] = useState('')
@@ -66,6 +66,7 @@ export default function Profile() {
   const [joinDate, setJoinDate] = useState('')
   const [userImage, setUserImage] = useState('')
   const [profileActiveAuctions, setProfileActiveAuctions] = useState([])
+  const [renderComponent, setRenderComponent] = useState('Auctions')
 
 
   //Functions:
@@ -91,6 +92,7 @@ export default function Profile() {
     setUserPhone(res.data.phoneNumber)
     setUserGender(res.data.gender)
     setJoinDate(res.data.createdAt)
+    profileFavoriteAuctions()
 
 
   }
@@ -154,9 +156,27 @@ export default function Profile() {
       .catch(err => console.log(err))
   }
 
+  const profileFavoriteAuctions = async () => {
+    const res = await axios.get(`${process.env.REACT_APP_HEROKU_API_KEY}/favorite`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    });
+    console.log(res.data)
+  }
+
+
+  const handleRenderComponent = (e) => {
+    setRenderComponent(e.target.name)
+  }
+
+  useEffect(() => {
+    setRenderComponent(renderComponent)
+  }, )
+
   return (
 
-    <div className='profile'>
+    <div className='profile' >
       <button onClick={getProfileData}> Get Data </button>
 
       {isLessThan768 &&
@@ -169,38 +189,28 @@ export default function Profile() {
             <HStack>
               <Button className="user-auctions"> <MdSell /> Auctions</Button>
               <Button className="user-bids" width='112.31px'> <ImHammer2 size='18px' /> Bids </Button>
-              <Button className="user-settings"> <MdReviews /> Reviews </Button>
 
               <Flex justifyContent="center" mt={4}>
               <ProfilePopover/>
               </Flex>
 
             </HStack>
-            <div className="user-details">
-              <div> <FiMail size='20px' /> {userEmail} </div>
-              <div> <BsFillTelephoneFill size='20px' /> {userPhone} </div>
-              <div> <BsFillPersonFill size='20px' /> {userGender} </div>
-              <div> Favorite Auctions </div>
-
-            </div>
           </div>
         </>}
 
       {isLargerThan768 &&
+        <VStack w='100%' bg={'#f7fafc'} boxShadow={'xl'} mb='12px' > 
         <Flex
           direction={{ sm: "column", md: "row" }}
           maxH='330px'
           justifyContent={{ sm: "center", md: "space-between" }}
           align='center'
           backdropFilter='blur(21px)'
-          boxShadow='0px 2px 5.5px rgba(0, 0, 0, 0.02)'
-          border='1.5px solid'
-          borderColor={borderProfileColor}
-          bg={'#f7fafc'}
           p='24px'
           borderRadius='20px'
           mb ='0'
           pb='0'
+          w='100%'
           >
           <Flex
             align='left'
@@ -210,11 +220,13 @@ export default function Profile() {
             <Avatar
               me={{ md: "22px" }}
               src={userImage}
-              w='180px'
-              h='180px'
+              w='220px'
+              h='190px'
               borderRadius='15px'
               alt='profile' cursor={'pointer'} as={Button} onClick={(e) => handleImageUpload}
+              border='5px' borderColor='mediumBlue.200'
             />
+            {/* Profile Summary */}
             <Flex direction='column' maxWidth='100%' my={{ sm: "14px" }}>
               <Text
                 fontSize={{ sm: "lg", lg: "xl" }}
@@ -226,67 +238,10 @@ export default function Profile() {
               <Text
                 fontSize={{ sm: "sm", md: "md" }}
                 color={emailColor}
+                mb='8px'
                 fontWeight='semibold'>
                 {userEmail}
               </Text>
-            </Flex>
-          </Flex>
-          <Flex
-            direction={{ sm: "column", lg: "row" }}
-            w={{ sm: "100%", md: "50%", lg: "auto" }}
-            alignItems="center" >
-
-            <Flex
-              align='center'
-              w={{ sm: "100%", lg: "135px" }}
-              borderRadius='8px'
-              justifyContent='center'
-              py='10px'
-            >
-              <Button> <MdSell /> Auctions</Button>
-            </Flex>
-
-            <Flex
-              align='center'
-              w={{ lg: "135px" }}
-              borderRadius='15px'
-              justifyContent='center'
-              py='10px'
-              mx={{ lg: "1rem" }}>
-
-              <Button className="user-bids" width='112.31px'> <ImHammer2 size='18px' /> Bids </Button>
-
-            </Flex>
-            <Flex
-              align='center'
-              w={{ lg: "135px" }}
-              borderRadius='15px'
-              justifyContent='center'
-              py='10px'>
-              <Button className="user-settings"> <MdReviews /> Reviews </Button>
-
-            </Flex>
-            <ProfilePopover/>
-          </Flex>
-
-        </Flex>
-
-      }
-
-      {/* // Personal Information of This Profile  */}
-
-      <Grid templateColumns={{ sm: "1fr", xl: "repeat(3, 1fr)" }} gap='22px' bg={'#f7fafc'} m='0'>
-        <Box p='24px'>
-          <Box p='12px 5px' mb='12px'>
-            <Text fontSize='lg' color={textColor} fontWeight='bold'>
-              About {userName}
-            </Text>
-          </Box>
-
-
-          <Box px='5px'>
-            <Flex direction='column'>
-
               <Flex align='center' mb='20px' direction='row'>
                 <GiStarsStack />
                 <Text
@@ -297,7 +252,6 @@ export default function Profile() {
                   Rating: {userRating}
                 </Text>
               </Flex>
-
               <Flex align='center' mb='20px' direction='row'>
                 <BsFillCalendarCheckFill />
                 <Text
@@ -309,20 +263,7 @@ export default function Profile() {
 
                 </Text>
               </Flex>
-
-              <Flex align='center' mb='20px' direction='row'>
-                <MdOutlineEmail />
-                <Text
-                  noOfLines={1}
-                  fontSize='md'
-                  color='gray.400'
-                  fontWeight='400'>
-                  {userEmail}
-
-                </Text>
-              </Flex>
-
-
+              
               <Flex align='center' mb='20px' direction='row'>
                 <BsFillTelephoneFill />
                 <Text
@@ -330,52 +271,133 @@ export default function Profile() {
                   fontSize='md'
                   color='gray.400'
                   fontWeight='400'>
-                  {`962 ${userPhone}`}
+                  {`+962 ${userPhone}`}
 
                 </Text>
               </Flex>
-
             </Flex>
+          </Flex>
+          <Flex align='right'>
+          <Container maxW="7xl" p={{ base: 5, md: 10 }}>
+      <SimpleGrid columns={{ base: 1, sm: 2, md: 3 }} spacing={5} mt={12} mb={4}>
+          <Box  p={10} boxShadow="md" rounded="md" borderWidth={1} w='250px' bgImg={bidsBG} color='white' >
+            <Text fontWeight="extrabold" fontSize="x-large" >
+              {profileActiveAuctions.length+1}
+            </Text>
+            <Text>Active Auctions</Text>
           </Box>
-        </Box>
+      </SimpleGrid>
+    </Container>
+             </Flex>
 
 
-        {/* Bids Made by This Profile  */}
+        </Flex>
+        <Flex
+            direction={{ sm: "column", lg: "row" }}
+            w={{ sm: "100%", md: "50%", lg: "auto" }}
+            align="center" 
+            justify="center"
+            m='0'>
+              <Flex gap ='50rem' align="center"> 
+              <Flex gap ='-5rem'> 
+            <Flex
+              align='center'
+              w={{ sm: "100%", lg: "135px" }}
+              borderRadius='8px'
+              justifyContent='center'
+              py='10px'
+            >
+              <Button 
+              name='Auctions'
+               bg='transparent' 
+               color='mediumBlue.200'
+                border='1px'
+                 borderColor='mediumblue.200'
+                  _hover={{  background: 'mediumBlue.200',  color: 'white' }}
+                   onClick={ e => handleRenderComponent(e)} > <MdSell />  Auctions </Button>
+            </Flex>
 
-        <Box p='16px' my={{ sm: "24px", xl: "0px" }}>
-          <Box p='12px 5px' mb='12px'>
-            <Text fontSize='lg' color={textColor} fontWeight='bold'>
+            <Flex
+              align='center'
+              w={{ lg: "135px" }}
+              borderRadius='15px'
+              justifyContent='center'
+              py='10px'
+              >
+
+              <Button 
+              name='Bids'
+               width='112.31px'
+                bg='transparent'
+                 color='mediumBlue.200' 
+                 border='1px' 
+                 borderColor='mediumblue.200'
+                  _hover={{  background: 'mediumBlue.200',  color: 'white' }} 
+                  onClick={ e => handleRenderComponent(e)}> <ImHammer2 size='18px' /> Bids </Button>
+
+            </Flex> 
+            </Flex>
+
+            <Flex
+              align='center'
+              w={{ lg: "135px" }}
+              borderRadius='15px'
+              justifyContent='center'
+              py='10px'>
+
+            <ProfilePopover/>
+            </Flex>
+          </Flex>
+          </Flex>
+
+
+      </VStack>
+      }
+
+
+    {/* Bids Made by This Profile  */}
+
+{renderComponent === 'Bids' &&
+      <Grid   m='0' border={'solid, lightBlue, 2px'} align='center' templateColumns='repeat(3, 1fr)' gap={6}>
+      
+
+    <GridItem backgroundImage={bidsBG}>         </GridItem>
+      <GridItem> 
+        <Box p='16px' my={{ sm: "24px", xl: "0px" }}  >
+          <Box p='12px 5px' mb='12px' >
+            <Text fontSize='lg' color={'darkBlue.200'} fontWeight='bold'>
               Bids made by {userName}
             </Text>
           </Box>
           <Box px='5px' overflowY="auto" maxHeight="150px">
-            <Flex direction='column'>
-              <Button  minW='100%' mb={'6px'} >
+            <Flex direction='column'  align='center'>
+              <Button w={'400px'} mb={'6px'} variant={'secondary'} >
                 Has bidden on HP Laptop 2021
               </Button>
-              <Button  minW='100%' mb={'6px'}>
+              <Button  w={'400px'} mb={'6px'} variant={'secondary'}>
                 Has bidden on HP Laptop 2021
               </Button>
-              <Button  minW='100%'mb={'6px'} >
+              <Button  w={'400px'} mb={'6px'} variant={'secondary'}>
                 Has bidden on HP Laptop 2021
               </Button>
-              <Button  minW='100%'mb={'6px'} >
+              <Button  w={'400px'} mb={'6px'} variant={'secondary'}>
                 Has bidden on HP Laptop 2021
               </Button>
-              <Button  minW='100%'mb={'6px'} >
+              <Button  w={'400px'} mb={'6px'} variant={'secondary'}>
                 Has bidden on HP Laptop 2021
               </Button>
               
             </Flex>
           </Box>
         </Box>
-
-      </Grid>
-
+        </GridItem>
+        <GridItem  backgroundImage={bidsBG} >    </GridItem>
+        
+      </Grid> }
 
         {/* //Auctions Posted By This Profile */}
-
-        <Box p='16px' my='24px'>
+        {renderComponent === 'Auctions' &&
+        <Box p='16px' my='24px' >
         <Box p='12px 5px' mb='12px'>
           <Flex direction='column'>
             <Text fontSize='lg' color={textColor} fontWeight='bold'>
@@ -390,21 +412,14 @@ export default function Profile() {
           <Grid
             templateColumns={{ sm: "1fr", md: "1fr 1fr", xl: "repeat(4, 1fr)" }}
             templateRows={{ sm: "1fr 1fr 1fr auto", md: "1fr 1fr", xl: "1fr" }}
-            gap='24px'>
+            gap='24px' overflowY="auto" maxHeight="500px">
 
             {profileActiveAuctions.map((auction, index) => (
               <Flex direction='column'  key={index}>
 
               <Box key={index} mb='20px' position='relative' borderRadius='15px'>
-              <Image src={auction.itemImage[0]} borderRadius='15px' />
-              <Box
-                  w='100%'
-                  h='100%'
-                  position='absolute'
-                  top='0'
-                  borderRadius='15px'
-                  bg='linear-gradient(360deg, rgba(49, 56, 96, 0.16) 0%, rgba(21, 25, 40, 0.88) 120%)'></Box>
-
+              <Image src={auction.itemImage[0]} borderRadius='15px'  />
+          
                     </Box>
                     <Flex direction='column'>
                 <Text
@@ -440,7 +455,7 @@ export default function Profile() {
            <NewAuction textColor={textColor}/>
           </Grid>
           </Box>
-      </Box>
+      </Box> }
 
     </div>
 
