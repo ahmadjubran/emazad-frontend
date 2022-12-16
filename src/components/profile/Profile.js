@@ -1,11 +1,11 @@
 import NewAuction from './StartNewAuction';
 import ProfilePopover from './ProfilePopover';
 import bidsBG from '../../assets/img/ProfileWavesBG.png';
+import '../../styles/Profile.css'
 import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 // import { selectUser } from '../../store/features/authSlicercer'
-import '../../styles/Profile.css'
 import { FiMail, FiSettings } from 'react-icons/fi'
 import { ImHammer2 } from 'react-icons/im'
 import { GiStarsStack } from 'react-icons/gi'
@@ -41,19 +41,12 @@ export default function Profile() {
   const dispatch = useDispatch()
   // const user = useSelector(selectUser)
   const { user } = useSelector(state => state.auth)
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  
+
   const [isLessThan768] = useMediaQuery("(max-width: 768px)");
   const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
   
   const textColor = useColorModeValue("gray.700", "white");
-  const iconColor = useColorModeValue("blue.500", "white");
-  const bgProfile = useColorModeValue("hsla(0,0%,100%,.8)", "navy.800");
-  const borderProfileColor = useColorModeValue("white", "transparent");
   const emailColor = useColorModeValue("gray.400", "gray.300");
-  
-  // current date in the format of yyyy-mm-dd-hh-mm-ss:
-  const currentDate = new Date().toISOString().slice(0, 19).replace('T', '-');
   
   //States:
   
@@ -79,8 +72,6 @@ export default function Profile() {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }
     });
-    console.log(currentDate)
-    console.log(res.data)
     userReviews()
     userBids()
     userActiveAuctions()
@@ -157,7 +148,7 @@ export default function Profile() {
   }
 
   const profileFavoriteAuctions = async () => {
-    const res = await axios.get(`${process.env.REACT_APP_HEROKU_API_KEY}/favorite`, {
+    const res = await axios.get(`${process.env.REACT_APP_HEROKU_API_KEY}/userFavorite/1`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }
@@ -174,6 +165,14 @@ export default function Profile() {
     setRenderComponent(renderComponent)
   }, )
 
+  const scrollDown = () => {
+    setRenderComponent('Auctions')
+    window.scrollTo({
+      top: 400,
+      behavior: "smooth"
+    });
+  }
+
   return (
 
     <div className='profile' >
@@ -181,7 +180,7 @@ export default function Profile() {
 
       {isLessThan768 &&
         <>
-          <div className='profile-img'>
+          <div className='profile-img' >
             <Avatar src={userImage} width='190px' height='190px' alt='profile' cursor={'pointer'} style={{ borderRadius: '50%' }} as={Button} onClick={(e) => handleImageUpload} />
           </div>
           <div className='profile-info'>
@@ -199,7 +198,7 @@ export default function Profile() {
         </>}
 
       {isLargerThan768 &&
-        <VStack w='100%' bg={'#f7fafc'} boxShadow={'xl'} mb='12px' > 
+        <VStack w='100%' bg={'#f7fafc'} boxShadow={'xl'} mb='12px' id='img-border'> 
         <Flex
           direction={{ sm: "column", md: "row" }}
           maxH='330px'
@@ -211,6 +210,7 @@ export default function Profile() {
           mb ='0'
           pb='0'
           w='100%'
+          
           >
           <Flex
             align='left'
@@ -254,7 +254,7 @@ export default function Profile() {
               </Flex>
               <Flex align='center' mb='20px' direction='row'>
                 <BsFillCalendarCheckFill />
-                <Text
+                <Text 
                   noOfLines={1}
                   fontSize='md'
                   color='gray.400'
@@ -280,7 +280,7 @@ export default function Profile() {
           <Flex align='right'>
           <Container maxW="7xl" p={{ base: 5, md: 10 }}>
       <SimpleGrid columns={{ base: 1, sm: 2, md: 3 }} spacing={5} mt={12} mb={4}>
-          <Box  p={10} boxShadow="md" rounded="md" borderWidth={1} w='250px' bgImg={bidsBG} color='white' >
+          <Box  p={10} boxShadow="md" rounded="md" borderWidth={1} w='250px' bgImg={bidsBG} color='white' onClick={scrollDown} as={Button}>
             <Text fontWeight="extrabold" fontSize="x-large" >
               {profileActiveAuctions.length+1}
             </Text>
@@ -289,16 +289,15 @@ export default function Profile() {
       </SimpleGrid>
     </Container>
              </Flex>
-
-
         </Flex>
+
         <Flex
             direction={{ sm: "column", lg: "row" }}
             w={{ sm: "100%", md: "50%", lg: "auto" }}
             align="center" 
             justify="center"
             m='0'>
-              <Flex gap ='50rem' align="center"> 
+              <Flex gap ='45rem' align="center"> 
               <Flex gap ='-5rem'> 
             <Flex
               align='center'
@@ -358,7 +357,7 @@ export default function Profile() {
     {/* Bids Made by This Profile  */}
 
 {renderComponent === 'Bids' &&
-      <Grid   m='0' border={'solid, lightBlue, 2px'} align='center' templateColumns='repeat(3, 1fr)' gap={6}>
+      <Grid   m='0' border={'solid, lightBlue, 2px'} align='center' templateColumns='repeat(3, 1fr)' gap={6} >
       
 
     <GridItem backgroundImage={bidsBG}>         </GridItem>
@@ -369,7 +368,7 @@ export default function Profile() {
               Bids made by {userName}
             </Text>
           </Box>
-          <Box px='5px' overflowY="auto" maxHeight="150px">
+          <Box px='5px' overflowY="auto" maxHeight="220px">
             <Flex direction='column'  align='center'>
               <Button w={'400px'} mb={'6px'} variant={'secondary'} >
                 Has bidden on HP Laptop 2021
