@@ -280,7 +280,7 @@ export default function About() {
                   <img
                     alt="..."
                     src={Saeed}
-                    className="shadow-lg rounded-full mx-auto max-w-120-px"
+                    className="shadow-lg rounded-full mx-auto max-w-120-px "
                   />
                   <div className="pt-6 text-center">
                     <h5 className="text-xl font-bold">Saeed Kokash</h5>
