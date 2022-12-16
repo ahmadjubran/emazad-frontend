@@ -1,17 +1,25 @@
 import axios from "axios";
 
-import { authRequest, authFail, signupSuccess, loginSuccess, logoutSuccess } from "../features/authSlicer";
+import { authRequest, authFail, signupSuccess, loginSuccess, logoutSuccess, setPreviewImage } from "../features/authSlicer";
 
 import base64 from "base-64";
 
 let image = null;
-export const validateImage = (payload) => {
+export const validateImage = (payload, dispatch, toast) => {
   const file = payload.target.files[0];
   if (file.size >= 1048576) {
-    return alert("Max file size is 1MB");
+    return toast({
+      title: 'Max file size is 1MB',
+      description: "please try again",
+      status: 'error',
+      duration: 3000,
+      isClosable: true,
+      position: 'top'
+    });
   } else {
     // assign the file value to the image variable
     console.log("image added successfully", file);
+    dispatch(setPreviewImage(URL.createObjectURL(file)));
     return (image = file);
   }
 };
@@ -27,7 +35,7 @@ export const uploadUserImage = async () => {
   });
 };
 
-export const signUp = (dispatch, payload, imageURL) => {
+export const signUp = (dispatch, payload, imageURL, toast) => {
   payload.preventDefault();
 
   if (payload.target.password.value === payload.target.confirmPassword.value) {
@@ -55,9 +63,17 @@ export const signUp = (dispatch, payload, imageURL) => {
           .post(`${process.env.REACT_APP_HEROKU_API_KEY}/signup`, data)
           .then((res) => {
             dispatch(signupSuccess(res.data));
+        
+            //   toast({
+            //   title: 'Account created.',
+            //   description: "We've created your account for you.",
+            //   status: 'success',
+            //   duration: 5000,
+            //   isClosable: true,
+            // })
 
             // to be removed later
-            // window.location.href = "/login";
+            window.location.href = "/login";
           })
           .catch((err) => {
             dispatch(authFail(err.response.data));
@@ -107,6 +123,8 @@ export const login = (dispatch, payload) => {
           window.location.href = "/";
         })
         .catch((err) => {
+
+          console.log(err)
           dispatch(authFail(err.response.data));
         });
     }
