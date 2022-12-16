@@ -64,16 +64,16 @@ export const signUp = (dispatch, payload, imageURL, toast) => {
           .then((res) => {
             dispatch(signupSuccess(res.data));
         
-            //   toast({
-            //   title: 'Account created.',
-            //   description: "We've created your account for you.",
-            //   status: 'success',
-            //   duration: 5000,
-            //   isClosable: true,
-            // })
+              toast({
+              title: 'Account created.',
+              description: "We've created your account for you.",
+              status: 'success',
+              duration: 5000,
+              isClosable: true,
+            })
 
             // to be removed later
-            window.location.href = "/login";
+            // window.location.href = "/login";
           })
           .catch((err) => {
             dispatch(authFail(err.response.data));
@@ -87,7 +87,7 @@ export const signUp = (dispatch, payload, imageURL, toast) => {
   }
 };
 
-export const login = (dispatch, payload) => {
+export const login = (dispatch, payload, toast) => {
   payload.preventDefault();
 
   const user = {
@@ -118,6 +118,14 @@ export const login = (dispatch, payload) => {
           localStorage.setItem("userInfo", JSON.stringify(res.data));
           localStorage.setItem("username", res.data.userName);
           localStorage.setItem("userID", res.data.id);
+
+          toast({
+              title: 'Account created.',
+              description: "We've created your account for you.",
+              status: 'success',
+              duration: 5000,
+              isClosable: true,
+            })
 
           // redirect to home page without refreshing the page
           window.location.href = "/";

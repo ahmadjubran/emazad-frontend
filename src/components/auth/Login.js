@@ -12,6 +12,7 @@ import {
   InputLeftElement,
   InputGroup,
   Box,
+  useToast,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { TfiEmail } from "react-icons/tfi";
@@ -20,11 +21,15 @@ import { FaLock } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
 import { login } from "../../store/actions/authActions";
 
+
+
 function Login() {
   const dispatch = useDispatch();
 
   const error = useSelector((state) => state.auth.error);
   const loading = useSelector((state) => state.auth.loading);
+
+  const toast = useToast();
 
   return (
     <Flex direction={{ base: "column", md: "row" }} justify="center" align="center" w="100%" h="70vh">
@@ -47,7 +52,7 @@ function Login() {
         >
 
 
-        <form onSubmit={(e) => login(dispatch, e)}>
+        <form onSubmit={(e) => login(dispatch, e, toast)}>
 
           <FormControl pb="2em" isRequired>
             <InputGroup>

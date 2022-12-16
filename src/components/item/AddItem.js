@@ -26,8 +26,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { addItem } from "../../store/actions/itemActions";
 import { FaDollarSign } from "react-icons/fa";
 
-import EditItem from "./EditItem";
-
 import { validateImage, uploadItemImage } from "../../store/actions/itemActions";
 
 function AddItem() {
@@ -62,8 +60,6 @@ function AddItem() {
         <Heading textStyle="h1" mb="1em">
           Create Item
         </Heading>
-
-        <EditItem />
 
         <form onSubmit={(e) => handleSubmit(e)}>
           {/* itemTitle */}
