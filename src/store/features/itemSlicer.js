@@ -38,6 +38,7 @@ export const itemSlice = createSlice({
 
     deleteItemSuccess: (state, action) => {
       state.loading = false;
+      state.item = {};
       state.items = state.items.filter((item) => item.id !== action.payload);
     },
 
@@ -48,13 +49,76 @@ export const itemSlice = createSlice({
 
     addCommentSuccess: (state, action) => {
       state.loading = false;
-      state.item = { ...state.item, Comments: [...state.item.Comments, action.payload] };
+      state.item = { ...state.item, Comments: [action.payload, ...state.item.Comments] };
+    },
+
+    updateCommentSuccess: (state, action) => {
+      state.loading = false;
+      state.item = {
+        ...state.item,
+        Comments: state.item.Comments.map((comment) => (comment.id === action.payload.id ? action.payload : comment)),
+      };
+    },
+
+    deleteCommentSuccess: (state, action) => {
+      state.loading = false;
+      state.item = { ...state.item, Comments: state.item.Comments.filter((comment) => comment.id !== action.payload) };
+    },
+
+    addReplySuccess: (state, action) => {
+      state.loading = false;
+      state.item = {
+        ...state.item,
+        Comments: state.item.Comments.map((comment) =>
+          comment.id === action.payload.commentId
+            ? { ...comment, Replies: comment.Replies ? [action.payload, ...comment.Replies] : [action.payload] }
+            : comment
+        ),
+      };
+    },
+
+    updateReplySuccess: (state, action) => {
+      state.loading = false;
+      state.item = {
+        ...state.item,
+        Comments: state.item.Comments.map((comment) =>
+          comment.id === action.payload.commentId
+            ? {
+                ...comment,
+                Replies: comment.Replies.map((reply) =>
+                  reply.id === action.payload.id ? { ...reply, reply: action.payload.reply } : reply
+                ),
+              }
+            : comment
+        ),
+      };
+    },
+
+    deleteReplySuccess: (state, action) => {
+      state.loading = false;
+      state.item = {
+        ...state.item,
+        Comments: state.item.Comments.map((comment) =>
+          comment.id === action.payload.commentId
+            ? { ...comment, Replies: comment.Replies.filter((reply) => reply.id !== action.payload.id) }
+            : comment
+        ),
+      };
     },
 
     addBidSuccess: (state, action) => {
       state.loading = false;
-      state.item = { ...state.item, Bids: [...state.item.Bids, action.payload] };
-      state.items = state.items.map((item) => (item.id === action.payload.ItemId ? state.item : item));
+      state.item = state.item.latestBid
+        ? { ...state.item, latestBid: action.payload.bidprice, Bids: [action.payload, ...state.item.Bids] }
+        : { ...state.item, latestBid: action.payload.bidprice, Bids: [action.payload] };
+      state.items =
+        state.items.length > 0
+          ? state.items.map((item) =>
+              item.id === action.payload.itemId
+                ? { ...item, latestBid: action.payload.bidprice, Bids: [...item.Bids, action.payload] }
+                : item
+            )
+          : state.items;
     },
 
     getUserRatingSuccess: (state, action) => {
@@ -73,6 +137,11 @@ export const {
   deleteItemSuccess,
   updateItemSuccess,
   addCommentSuccess,
+  updateCommentSuccess,
+  deleteCommentSuccess,
+  addReplySuccess,
+  updateReplySuccess,
+  deleteReplySuccess,
   addBidSuccess,
   getUserRatingSuccess,
 } = itemSlice.actions;

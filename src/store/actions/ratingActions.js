@@ -1,18 +1,18 @@
 import axios from "axios";
 import { getItem } from "./itemActions";
 
-export const handleRating = (dispatch, rating, id, userRating) => {
+export const handleRating = (dispatch, rating, item, allRating) => {
   try {
-    const rated = userRating.rating.find((rate) => rate.userId === localStorage.getItem("userID"));
+    let rated = allRating.find((rating) => Number(rating.userId) === Number(localStorage.getItem("userID")));
     if (!rated) {
       axios
         .post(`${process.env.REACT_APP_HEROKU_API_KEY}/rating`, {
           rating,
-          ratedId: id,
+          ratedId: item.userId,
           userId: localStorage.getItem("userID"),
         })
         .then((res) => {
-          getItem(dispatch, id);
+          getItem(dispatch, item.id);
         })
         .catch((err) => {
           console.log(err);
@@ -22,7 +22,7 @@ export const handleRating = (dispatch, rating, id, userRating) => {
         axios
           .delete(`${process.env.REACT_APP_HEROKU_API_KEY}/rating/${rated.id}`)
           .then((res) => {
-            getItem(dispatch, id);
+            getItem(dispatch, item.id);
           })
           .catch((err) => {
             console.log(err);
@@ -31,7 +31,7 @@ export const handleRating = (dispatch, rating, id, userRating) => {
         axios
           .put(`${process.env.REACT_APP_HEROKU_API_KEY}/rating/${rated.id}`, { rating })
           .then((res) => {
-            getItem(dispatch, id);
+            getItem(dispatch, item.id);
           })
           .catch((err) => {
             console.log(err);
