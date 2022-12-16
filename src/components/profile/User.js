@@ -16,10 +16,7 @@ export default function User() {
         console.log(response.data);
     }
       }, []) 
-    
-    if (!user) {
-        return null;
-    }
+
     
     return (
         <div>

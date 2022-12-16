@@ -143,6 +143,10 @@ input.star:checked ~ .rev-box{
 }
 
 
-
+#img-border {
+  
+  border: 6px solid;
+  border-image: url('../../src/assets/img/ProfileWavesBG.png') 30 round;
+}
 
 
