@@ -120,8 +120,8 @@ function AddItem() {
           <FormControl pb="1em" isRequired>
             <InputGroup>
               <InputLeftElement pointerEvents="none" children={<FaDollarSign />} />
-              <NumberInput bg="grey.100" name="initialPrice">
-                <NumberInputField pl="10" />
+              <NumberInput bg="grey.100">
+                <NumberInputField pl="10" name="initialPrice"/>
                 <NumberInputStepper>
                   <NumberIncrementStepper />
                   <NumberDecrementStepper />
