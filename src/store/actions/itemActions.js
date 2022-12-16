@@ -74,7 +74,7 @@ export const addItem = (dispatch, payload, imageURL, userId) => {
   const data = {
     itemTitle: payload.target.itemTitle.value,
     itemDescription: payload.target.itemDescription.value,
-    itemImage: imageURL,
+    ...(imageURL && { itemImage: imageURL }),
     category: payload.target.category.value,
     subCategory: payload.target.subCategory.value,
     itemCondition: payload.target.itemCondition.value,
@@ -91,6 +91,8 @@ export const addItem = (dispatch, payload, imageURL, userId) => {
       .then((res) => {
         dispatch(addItemSuccess(res.data));
         // console.log(res.data);
+        // reset the target
+        payload.target.reset();
       })
       .catch((err) => {
         dispatch(ItemFail(err));
@@ -165,17 +167,20 @@ export const validateImage = (payload) => {
 
 export const uploadItemImage = async () => {
   console.log(image);
-  if (!image) return alert("Please upload an image");
-
-  const uploaders = image.map((image) => {
-    const data = new FormData();
-    data.append("file", image);
-    data.append("upload_preset", "emazad_app");
-    return axios.post("https://api.cloudinary.com/v1_1/skokash/image/upload", data).then((res) => {
-      return res.data.secure_url;
+  if (image.length === 0) {
+    // alert("Please upload an image");
+    return null;
+  } else {
+    const uploaders = image.map((image) => {
+      const data = new FormData();
+      data.append("file", image);
+      data.append("upload_preset", "emazad_app");
+      return axios.post("https://api.cloudinary.com/v1_1/skokash/image/upload", data).then((res) => {
+        return res.data.secure_url;
+      });
     });
-  });
-  return Promise.all(uploaders).then((urls) => {
-    return urls;
-  });
+    return Promise.all(uploaders).then((urls) => {
+      return urls;
+    });
+  }
 };
