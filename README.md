@@ -41,9 +41,12 @@ This is a simple bidding app that allows users to bid on items and the highest b
 - work on the profile page and add the edit profile page, replace buttons with tabs in the profile page (Saeed)
 - work on the items page (Ahmad)
 - design the login/VERIFICATION and signup page (Saeed)
-- redesign the add item page (Saeed)
-- fix edit item page (Saeed)
-- work on upload images (Saeed)
+- add item page (Saeed)
+    - additem functions DONE
+    - design  
+- fix edit item page (Saeed) DONE 
+- work on upload images (Saeed) DONE -NEEDS TESTING FROM EVERYONE
+
 - add edit profile page (Saeed)
 - after finish profile page use it to show the other users profile (Saeed)
 
