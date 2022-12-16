@@ -33,7 +33,6 @@ function App() {
       </header>
 
       <Routes>
-        {/* <div className="profile-container"> */}
         <Route
           exact
           path="/"

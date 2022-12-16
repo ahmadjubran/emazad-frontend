@@ -163,7 +163,7 @@ export default function Profile() {
 
   useEffect(() => {
     setRenderComponent(renderComponent)
-  }, )
+  }, [renderComponent])
 
   const scrollDown = () => {
     setRenderComponent('Auctions')
@@ -186,8 +186,8 @@ export default function Profile() {
           <div className='profile-info'>
             <h1>{userName}</h1>
             <HStack>
-              <Button className="user-auctions"> <MdSell /> Auctions</Button>
-              <Button className="user-bids" width='112.31px'> <ImHammer2 size='18px' /> Bids </Button>
+              <Button name='Auctions' className="user-auctions" onClick={ e => handleRenderComponent(e)}> <MdSell /> Auctions</Button>
+              <Button name='Bids' className="user-bids" width='112.31px'onClick={ e => handleRenderComponent(e)}> <ImHammer2 size='18px' /> Bids </Button>
 
               <Flex justifyContent="center" mt={4}>
               <ProfilePopover/>
