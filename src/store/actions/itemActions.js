@@ -1,13 +1,13 @@
 import axios from "axios";
 
 import {
-  ItemFail,
-  ItemRequest,
   addItemSuccess,
-  getItemSuccess,
   deleteItemSuccess,
   getItemsSuccess,
+  getItemSuccess,
   getUserRatingSuccess,
+  ItemFail,
+  ItemRequest,
   updateItemSuccess,
 } from "../features/itemSlicer";
 
@@ -33,21 +33,6 @@ export const getItems = (dispatch, status, category, subCategory) => {
       .get(url)
       .then((res) => {
         dispatch(getItemsSuccess(res.data));
-        if (status) {
-          localStorage.setItem("status", status);
-        } else {
-          localStorage.removeItem("status");
-        }
-        if (category) {
-          localStorage.setItem("category", category);
-        } else {
-          localStorage.removeItem("category");
-        }
-        if (subCategory) {
-          localStorage.setItem("subCategory", subCategory);
-        } else {
-          localStorage.removeItem("subCategory");
-        }
       })
       .catch((err) => {
         dispatch(ItemFail(err));
@@ -100,7 +85,7 @@ export const deleteItem = (dispatch, payload) => {
   dispatch(ItemRequest());
 
   axios
-    .delete(`${process.env.REACT_APP_HEROKU_API_KEY}/items/${payload}`)
+    .delete(`${process.env.REACT_APP_HEROKU_API_KEY}/item/${payload}`)
     .then((res) => {
       dispatch(deleteItemSuccess(payload));
     })

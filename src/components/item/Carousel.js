@@ -65,11 +65,11 @@ export default function Carousel({ itemImages }) {
   );
 
   return (
-    <Box className="relative w-full h-96">
+    <Box position="relative" w="full" h="full">
       <Box className="carousel">
         {itemImages &&
           itemImages.map((image, i) => (
-            <Box key={image} ref={refs[i]} w="full" flexShrink="0">
+            <Box key={image} ref={refs[i]} w="full" flexShrink="0" h="full" borderRadius="2xl" overflow="hidden">
               <Image
                 src={
                   image.startsWith("http") ? image : `${process.env.REACT_APP_HEROKU_API_KEY}/${image.split("/").pop()}`
@@ -81,6 +81,24 @@ export default function Carousel({ itemImages }) {
       </Box>
       {sliderControl(true)}
       {sliderControl(false)}
+      {totalImages > 1 && (
+        <Flex position="absolute" bottom="4" left="50%" transform="translateX(-50%)" justify="center">
+          {itemImages &&
+            itemImages.map((image, i) => (
+              <Box
+                key={image}
+                w="2"
+                h="2"
+                borderRadius="full"
+                bg={currentImage === i ? "teal.500" : "white"}
+                opacity={currentImage === i ? "1" : "0.5"}
+                mx="1"
+                cursor="pointer"
+                onClick={() => scrollToImage(i)}
+              />
+            ))}
+        </Flex>
+      )}
     </Box>
   );
 }

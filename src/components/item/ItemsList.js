@@ -38,7 +38,7 @@ export default function ItemsList() {
     <Grid templateColumns={{ base: "repeat(1, 1fr)", md: "repeat(2, 1fr)", lg: "repeat(3, 1fr)" }} gap={6}>
       {items.length > 0
         ? items.map((item) => (
-            <GridItem key={item._id}>
+            <GridItem key={item.id}>
               <Flex
                 direction="column"
                 bg="white"
@@ -79,9 +79,13 @@ export default function ItemsList() {
                     addBid(
                       dispatch,
                       item.id,
-                      item.latestBid !== 0
-                        ? Math.ceil(item.latestBid + item.initialPrice * 0.01)
-                        : Math.ceil(item.initialPrice + item.initialPrice * 0.01)
+                      addBid(
+                        dispatch,
+                        item.id,
+                        item.latestBid !== 0
+                          ? Math.ceil(item.latestBid + item.initialPrice * 0.01)
+                          : Math.ceil(item.initialPrice + item.initialPrice * 0.01)
+                      )
                     )
                   }
                   disabled={user === null}
