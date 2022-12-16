@@ -36,6 +36,7 @@ import { selectUser } from "../../store/features/authSlicer";
 import { selectItem, selectUserRating } from "../../store/features/itemSlicer";
 import Carousel from "./Carousel";
 import Comments from "./Comments";
+import EditItem from "./EditItem";
 import LastBids from "./LastBids";
 
 export default function Item() {
@@ -215,14 +216,7 @@ export default function Item() {
                   borderRadius="lg"
                   shadow="lg"
                 >
-                  <MenuItem
-                    icon={<IoPencil />}
-                    onClick={() => console.log("Edit")}
-                    bg="gray.200"
-                    _hover={{ bg: "gray.300" }}
-                  >
-                    Edit
-                  </MenuItem>
+                  <MenuItem as={EditItem} item={item} />
                   <Link to="/">
                     <MenuItem
                       icon={<IoTrash />}

@@ -138,7 +138,7 @@ export default function Comments({ item, showTime }) {
         flexDir="rows"
         justifyContent="center"
         gap="4"
-        borderBottom="1px solid"
+        borderBottom={item.Comments && item.Comments.length > 0 ? "1px solid" : "none"}
         pb="4"
         borderColor="gray.300"
       >
