@@ -51,7 +51,7 @@ export default function Carousel({ itemImages }) {
       right={isLeft ? "auto" : "0"}
       transform={isLeft ? "translateY(-50%)" : "translateY(-50%)"}
       bg="transparent"
-      color="white"
+      color="gray.700"
       w="8"
       h="8"
       borderRadius="full"
@@ -65,16 +65,28 @@ export default function Carousel({ itemImages }) {
   );
 
   return (
-    <Box position="relative" w="full" h="full">
-      <Box className="carousel">
+    <Box position="relative" h="full">
+      <Box className="carousel" h="30rem">
         {itemImages &&
           itemImages.map((image, i) => (
-            <Box key={image} ref={refs[i]} w="full" flexShrink="0" h="full" borderRadius="2xl" overflow="hidden">
+            <Box
+              key={image}
+              ref={refs[i]}
+              w="full"
+              h="full"
+              flexShrink="0"
+              borderRadius="2xl"
+              overflow="hidden"
+              bg="gray.300"
+            >
               <Image
                 src={
                   image.startsWith("http") ? image : `${process.env.REACT_APP_HEROKU_API_KEY}/${image.split("/").pop()}`
                 }
                 alt="carousel"
+                objectFit={image.width > image.height ? "cover" : "contain"}
+                w="full"
+                h="full"
               />
             </Box>
           ))}
@@ -90,7 +102,7 @@ export default function Carousel({ itemImages }) {
                 w="2"
                 h="2"
                 borderRadius="full"
-                bg={currentImage === i ? "teal.500" : "white"}
+                bg={currentImage === i ? "teal.500" : "gray.700"}
                 opacity={currentImage === i ? "1" : "0.5"}
                 mx="1"
                 cursor="pointer"

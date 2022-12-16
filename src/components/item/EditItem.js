@@ -1,45 +1,46 @@
-import React from "react";
+import React, { useState } from "react";
 
 import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
+  Alert,
+  AlertIcon,
   Button,
-  useDisclosure,
+  Flex,
   FormControl,
+  FormHelperText,
   FormLabel,
+  Heading,
   Input,
   InputGroup,
   InputLeftElement,
-  Textarea,
-  FormHelperText,
-  Select,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  NumberDecrementStepper,
+  NumberIncrementStepper,
   NumberInput,
   NumberInputField,
   NumberInputStepper,
-  NumberIncrementStepper,
-  NumberDecrementStepper,
-  Flex,
+  Select,
   Text,
-  Heading,
-  Alert,
-  AlertIcon,
+  Textarea,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { FaDollarSign } from "react-icons/fa";
-import { useSelector, useDispatch } from "react-redux";
+import { IoPencil } from "react-icons/io5";
+import { useDispatch, useSelector } from "react-redux";
 import { editItem } from "../../store/actions/itemActions";
 
-import { validateImage, uploadItemImage } from "../../store/actions/itemActions";
+import { uploadItemImage, validateImage } from "../../store/actions/itemActions";
 
-
-function EditItem() {
+function EditItem({ item }) {
   const error = useSelector((state) => state.item.error);
   const loading = useSelector((state) => state.item.loading);
   const userId = useSelector((state) => state.auth.user.id);
+  const [newDate, setNewDate] = useState("");
 
   const dispatch = useDispatch();
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -51,12 +52,21 @@ function EditItem() {
     const imageURL = await uploadItemImage();
     console.log(imageURL);
     // signup the user
-    editItem(dispatch, e, imageURL, userId)
+    editItem(dispatch, e, imageURL, userId, item.id, item.itemImage);
   }
+
+  const newStartDate = (e) => {
+    e.preventDefault();
+    setNewDate(e.target.value);
+  };
 
   return (
     <>
-      <Button onClick={onOpen}>Edit Item</Button>
+      {/* <Button onClick={onOpen}>Edit Item</Button> */}
+      <Button onClick={onOpen} variant="none" size="sm" _hover={{ color: "blue.600" }}>
+        {<IoPencil />}
+        <span style={{ marginLeft: "0.6rem" }}>Edit Item</span>
+      </Button>
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
@@ -68,12 +78,18 @@ function EditItem() {
             <ModalBody pb={6}>
               <FormControl>
                 <FormLabel>Title</FormLabel>
-                <Input type="text" name="itemTitle" placeholder="Title" variant="auth" />
+                <Input type="text" name="itemTitle" placeholder="Title" variant="auth" defaultValue={item.itemTitle} />
               </FormControl>
 
               <FormControl mt={4}>
                 <FormLabel>Item Description</FormLabel>
-                <Textarea type="text" name="itemDescription" placeholder="itemDescription" variant="auth" />
+                <Textarea
+                  type="text"
+                  name="itemDescription"
+                  placeholder="itemDescription"
+                  variant="auth"
+                  defaultValue={item.itemDescription}
+                />
               </FormControl>
 
               <FormControl mt={4}>
@@ -93,7 +109,7 @@ function EditItem() {
 
               <FormControl mt={4} isRequired>
                 <InputGroup>
-                  <Select name="category" variant="auth">
+                  <Select name="category" variant="auth" defaultValue={item.category}>
                     <option disabled>Select Category</option>
                     <option value="electronics">Electronics</option>
                     <option value="clothes">Clothes</option>
@@ -108,14 +124,20 @@ function EditItem() {
               <FormControl mt={4} isRequired>
                 <InputGroup>
                   {/* <InputLeftElement pointerEvents="none" children={<TfiEmail/>} /> */}
-                  <Input type="text" name="subCategory" placeholder="subCategory" variant="auth" />
+                  <Input
+                    type="text"
+                    name="subCategory"
+                    placeholder="subCategory"
+                    variant="auth"
+                    defaultValue={item.subCategory}
+                  />
                 </InputGroup>
               </FormControl>
 
               <FormControl mt={4} isRequired>
                 <InputGroup>
                   {/* <InputLeftElement pointerEvents="none" children={<TfiEmail/>} /> */}
-                  <Select name="itemCondition" variant="auth">
+                  <Select name="itemCondition" variant="auth" defaultValue={item.itemCondition}>
                     <option disabled>Select Condition</option>
                     <option value="New">New</option>
                     <option value="Used">Used</option>
@@ -126,7 +148,7 @@ function EditItem() {
               <FormControl mt={4} isRequired>
                 <InputGroup>
                   <InputLeftElement pointerEvents="none" children={<FaDollarSign />} />
-                  <NumberInput bg="grey.100" name="initialPrice">
+                  <NumberInput bg="grey.100" name="initialPrice" defaultValue={item.initialPrice}>
                     <NumberInputField pl="10" />
                     <NumberInputStepper>
                       <NumberIncrementStepper />
@@ -139,28 +161,42 @@ function EditItem() {
               <FormControl mt={4} isRequired>
                 <InputGroup>
                   {/* <InputLeftElement pointerEvents="none" children={<TfiEmail/>} /> */}
-                  <Input type="datetime-local" name="startDate" placeholder="startDate" min={date} variant="auth" />
+                  <Input
+                    type="datetime-local"
+                    name="startDate"
+                    placeholder="startDate"
+                    min={new Date().toISOString().slice(0, 16)}
+                    variant="auth"
+                    defaultValue={item.startDate && item.startDate.slice(0, 16)}
+                    onChange={(e) => newStartDate(e)}
+                  />
                 </InputGroup>
               </FormControl>
 
               <FormControl mt={4} isRequired>
                 <InputGroup>
                   {/* <InputLeftElement pointerEvents="none" children={<TfiEmail/>} /> */}
-                  <Input type="datetime-local" name="endDate" placeholder="endDate" min={date} variant="auth" />
+                  <Input
+                    type="datetime-local"
+                    name="endDate"
+                    placeholder="endDate"
+                    min={newDate}
+                    variant="auth"
+                    defaultValue={item.endDate && item.endDate.slice(0, 16)}
+                  />
                 </InputGroup>
               </FormControl>
             </ModalBody>
 
             <ModalFooter>
-                
               <Text>{loading ? "Updating..." : ""}</Text>
 
               {error && (
-            <Alert status="error" variant="left-accent" mb="1em">
-              <AlertIcon />
-              {error}
-            </Alert>
-          )}
+                <Alert status="error" variant="left-accent" mb="1em">
+                  <AlertIcon />
+                  {error}
+                </Alert>
+              )}
 
               <Button variant="primary" type="submit" mr={3}>
                 Save

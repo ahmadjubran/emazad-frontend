@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, Image, Text, VStack } from "@chakra-ui/react";
+import { Box, Flex, Heading, Image, Spacer, Text, VStack } from "@chakra-ui/react";
 import React from "react";
 
 export default function LastBids({ item, showTime }) {
@@ -18,17 +18,16 @@ export default function LastBids({ item, showTime }) {
       <VStack m="4">
         <Flex
           alignItems="center"
-          gap="2"
           w="100%"
-          borderBottom="1px solid"
-          borderColor="gray.300"
-          pb="4"
           justifyContent="space-between"
           fontSize="md"
           fontWeight="bold"
           textTransform="capitalize"
+          px="4"
+          gap="16"
         >
-          <Text>User Name</Text>
+          <Text>Bidder</Text>
+          <Spacer />
           <Text>Time</Text>
           <Text>Bid Price</Text>
         </Flex>
@@ -39,11 +38,12 @@ export default function LastBids({ item, showTime }) {
             <Flex
               alignItems="center"
               w="100%"
-              // add border bottom to the first 8 bids
-              borderBottom={bid.id === item.Bids[8].id ? "none" : "1px solid"}
-              borderColor="gray.300"
-              py="2"
+              bg="gray.300"
               justifyContent="space-between"
+              p="4"
+              mb="4"
+              borderRadius="3xl"
+              boxShadow="md"
             >
               <Flex alignItems="center" gap="2">
                 <Image
@@ -58,12 +58,15 @@ export default function LastBids({ item, showTime }) {
                   {bid.User.fullName}
                 </Text>
               </Flex>
-              <Text fontSize="sm" color="gray.500">
-                {showTime(bid.createdAt)}
-              </Text>
-              <Text fontSize="lg" fontWeight="bold" color="green.500">
-                {bid.bidprice}$
-              </Text>
+              <Spacer />
+              <Flex alignItems="center" gap="12">
+                <Text fontSize="sm" color="gray.500">
+                  {showTime(bid.createdAt)}
+                </Text>
+                <Text fontSize="lg" fontWeight="bold" color="green.500">
+                  {bid.bidprice}$
+                </Text>
+              </Flex>
             </Flex>
           </VStack>
         ))}

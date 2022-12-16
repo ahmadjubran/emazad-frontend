@@ -101,13 +101,13 @@ export const addItem = (dispatch, payload, imageURL, userId) => {
   }
 };
 
-export const editItem = (dispatch, payload, imageURL, userId) => {
+export const editItem = (dispatch, payload, imageURL, userId, id, itemImage) => {
   payload.preventDefault();
 
   const data = {
     itemTitle: payload.target.itemTitle.value,
     itemDescription: payload.target.itemDescription.value,
-    itemImage: imageURL,
+    itemImage: imageURL.length === 0 ? itemImage : imageURL,
     category: payload.target.category.value,
     subCategory: payload.target.subCategory.value,
     itemCondition: payload.target.itemCondition.value,
@@ -120,7 +120,7 @@ export const editItem = (dispatch, payload, imageURL, userId) => {
   try {
     dispatch(ItemRequest());
     axios
-      .put(`${process.env.REACT_APP_HEROKU_API_KEY}/item/13`, data)
+      .put(`${process.env.REACT_APP_HEROKU_API_KEY}/item/${id}`, data)
       .then((res) => {
         dispatch(updateItemSuccess(res.data));
       })
@@ -146,9 +146,8 @@ export const deleteItem = (dispatch, payload) => {
     });
 };
 
-let image= [];
+let image = [];
 export const validateImage = (payload) => {
-
   const files = Array.from(payload.target.files);
   // console.log(files)
   if (files.length > 8) {
@@ -162,23 +161,19 @@ export const validateImage = (payload) => {
     image.push(files[i]);
     // console.log(image)
   }
-}
+};
 
 export const uploadItemImage = async () => {
-
-  console.log(image)
+  console.log(image);
   if (!image) return alert("Please upload an image");
 
   const uploaders = image.map((image) => {
     const data = new FormData();
     data.append("file", image);
     data.append("upload_preset", "emazad_app");
-    return axios
-      .post("https://api.cloudinary.com/v1_1/skokash/image/upload", data)
-      .then((res) => {
-        return res.data.secure_url;
-      }
-      );
+    return axios.post("https://api.cloudinary.com/v1_1/skokash/image/upload", data).then((res) => {
+      return res.data.secure_url;
+    });
   });
   return Promise.all(uploaders).then((urls) => {
     return urls;
