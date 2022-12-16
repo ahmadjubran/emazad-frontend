@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import {
   VStack,
@@ -15,11 +15,7 @@ import {
   Textarea,
   FormHelperText,
   Select,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
-  NumberIncrementStepper,
-  NumberDecrementStepper,
+  useToast,
 } from "@chakra-ui/react";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -35,14 +31,20 @@ function AddItem() {
   const loading = useSelector((state) => state.item.loading);
   const userId = useSelector((state) => state.auth.user.id);
 
-  // set the date to now in day and time format YYYY-MM-DDTHH:MM
-  const date = new Date().toISOString().slice(0, 16);
+  const toast = useToast();
 
+  // set the date to now in day and time format YYYY-MM-DDTHH:MM
+  const date = new Date().toISOString().slice(0, 16);  
+  const [minEndDate, setMinEndDate] = useState();
+
+  function handleEndDate(e) {
+    setMinEndDate(e.target.value);
+  };
+  
   async function handleSubmit(e) {
     e.preventDefault();
     const imageURL = await uploadItemImage();
     console.log(imageURL);
-    // signup the user
     addItem(dispatch, e, imageURL, userId)
   }
 
@@ -62,7 +64,6 @@ function AddItem() {
         </Heading>
 
         <form onSubmit={(e) => handleSubmit(e)}>
-          {/* itemTitle */}
           <FormControl pb="1em" isRequired>
             <InputGroup>
               {/* <InputLeftElement pointerEvents="none" children={<TfiEmail/>} /> */}
@@ -80,7 +81,7 @@ function AddItem() {
           <FormControl pb="1em">
             <InputGroup>
               {/* <InputLeftElement pointerEvents="none" children={<TfiEmail/>} /> */}
-              <Input type="file" name="itemImage" multiple="multiple" placeholder="itemImage" variant="auth" onChange={(e) => validateImage(e)}/>
+              <Input type="file" name="itemImage" multiple="multiple" placeholder="itemImage" variant="auth" onChange={(e) => validateImage(e, toast)}/>
             </InputGroup>
             <FormHelperText textAlign="left">you can upload up to 8 images.</FormHelperText>
           </FormControl>
@@ -119,28 +120,22 @@ function AddItem() {
 
           <FormControl pb="1em" isRequired>
             <InputGroup>
-              <InputLeftElement pointerEvents="none" children={<FaDollarSign />} />
-              <NumberInput bg="grey.100">
-                <NumberInputField pl="10" name="initialPrice"/>
-                <NumberInputStepper>
-                  <NumberIncrementStepper />
-                  <NumberDecrementStepper />
-                </NumberInputStepper>
-              </NumberInput>
+              <InputLeftElement children={<FaDollarSign />} />
+              <Input type="number" name="initialPrice" placeholder="initialPrice" variant="auth" />
             </InputGroup>
           </FormControl>
 
           <FormControl pb="1em" isRequired>
             <InputGroup>
               {/* <InputLeftElement pointerEvents="none" children={<TfiEmail/>} /> */}
-              <Input type="datetime-local" name="startDate" placeholder="startDate" min={date} variant="auth" />
+              <Input type="datetime-local" name="startDate" placeholder="startDate" min={date} variant="auth" onChange={(e) => handleEndDate(e)}/>
             </InputGroup>
           </FormControl>
 
           <FormControl pb="1em" isRequired>
             <InputGroup>
               {/* <InputLeftElement pointerEvents="none" children={<TfiEmail/>} /> */}
-              <Input type="datetime-local" name="endDate" placeholder="endDate" min={date} variant="auth" />
+              <Input type="datetime-local" name="endDate" placeholder="endDate" min={minEndDate} variant="auth" />
             </InputGroup>
           </FormControl>
 

@@ -21,8 +21,6 @@ import { FaLock } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
 import { login } from "../../store/actions/authActions";
 
-
-
 function Login() {
   const dispatch = useDispatch();
 
@@ -50,8 +48,6 @@ function Login() {
         <Box rounded={"lg"} p={8} boxShadow={{ base: 'none', sm: '0 0 60px rgba(0, 0, 0, 0.5)' }} 
           // bgGradient="linear(to-r, teal.500,blue.500)"
         >
-
-
         <form onSubmit={(e) => login(dispatch, e, toast)}>
 
           <FormControl pb="2em" isRequired>

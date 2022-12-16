@@ -17,7 +17,6 @@ export const validateImage = (payload, dispatch, toast) => {
       position: 'top'
     });
   } else {
-    // assign the file value to the image variable
     console.log("image added successfully", file);
     dispatch(setPreviewImage(URL.createObjectURL(file)));
     return (image = file);
@@ -148,6 +147,7 @@ export const logout = (dispatch) => {
     localStorage.removeItem("userInfo");
     localStorage.removeItem("username");
     localStorage.removeItem("userID");
+    window.location.href = "/";
   } catch (error) {
     dispatch(authFail(error));
   }

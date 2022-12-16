@@ -64,7 +64,7 @@ export const getItem = (dispatch, id) => {
         dispatch(ItemFail(err));
       });
   } catch (err) {
-    console.log(err);
+    dispatch(ItemFail(err));
   }
 };
 
@@ -90,15 +90,12 @@ export const addItem = (dispatch, payload, imageURL, userId) => {
       .post(`${process.env.REACT_APP_HEROKU_API_KEY}/item`, data)
       .then((res) => {
         dispatch(addItemSuccess(res.data));
-        // console.log(res.data);
-        // reset the target
         payload.target.reset();
       })
       .catch((err) => {
         dispatch(ItemFail(err));
       });
   } catch (err) {
-    // console.log(err);
     dispatch(ItemFail(err));
   }
 };
@@ -109,7 +106,7 @@ export const editItem = (dispatch, payload, imageURL, userId, id, itemImage) => 
   const data = {
     itemTitle: payload.target.itemTitle.value,
     itemDescription: payload.target.itemDescription.value,
-    itemImage: imageURL.length === 0 ? itemImage : imageURL,
+    ...(imageURL && { itemImage: imageURL.length === 0 ? itemImage : imageURL }),
     category: payload.target.category.value,
     subCategory: payload.target.subCategory.value,
     itemCondition: payload.target.itemCondition.value,
@@ -130,7 +127,6 @@ export const editItem = (dispatch, payload, imageURL, userId, id, itemImage) => 
         dispatch(ItemFail(err));
       });
   } catch (err) {
-    // console.log(err);
     dispatch(ItemFail(err));
   }
 };
@@ -149,26 +145,51 @@ export const deleteItem = (dispatch, payload) => {
 };
 
 let image = [];
-export const validateImage = (payload) => {
-  const files = Array.from(payload.target.files);
-  // console.log(files)
-  if (files.length > 8) {
-    return alert("You can only upload 8 images");
-  }
+export const validateImage = (payload, toast) => {
 
-  for (let i = 0; i < files.length; i++) {
-    if (files[i].size >= 1048576) {
-      alert("Max file size is 1mb");
+  image = [];
+  const files = Array.from(payload.target.files);
+
+  if (files.length > 8) {
+    return toast({
+      title: "Error Uploading Images",
+      description: "You can only upload 8 images",
+      status: "error",
+      duration: 5000,
+      isClosable: true,
+      position: "top",
+    });
+
+  } else {
+    for (let i = 0; i < files.length; i++) {
+
+      if (files[i].size > 1048576) {
+        return toast({
+          title: "Error Uploading Images",
+          description: "One of the images is larger than 1mb",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+          position: "top",
+        });
+      } else if (!files[i].type.match(/image.*/)) {
+        return toast({
+          title: "Error Uploading Images",
+          description: "One of the files is not an image",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+          position: "top",
+        });
+      } else {
+        image.push(files[i]);
+      }
     }
-    image.push(files[i]);
-    // console.log(image)
   }
 };
 
 export const uploadItemImage = async () => {
-  console.log(image);
   if (image.length === 0) {
-    // alert("Please upload an image");
     return null;
   } else {
     const uploaders = image.map((image) => {
