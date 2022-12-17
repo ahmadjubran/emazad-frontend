@@ -119,6 +119,17 @@ const theme = extendTheme({
             bg: "darkBlue.300",
           },
         },
+
+        light: {
+          bg: "grey.100",
+          color: "darkBlue.200",
+          _hover: {
+            bg: "darkBlue.200",
+            color: "grey.200",
+          }
+
+        },
+
         success: {
           bg: "success.300",
           color: "white.100",

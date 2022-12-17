@@ -1,14 +1,12 @@
-import {Route} from "react";
 
 export default function Footer() {
 
-  // open link in a new page
   function openLink (link) {
     window.open(link, "_blank");
   };
+
   return (
     <>
-
       <footer className="relative bg-blueGray-200 pt-8 pb-6 mt-20" >
 
         <div
