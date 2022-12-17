@@ -6,6 +6,7 @@ const initialState = {
   loading: false,
   error: null,
   userRating: {},
+  trendingItems: [],
 };
 
 export const itemSlice = createSlice({
@@ -29,6 +30,11 @@ export const itemSlice = createSlice({
     getItemSuccess: (state, action) => {
       state.loading = false;
       state.item = action.payload;
+    },
+
+    getTrendingItemsSuccess: (state, action) => {
+      state.loading = false;
+      state.trendingItems = action.payload;
     },
 
     addItemSuccess: (state, action) => {
@@ -120,6 +126,15 @@ export const itemSlice = createSlice({
                 : item
             )
           : state.items;
+
+      state.trendingItems =
+        state.trendingItems.length > 0
+          ? state.trendingItems.map((item) =>
+              item.id === action.payload.itemId
+                ? { ...item, latestBid: action.payload.bidprice, Bids: [...item.Bids, action.payload] }
+                : item
+            )
+          : state.trendingItems;
     },
 
     getUserRatingSuccess: (state, action) => {
@@ -134,6 +149,7 @@ export const {
   ItemFail,
   getItemsSuccess,
   getItemSuccess,
+  getTrendingItemsSuccess,
   addItemSuccess,
   deleteItemSuccess,
   updateItemSuccess,
@@ -149,6 +165,7 @@ export const {
 
 export const selectItems = (state) => state.item.items;
 export const selectItem = (state) => state.item.item;
+export const selectTrendingItems = (state) => state.item.trendingItems;
 export const selectUserRating = (state) => state.item.userRating;
 export const selectLoading = (state) => state.item.loading;
 export const selectError = (state) => state.item.error;

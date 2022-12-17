@@ -1,11 +1,11 @@
 import '../../styles/Profile.css'
 
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-// import NewAuction from './ProfileFunctions(NotNeeded)';
 import ProfilePopover from './ProfilePopover';
 import bidsBG from '../../assets/img/ProfileWavesBG.png';
+import EditProfileModal from './EditProfileModal';
 
 import { FiMail, FiSettings } from 'react-icons/fi'
 import { ImHammer2 } from 'react-icons/im'
@@ -35,25 +35,32 @@ import {
   TabList,
   Tab,
   TabPanels,
-  TabPanel
+  TabPanel,
+  MenuItem,
+  MenuList,
+  MenuButton,
+  Menu
 } from '@chakra-ui/react';
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { FaPlus } from 'react-icons/fa'
 
 import { getUserProfile, getProfileActiveItems, getProfileStandByItems, getProfileSoldItems, getProfileWonItems, getProfileEngagedItems, getProfileFavoriteItems, getProfileRatingItems } from '../../store/actions/profileActions'
 import ProfileItems from './ProfileItems';
+import { IoEllipsisVertical } from 'react-icons/io5';
+import { selectUserProfile } from '../../store/features/profileSlicer';
 
 export default function Profile() {
   const dispatch = useDispatch()
 
-  const { user } = useSelector(state => state.auth)
+  const { id } = useParams();
+
   const { userProfile, activeItems, standByItems, soldItems, wonItems, engagedItems, favoriteItems, rating } = useSelector(state => state.profile)
   
   useEffect(() => {
-    getUserProfile(dispatch)
-    getProfileRatingItems(dispatch)
-    getProfileActiveItems(dispatch)
-  }, [dispatch])
+    getUserProfile(dispatch, id)
+    getProfileRatingItems(dispatch, id)
+    getProfileActiveItems(dispatch, id)
+  }, [dispatch, id])
 
 
   return (
@@ -64,7 +71,7 @@ export default function Profile() {
 
           <HStack w='100%' h="100%" justify='center' spacing='1em'>
 
-            <Image src={userProfile && userProfile.image}
+            <Image src={userProfile.image}
               alt='profile image'
               boxSize='250px'
               objectFit='cover'
@@ -77,23 +84,23 @@ export default function Profile() {
 
             <VStack align="left" spacing="4">
 
-              <Text> {userProfile && userProfile.fullName}</Text>
-              <Text> {userProfile && userProfile.userName}</Text>
-              <Text> {userProfile && userProfile.email}</Text>
+              <Text> {userProfile.fullName}</Text>
+              <Text> {userProfile.userName}</Text>
+              <Text> {userProfile.email}</Text>
               
               <HStack >
                 <GiStarsStack />
-                <Text> Rating: {rating && rating.averageRating}</Text>
+                <Text> Rating: {rating.averageRating}</Text>
               </HStack>
 
               <HStack >
                 <BsFillCalendarCheckFill />
-                <Text>{`Joined in ${userProfile && userProfile.createdAt.slice(0, 10)}`}</Text>
+                <Text>{`Joined in ${userProfile.createdAt && userProfile.createdAt.slice(0, 10)}`}</Text>
               </HStack>
               
               <HStack >
                 <BsFillTelephoneFill />
-                <Text>+962 {userProfile && userProfile.phoneNumber.slice(1)}</Text>
+                <Text>+962 {userProfile.phoneNumber && userProfile.phoneNumber.slice(1)}</Text>
               </HStack>
 
             </VStack>
@@ -105,13 +112,37 @@ export default function Profile() {
                   // onClick={scrollDown} 
                   as={Button}>
                     <Text fontWeight="extrabold" fontSize="x-large" >
-                      {activeItems && activeItems.length}
+                      {activeItems.length}
                     </Text>
                     <Text>Active Auctions</Text>
                   </Box>
             </Container>
 
             <ProfilePopover />
+            <EditProfileModal user={userProfile} />
+
+            <Menu>
+                <MenuButton
+                  as={IconButton}
+                  aria-label="Options"
+                  icon={<IoEllipsisVertical />}
+                  variant="none"
+                  size="lg"
+                  alignSelf="center"
+                />
+                <MenuList
+                  bg="gray.200"
+                  color="gray.700"
+                  fontSize="sm"
+                  fontWeight="normal"
+                  borderRadius="lg"
+                  shadow="lg"
+                >
+
+            {/* <MenuItem as={EditProfileModal} user={userProfile} /> */}
+            </MenuList>
+
+            </Menu>
           
         </Flex>
 
@@ -123,12 +154,12 @@ export default function Profile() {
 
         <TabList>
           <Tab>Create a New Auction</Tab>
-          <Tab onClick={() => getProfileActiveItems(dispatch)}><ImHammer2 />Active Items</Tab>
-          <Tab onClick={() => getProfileStandByItems(dispatch)}><MdSell /> Standby Items</Tab>
-          <Tab onClick={() => getProfileSoldItems(dispatch)}>Sold Items</Tab>
-          <Tab onClick={() => getProfileWonItems(dispatch)}>Won Items</Tab>
-          <Tab onClick={() => getProfileEngagedItems(dispatch)}>Engaged Items</Tab>
-          <Tab onClick={() => getProfileFavoriteItems(dispatch)}>Favorite Items</Tab>
+          <Tab onClick={() => getProfileActiveItems(dispatch, id)}><ImHammer2 />Active Items</Tab>
+          <Tab onClick={() => getProfileStandByItems(dispatch, id)}><MdSell /> Standby Items</Tab>
+          <Tab onClick={() => getProfileSoldItems(dispatch, id)}>Sold Items</Tab>
+          <Tab onClick={() => getProfileWonItems(dispatch, id)}>Won Items</Tab>
+          <Tab onClick={() => getProfileEngagedItems(dispatch, id)}>Engaged Items</Tab>
+          <Tab onClick={() => getProfileFavoriteItems(dispatch, id)}>Favorite Items</Tab>
         </TabList>
 
             

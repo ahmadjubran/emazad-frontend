@@ -102,12 +102,12 @@ function ProfileActiveItems({ items }) {
 
 
 
-          <Flex w="100%" mt="4" alignItems="center" justifyContent="space-between" gap="4">
+          {/* <Flex w="100%" mt="4" alignItems="center" justifyContent="space-between" gap="4">
             {renderTimeLeft("days")}
             {renderTimeLeft("hours")}
             {renderTimeLeft("minutes")}
             {renderTimeLeft("seconds")}
-          </Flex>
+          </Flex> */}
 
           <Flex w="100%" mt="4" alignItems="center" justifyContent="space-between" gap="4" h="75px">
             <Box
