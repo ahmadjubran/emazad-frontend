@@ -1,4 +1,4 @@
-import { Box, Button, Container, Flex, Heading, HStack, Image, Tag, Text, VStack } from "@chakra-ui/react";
+import { Badge, Box, Button, Container, Flex, Heading, Image, Text } from "@chakra-ui/react";
 import "fontsource-inter/500.css";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -6,9 +6,9 @@ import { Link } from "react-router-dom";
 import "../../../App.css";
 import { addBid } from "../../../store/actions/bidActions";
 import { timeLeft } from "../../../store/actions/generalActions";
-import { getItem } from "../../../store/actions/itemActions";
-import { getTrendingItems } from "../../../store/actions/itemActions";
+import { getItem, getTrendingItems } from "../../../store/actions/itemActions";
 import { selectTrendingItems } from "../../../store/features/itemSlicer";
+import Title from "../../Title";
 import ChakraCarousel from "./ChakraCarousel";
 
 function SliderCom() {
@@ -53,13 +53,11 @@ function SliderCom() {
 
   return (
     <Container maxW="100%" px="24" m="0" bg="gray.100">
-      <Heading as="h2" size="lg" mb="4" mx="auto" textAlign="center">
-        Trending
-      </Heading>
+      <Title>Trending</Title>
       <ChakraCarousel gap={32}>
-        {trendingItems.slice(0, 11).map((post, index) => (
+        {trendingItems.slice(0, 11).map((item) => (
           <Flex
-            key={index}
+            key={item.id}
             boxShadow="md"
             border="1px solid"
             borderColor="gray.300"
@@ -73,16 +71,16 @@ function SliderCom() {
             flex={1}
           >
             <Box w="full" h="20rem" bg="gray.300">
-              <Link to={`/item/${post.id}`} style={{ width: "100%" }} onClick={() => getItem(dispatch, post.id)}>
+              <Link to={`/item/${item.id}`} style={{ width: "100%" }} onClick={() => getItem(dispatch, item.id)}>
                 <Image
                   src={
-                    post.itemImage[0].startsWith("http")
-                      ? post.itemImage[0]
-                      : `${process.env.REACT_APP_HEROKU_API_KEY}/${post.itemImage[0].split("/").pop()}`
+                    item.itemImage[0].startsWith("http")
+                      ? item.itemImage[0]
+                      : `${process.env.REACT_APP_HEROKU_API_KEY}/${item.itemImage[0].split("/").pop()}`
                   }
                   alt="carousel"
                   objectFit={
-                    post.itemImage && post.itemImage.width > post.itemImage && post.itemImage.height
+                    item.itemImage && item.itemImage.width > item.itemImage && item.itemImage.height
                       ? "cover"
                       : "contain"
                   }
@@ -91,15 +89,36 @@ function SliderCom() {
                 />
               </Link>
             </Box>
-            <Heading as="h3" size="md" textAlign="center" p="4">
-              {post.itemTitle}
-            </Heading>
+            <Flex alignItems="center" justifyContent="space-between" w="100%" mt="4" px="4">
+              <Box w="100%" h="100%">
+                <Heading as="h3" fontWeight="bold" textTransform="capitalize" lineHeight="1" fontSize="lg">
+                  {item.itemTitle}
+                  <Badge
+                    ml="1"
+                    fontSize="sm"
+                    colorScheme={item.itemCondition === "New" ? "green" : "yellow"}
+                    p="1"
+                    borderRadius="xl"
+                  >
+                    {item.itemCondition}
+                  </Badge>
+                </Heading>
+                <Text fontSize="xs" color="gray.500" textTransform="uppercase">
+                  {item.category} - {item.subCategory}
+                </Text>
+                <Text fontSize="sm" mt="2">
+                  {item.itemDescription.length > 100
+                    ? item.itemDescription.slice(0, 100) + "..."
+                    : item.itemDescription}
+                </Text>
+              </Box>
+            </Flex>
             <Box>
               <Flex w="100%" alignItems="center" justifyContent="space-between" gap="4" p="4">
-                {renderTimeLeft(post, "days")}
-                {renderTimeLeft(post, "hours")}
-                {renderTimeLeft(post, "minutes")}
-                {renderTimeLeft(post, "seconds")}
+                {renderTimeLeft(item, "days")}
+                {renderTimeLeft(item, "hours")}
+                {renderTimeLeft(item, "minutes")}
+                {renderTimeLeft(item, "seconds")}
               </Flex>
               <Flex w="100%" alignItems="center" justifyContent="space-between" gap="4" h="75px" px="4" mb="4">
                 <Box
@@ -114,10 +133,10 @@ function SliderCom() {
                   borderRadius="lg"
                 >
                   <Text fontSize="md" color="gray.500">
-                    {post.latestBid !== 0 ? "Current Bid" : "Starting Bid"}
+                    {item.latestBid !== 0 ? "Current Bid" : "Starting Bid"}
                   </Text>
                   <Text fontSize="xl" fontWeight="bold">
-                    {post.latestBid !== 0 ? post.latestBid : post.initialPrice}$
+                    {item.latestBid !== 0 ? item.latestBid : item.initialPrice}$
                   </Text>
                 </Box>
                 <Button
@@ -129,10 +148,10 @@ function SliderCom() {
                   onClick={() =>
                     addBid(
                       dispatch,
-                      post.id,
-                      post.latestBid !== 0
-                        ? Math.ceil(post.latestBid + post.initialPrice * 0.01)
-                        : Math.ceil(post.initialPrice + post.initialPrice * 0.01)
+                      item.id,
+                      item.latestBid !== 0
+                        ? Math.ceil(item.latestBid + item.initialPrice * 0.01)
+                        : Math.ceil(item.initialPrice + item.initialPrice * 0.01)
                     )
                   }
                 >
@@ -141,9 +160,9 @@ function SliderCom() {
                       Bid Now
                     </Text>
                     <Text fontSize="xl" fontWeight="bold">
-                      {post.latestBid !== 0
-                        ? Math.ceil(post.latestBid + post.initialPrice * 0.01)
-                        : Math.ceil(post.initialPrice + post.initialPrice * 0.01)}
+                      {item.latestBid !== 0
+                        ? Math.ceil(item.latestBid + item.initialPrice * 0.01)
+                        : Math.ceil(item.initialPrice + item.initialPrice * 0.01)}
                       $
                     </Text>
                   </Flex>

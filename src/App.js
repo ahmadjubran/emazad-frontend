@@ -24,7 +24,6 @@ import NewsLetter from "./components/main/Subscribe";
 import RegisterBanner from "./components/main/RegisterAd";
 
 function App() {
-
   return (
     <BrowserRouter>
       <header className="header">
