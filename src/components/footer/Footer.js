@@ -1,9 +1,12 @@
-import React from "react";
 
 export default function Footer() {
+
+  function openLink (link) {
+    window.open(link, "_blank");
+  };
+
   return (
     <>
-
       <footer className="relative bg-blueGray-200 pt-8 pb-6 mt-20" >
 
         <div
@@ -25,9 +28,9 @@ export default function Footer() {
         <div className="container mx-auto px-4">
           <div className="flex flex-wrap text-center lg:text-left">
             <div className="w-full lg:w-6/12 px-4">
-              <h4 className="text-3xl font-semibold">Let's keep in touch!</h4>
+              <h4 className="text-3xl font-semibold" style={{color:'#51b8c4', cursor:'pointer'}}  onClick={() => openLink('https://emazad.netlify.app/')}  >e<span style={{color:'#1f5469'}}>Mazad</span> </h4>
               <h5 className="text-lg mt-0 mb-2 text-blueGray-600">
-                Find us on any of these platforms, we respond 1-2 business days.
+              Online auctions platform: Where every penny matters.
               </h5>
               <div className="mt-6 lg:mb-0 mb-6">
                 <button
@@ -50,9 +53,9 @@ export default function Footer() {
                 </button>
                 <button
                   className="bg-white text-blueGray-800 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
-                  type="button"
+                  type="button" onClick={() => openLink("https://github.com/Bid-Hammers")}
                 >
-                  <i className="fab fa-github"></i>
+                  <i className="fab fa-github" ></i>
                 </button>
               </div>
             </div>
@@ -64,7 +67,7 @@ export default function Footer() {
                     <li>
                       <a
                         className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                        href="https://www.creative-tim.com/presentation?ref=nr-footer"
+                        href="https://emazad.netlify.app/about"
                       >
                         About Us
                       </a>
@@ -72,15 +75,15 @@ export default function Footer() {
                     <li>
                       <a
                         className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                        href="https://blog.creative-tim.com?ref=nr-footer"
+                        href="https://emazad.netlify.app/FAQ"
                       >
-                        Blog
+                        FAQ
                       </a>
                     </li>
                     <li>
                       <a
                         className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                        href="https://www.github.com/creativetimofficial?ref=nr-footer"
+                        href="https://github.com/Bid-Hammers"
                       >
                         Github
                       </a>
@@ -93,15 +96,15 @@ export default function Footer() {
                     <li>
                       <a
                         className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                        href="https://creative-tim.com/terms?ref=nr-footer"
+                        href="https://emazad.netlify.app/tos"
                       >
-                        Terms & Conditions
+                        Terms of Service
                       </a>
                     </li>
                     <li>
                       <a
                         className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                        href="https://creative-tim.com/contact-us?ref=nr-footer"
+                        href="https://emazad.netlify.app/contact"
                       >
                         Contact Us
                       </a>
@@ -115,14 +118,7 @@ export default function Footer() {
           <div className="flex flex-wrap items-center md:justify-between justify-center">
             <div className="w-full md:w-4/12 px-4 mx-auto text-center">
               <div className="text-sm text-blueGray-500 font-semibold py-1">
-                Copyright © {new Date().getFullYear()} Notus React by{" "}
-                <a
-                  href="https://www.creative-tim.com?ref=nr-footer"
-                  className="text-blueGray-500 hover:text-blueGray-800"
-                >
-                  Creative Tim
-                </a>
-                .
+                Copyright © {new Date().getFullYear()} Designed by eMazad Team.
               </div>
             </div>
           </div>

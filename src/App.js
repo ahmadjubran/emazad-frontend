@@ -21,6 +21,7 @@ import Contact from "./components/Contact";
 import Footer from "./components/footer/Footer";
 import Admin from "./components/admin/Admin";
 import Subscribe from "./components/main/Subscribe";
+import RegisterBanner from "./components/main/RegisterAd";
 
 import { useSelector } from "react-redux";
 
@@ -34,7 +35,6 @@ function App() {
       </header>
 
       <Routes>
-        {/* <div className="profile-container"> */}
         <Route
           exact
           path="/"
@@ -75,8 +75,9 @@ function App() {
 
         <Route exact path="/admin" element={<Admin />} />
       </Routes>
-
-      <Subscribe />
+      
+      <RegisterBanner />
+      <NewsLetter />
       <Footer />
 
     </BrowserRouter >

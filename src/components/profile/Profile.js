@@ -56,11 +56,13 @@ export default function Profile() {
   }, [dispatch])
 
 
+
   return (
 
     <div className='' >
         <VStack w='100%' h="100%" boxShadow={'xl'}> 
         <Flex direction='row' align='left' justify='center' w='100%' h="100%" mt="2em" mb="2em"> 
+
 
           <HStack w='100%' h="100%" justify='center' spacing='1em'>
 
