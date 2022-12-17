@@ -3,6 +3,7 @@ import authReducer from "./features/authSlicer";
 import itemReducer from "./features/itemSlicer";
 import trendingReducer from "./features/trendingSlicer";
 import adminReducer from "./features/adminSlicer";
+import profileReducer from "./features/profileSlicer";
 
 export const store = configureStore({
   reducer: {
@@ -10,5 +11,6 @@ export const store = configureStore({
     item: itemReducer,
     trending: trendingReducer,
     admin: adminReducer,
+    profile: profileReducer,
   },
 });

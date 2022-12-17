@@ -46,6 +46,7 @@ function EditItem({ item }) {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    console.log(e.target.itemTitle)
     const imageURL = await uploadItemImage();
     console.log(imageURL);
     editItem(dispatch, e, imageURL, userId, item.id, item.itemImage);

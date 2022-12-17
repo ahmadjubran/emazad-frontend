@@ -12,7 +12,6 @@ import Hero from "./components/main/hero/Hero";
 import Profile from "./components/profile/Profile";
 import SliderCom from "./components/main/trending/SliderCom";
 import AddItem from "./components/item/AddItem";
-// import { useSelector } from "react-redux";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import About from "./components/About";
@@ -22,7 +21,9 @@ import Contact from "./components/Contact";
 import Footer from "./components/footer/Footer";
 import Admin from "./components/admin/Admin";
 import Subscribe from "./components/main/Subscribe";
-import EditItem from "./components/item/EditItem";
+
+import { useSelector } from "react-redux";
+
 function App() {
   // const isAuth = useSelector((state) => state.auth.isAuth);
 
@@ -46,7 +47,7 @@ function App() {
           }
         />
         {/* <Hero /> */}
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/profile/:id" element={<Profile />} />
         {/* <Profile /> */}
         {/* <Route exact path="/categories" element={<Categories />} />
         <Route exact path="/categories/item" element={<ListOfItems />} /> */}
