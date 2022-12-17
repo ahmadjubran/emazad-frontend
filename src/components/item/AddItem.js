@@ -23,6 +23,7 @@ import { addItem } from "../../store/actions/itemActions";
 import { FaDollarSign } from "react-icons/fa";
 
 import { validateImage, uploadItemImage } from "../../store/actions/itemActions";
+import { Link } from "react-router-dom";
 
 function AddItem() {
   const dispatch = useDispatch();
@@ -49,7 +50,9 @@ function AddItem() {
   }
 
   return (
+   
     <Flex direction={{ base: "column", md: "row" }} justify="center" align="center" w="100%" h="70vh">
+    
       <VStack
         w="100%"
         h="100%"
@@ -59,6 +62,9 @@ function AddItem() {
         bgPosition="center"
         bgRepeat="no-repeat"
       >
+        <Link to={`/profile/${userId}`}>
+           <Button>Back to Profile</Button>
+        </Link>
         <Heading textStyle="h1" mb="1em">
           Create Item
         </Heading>
@@ -161,6 +167,8 @@ function AddItem() {
         </form>
       </VStack>
     </Flex>
+ 
+
   );
 }
 

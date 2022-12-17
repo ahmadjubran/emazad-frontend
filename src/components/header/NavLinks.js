@@ -25,6 +25,7 @@ export default function NavLinks() {
   const [isLessThan768] = useMediaQuery("(max-width: 768px)");
   const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
   const isAuth = useSelector((state) => state.auth.isAuth);
+  const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
   
   return (
@@ -70,7 +71,7 @@ export default function NavLinks() {
                       <PopoverArrow />
                       <PopoverBody>
                         <Stack>
-                          <Link to="/profile" >
+                          <Link to={`/profile/${user.id}`} >
                             <Button
                               w="194px"
                               variant="ghost"
@@ -128,7 +129,7 @@ export default function NavLinks() {
           {isAuth ? (
             <>
               <ListItem>
-                <Link to="/profile">Profile</Link>
+                <Link to={`/profile/${user.id}`}>Profile</Link>
               </ListItem>
 
               <ListItem>

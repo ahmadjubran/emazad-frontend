@@ -116,11 +116,14 @@ export const editItem = (dispatch, payload, imageURL, userId, id, itemImage) => 
     userId: userId,
   };
 
+  console.log(data);
+
   try {
     dispatch(ItemRequest());
     axios
       .put(`${process.env.REACT_APP_HEROKU_API_KEY}/item/${id}`, data)
       .then((res) => {
+        console.log(res.data);
         dispatch(updateItemSuccess(res.data));
       })
       .catch((err) => {
