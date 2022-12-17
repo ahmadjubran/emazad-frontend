@@ -11,7 +11,6 @@ import Hero from "./components/main/Hero";
 import Profile from "./components/profile/Profile";
 import SliderCom from "./components/main/trending/SliderCom";
 import AddItem from "./components/item/AddItem";
-// import { useSelector } from "react-redux";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import About from "./components/About";
@@ -20,8 +19,10 @@ import "./assets/styles/tailwind.css";
 import Contact from "./components/Contact";
 import Footer from "./components/footer/Footer";
 import Admin from "./components/admin/Admin";
-import Subscribe from "./components/main/Subscribe";
 import Header from "./components/header/Header";
+import NewsLetter from "./components/main/Subscribe";
+import RegisterBanner from "./components/main/RegisterAd";
+
 function App() {
   // const isAuth = useSelector((state) => state.auth.isAuth);
 
@@ -32,7 +33,6 @@ function App() {
       </header>
 
       <Routes>
-        {/* <div className="profile-container"> */}
         <Route
           exact
           path="/"
@@ -45,7 +45,7 @@ function App() {
           }
         />
         {/* <Hero /> */}
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/profile/:id" element={<Profile />} />
         {/* <Profile /> */}
         {/* <Route exact path="/categories" element={<Categories />} />
         <Route exact path="/categories/item" element={<ListOfItems />} /> */}
@@ -74,7 +74,8 @@ function App() {
         <Route exact path="/admin" element={<Admin />} />
       </Routes>
 
-      <Subscribe />
+      <RegisterBanner />
+      <NewsLetter />
       <Footer />
     </BrowserRouter>
   );

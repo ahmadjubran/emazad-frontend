@@ -51,6 +51,7 @@ export const itemSlice = createSlice({
     updateItemSuccess: (state, action) => {
       state.loading = false;
       state.items = state.items.map((item) => (item.id === action.payload.id ? action.payload : item));
+      state.item = action.payload;
     },
 
     addCommentSuccess: (state, action) => {
