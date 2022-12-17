@@ -1,149 +1,159 @@
-import React, { useEffect } from "react";
+import { Box, Button, Container, Flex, Heading, HStack, Image, Tag, Text, VStack } from "@chakra-ui/react";
 import "fontsource-inter/500.css";
-import { getTrend } from "../../../store/actions/trendindAction";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import "../../../App.css";
-import Title from "../../Title";
-import { Heading, Button, VStack, HStack, Text, Flex, Tag, Image, Box } from "@chakra-ui/react";
-
+import { addBid } from "../../../store/actions/bidActions";
+import { timeLeft } from "../../../store/actions/generalActions";
+import { getItem } from "../../../store/actions/itemActions";
+import { getTrendingItems } from "../../../store/actions/itemActions";
+import { selectTrendingItems } from "../../../store/features/itemSlicer";
 import ChakraCarousel from "./ChakraCarousel";
 
 function SliderCom() {
   const dispatch = useDispatch();
-  const trendingItems = useSelector((state) => state.trending);
-  useEffect(() => {
-    getTrend(dispatch);
-  }, [dispatch]);
+  const trendingItems = useSelector(selectTrendingItems);
+  const [countdown, setCountdown] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
-  const timeDown = (time) => {
-    const now = new Date().getTime();
-    const distance = new Date(time).getTime() - now;
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-    return `${days}d ${hours}h ${minutes}m ${seconds}s`;
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCountdown(timeLeft);
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [countdown]);
+
+  const renderTimeLeft = (item, time) => {
+    return (
+      <Box
+        w="100%"
+        h="100%"
+        p="2"
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        flexDir="column"
+        border="1px solid"
+        borderColor="gray.300"
+        borderRadius="lg"
+      >
+        <Text fontSize="md" color="gray.500">
+          {time === "days" ? "Days" : time === "hours" ? "Hours" : time === "minutes" ? "Minutes" : "Seconds"}
+        </Text>
+        <Text fontSize="xl" fontWeight="bold">
+          {timeLeft(item)[time]}
+        </Text>
+      </Box>
+    );
   };
 
+  useEffect(() => {
+    getTrendingItems(dispatch);
+  }, [dispatch]);
+
   return (
-    <div className="container">
-      <Title> Trending </Title>
+    <Container maxW="100%" px="24" m="0" bg="gray.100">
+      <Heading as="h2" size="lg" mb="4" mx="auto" textAlign="center">
+        Trending
+      </Heading>
       <ChakraCarousel gap={32}>
-        {trendingItems.trendItems.slice(0, 11).map((post, index) => (
+        {trendingItems.slice(0, 11).map((post, index) => (
           <Flex
             key={index}
-            boxShadow="rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px"
+            boxShadow="md"
+            border="1px solid"
+            borderColor="gray.300"
             justifyContent="space-between"
             flexDirection="column"
+            bg="gray.200"
+            borderRadius="lg"
+            w="full"
+            h="full"
             overflow="hidden"
-            color="gray.300"
-            bg="base.d100"
-            rounded={5}
             flex={1}
-            // p={5}
-            _hover={{
-              cursor: "pointer",
-            }}
           >
-            <VStack mb={6}>
-              {/* <Heading
-                                fontSize={{ base: "xl", md: "2xl" }}
-                                textAlign="left"
-                                w="full"
-                                mb={2}
-                            >
-                                {post.itemTitle}
-                            </Heading> */}
-              <Box w="full" h="full" rounded={5} overflow="hidden" p={0} mb={2}>
-                {/* <Image
-                  src="https://source.unsplash.com/800x450/?electronics"
-                  alt="itemImage"
-                  objectFit={"cover"}
-                  objectPosition={"center"}
-                  w="full"
-                  _hover={{
-                    transform: "scale(1.1) rotate(6deg)",
-                    transition: "all 0.3s ease-in-out",
-                  }}
-                /> */}
-
+            <Box w="full" h="20rem" bg="gray.300">
+              <Link to={`/item/${post.id}`} style={{ width: "100%" }} onClick={() => getItem(dispatch, post.id)}>
                 <Image
                   src={
                     post.itemImage[0].startsWith("http")
                       ? post.itemImage[0]
                       : `${process.env.REACT_APP_HEROKU_API_KEY}/${post.itemImage[0].split("/").pop()}`
                   }
-                  alt="itemImage"
-                  objectFit={"cover"}
-                  objectPosition={"center"}
+                  alt="carousel"
+                  objectFit={
+                    post.itemImage && post.itemImage.width > post.itemImage && post.itemImage.height
+                      ? "cover"
+                      : "contain"
+                  }
                   w="full"
-                  _hover={{
-                    transform: "scale(1.1) rotate(6deg)",
-                    transition: "all 0.3s ease-in-out",
-                  }}
+                  h="full"
                 />
-              </Box>
-              <Text fontSize={{ base: "sm", md: "md" }} textAlign="left" w="full" ps={5}>
-                {post.itemDescription}
-              </Text>
-            </VStack>
-            <HStack justifyContent="space-between" w="full" ps={5}>
-              <HStack>
-                <Tag size="sm" variant="solid" colorScheme="blue">
-                  Initial Price : {post.initialPrice}
-                </Tag>
-                <Tag size="sm" variant="solid" colorScheme="blue">
-                  Latest Bid {post.latestBid}
-                </Tag>
-              </HStack>
-            </HStack>
-            {new Date(post.endDate).getTime() > new Date().getTime() ? (
-              <HStack justifyContent="space-between" w="full" ps={5} pb={5} pe={5}>
-                <HStack>
-                  <Tag size="sm" variant="solid" colorScheme="blue">
-                    Time Left : {timeDown(post.endDate)}
-                  </Tag>
-                </HStack>
-                <Button size="sm" variant="outline" colorScheme="blue">
-                  Bid Now
+              </Link>
+            </Box>
+            <Heading as="h3" size="md" textAlign="center" p="4">
+              {post.itemTitle}
+            </Heading>
+            <Box>
+              <Flex w="100%" alignItems="center" justifyContent="space-between" gap="4" p="4">
+                {renderTimeLeft(post, "days")}
+                {renderTimeLeft(post, "hours")}
+                {renderTimeLeft(post, "minutes")}
+                {renderTimeLeft(post, "seconds")}
+              </Flex>
+              <Flex w="100%" alignItems="center" justifyContent="space-between" gap="4" h="75px" px="4" mb="4">
+                <Box
+                  w="100%"
+                  h="100%"
+                  p="2"
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="center"
+                  flexDir="column"
+                  bg="gray.300"
+                  borderRadius="lg"
+                >
+                  <Text fontSize="md" color="gray.500">
+                    {post.latestBid !== 0 ? "Current Bid" : "Starting Bid"}
+                  </Text>
+                  <Text fontSize="xl" fontWeight="bold">
+                    {post.latestBid !== 0 ? post.latestBid : post.initialPrice}$
+                  </Text>
+                </Box>
+                <Button
+                  w="100%"
+                  h="100%"
+                  colorScheme="teal"
+                  variant="outline"
+                  boxShadow="md"
+                  onClick={() =>
+                    addBid(
+                      dispatch,
+                      post.id,
+                      post.latestBid !== 0
+                        ? Math.ceil(post.latestBid + post.initialPrice * 0.01)
+                        : Math.ceil(post.initialPrice + post.initialPrice * 0.01)
+                    )
+                  }
+                >
+                  <Flex alignItems="center" justifyContent="center" w="100%" h="100%" flexDir="column">
+                    <Text fontSize="md" color="gray.500" mb="2">
+                      Bid Now
+                    </Text>
+                    <Text fontSize="xl" fontWeight="bold">
+                      {post.latestBid !== 0
+                        ? Math.ceil(post.latestBid + post.initialPrice * 0.01)
+                        : Math.ceil(post.initialPrice + post.initialPrice * 0.01)}
+                      $
+                    </Text>
+                  </Flex>
                 </Button>
-              </HStack>
-            ) : (
-              <HStack justifyContent="space-between" w="full" ps={5} pb={5} pe={5}>
-                <HStack>
-                  <Tag size="sm" variant="solid" colorScheme="blue">
-                    Time Left : 0d 0h 0m 0s
-                  </Tag>
-                </HStack>
-                <Button size="sm" variant="outline" colorScheme="blue">
-                  The Bid is Over
-                </Button>
-              </HStack>
-            )}
-
-            {/* <HStack justifyContent="space-between" w="full" ps={5} pb={5} pe={5}>
-                            <HStack>
-                                <Tag
-                                    size="sm"
-                                    variant="solid"
-                                    colorScheme="blue"
-                                >
-                                    Time Left : {timeDown(post.endDate)}
-                                </Tag>
-                            </HStack>
-                            <Button
-                                size="sm"
-                                variant="outline"
-                                colorScheme="blue"
-                            >
-                                Bid Now
-                            </Button>
-                        </HStack>
- */}
+              </Flex>
+            </Box>
           </Flex>
         ))}
       </ChakraCarousel>
-    </div>
+    </Container>
   );
 }
 

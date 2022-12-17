@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { addBid } from "../../store/actions/bidActions";
+import { timeLeft } from "../../store/actions/generalActions";
 import { getItem } from "../../store/actions/itemActions";
 import { selectUser } from "../../store/features/authSlicer";
 import { selectItems } from "../../store/features/itemSlicer";
@@ -13,19 +14,6 @@ export default function ItemsList() {
   const user = useSelector(selectUser);
 
   const [countdown, setCountdown] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-
-  const timeLeft = (item) => {
-    const now = new Date().getTime();
-    const end = new Date(item.endDate).getTime();
-    const distance = end - now;
-
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-    return { days, hours, minutes, seconds };
-  };
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -79,13 +67,9 @@ export default function ItemsList() {
                     addBid(
                       dispatch,
                       item.id,
-                      addBid(
-                        dispatch,
-                        item.id,
-                        item.latestBid !== 0
-                          ? Math.ceil(item.latestBid + item.initialPrice * 0.01)
-                          : Math.ceil(item.initialPrice + item.initialPrice * 0.01)
-                      )
+                      item.latestBid !== 0
+                        ? Math.ceil(item.latestBid + item.initialPrice * 0.01)
+                        : Math.ceil(item.initialPrice + item.initialPrice * 0.01)
                     )
                   }
                   disabled={user === null}

@@ -32,7 +32,7 @@ function Admin() {
                         justifyContent='space-evenly'
                         gap='5'
                     >
-                        <Image src={user.image} alt="admin" borderRadius='full' boxSize='100px' />
+                        <Image src={user.image} alt="admin" borderRadius='full' boxsize='100px' />
                         <Text as="h1" size="xl">Admin : {user.fullName}</Text>
                     </Flex>
 
