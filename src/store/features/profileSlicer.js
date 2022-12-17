@@ -3,14 +3,14 @@ import { createSlice } from "@reduxjs/toolkit";
 export const profileSlice = createSlice({
   name: "profile",
   initialState: {
-    userProfile: null,
+    userProfile: {},
     activeItems: [],
     standByItems: [],
     soldItems: [],
     wonItems: [],
     engagedItems: [],
     favoriteItems: [],
-    rating: null,
+    rating: {},
     loading: false,
     error: null,
   },
@@ -63,6 +63,11 @@ export const profileSlice = createSlice({
       state.loading = false;
       state.rating = action.payload;
     },
+
+    updateProfileSuccess: (state, action) => {
+      state.loading = false;
+      state.userProfile = action.payload;
+    },
   },
 });
 
@@ -77,6 +82,18 @@ export const {
   getRatingSuccess,
   getProfileItemsRequest,
   getProfileItemsFail,
+  updateProfileSuccess,
 } = profileSlice.actions;
+
+export const selectUserProfile = (state) => state.profile.userProfile;
+export const selectActiveItems = (state) => state.profile.activeItems;
+export const selectStandByItems = (state) => state.profile.standByItems;
+export const selectSoldItems = (state) => state.profile.soldItems;
+export const selectWonItems = (state) => state.profile.wonItems;
+export const selectEngagedItems = (state) => state.profile.engagedItems;
+export const selectFavoriteItems = (state) => state.profile.favoriteItems;
+export const selectRating = (state) => state.profile.rating;
+export const selectProfileLoading = (state) => state.profile.loading;
+export const selectProfileError = (state) => state.profile.error;
 
 export default profileSlice.reducer;

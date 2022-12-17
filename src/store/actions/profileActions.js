@@ -11,14 +11,11 @@ import {
   getRatingSuccess,
   getProfileItemsRequest,
   getProfileItemsFail,
+  updateProfileSuccess,
 } from "../features/profileSlicer";
 
-export const getUserProfile = async (dispatch, payload) => {
+export const getUserProfile = async (dispatch, id) => {
     dispatch(getProfileItemsRequest());
-
-    const url = window.location.href;
-    const urlArray = url.split("/");
-    const id = urlArray[urlArray.length - 1];
 
     try {
         axios
@@ -38,12 +35,8 @@ export const getUserProfile = async (dispatch, payload) => {
     }
 };
 
-export const getProfileActiveItems = (dispatch, payload) => {
+export const getProfileActiveItems = (dispatch, id) => {
     dispatch(getProfileItemsRequest());
-
-    const url = window.location.href;
-    const urlArray = url.split("/");
-    const id = urlArray[urlArray.length - 1];
 
     try {
         axios
@@ -63,12 +56,8 @@ export const getProfileActiveItems = (dispatch, payload) => {
     }
 };
 
-export const getProfileStandByItems = (dispatch, payload) => {
+export const getProfileStandByItems = (dispatch, id) => {
     dispatch(getProfileItemsRequest());
-
-    const url = window.location.href;
-    const urlArray = url.split("/");
-    const id = urlArray[urlArray.length - 1];
 
     try {
         axios
@@ -88,12 +77,8 @@ export const getProfileStandByItems = (dispatch, payload) => {
     }
 };
 
-export const getProfileSoldItems = (dispatch, payload) => {
+export const getProfileSoldItems = (dispatch, id) => {
     dispatch(getProfileItemsRequest());
-
-    const url = window.location.href;
-    const urlArray = url.split("/");
-    const id = urlArray[urlArray.length - 1];
 
     try {
         axios
@@ -113,12 +98,8 @@ export const getProfileSoldItems = (dispatch, payload) => {
     }
 };
 
-export const getProfileWonItems = (dispatch, payload) => {
+export const getProfileWonItems = (dispatch, id) => {
     dispatch(getProfileItemsRequest());
-
-    const url = window.location.href;
-    const urlArray = url.split("/");
-    const id = urlArray[urlArray.length - 1];
 
     try {
         axios
@@ -138,12 +119,8 @@ export const getProfileWonItems = (dispatch, payload) => {
     }
 };
 
-export const getProfileEngagedItems = (dispatch, payload) => {
+export const getProfileEngagedItems = (dispatch, id) => {
     dispatch(getProfileItemsRequest());
-
-    const url = window.location.href;
-    const urlArray = url.split("/");
-    const id = urlArray[urlArray.length - 1];
 
     try {
         axios
@@ -163,12 +140,8 @@ export const getProfileEngagedItems = (dispatch, payload) => {
     }
 };
 
-export const getProfileFavoriteItems = (dispatch, payload) => {
+export const getProfileFavoriteItems = (dispatch, id) => {
     dispatch(getProfileItemsRequest());
-
-    const url = window.location.href;
-    const urlArray = url.split("/");
-    const id = urlArray[urlArray.length - 1];
 
     try {
         axios
@@ -188,12 +161,8 @@ export const getProfileFavoriteItems = (dispatch, payload) => {
     }
 };
 
-export const getProfileRatingItems = (dispatch, payload) => {
+export const getProfileRatingItems = (dispatch, id) => {
     dispatch(getProfileItemsRequest());
-
-    const url = window.location.href;
-    const urlArray = url.split("/");
-    const id = urlArray[urlArray.length - 1];
 
     try {
         axios
@@ -212,4 +181,46 @@ export const getProfileRatingItems = (dispatch, payload) => {
         dispatch(getProfileItemsFail(error.response.data));
     }
 };
+
+export const updateProfile = (dispatch, payload, imageURL, userId, userImage, toast) => {
+    dispatch(getProfileItemsRequest());
+
+    const data = {
+        userName: payload.target.userName.value,
+        fullName: payload.target.fullName.value,
+        email: payload.target.email.value,
+        phoneNumber: payload.target.phoneNumber.value,
+        gender: payload.target.gender.value,
+        birthDate: payload.target.birthDate.value,
+        image: imageURL ? imageURL : userImage
+    }
+
+    try {
+        axios
+        .put(`${process.env.REACT_APP_HEROKU_API_KEY}/profile/${userId}`, data, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+            }
+        })
+        .then((res) => {
+            console.log(res.data)
+            dispatch(updateProfileSuccess(res.data));
+            toast({
+                title: 'Profile Updated',
+                description: "Profile updated successfully!",
+                status: 'success',
+                duration: 5000,
+                isClosable: true,
+              })
+        })
+        .catch((err) => {
+            dispatch(getProfileItemsFail(err.response.data));
+        });
+    } catch (error) {
+        dispatch(getProfileItemsFail(error.response.data));
+    }
+};
+
+
+
 
