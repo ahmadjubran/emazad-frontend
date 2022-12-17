@@ -1,7 +1,8 @@
 import { Box, Flex, Heading, Image, Spacer, Text, VStack } from "@chakra-ui/react";
 import React from "react";
+import { showTime } from "../../store/actions/generalActions";
 
-export default function LastBids({ item, showTime }) {
+export default function LastBids({ item }) {
   return (
     <Box w="100%" border="1px" borderColor="gray.300" borderRadius="2xl" boxShadow="md" bg="gray.200" pt="4">
       <Heading

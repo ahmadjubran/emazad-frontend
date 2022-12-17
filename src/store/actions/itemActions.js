@@ -5,6 +5,7 @@ import {
   deleteItemSuccess,
   getItemsSuccess,
   getItemSuccess,
+  getTrendingItemsSuccess,
   getUserRatingSuccess,
   ItemFail,
   ItemRequest,
@@ -59,6 +60,23 @@ export const getItem = (dispatch, id) => {
           .catch((err) => {
             dispatch(ItemFail(err));
           });
+      })
+      .catch((err) => {
+        dispatch(ItemFail(err));
+      });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const getTrendingItems = (dispatch) => {
+  try {
+    dispatch(ItemRequest());
+
+    axios
+      .get(`${process.env.REACT_APP_HEROKU_API_KEY}/trending`)
+      .then((res) => {
+        dispatch(getTrendingItemsSuccess(res.data));
       })
       .catch((err) => {
         dispatch(ItemFail(err));
