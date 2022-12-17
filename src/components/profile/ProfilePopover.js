@@ -5,7 +5,6 @@ import {
 import { BsThreeDotsVertical, BsChatSquareQuote } from 'react-icons/bs';
 import { MdOutlineFavorite, MdReportProblem } from 'react-icons/md';
 import { FiSettings } from 'react-icons/fi';
-import '../../styles/Profile.css'
 
 export default function ProfilePopover() {
 
