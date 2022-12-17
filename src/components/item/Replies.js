@@ -5,8 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteReply } from "../../store/actions/replyActions";
 import { selectUser } from "../../store/features/authSlicer";
 import EditReply from "./EditReply";
+import { showTime } from "../../store/actions/generalActions";
 
-export default function Replies({ comment, showTime }) {
+export default function Replies({ comment }) {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
 

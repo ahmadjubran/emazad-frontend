@@ -7,8 +7,7 @@ import Verification from "./components/auth/Verification";
 import Categories from "./components/Categories";
 import Items from "./components/item/Items";
 import Item from "./components/item/Item";
-import NavBar from "./components/header/NavBar";
-import Hero from "./components/main/hero/Hero";
+import Hero from "./components/main/Hero";
 import Profile from "./components/profile/Profile";
 import SliderCom from "./components/main/trending/SliderCom";
 import AddItem from "./components/item/AddItem";
@@ -20,18 +19,15 @@ import "./assets/styles/tailwind.css";
 import Contact from "./components/Contact";
 import Footer from "./components/footer/Footer";
 import Admin from "./components/admin/Admin";
+import Header from "./components/header/Header";
 import NewsLetter from "./components/main/Subscribe";
 import RegisterBanner from "./components/main/RegisterAd";
 
-import { useSelector } from "react-redux";
-
 function App() {
-  // const isAuth = useSelector((state) => state.auth.isAuth);
-
   return (
     <BrowserRouter>
       <header className="header">
-        <NavBar />
+        <Header />
       </header>
 
       <Routes>
@@ -75,13 +71,11 @@ function App() {
 
         <Route exact path="/admin" element={<Admin />} />
       </Routes>
-      
+
       <RegisterBanner />
       <NewsLetter />
       <Footer />
-
-    </BrowserRouter >
-
+    </BrowserRouter>
   );
 }
 

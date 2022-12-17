@@ -10,56 +10,85 @@ import {
     createIcon,
   } from '@chakra-ui/react';
   
+  import {useRef} from 'react';
+  import emailjs from "@emailjs/browser";
+
   export default function NewsLetter() {
+    const containerBG = useColorModeValue('gray.50', 'gray.800');
+    const boxBG = useColorModeValue('white', 'gray.700');
+    const headingColor = useColorModeValue('gray.800', 'gray.200');
+    const inputColor = useColorModeValue('gray.800', 'gray.200');
+    const inputBG = useColorModeValue('gray.100', 'gray.600');
+    const form = useRef();
+
+    function sendEmail(e) {
+      e.preventDefault();
+      emailjs.sendForm("service_xq50kw5","template_ui2hs4l", form.current, 'IX5VyXcqhp-pd31y4')
+      .then((result) => {
+            console.log(result.text);
+        }, (error) => {
+            console.log(error.text);
+        });
+        e.target.reset();
+    }
+       
+
     return (
       <Flex
         align={'center'}
         justify={'center'}
         py={8}
-        bg={useColorModeValue('gray.50', 'gray.800')}>
+        bg={containerBG}>
         <Stack
           boxShadow={'2xl'}
-          bg={useColorModeValue('white', 'gray.700')}
+          bg={boxBG}
           rounded={'xl'}
           p={6}
           spacing={3}
-          align={'center'}>
-          <Icon as={NotificationIcon} w={20} h={20} />
+          align={'center'}
+          w={'75%'}
+          >
           <Stack align={'center'} spacing={2}>
+          <Icon as={NotificationIcon} w={20} h={20} />
             <Heading
               textTransform={'uppercase'}
               fontSize={'2xl'}
-              color={useColorModeValue('gray.800', 'gray.200')}>
+              color={headingColor}>
               Subscribe
             </Heading>
             <Text fontSize={'lg'} color={'gray.500'}>
               Subscribe to our newsletter & stay up to date!
             </Text>
           </Stack>
-          <Stack spacing={4} direction={{ base: 'column', md: 'row' }} w={'full'}>
+          <Stack  direction={{ base: 'column', md: 'row' }}  w={'50%'}>
+            <form ref={form} onSubmit={sendEmail} style={{display:'flex', justifyContent:'center',  padding: 0,
+    margin: 0, width:'100%'} }> 
             <Input
+              name= {"user_email"}
               type={'text'}
+              id="email"
               placeholder={'example@example.com'}
-              color={useColorModeValue('gray.800', 'gray.200')}
-              bg={useColorModeValue('gray.100', 'gray.600')}
+              color={inputColor}
+              bg={inputBG}
               rounded={'full'}
               border={0}
               _focus={{
-                bg: useColorModeValue('gray.200', 'gray.800'),
+                bg: inputBG,
                 outline: 'none',
               }}
             />
             <Button
+              type={'submit'}
               bg={'mediumBlue.300'}
               rounded={'full'}
               color={'white'}
               flex={'1 0 auto'}
               _hover={{ bg: 'darkBlue.200' }}
               _focus={{ bg: 'darkBlue.200' }}
-              
               >
               Subscribe
             </Button>
+            </form>
           </Stack>
         </Stack>
       </Flex>
