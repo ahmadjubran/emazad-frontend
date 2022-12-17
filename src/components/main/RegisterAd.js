@@ -19,7 +19,7 @@ export default function RegisterAd() {
   };
 
   return (
-    <Container maxW={'8xl'} maxH={'30rem'} bg={'rgb(31,84,105)'} 
+    <Container maxW={'75%'} maxH={'30rem'} bg={'rgb(31,84,105)'} 
     bgGradient='linear-gradient(90deg, rgba(31,84,105,1) 0%, rgba(24,119,140,1) 35%, rgba(105,235,250,1) 100%)'
     my={'24px'}
     borderRadius={'5px'}
