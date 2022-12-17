@@ -10,7 +10,7 @@ import {
     createIcon,
   } from '@chakra-ui/react';
   
-  export default function CardWithIllustration() {
+  export default function NewsLetter() {
     return (
       <Flex
         align={'center'}
@@ -55,7 +55,9 @@ import {
               color={'white'}
               flex={'1 0 auto'}
               _hover={{ bg: 'darkBlue.200' }}
-              _focus={{ bg: 'darkBlue.200' }}>
+              _focus={{ bg: 'darkBlue.200' }}
+              
+              >
               Subscribe
             </Button>
           </Stack>
