@@ -20,7 +20,6 @@ import {
   IoEllipsisVertical,
   IoHeart,
   IoHeartOutline,
-  IoPencil,
   IoStar,
   IoStarHalf,
   IoStarOutline,

@@ -18,13 +18,11 @@ import { Link } from "react-router-dom";
 import { addBid } from "../../store/actions/bidActions";
 import { timeLeft } from "../../store/actions/generalActions";
 import { getItem, getItems } from "../../store/actions/itemActions";
-import { selectUser } from "../../store/features/authSlicer";
 import { selectItems } from "../../store/features/itemSlicer";
 
 export default function ItemsList() {
   const dispatch = useDispatch();
   const items = useSelector(selectItems);
-  const user = useSelector(selectUser);
   const [category, setCategory] = useState(localStorage.getItem("category"));
   const [subCategory, setSubCategory] = useState(localStorage.getItem("subCategory"));
   const [statusStyle, setStatusStyle] = useState("active");
@@ -115,9 +113,10 @@ export default function ItemsList() {
             }}
             cursor="pointer"
           >
-            {category}
+            {category === null ? "All" : category}
           </Text>{" "}
-          {subCategory === "All" ? null : <IoArrowForward />} {subCategory === "All" ? null : subCategory}
+          {subCategory === "All" ? null : subCategory === null ? null : <IoArrowForward />}
+          {subCategory === "All" ? null : subCategory === null ? null : subCategory}
         </Flex>
         <Spacer />
         {renderStatus("active")}

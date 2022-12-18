@@ -1,4 +1,4 @@
-import { Badge, Box, Button, Flex, Grid, Heading, HStack, Image, Text, VStack } from "@chakra-ui/react";
+import { Badge, Box, Button, Flex, Grid, Heading, Image, Text } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -89,8 +89,8 @@ function ProfileActiveItems({ items }) {
               </Box>
             </Flex>
 
-            <Text fontSize="md" whiteSpace="pre-line" mt="4" wordBreak="break-word" noOfLines={2}>
-            {item.itemDescription}
+            <Text fontSize="sm" mt="2" noOfLines={2} wordBreak="break-word" whiteSpace="pre-wrap">
+              {item.itemDescription}
             </Text>
 
             <Flex w="100%" alignItems="center" justifyContent="space-between" gap="4" p="4">
@@ -108,81 +108,27 @@ function ProfileActiveItems({ items }) {
                 display="flex"
                 alignItems="center"
                 justifyContent="center"
-                gap="2"
-                >
+                flexDir="column"
+                bg="gray.200"
+                borderRadius="lg"
+              >
+                <Text fontSize="md" color="gray.500">
+                  {item.latestBid !== 0 ? "Current Bid" : "Starting Bid"}
+                </Text>
 
-            <Box w="100%" h="100%">
+                <Text fontSize="xl" fontWeight="bold">
+                  {item.latestBid !== 0 ? item.latestBid : item.initialPrice}$
+                </Text>
+              </Box>
 
-              <Image 
-              src={item.itemImage[0]} 
-              borderRadius="lg" 
-              alt={item.itemTitle}
-              w="100%"
-              objectFit="cover"
-              h="250px"
-              mb= "1em"
-              />
-
-              <Heading fontSize="xl" fontWeight="bold" textTransform="capitalize">
-                {item.itemTitle}
-                <Badge ml="1" fontSize="sm" colorScheme={item.itemCondition === "New" ? "green" : "yellow"} p="1" borderRadius="xl">
-                  {item.itemCondition}
-                </Badge>
-              </Heading>
-
-              <Text fontSize="xs" color="gray.500" textTransform="uppercase" mt="2">
-                {item.category} - {item.subCategory}
-              </Text>
-              
-            </Box>
-
-          </Flex>
-
-          <Text fontSize="md" whiteSpace="pre-line" mt="4">
-            {item.itemDescription}
-          </Text>
-
-
-
-          {/* <Flex w="100%" mt="4" alignItems="center" justifyContent="space-between" gap="4">
-            {renderTimeLeft("days")}
-            {renderTimeLeft("hours")}
-            {renderTimeLeft("minutes")}
-            {renderTimeLeft("seconds")}
-          </Flex> */}
-
-          <Flex w="100%" mt="4" alignItems="center" justifyContent="space-between" gap="4" h="75px">
-            <Box
-              w="100%"
-              h="100%"
-              p="2"
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              flexDir="column"
-              bg="gray.200"
-              borderRadius="lg"
-            >
-
-              <Text fontSize="md" color="gray.500">
-                {item.latestBid !== 0 ? "Current Bid" : "Starting Bid"}
-              </Text>
-
-              <Text fontSize="xl" fontWeight="bold">
-                {item.latestBid !== 0 ? item.latestBid : item.initialPrice}$
-              </Text>
-
-            </Box>
-
-            <Box h="100%" bg="gray.200" borderRadius="lg">
-              <Link to={`/item/${item.id}`} >
-                <Button h='100%' w="100%" variant="primary">View Item Page to Bid</Button>
-              </Link>
-            </Box>
-
-
-
-          </Flex>
+              <Box h="100%" bg="gray.200" borderRadius="lg">
+                <Link to={`/item/${item.id}`}>
+                  <Button h="100%" w="100%" variant="primary">
+                    View Item Page to Bid
+                  </Button>
+                </Link>
+              </Box>
+            </Flex>
           </Box>
         ))
       ) : (
