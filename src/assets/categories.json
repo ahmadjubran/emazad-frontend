@@ -2,6 +2,7 @@
   "categories": [
     {
       "name": "electronics",
+      "display": "Electronics",
       "image": "https://source.unsplash.com/800x450/?electronics",
       "subcategories": [
         "All",
@@ -21,6 +22,7 @@
     },
     {
       "name": "clothes",
+      "display": "Clothes",
       "image": "https://source.unsplash.com/800x450/?clothes",
       "subcategories": [
         "All",
@@ -43,6 +45,7 @@
     },
     {
       "name": "vehicles",
+      "display": "Vehicles",
       "image": "https://source.unsplash.com/800x450/?vehicles",
       "subcategories": [
         "All",
@@ -67,6 +70,7 @@
     },
     {
       "name": "pets",
+      "display": "Pets",
       "image": "https://source.unsplash.com/800x450/?pets",
       "subcategories": [
         "All",
@@ -84,6 +88,7 @@
     },
     {
       "name": "realestate",
+      "display": "Real Estate",
       "image": "https://source.unsplash.com/800x450/?realestate",
       "subcategories": [
         "All",
@@ -103,6 +108,7 @@
     },
     {
       "name": "others",
+      "display": "Others",
       "image": "https://source.unsplash.com/800x450/?others",
       "subcategories": [
         "All",

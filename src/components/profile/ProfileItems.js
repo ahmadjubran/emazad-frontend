@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 function ProfileActiveItems({ items }) {
-
   const [countdown, setCountdown] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
   const timeLeft = (item) => {
@@ -26,7 +25,7 @@ function ProfileActiveItems({ items }) {
     return () => clearInterval(interval);
   }, [countdown]);
 
-  const renderTimeLeft = (time) => {
+  const renderTimeLeft = (item, time) => {
     return (
       <Box
         w="100%"
@@ -37,33 +36,76 @@ function ProfileActiveItems({ items }) {
         justifyContent="center"
         flexDir="column"
         border="1px solid"
-        borderColor="gray.200"
+        borderColor="gray.300"
         borderRadius="lg"
       >
         <Text fontSize="md" color="gray.500">
           {time === "days" ? "Days" : time === "hours" ? "Hours" : time === "minutes" ? "Minutes" : "Seconds"}
         </Text>
         <Text fontSize="xl" fontWeight="bold">
-          {timeLeft(items.length > 0 ? (items.map(item => item)): null )[time]}
+          {timeLeft(item)[time]}
         </Text>
       </Box>
     );
   };
 
   return (
-    <Grid templateColumns={{ base: "repeat(1, 1fr)", md: "repeat(2, 1fr)", lg: "repeat(3, 1fr)", xl: "repeat(4, 1fr)" }} gap={6} m="10">
-
+    <Grid
+      templateColumns={{ base: "repeat(1, 1fr)", md: "repeat(2, 1fr)", lg: "repeat(3, 1fr)", xl: "repeat(4, 1fr)" }}
+      gap={6}
+      m="10"
+    >
       {items.length > 0 ? (
         items.map((item) => (
+          <Box key={item.id} boxShadow="lg" borderRadius="lg" p="5">
+            <Flex alignItems="center" justifyContent="center" gap="2">
+              <Box w="100%" h="100%">
+                <Image
+                  src={item.itemImage[0]}
+                  borderRadius="lg"
+                  alt={item.itemTitle}
+                  w="100%"
+                  objectFit="cover"
+                  h="250px"
+                  mb="1em"
+                />
 
-          <Box key={item.id}
-          boxShadow="lg"
-          borderRadius="lg"
-          p="5"
-          >
-   
-            <Flex 
+                <Heading fontSize="xl" fontWeight="bold" textTransform="capitalize">
+                  {item.itemTitle}
+                  <Badge
+                    ml="1"
+                    fontSize="sm"
+                    colorScheme={item.itemCondition === "New" ? "green" : "yellow"}
+                    p="1"
+                    borderRadius="xl"
+                  >
+                    {item.itemCondition}
+                  </Badge>
+                </Heading>
 
+                <Text fontSize="xs" color="gray.500" textTransform="uppercase" mt="2">
+                  {item.category} - {item.subCategory}
+                </Text>
+              </Box>
+            </Flex>
+
+            <Text fontSize="md" whiteSpace="pre-line" mt="4" wordBreak="break-word" noOfLines={2}>
+            {item.itemDescription}
+            </Text>
+
+            <Flex w="100%" alignItems="center" justifyContent="space-between" gap="4" p="4">
+              {renderTimeLeft(item, "days")}
+              {renderTimeLeft(item, "hours")}
+              {renderTimeLeft(item, "minutes")}
+              {renderTimeLeft(item, "seconds")}
+            </Flex>
+
+            <Flex w="100%" mt="4" alignItems="center" justifyContent="space-between" gap="4" h="75px">
+              <Box
+                w="100%"
+                h="100%"
+                p="2"
+                display="flex"
                 alignItems="center"
                 justifyContent="center"
                 gap="2"
@@ -141,15 +183,12 @@ function ProfileActiveItems({ items }) {
 
 
           </Flex>
-
           </Box>
         ))
       ) : (
         <p>No items</p>
       )}
-      
-        </Grid>
-
+    </Grid>
   );
 }
 

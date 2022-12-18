@@ -112,6 +112,7 @@ export default function Item() {
     );
   };
 
+  // const EditItem = React.forwardRef((props, ref) => <EditItem {...props} innerRef={ref} />);
   return (
     <VStack w="100%" h="100%" bg="gray.100" p="4" spacing="4">
       <Flex
@@ -212,7 +213,7 @@ export default function Item() {
             </Box>
           </Flex>
 
-          <Text fontSize="md" whiteSpace="pre-line" mt="4">
+          <Text fontSize="md" whiteSpace="pre-line" mt="4" wordBreak="break-word">
             {item.itemDescription}
           </Text>
 

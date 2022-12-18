@@ -18,7 +18,11 @@ export default function Nav() {
         p={2}
         _hover={{ bg: "gray.100" }}
         textTransform="capitalize"
-        onClick={() => setCurrentTab(tab)}
+        onClick={() => {
+          setCurrentTab(tab);
+          localStorage.removeItem("category");
+          localStorage.removeItem("subCategory");
+        }}
       >
         <Link to={`/${tab === "home" ? "" : tab}`}>{tab === "categories" ? "auctions" : tab}</Link>
       </ListItem>
