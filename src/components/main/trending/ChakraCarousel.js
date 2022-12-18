@@ -168,7 +168,7 @@ const Slider = ({
         {children}
       </Box>
 
-      <Flex w={`${itemWidth}px`} mt={`${gap / 2}px`} mx="auto" mb={5}>
+      <Flex w={`${itemWidth}px`} mx="auto" p="4">
         <Button
           onClick={handleDecrementClick}
           onFocus={handleFocus}

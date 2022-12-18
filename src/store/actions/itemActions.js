@@ -23,7 +23,7 @@ export const getItems = (dispatch, status, category, subCategory) => {
     } else if (status && !category && !subCategory) {
       url = `${process.env.REACT_APP_HEROKU_API_KEY}/items/${status}`;
     } else if (status && category && !subCategory) {
-      url = `${process.env.REACT_APP_HEROKU_API_KEY}/items/${status}/${category}`;
+      url = `${process.env.REACT_APP_HEROKU_API_KEY}/items/${status}/${category === "All" ? "" : category}`;
     } else if (status && category && subCategory) {
       url = `${process.env.REACT_APP_HEROKU_API_KEY}/items/${status}/${category}/${
         subCategory === "All" ? "" : subCategory
@@ -167,7 +167,6 @@ export const deleteItem = (dispatch, payload) => {
 
 let image = [];
 export const validateImage = (payload, toast) => {
-
   image = [];
   const files = Array.from(payload.target.files);
 
@@ -180,10 +179,8 @@ export const validateImage = (payload, toast) => {
       isClosable: true,
       position: "top",
     });
-
   } else {
     for (let i = 0; i < files.length; i++) {
-
       if (files[i].size > 1048576) {
         return toast({
           title: "Error Uploading Images",

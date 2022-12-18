@@ -18,6 +18,8 @@ function Categories() {
             <Link
               to={`/items`}
               onClick={() => {
+                localStorage.setItem("category", category.name);
+                localStorage.setItem("subCategory", "All");
                 getItems(dispatch, "active", category.name);
               }}
             >
@@ -41,7 +43,7 @@ function Categories() {
                   fontWeight="bold"
                   textTransform="capitalize"
                 >
-                  {category.name}
+                  {category.display}
                 </Center>
               </Box>
             </Link>

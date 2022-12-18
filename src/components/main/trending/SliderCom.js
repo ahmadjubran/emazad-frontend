@@ -52,7 +52,7 @@ function SliderCom() {
   }, [dispatch]);
 
   return (
-    <Container maxW="100%" px="24" m="0" bg="gray.100">
+    <Container maxW="100%" px="24" m="0" important bg="gray.100">
       <Title>Trending</Title>
       <ChakraCarousel gap={32}>
         {trendingItems.slice(0, 11).map((item) => (
@@ -89,37 +89,33 @@ function SliderCom() {
                 />
               </Link>
             </Box>
-            <Flex alignItems="center" justifyContent="space-between" w="100%" mt="4" px="4">
-              <Box w="100%" h="100%">
-                <Heading as="h3" fontWeight="bold" textTransform="capitalize" lineHeight="1" fontSize="lg">
-                  {item.itemTitle}
-                  <Badge
-                    ml="1"
-                    fontSize="sm"
-                    colorScheme={item.itemCondition === "New" ? "green" : "yellow"}
-                    p="1"
-                    borderRadius="xl"
-                  >
-                    {item.itemCondition}
-                  </Badge>
-                </Heading>
-                <Text fontSize="xs" color="gray.500" textTransform="uppercase">
-                  {item.category} - {item.subCategory}
-                </Text>
-                <Text fontSize="sm" mt="2">
-                  {item.itemDescription.length > 100
-                    ? item.itemDescription.slice(0, 100) + "..."
-                    : item.itemDescription}
-                </Text>
-              </Box>
+            <Flex justifyContent="space-between" w="100%" mt="4" px="4" flexDir="column">
+              <Heading as="h3" fontWeight="bold" textTransform="capitalize" lineHeight="1" fontSize="lg">
+                {item.itemTitle}
+                <Badge
+                  ml="1"
+                  fontSize="sm"
+                  colorScheme={item.itemCondition === "New" ? "green" : "yellow"}
+                  p="1"
+                  borderRadius="xl"
+                >
+                  {item.itemCondition}
+                </Badge>
+              </Heading>
+              <Text fontSize="xs" color="gray.500" textTransform="uppercase">
+                {item.category} - {item.subCategory}
+              </Text>
+              <Text fontSize="sm" mt="2" noOfLines={2} wordBreak="break-word" whiteSpace="pre-wrap">
+                {item.itemDescription}
+              </Text>
+            </Flex>
+            <Flex w="100%" alignItems="center" justifyContent="space-between" gap="4" p="4">
+              {renderTimeLeft(item, "days")}
+              {renderTimeLeft(item, "hours")}
+              {renderTimeLeft(item, "minutes")}
+              {renderTimeLeft(item, "seconds")}
             </Flex>
             <Box>
-              <Flex w="100%" alignItems="center" justifyContent="space-between" gap="4" p="4">
-                {renderTimeLeft(item, "days")}
-                {renderTimeLeft(item, "hours")}
-                {renderTimeLeft(item, "minutes")}
-                {renderTimeLeft(item, "seconds")}
-              </Flex>
               <Flex w="100%" alignItems="center" justifyContent="space-between" gap="4" h="75px" px="4" mb="4">
                 <Box
                   w="100%"
