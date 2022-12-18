@@ -1,17 +1,4 @@
-import {
-  Box,
-  Button,
-  Flex,
-  Link,
-  ListItem,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
-  Text,
-  UnorderedList,
-  useMediaQuery,
-} from "@chakra-ui/react";
+import { Box, Flex, Link, ListItem, Text, UnorderedList } from "@chakra-ui/react";
 import React, { useState } from "react";
 import {
   IoCarSportOutline,
@@ -22,7 +9,6 @@ import {
   IoPhonePortraitOutline,
   IoShirtOutline,
 } from "react-icons/io5";
-import { MdMenu } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import categories from "../../assets/categories.json";
 import { getItems } from "../../store/actions/itemActions";
@@ -93,8 +79,8 @@ export default function Filter() {
         boxShadow="md"
         onClick={() => {
           getItems(dispatch, "active");
-          localStorage.setItem("category", "All");
-          localStorage.setItem("subCategory", "All");
+          localStorage.removeItem("category");
+          localStorage.removeItem("subCategory");
         }}
         cursor="pointer"
       >
