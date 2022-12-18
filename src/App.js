@@ -18,8 +18,10 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import "./assets/styles/tailwind.css";
 import Contact from "./components/Contact";
 import Footer from "./components/footer/Footer";
-import Admin from "./components/admin/Admin";
-
+import AdminItems from "./components/admin/Items";
+import ReportItems from "./components/admin/ReportItems";
+import UserBlocked from "./components/admin/UserBlocked";
+import Dashboard from "./components/admin/Dashboard"
 function App() {
   // const isAuth = useSelector((state) => state.auth.isAuth);
 
@@ -30,24 +32,25 @@ function App() {
       </header>
 
       <Routes>
-        {/* <div className="profile-container"> */}
-        <Route
-          exact
-          path="/"
-          element={
-            <>
-              <Hero />
-              <SliderCom />
-              <Categories />
-            </>
-          }
-        />
-        {/* <Hero /> */}
-        <Route path="/profile" element={<Profile />} />
-        {/* <Profile /> */}
-        {/* <Route exact path="/categories" element={<Categories />} />
+        <div className="profile-container">
+          <Route
+            exact
+            path="/"
+            element={
+              <>
+                <Hero />
+                <SliderCom />
+                <Categories />
+              </>
+            }
+          />
+          <Hero />
+          <Route path="/profile" element={<Profile />} />
+
+          {/* <Profile /> */}
+          {/* <Route exact path="/categories" element={<Categories />} />
         <Route exact path="/categories/item" element={<ListOfItems />} /> */}
-        {/* </div> */}
+        </div>
         <Route path="/categories" element={<Categories />} />
 
         <Route path="/items" element={<Items />} />
@@ -66,7 +69,12 @@ function App() {
 
         <Route path="/signup" element={<Signup />} />
 
-        <Route exact path="/admin" element={<Admin />} />
+        <Route exact path="/admin" element={<Dashboard />} />
+        <Route exact path="/admin/dashboard" element={<Dashboard />} />
+        <Route exact path="/admin/activeitems" element={<AdminItems />} />
+        <Route exact path="/admin/solditems" element={<AdminItems />} />
+        <Route exact path="/admin/reportitems" element={<ReportItems />} />
+        <Route exact path="/admin/userBlocked" element={<UserBlocked />} />
       </Routes>
       {/* <Footer /> */}
 

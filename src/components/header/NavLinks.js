@@ -15,84 +15,84 @@ export default function NavLinks() {
   return (
     <>
       {isLargerThan768 && (
-        
-          <UnorderedList display="flex" listStyleType="none" gap="20px" alignItems="center">
-            <ListItem>
-              <Link to="/">Home</Link>
-            </ListItem>
 
-            <ListItem>
-              <Link to="/contact">Contact Us</Link>
-            </ListItem>
+        <UnorderedList display="flex" listStyleType="none" gap="20px" alignItems="center">
+          <ListItem>
+            <Link to="/">Home</Link>
+          </ListItem>
 
-            <ListItem>
-              <Link to="/about">About</Link>
-            </ListItem>
+          <ListItem>
+            <Link to="/contact">Contact Us</Link>
+          </ListItem>
 
-            <ListItem>
-              <Link to="/categories">Auctions</Link>
-            </ListItem>
+          <ListItem>
+            <Link to="/about">About</Link>
+          </ListItem>
 
-            {isAuth ? (
-              <>
-                <ListItem>
-                  <Link to="/profile">Profile</Link>
-                </ListItem>
+          <ListItem>
+            <Link to="/categories">Auctions</Link>
+          </ListItem>
 
-                <ListItem>
-                  <Norifications />
-                </ListItem>
-              </>
-            ) : (
+          {isAuth ? (
+            <>
               <ListItem>
-                <Link to="/login">Login</Link>
+                <Link to="/profile">Profile</Link>
               </ListItem>
-            )}
 
-            {isAuth && <Button onClick={() => logout(dispatch)}>Logout</Button>}
-          </UnorderedList>
-          
+              <ListItem>
+                <Norifications />
+              </ListItem>
+            </>
+          ) : (
+            <ListItem>
+              <Link to="/login">Login</Link>
+            </ListItem>
+          )}
+
+          {isAuth && <Button onClick={() => logout(dispatch)}>Logout</Button>}
+        </UnorderedList>
+
       )}
 
       {isLessThan768 && (
-       
-          <UnorderedList display="flex" listStyleType="none" gap="20px" flexDirection="column" alignItems="center">
 
-            <ListItem>
-              <Link to="/">Home</Link>
-            </ListItem>
+        <UnorderedList display="flex" listStyleType="none" gap="20px" flexDirection="column" alignItems="center">
 
-            <ListItem>
-              <Link to="/contact">Contact Us</Link>
-            </ListItem>
+          <ListItem>
+            <Link to="/">Home</Link>
+          </ListItem>
 
-            <ListItem>
-              <Link to="/about">About</Link>
-            </ListItem>
+          <ListItem>
+            <Link to="/contact">Contact Us</Link>
+          </ListItem>
 
-            <ListItem>
-              <Link to="/categories">Auctions</Link>
-            </ListItem>
+          <ListItem>
+            <Link to="/about">About</Link>
+          </ListItem>
 
-            {isAuth ? (
-              <>
-                <ListItem>
-                  <Link to="/profile">Profile</Link>
-                </ListItem>
+          <ListItem>
+            <Link to="/categories">Auctions</Link>
+          </ListItem>
 
-                <ListItem>
-                  <Norifications />
-                </ListItem>
-              </>
-            ) : (
+          {isAuth ? (
+            <>
               <ListItem>
-                <Link to="/login">Login</Link>
+                <Link to="/profile">Profile</Link>
               </ListItem>
-            )}
 
-            {isAuth && <Button onClick={() => logout(dispatch)}>Logout</Button>}
-          </UnorderedList>
-      
+              <ListItem>
+                <Norifications />
+              </ListItem>
+            </>
+          ) : (
+            <ListItem>
+              <Link to="/login">Login</Link>
+            </ListItem>
+          )}
+
+          {isAuth && <Button onClick={() => logout(dispatch)}>Logout</Button>}
+        </UnorderedList>
+
       )}
     </>
   );
