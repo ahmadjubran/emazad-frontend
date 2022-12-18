@@ -4,11 +4,9 @@ import {
   Alert,
   AlertIcon,
   Button,
-  Flex,
   FormControl,
   FormHelperText,
   FormLabel,
-  Heading,
   Input,
   InputGroup,
   InputLeftElement,
@@ -19,15 +17,11 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
-  NumberDecrementStepper,
-  NumberIncrementStepper,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
   Select,
   Text,
   Textarea,
   useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
 import { FaDollarSign } from "react-icons/fa";
 import { IoPencil } from "react-icons/io5";
@@ -40,29 +34,26 @@ function EditItem({ item }) {
   const error = useSelector((state) => state.item.error);
   const loading = useSelector((state) => state.item.loading);
   const userId = useSelector((state) => state.auth.user.id);
-  const [newDate, setNewDate] = useState("");
 
   const dispatch = useDispatch();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [minEndDate, setMinEndDate] = useState();
+  const toast = useToast();
 
-  const date = new Date().toISOString().slice(0, 16);
+  function handleEndDate(e) {
+    setMinEndDate(e.target.value);
+  };
 
   async function handleSubmit(e) {
     e.preventDefault();
+    console.log(e.target.itemTitle)
     const imageURL = await uploadItemImage();
     console.log(imageURL);
-    // signup the user
     editItem(dispatch, e, imageURL, userId, item.id, item.itemImage);
   }
 
-  const newStartDate = (e) => {
-    e.preventDefault();
-    setNewDate(e.target.value);
-  };
-
   return (
     <>
-      {/* <Button onClick={onOpen}>Edit Item</Button> */}
       <Button onClick={onOpen} variant="none" size="sm" _hover={{ color: "blue.600" }}>
         {<IoPencil />}
         <span style={{ marginLeft: "0.6rem" }}>Edit Item</span>
@@ -101,7 +92,7 @@ function EditItem({ item }) {
                     multiple="multiple"
                     placeholder="itemImage"
                     variant="auth"
-                    onChange={(e) => validateImage(e)}
+                    onChange={(e) => validateImage(e, toast)}
                   />
                 </InputGroup>
                 <FormHelperText textAlign="left">you can upload up to 8 images.</FormHelperText>
@@ -147,14 +138,8 @@ function EditItem({ item }) {
 
               <FormControl mt={4} isRequired>
                 <InputGroup>
-                  <InputLeftElement pointerEvents="none" children={<FaDollarSign />} />
-                  <NumberInput bg="grey.100" name="initialPrice" defaultValue={item.initialPrice}>
-                    <NumberInputField pl="10" />
-                    <NumberInputStepper>
-                      <NumberIncrementStepper />
-                      <NumberDecrementStepper />
-                    </NumberInputStepper>
-                  </NumberInput>
+                <InputLeftElement children={<FaDollarSign />} />
+              <Input type="number" name="initialPrice" placeholder="initialPrice" variant="auth" defaultValue={item.initialPrice}/>
                 </InputGroup>
               </FormControl>
 
@@ -168,7 +153,7 @@ function EditItem({ item }) {
                     min={new Date().toISOString().slice(0, 16)}
                     variant="auth"
                     defaultValue={item.startDate && item.startDate.slice(0, 16)}
-                    onChange={(e) => newStartDate(e)}
+                    onChange={(e) => handleEndDate(e)}
                   />
                 </InputGroup>
               </FormControl>
@@ -180,7 +165,7 @@ function EditItem({ item }) {
                     type="datetime-local"
                     name="endDate"
                     placeholder="endDate"
-                    min={newDate}
+                    min={minEndDate}
                     variant="auth"
                     defaultValue={item.endDate && item.endDate.slice(0, 16)}
                   />
@@ -198,7 +183,7 @@ function EditItem({ item }) {
                 </Alert>
               )}
 
-              <Button variant="primary" type="submit" mr={3}>
+              <Button variant="primary" type="submit" mr={3} onClick={onClose}>
                 Save
               </Button>
               <Button onClick={onClose}>Cancel</Button>

@@ -1,15 +1,15 @@
+import Report from '../item/Report';
 import {
   Popover, PopoverTrigger, PopoverContent, PopoverArrow, PopoverBody, Button, Stack,
   IconButton, Modal, ModalOverlay, ModalContent, ModalCloseButton, ModalHeader, ModalBody, ModalFooter, Text, useDisclosure} from '@chakra-ui/react'
 import { BsThreeDotsVertical, BsChatSquareQuote } from 'react-icons/bs';
 import { MdOutlineFavorite, MdReportProblem } from 'react-icons/md';
 import { FiSettings } from 'react-icons/fi';
-import '../../styles/Profile.css'
 
 export default function ProfilePopover() {
 
   const { isOpen, onOpen, onClose } = useDisclosure()
-
+// the modal closes immediately after opening, to solve this, use 
   return (
     <Popover placement="bottom" isLazy >
       <PopoverTrigger>
@@ -46,7 +46,7 @@ export default function ProfilePopover() {
               Favorite Auctions
             </Button>
 
-            <Modal onClose={onClose} isOpen={isOpen} isCentered>
+            <Modal onClose={onClose} isOpen={isOpen} isCentered closeOnOverlayClick='false'>
               <ModalOverlay />
               <ModalContent>
                 <ModalHeader>Favorite Auctions</ModalHeader>
@@ -76,9 +76,11 @@ export default function ProfilePopover() {
               justifyContent="space-between"
               fontWeight="normal"
               colorScheme="red"
-              fontSize="sm">
+              fontSize="sm"
+              onClick={onOpen}>
               Report User
             </Button>
+<Report/>   
           </Stack>
         </PopoverBody>
       </PopoverContent>

@@ -15,13 +15,14 @@ import React, { useEffect, useState } from "react";
 import { IoEllipsisVertical, IoPencil, IoTrash } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteComment } from "../../store/actions/commentActions";
+import { showTime } from "../../store/actions/generalActions";
 import { selectUser } from "../../store/features/authSlicer";
 import AddComment from "./AddComment";
 import AddReply from "./AddReply";
 import EditComment from "./EditComment";
 import Replies from "./Replies";
 
-export default function Comments({ item, showTime }) {
+export default function Comments({ item }) {
   const dispatch = useDispatch();
   const [showComments, setShowComments] = useState(3);
   const [showMore, setShowMore] = useState(false);

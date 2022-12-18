@@ -56,7 +56,6 @@ function Signup() {
     e.preventDefault();
     const imageURL = await uploadUserImage();
     console.log(imageURL);
-    // signup the user
     signUp(dispatch, e, imageURL, toast);
   }
 

@@ -20,7 +20,6 @@ import {
   IoEllipsisVertical,
   IoHeart,
   IoHeartOutline,
-  IoPencil,
   IoStar,
   IoStarHalf,
   IoStarOutline,
@@ -30,6 +29,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { addBid } from "../../store/actions/bidActions";
 import { handleFavorite } from "../../store/actions/favoriteActions";
+import { showTime, timeLeft } from "../../store/actions/generalActions";
 import { deleteItem, getItem } from "../../store/actions/itemActions";
 import { handleRating } from "../../store/actions/ratingActions";
 import { selectUser } from "../../store/features/authSlicer";
@@ -48,47 +48,6 @@ export default function Item() {
   const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
 
   const [countdown, setCountdown] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-
-  const timeLeft = (item) => {
-    const now = new Date().getTime();
-    const end = new Date(item.endDate).getTime();
-    const distance = end - now;
-
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-    return { days, hours, minutes, seconds };
-  };
-
-  const showTime = (time) => {
-    const date = new Date(time);
-    const now = new Date();
-    const diff = now.getTime() - date.getTime();
-    const seconds = Math.floor(diff / 1000);
-    const minutes = Math.floor(seconds / 60);
-    const hours = Math.floor(minutes / 60);
-    const days = Math.floor(hours / 24);
-    const months = Math.floor(days / 30);
-    const years = Math.floor(months / 12);
-    if (seconds < 60) {
-      return "just now";
-    }
-    if (minutes < 60) {
-      return `${minutes} minutes ago`;
-    }
-    if (hours < 24) {
-      return `${hours} hours ago`;
-    }
-    if (days < 30) {
-      return `${days} days ago`;
-    }
-    if (months < 12) {
-      return `${months} months ago`;
-    }
-    return `${years} years ago`;
-  };
 
   useEffect(() => {
     getItem(dispatch, id);
@@ -152,6 +111,7 @@ export default function Item() {
     );
   };
 
+  // const EditItem = React.forwardRef((props, ref) => <EditItem {...props} innerRef={ref} />);
   return (
     <VStack w="100%" h="100%" bg="gray.100" p="4" spacing="4">
       <Flex
@@ -252,7 +212,7 @@ export default function Item() {
             </Box>
           </Flex>
 
-          <Text fontSize="md" whiteSpace="pre-line" mt="4">
+          <Text fontSize="md" whiteSpace="pre-line" mt="4" wordBreak="break-word">
             {item.itemDescription}
           </Text>
 
@@ -299,11 +259,17 @@ export default function Item() {
               }
               disabled={user === null}
             >
-              Bid Now{" "}
-              {item.latestBid !== 0
-                ? Math.ceil(item.latestBid + item.initialPrice * 0.01)
-                : Math.ceil(item.initialPrice + item.initialPrice * 0.01)}
-              $
+              <Flex alignItems="center" justifyContent="center" w="100%" h="100%" flexDir="column">
+                <Text fontSize="md" color="gray.500" mb="2">
+                  Bid Now
+                </Text>
+                <Text fontSize="xl" fontWeight="bold">
+                  {item.latestBid !== 0
+                    ? Math.ceil(item.latestBid + item.initialPrice * 0.01)
+                    : Math.ceil(item.initialPrice + item.initialPrice * 0.01)}
+                  $
+                </Text>
+              </Flex>
             </Button>
           </Flex>
         </Box>
@@ -319,20 +285,20 @@ export default function Item() {
       >
         {isLargerThan768 ? (
           <Box w={{ base: "100%", md: "60%" }}>
-            <Comments item={item} showTime={showTime} />
+            <Comments item={item} />
           </Box>
         ) : (
           <Box w={{ base: "100%", md: "40%" }}>
-            <LastBids item={item} showTime={showTime} />
+            <LastBids item={item} />
           </Box>
         )}
         {isLargerThan768 ? (
           <Box w={{ base: "100%", md: "40%" }}>
-            <LastBids item={item} showTime={showTime} />
+            <LastBids item={item} />
           </Box>
         ) : (
           <Box w={{ base: "100%", md: "60%" }}>
-            <Comments item={item} showTime={showTime} />
+            <Comments item={item} />
           </Box>
         )}
       </Flex>
