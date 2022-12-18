@@ -4,8 +4,7 @@ import subscribtion from '../../assets/img/subscribtion.jpg';
 export default class Subscribe extends Component {
     render() {
         return (
-        <div className="subscribe-line subscribe-line-image" style={{ backgroundImage: `url(${subscribtion})`
-    }}>
+        <div className="subscribe-line subscribe-line-image" >
             <div className="container">
             <div className="row">
                 <div className="col-md-6">
