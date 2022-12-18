@@ -52,6 +52,7 @@ export default function NavLinks() {
           {isAuth ? (
             <>
               <ListItem>
+
                 <Norifications />
               </ListItem>
               <HStack >
@@ -105,11 +106,13 @@ export default function NavLinks() {
             </ListItem>
           )}
         </UnorderedList>
+
       )}
 
       {isLessThan768 && (
 
         <UnorderedList display="flex" listStyleType="none" gap="20px" flexDirection="column" alignItems="center">
+
           <ListItem>
             <Link to="/">Home</Link>
           </ListItem>

@@ -1,0 +1,36 @@
+ {
+    "caption":{
+        "activeItem":[
+                    "Iteme",
+                    "Owner",
+                    "Last Bid",
+                    "End Date",
+                    " "
+                ],
+                "soldItem":[
+                    "Iteme",
+                    "Owner",
+                    "Last Bid",
+                    "winning Bid",
+                    "End Date",
+                    " "
+                ],
+                "reportItem":[
+                "iteme",
+               "condition",
+                "number of reporte",
+                "start date",
+                "end date",
+                " "
+                ],
+                "reportUser":[
+                "user",
+                "email",
+                "phone number",
+                " "
+                ]
+    }
+            
+
+}
+    

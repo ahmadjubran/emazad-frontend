@@ -16,12 +16,16 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./assets/styles/tailwind.css";
 import About from "./components/About";
-import Admin from "./components/admin/Admin";
 import Contact from "./components/Contact";
 import Footer from "./components/footer/Footer";
+import AdminItems from "./components/admin/Items";
+import ReportItems from "./components/admin/ReportItems";
+import UserBlocked from "./components/admin/UserBlocked";
+import Dashboard from "./components/admin/Dashboard"
 import Header from "./components/header/Header";
 import RegisterBanner from "./components/main/RegisterAd";
 import NewsLetter from "./components/main/Subscribe";
+
 
 function App() {
   return (
@@ -31,6 +35,7 @@ function App() {
       </header>
 
       <Routes>
+
         <Route
           exact
           path="/"
@@ -45,12 +50,8 @@ function App() {
             </>
           }
         />
-        {/* <Hero /> */}
+
         <Route path="/profile/:id" element={<Profile />} />
-        {/* <Profile /> */}
-        {/* <Route exact path="/categories" element={<Categories />} />
-        <Route exact path="/categories/item" element={<ListOfItems />} /> */}
-        {/* </div> */}
         <Route path="/categories" element={<Categories />} />
 
         <Route path="/items" element={<Items />} />
@@ -72,10 +73,15 @@ function App() {
 
         <Route path="/signup" element={<Signup />} />
 
-        <Route exact path="/admin" element={<Admin />} />
-      </Routes>
+        <Route exact path="/admin" element={<Dashboard />} />
+        <Route exact path="/admin/dashboard" element={<Dashboard />} />
+        <Route exact path="/admin/activeitems" element={<AdminItems />} />
+        <Route exact path="/admin/solditems" element={<AdminItems />} />
+        <Route exact path="/admin/reportitems" element={<ReportItems />} />
+        <Route exact path="/admin/userBlocked" element={<UserBlocked />} />
+      </Routes >
       <Footer />
-    </BrowserRouter>
+    </BrowserRouter >
   );
 }
 

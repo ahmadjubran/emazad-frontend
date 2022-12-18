@@ -39,6 +39,7 @@ import Comments from "./Comments";
 import EditItem from "./EditItem";
 import LastBids from "./LastBids";
 
+
 export default function Item() {
   const item = useSelector(selectItem);
   const dispatch = useDispatch();
@@ -126,6 +127,7 @@ export default function Item() {
         <Box w="100%" h="100%" p="4" display="flex" alignItems="center" justifyContent="center">
           <Carousel itemImages={item.itemImage} />
         </Box>
+
 
         <Box w="100%" h="100%" p="4" display="flex" alignItems="start" justifyContent="center" flexDir="column">
           <Flex alignItems="start" gap="4" w="100%" borderBottom="1px solid" borderColor="gray.200" pb="4" h="75px">
