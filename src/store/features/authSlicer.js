@@ -8,6 +8,7 @@ const initialState = {
   user: userInfo,
   loading: false,
   error: null,
+  previewImage: "https://res.cloudinary.com/skokash/image/upload/v1668203759/basdyzfjl3tmf4uqijxr.jpg",
 };
 
 export const authSlice = createSlice({
@@ -36,14 +37,18 @@ export const authSlice = createSlice({
 
     logoutSuccess: (state) => {
       state.isAuth = false;
-      state.user = {};
+      state.user = null;
       state.loading = false;
       state.error = null;
+    },
+
+    setPreviewImage: (state, action) => {
+      state.previewImage = action.payload;
     },
   },
 });
 
-export const { authRequest, authFail, signupSuccess, loginSuccess, logoutSuccess } = authSlice.actions;
+export const { authRequest, authFail, signupSuccess, loginSuccess, logoutSuccess, setPreviewImage } = authSlice.actions;
 
 export const selectIsAuth = (state) => state.auth.isAuth;
 export const selectUser = (state) => state.auth.user;

@@ -1,17 +1,4 @@
-import {
-  Box,
-  Button,
-  Flex,
-  Link,
-  ListItem,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
-  Text,
-  UnorderedList,
-  useMediaQuery,
-} from "@chakra-ui/react";
+import { Box, Flex, Link, ListItem, Text, UnorderedList } from "@chakra-ui/react";
 import React, { useState } from "react";
 import {
   IoCarSportOutline,
@@ -22,7 +9,6 @@ import {
   IoPhonePortraitOutline,
   IoShirtOutline,
 } from "react-icons/io5";
-import { MdMenu } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import categories from "../../assets/categories.json";
 import { getItems } from "../../store/actions/itemActions";
@@ -31,8 +17,6 @@ export default function Filter() {
   const dispatch = useDispatch();
   const [showSubcategories, setShowSubcategories] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState("");
-
-  const [isSmallerThan768] = useMediaQuery("(max-width: 768px)");
 
   const toggleSubcategories = (category) => {
     if (selectedCategory === category) {
@@ -53,18 +37,28 @@ export default function Filter() {
             fontWeight="bold"
             textTransform="capitalize"
             cursor="pointer"
-            onClick={() => toggleSubcategories(category.name)}
+            onClick={() => {
+              getItems(dispatch, "active", category.name, subcategory);
+              toggleSubcategories("");
+              localStorage.setItem("category", category.name);
+              localStorage.setItem("subCategory", subcategory);
+            }}
+            // onClick={() => toggleSubcategories(category.name)}
             position="relative"
-            borderBottom="1px solid #e2e8f0"
+            borderBottom="1px solid"
+            borderColor="gray.200"
             p="2"
-            _hover={{ bg: "#e2e8f0", color: "teal.500" }}
+            _hover={{ bg: "gray.100", color: "blue.500" }}
           >
             <Box
               ml="8"
-              onClick={() => {
-                getItems(dispatch, "active", category.name, subcategory);
-                toggleSubcategories("");
-              }}
+              // onClick={() => {
+              //   getItems(dispatch, "active", category.name, subcategory);
+              //   toggleSubcategories("");
+              //   localStorage.setItem("category", category.name);
+              //   localStorage.setItem("subCategory", subcategory);
+              // }}
+              
               fontSize="sm"
               fontWeight="normal"
               display="flex"
@@ -80,24 +74,28 @@ export default function Filter() {
     );
   };
 
-  return isSmallerThan768 ? (
-    <Flex justifyContent="space-between" alignItems="center">
-      <Text fontSize="4xl" fontWeight="bold" textTransform="uppercase">
-        Items
-      </Text>
-      <Menu>
-        <MenuButton as={Button} rightIcon={<MdMenu />}>
-          Filter
-        </MenuButton>
-        <MenuList>
-          <MenuItem>Active</MenuItem>
-          <MenuItem>Ended</MenuItem>
-          <MenuItem>My Items</MenuItem>
-        </MenuList>
-      </Menu>
-    </Flex>
-  ) : (
+  return (
     <Box>
+      <Box
+        p="4"
+        bg="gray.50"
+        borderRadius="lg"
+        mb="4"
+        border="1px solid"
+        borderColor="gray.300"
+        boxShadow="md"
+        onClick={() => {
+          getItems(dispatch, "active");
+          localStorage.removeItem("category");
+          localStorage.removeItem("subCategory");
+        }}
+        cursor="pointer"
+      >
+        <Text fontSize="4xl" fontWeight="bold" textTransform="uppercase" lineHeight="1.2">
+          Items
+        </Text>
+      </Box>
+
       <UnorderedList
         listStyleType="none"
         display="flex"
@@ -106,6 +104,8 @@ export default function Filter() {
         boxShadow="md"
         borderRadius="lg"
         bg="gray.50"
+        border="1px solid"
+        borderColor="gray.300"
         overflow="hidden"
       >
         {categories.categories.map((category, index) => (
@@ -114,12 +114,13 @@ export default function Filter() {
               display="flex"
               alignItems="center"
               justifyContent="space-between"
-              fontSize="xl"
-              borderBottom="1px solid #e2e8f0"
+              fontSize="md"
+              borderBottom={index === categories.categories.length - 1 ? "none" : "1px solid"}
+              borderColor="gray.300"
               p="4"
               onClick={() => toggleSubcategories(category.name)}
               textDecoration="none"
-              _hover={{ textDecoration: "none", color: "teal.500", bg: "#e2e8f0" }}
+              _hover={{ textDecoration: "none", color: "blue.500", bg: "gray.100" }}
             >
               <Flex gap="2" alignItems="center">
                 {category.name === "electronics" ? (
@@ -137,7 +138,7 @@ export default function Filter() {
                 ) : (
                   <IoEllipsisHorizontalOutline />
                 )}
-                <Text textTransform="capitalize">{category.name}</Text>
+                <Text textTransform="capitalize">{category.display}</Text>
               </Flex>
               <IoChevronForward />
             </Link>

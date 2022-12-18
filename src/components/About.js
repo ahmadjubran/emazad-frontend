@@ -8,8 +8,6 @@ import Yaseer from "../assets/img/yaseer.jpg";
 import Feras from "../assets/img/Feras.jpg";
 // components
 
-
-
 export default function About() {
   return (
     <>
@@ -30,14 +28,13 @@ export default function About() {
           </div>
           <div className="container relative mx-auto">
             <div className="items-center flex flex-wrap">
-              <div className="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center">
+              <div className="w-full lg:w-9/12 px-4 ml-auto mr-auto text-center">
                 <div className="pr-12">
                   <h1 className="text-white font-semibold text-5xl">
-                    Your story starts with us.
+                    ABOUT US
                   </h1>
                   <p className="mt-4 text-lg text-blueGray-200">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    eMazad is an online auction website that allows users to bid on and sell a wide variety of products in a safe and secure environment, it is easy to use and has a simple interface. It hosts a huge number of auctions in real time and you can bid on any item you want within a minutes.
                   </p>
                 </div>
               </div>
@@ -70,12 +67,12 @@ export default function About() {
               <div className="lg:pt-12 pt-6 w-full md:w-4/12 px-4 text-center">
                 <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
                   <div className="px-4 py-5 flex-auto">
-                    <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-red-400">
-                      <i className="fas fa-award"></i>
+                    <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-emerald-400">
+                      <i class="fa-solid fa-shield-halved"></i>
                     </div>
-                    <h6 className="text-xl font-semibold">Awarded Agency</h6>
+                    <h6 className="text-xl font-semibold">Secure</h6>
                     <p className="mt-2 mb-4 text-blueGray-500">
-                      If a listing requires you to have a business license, brokers or authorized representatives can bid for you.
+                      Your data and items are safe with us. We use the latest security technologies to protect your data.
                     </p>
                   </div>
                 </div>
@@ -87,9 +84,9 @@ export default function About() {
                     <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-lightBlue-400">
                       <i className="fas fa-retweet"></i>
                     </div>
-                    <h6 className="text-xl font-semibold">Free Revisions</h6>
+                    <h6 className="text-xl font-semibold">Free</h6>
                     <p className="mt-2 mb-4 text-blueGray-500">
-                      Individuals, businesses, and dealers can buy and sell vehicles.
+                      You can create an account and start bidding for free. No hidden fees. 
                     </p>
                   </div>
                 </div>
@@ -98,19 +95,21 @@ export default function About() {
               <div className="pt-6 w-full md:w-4/12 px-4 text-center">
                 <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
                   <div className="px-4 py-5 flex-auto">
-                    <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-emerald-400">
+                    <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-red-400">
                       <i className="fas fa-fingerprint"></i>
                     </div>
-                    <h6 className="text-xl font-semibold">Verified Company</h6>
+                    <h6 className="text-xl font-semibold">Simple Interface</h6>
                     <p className="mt-2 mb-4 text-blueGray-500">
-                      Offers both clean and salvage titles
+                      Sign up and starting bidding right now! 
+                      <br></br>
+                      See how it's easy to use? 
                     </p>
                   </div>
                 </div>
               </div>
             </div>
-            <div className="flex gap-5  items-center mt-32">
-              {/* <div className="w-full md:w-4/12 px-4 mr-auto ml-auto "> */}
+            {/* <div className="flex gap-5  items-center mt-32">
+             
               <div>
                 <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg bg-lightBlue-500">
                   <img
@@ -144,7 +143,7 @@ export default function About() {
 
               </div>
               <div className="flex flex-wrap items-center mt-32">
-                {/* <div className="w-full md:w-5/12 px-4 mr-auto ml-auto"> */}
+               
                 <div>
                   <div className="text-blueGray-500 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full bg-white">
                     <i className="fas fa-user-friends text-xl"></i>
@@ -163,18 +162,16 @@ export default function About() {
                     good to go. Just make sure you enable them first via
                     JavaScript.
                   </p>
-                  {/* <Link to="/" className="font-bold text-blueGray-700 mt-8">
-                  Check Notus React!
-                </Link> */}
+                 
                 </div>
 
 
               </div>
-            </div>
+            </div> */}
           </div>
         </section>
 
-        <section className="relative py-20">
+        {/* <section className="relative py-20">
           <div
             className="bottom-auto top-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden -mt-20 h-20"
             style={{ transform: "translateZ(0)" }}
@@ -263,51 +260,49 @@ export default function About() {
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
 
-        <section className="pt-20 pb-48">
-          <div className="container mx-auto px-4">
-            <div className="flex flex-wrap justify-center text-center mb-24">
-              <div className="w-full lg:w-6/12 px-4">
-                <h2 className="text-4xl font-semibold">Here are our heroes</h2>
+        <section className="pt-20 pb-48 " >
+          <div className="container mx-auto px-1 ">
+            <div className="flex flex-wrap gap-3 justify-center text-center mb-24">
+              <div className="w-full lg:w-6/12 px-1">
+                <h2 className="text-1xl font-semibold">Meet our Developers</h2>
                 <p className="text-lg leading-relaxed m-4 text-blueGray-500">
-                  According to the National Oceanic and Atmospheric
-                  Administration, Ted, Scambos, NSIDClead scentist, puts the
-                  potentially record maximum.
+                  Take a moment to meet our amazing team of developers. They work hard to make sure you have the best experience possible.
                 </p>
               </div>
             </div>
-            <div className="flex flex-wrap">
-              <div className="w-full md:w-6/12 lg:w-3/12 lg:mb-0 mb-12 px-4">
-                <div className="px-6">
+            <div className="flex flex-wrap gap-3 justify-center text-center" >
+              <div className="w-full md:w-6/12 lg:w-3/12 lg:mb-0 mb-12 px-1">
+                <div className="px-6 ">
                   <img
                     alt="..."
                     src={Saeed}
-                    className="shadow-lg rounded-full mx-auto max-w-120-px"
+                    className="shadow-lg rounded-full mx-auto  "
                   />
                   <div className="pt-6 text-center">
-                    <h5 className="text-xl font-bold">Saeed</h5>
+                    <h5 className="text-xl font-bold">Saeed Kokash</h5>
                     <p className="mt-1 text-sm text-blueGray-400 uppercase font-semibold">
-                      Web Developer
+                    Full Stack Developer
                     </p>
                     <div className="mt-6">
                       <button
                         className="bg-lightBlue-400 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
                         type="button"
                       >
-                        <i className="fab fa-twitter"></i>
+                        <i className="fab fa-facebook-f"></i>
                       </button>
                       <button
                         className="bg-lightBlue-600 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
                         type="button"
                       >
-                        <i className="fab fa-facebook-f"></i>
+                        <i className="fab fa-twitter"></i>
                       </button>
                       <button
                         className="bg-pink-500 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
                         type="button"
                       >
-                        <i className="fab fa-dribbble"></i>
+                        <i className="fab fa-google"></i>
                       </button>
                     </div>
                   </div>
@@ -321,22 +316,28 @@ export default function About() {
                     className="shadow-lg rounded-full mx-auto max-w-120-px"
                   />
                   <div className="pt-6 text-center">
-                    <h5 className="text-xl font-bold">Ahmad jubran</h5>
+                    <h5 className="text-xl font-bold">Ahmad Jubran</h5>
                     <p className="mt-1 text-sm text-blueGray-400 uppercase font-semibold">
-                      Marketing Specialist
+                    Full Stack Developer
                     </p>
                     <div className="mt-6">
                       <button
-                        className="bg-red-600 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
+                        className="bg-lightBlue-400 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
                         type="button"
                       >
-                        <i className="fab fa-google"></i>
+                        <i className="fab fa-facebook-f"></i>
                       </button>
                       <button
                         className="bg-lightBlue-600 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
                         type="button"
                       >
-                        <i className="fab fa-facebook-f"></i>
+                        <i className="fab fa-twitter"></i>
+                      </button>
+                      <button
+                        className="bg-pink-500 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
+                        type="button"
+                      >
+                        <i className="fab fa-google"></i>
                       </button>
                     </div>
                   </div>
@@ -350,22 +351,28 @@ export default function About() {
                     className="shadow-lg rounded-full mx-auto max-w-120-px"
                   />
                   <div className="pt-6 text-center">
-                    <h5 className="text-xl font-bold">Yasser odat</h5>
+                    <h5 className="text-xl font-bold">Yasser Odat</h5>
                     <p className="mt-1 text-sm text-blueGray-400 uppercase font-semibold">
-                      Marketing Specialist
+                    Full Stack Developer
                     </p>
                     <div className="mt-6">
                       <button
-                        className="bg-red-600 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
+                        className="bg-lightBlue-400 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
                         type="button"
                       >
-                        <i className="fab fa-google"></i>
+                        <i className="fab fa-facebook-f"></i>
                       </button>
                       <button
                         className="bg-lightBlue-600 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
                         type="button"
                       >
-                        <i className="fab fa-facebook-f"></i>
+                        <i className="fab fa-twitter"></i>
+                      </button>
+                      <button
+                        className="bg-pink-500 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
+                        type="button"
+                      >
+                        <i className="fab fa-google"></i>
                       </button>
                     </div>
                   </div>
@@ -379,22 +386,28 @@ export default function About() {
                     className="shadow-lg rounded-full mx-auto max-w-120-px"
                   />
                   <div className="pt-6 text-center">
-                    <h5 className="text-xl font-bold">Qais sagher</h5>
+                    <h5 className="text-xl font-bold">Qais Sagher</h5>
                     <p className="mt-1 text-sm text-blueGray-400 uppercase font-semibold">
-                      Marketing Specialist
+                    Full Stack Developer
                     </p>
                     <div className="mt-6">
                       <button
-                        className="bg-red-600 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
+                        className="bg-lightBlue-400 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
                         type="button"
                       >
-                        <i className="fab fa-google"></i>
+                        <i className="fab fa-facebook-f"></i>
                       </button>
                       <button
                         className="bg-lightBlue-600 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
                         type="button"
                       >
-                        <i className="fab fa-facebook-f"></i>
+                        <i className="fab fa-twitter"></i>
+                      </button>
+                      <button
+                        className="bg-pink-500 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
+                        type="button"
+                      >
+                        <i className="fab fa-google"></i>
                       </button>
                     </div>
                   </div>
@@ -408,28 +421,28 @@ export default function About() {
                     className="shadow-lg rounded-full mx-auto max-w-120-px"
                   />
                   <div className="pt-6 text-center">
-                    <h5 className="text-xl font-bold">Firas yaqop</h5>
+                    <h5 className="text-xl font-bold">Firas Yaqop</h5>
                     <p className="mt-1 text-sm text-blueGray-400 uppercase font-semibold">
-                      UI/UX Designer
+                    Full Stack Developer
                     </p>
                     <div className="mt-6">
                       <button
-                        className="bg-red-600 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
+                        className="bg-lightBlue-400 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
                         type="button"
                       >
-                        <i className="fab fa-google"></i>
+                        <i className="fab fa-facebook-f"></i>
                       </button>
                       <button
-                        className="bg-lightBlue-400 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
+                        className="bg-lightBlue-600 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
                         type="button"
                       >
                         <i className="fab fa-twitter"></i>
                       </button>
                       <button
-                        className="bg-blueGray-700 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
+                        className="bg-pink-500 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
                         type="button"
                       >
-                        <i className="fab fa-instagram"></i>
+                        <i className="fab fa-google"></i>
                       </button>
                     </div>
                   </div>
@@ -445,32 +458,26 @@ export default function About() {
                   <div className="pt-6 text-center">
                     <h5 className="text-xl font-bold">Omar Qattam</h5>
                     <p className="mt-1 text-sm text-blueGray-400 uppercase font-semibold">
-                      Founder and CEO
+                      Full Stack Developer
                     </p>
                     <div className="mt-6">
                       <button
-                        className="bg-pink-500 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
-                        type="button"
-                      >
-                        <i className="fab fa-dribbble"></i>
-                      </button>
-                      <button
-                        className="bg-red-600 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
-                        type="button"
-                      >
-                        <i className="fab fa-google"></i>
-                      </button>
-                      <button
                         className="bg-lightBlue-400 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
+                        type="button"
+                      >
+                        <i className="fab fa-facebook-f"></i>
+                      </button>
+                      <button
+                        className="bg-lightBlue-600 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
                         type="button"
                       >
                         <i className="fab fa-twitter"></i>
                       </button>
                       <button
-                        className="bg-blueGray-700 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
+                        className="bg-pink-500 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
                         type="button"
                       >
-                        <i className="fab fa-instagram"></i>
+                        <i className="fab fa-google"></i>
                       </button>
                     </div>
                   </div>
@@ -501,28 +508,28 @@ export default function About() {
             </svg>
           </div>
 
-          <div className="container mx-auto px-4 lg:pt-24 lg:pb-48">
+          <div className="container mx-auto px-4 lg:pt-12 lg:pb-48">
             <div className="flex flex-wrap text-center justify-center">
               <div className="w-full lg:w-6/12 px-4">
                 <h2 className="text-4xl font-semibold text-white">
-                  Bid for something
+                  Start Your Own Auction Now
                 </h2>
                 <p className="text-lg leading-relaxed mt-4 mb-4 text-blueGray-400">
-                  Bid for something you want to buy and win it with the lowest bid price
+                  Bid on your favorite items and win them at the lowest price.
 
                 </p>
               </div>
             </div>
             <div className="flex flex-wrap mt-12 justify-center">
               <div className="w-full lg:w-3/12 px-4 text-center">
-                <div className="text-blueGray-800 p-3 w-12 h-12 shadow-lg rounded-full bg-white inline-flex items-center justify-center">
+                <div className="text-blueGray-800 p-3 w-12 h-6 shadow-lg rounded-full bg-white inline-flex items-center justify-center">
                   <i className="fas fa-medal text-xl"></i>
                 </div>
                 <h6 className="text-xl mt-5 font-semibold text-white">
                   Excelent Services
                 </h6>
-                <p className="mt-2 mb-4 text-blueGray-400">
-                  If a listing requires you to have a business license, brokers or authorized representatives can bid for you.
+                <p className="mt-2 mb-12 text-blueGray-400">
+                  We provide the best services for our customers. We have 24 hours support for our loyal customers.
                 </p>
               </div>
               <div className="w-full lg:w-3/12 px-4 text-center">
@@ -532,8 +539,8 @@ export default function About() {
                 <h5 className="text-xl mt-5 font-semibold text-white">
                   Grow your market
                 </h5>
-                <p className="mt-2 mb-4 text-blueGray-400">
-                  Individuals, businesses, and dealers can buy and sell vehicles.
+                <p className="mt-2 mb-12 text-blueGray-400">
+                  Create your own auction and sell your items to the world. The more you sell, the more you earn.
                 </p>
               </div>
               <div className="w-full lg:w-3/12 px-4 text-center">
@@ -543,12 +550,14 @@ export default function About() {
                 <h5 className="text-xl mt-5 font-semibold text-white">
                   Launch time
                 </h5>
-                <p className="mt-2 mb-4 text-blueGray-400">
+                <p className="mt-2 mb-12 text-blueGray-400">
                   It takes effort and consistency watching auctions to know what’s a good buy.
                 </p>
               </div>
             </div>
+            
           </div>
+          
         </section>
       </main>
 

@@ -5,55 +5,57 @@ import Signup from "./components/auth/Signup";
 import Verification from "./components/auth/Verification";
 
 import Categories from "./components/Categories";
+import AddItem from "./components/item/AddItem";
+import Item from "./components/item/Item";
 import Items from "./components/item/Items";
-import NavBar from "./components/header/NavBar";
-import Hero from "./components/main/hero/Hero";
-import Profile from "./components/Profile";
+import Hero from "./components/main/Hero";
 import SliderCom from "./components/main/trending/SliderCom";
-// import { useSelector } from "react-redux";
+import Profile from "./components/profile/Profile";
 
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import About from "./components/About";
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./assets/styles/tailwind.css";
+import About from "./components/About";
 import Contact from "./components/Contact";
 import Footer from "./components/footer/Footer";
 import AdminItems from "./components/admin/Items";
 import ReportItems from "./components/admin/ReportItems";
 import UserBlocked from "./components/admin/UserBlocked";
 import Dashboard from "./components/admin/Dashboard"
-function App() {
-  // const isAuth = useSelector((state) => state.auth.isAuth);
+import Header from "./components/header/Header";
+import RegisterBanner from "./components/main/RegisterAd";
+import NewsLetter from "./components/main/Subscribe";
 
+
+function App() {
   return (
     <BrowserRouter>
       <header className="header">
-        <NavBar />
+        <Header />
       </header>
 
       <Routes>
-        <div className="profile-container">
-          <Route
-            exact
-            path="/"
-            element={
-              <>
-                <Hero />
-                <SliderCom />
-                <Categories />
-              </>
-            }
-          />
-          <Hero />
-          <Route path="/profile" element={<Profile />} />
 
-          {/* <Profile /> */}
-          {/* <Route exact path="/categories" element={<Categories />} />
-        <Route exact path="/categories/item" element={<ListOfItems />} /> */}
-        </div>
+        <Route
+          exact
+          path="/"
+          element={
+            <>
+              <Hero />
+              <SliderCom />
+              <Categories />
+
+              <RegisterBanner />
+              <NewsLetter />
+            </>
+          }
+        />
+
+        <Route path="/profile/:id" element={<Profile />} />
         <Route path="/categories" element={<Categories />} />
 
         <Route path="/items" element={<Items />} />
+        <Route path="/item/:id" element={<Item />} />
 
         <Route exact path="/login" element={<Login />} />
 
@@ -62,6 +64,8 @@ function App() {
         <Route exact path="/about" element={<About />} />
 
         <Route exact path="/contact" element={<Contact />} />
+
+        <Route exact path="/additem" element={<AddItem />} />
 
         <Route exact path="/verification/:id" element={<Verification />} />
 
@@ -75,9 +79,8 @@ function App() {
         <Route exact path="/admin/solditems" element={<AdminItems />} />
         <Route exact path="/admin/reportitems" element={<ReportItems />} />
         <Route exact path="/admin/userBlocked" element={<UserBlocked />} />
-      </Routes>
-      {/* <Footer /> */}
-
+      </Routes >
+      <Footer />
     </BrowserRouter >
   );
 }

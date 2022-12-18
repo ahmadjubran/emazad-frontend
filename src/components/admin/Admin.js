@@ -72,7 +72,6 @@ function Admin({ children }) {
                             <Text as="h1" size="xl">Admin : {user.fullName}</Text>
                         </Flex>
 
-
                         <Flex flexDir="column" alignItems={sizeSlide ? 'flex-start' : 'center'} justifyContent='center' gap='8' as='nav' >
 
                             <Flex flexDir="row" alignItems='center' justifyContent='center' gap='3' fontSize='xl'
