@@ -193,7 +193,7 @@ export default function ItemsList() {
                     {renderTimeLeft(item, "seconds")}
                   </Flex>
                   <Box>
-                    <Flex alignItems="center" justifyContent="space-between" gap="4" h="75px" px="2" mb="4">
+                    <Flex alignItems="center" justifyContent="space-between" gap="4" h="75px" px="2" mb="4" w="full">
                       <Box
                         h="100%"
                         p="2"
@@ -203,6 +203,7 @@ export default function ItemsList() {
                         flexDir="column"
                         bg="gray.300"
                         borderRadius="lg"
+                        w="full"
                       >
                         <Text fontSize="md" color="gray.500">
                           {item.latestBid !== 0 ? "Current Bid" : "Starting Bid"}
