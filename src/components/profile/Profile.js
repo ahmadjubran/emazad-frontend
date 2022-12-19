@@ -38,7 +38,6 @@ import { FaUserAstronaut } from "react-icons/fa";
 import { MdOutlineFavorite, MdReportProblem } from 'react-icons/md';
 
 import ProfileItems from './ProfileItems';
-import ProfilePopover from './ProfilePopover';
 import EditProfileModal from './EditProfileModal';
 
 import { getUserProfile, getProfileActiveItems, getProfileStandByItems, getProfileSoldItems, getProfileWonItems, getProfileEngagedItems, getProfileFavoriteItems, getProfileRatingItems } from '../../store/actions/profileActions'
