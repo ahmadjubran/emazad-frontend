@@ -19,7 +19,7 @@ import { Link } from "react-router-dom";
 import { TfiEmail } from "react-icons/tfi";
 import { FaLock } from "react-icons/fa";
 
-import logo from "../../assets/hammer.png";
+import logo from "../../assets/img/logo/hammer.png";
 
 import { useSelector, useDispatch } from "react-redux";
 import { verifyEmail } from "../../store/actions/authActions";
@@ -44,7 +44,7 @@ function Verification() {
         pt="5em"
         pb="5em"
       >
-        <Heading textStyle="h1" color="white.100" mb="1em">Welcome Back!</Heading>
+        <Heading textStyle="h1" color="white.100" mb="1em">Login to Verify!</Heading>
 
         <Box 
           rounded={"lg"} p={8} 

@@ -20,7 +20,7 @@ import { FaLock } from "react-icons/fa";
 import { TfiEmail } from "react-icons/tfi";
 import { Link } from "react-router-dom";
 
-import logo from "../../assets/hammer.png";
+import logo from "../../assets/img/logo/hammer.png";
 import { useSelector, useDispatch } from "react-redux";
 
 import { login } from "../../store/actions/authActions";
