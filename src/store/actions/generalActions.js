@@ -1,6 +1,7 @@
 export const timeLeft = (item) => {
   const now = new Date().getTime();
-  const end = new Date(item.endDate).getTime();
+  const itemTime = item.status === "active" ? item.endDate : item.startDate;
+  const end = new Date(itemTime).getTime();
   const distance = end - now;
 
   const days = Math.floor(distance / (1000 * 60 * 60 * 24));

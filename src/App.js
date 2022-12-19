@@ -13,21 +13,24 @@ import SliderCom from "./components/main/trending/SliderCom";
 import Profile from "./components/profile/Profile";
 
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import "./assets/styles/tailwind.css";
 import About from "./components/About";
-import Contact from "./components/Contact";
-import Footer from "./components/footer/Footer";
+import Dashboard from "./components/admin/Dashboard";
 import AdminItems from "./components/admin/Items";
 import ReportItems from "./components/admin/ReportItems";
 import UserBlocked from "./components/admin/UserBlocked";
-import Dashboard from "./components/admin/Dashboard"
+import Contact from "./components/Contact";
+import Footer from "./components/footer/Footer";
 import Header from "./components/header/Header";
 import RegisterBanner from "./components/main/RegisterAd";
 import NewsLetter from "./components/main/Subscribe";
-
+import { selectIsAuth } from "./store/features/authSlicer";
 
 function App() {
+  const isAuth = useSelector(selectIsAuth);
+
   return (
     <BrowserRouter>
       <header className="header">
@@ -35,7 +38,6 @@ function App() {
       </header>
 
       <Routes>
-
         <Route
           exact
           path="/"
@@ -57,9 +59,9 @@ function App() {
         <Route path="/items" element={<Items />} />
         <Route path="/item/:id" element={<Item />} />
 
-        <Route exact path="/login" element={<Login />} />
+        <Route path="/login" element={isAuth ? <Navigate to="/" /> : <Login />} />
 
-        <Route exact path="/signup" element={<Signup />} />
+        <Route exact path="/signup" element={isAuth ? <Navigate to="/" /> : <Signup />} />
 
         <Route exact path="/about" element={<About />} />
 
@@ -69,19 +71,15 @@ function App() {
 
         <Route exact path="/verification/:id" element={<Verification />} />
 
-        <Route path="/login" element={<Login />} />
-
-        <Route path="/signup" element={<Signup />} />
-
         <Route exact path="/admin" element={<Dashboard />} />
         <Route exact path="/admin/dashboard" element={<Dashboard />} />
         <Route exact path="/admin/activeitems" element={<AdminItems />} />
         <Route exact path="/admin/solditems" element={<AdminItems />} />
         <Route exact path="/admin/reportitems" element={<ReportItems />} />
         <Route exact path="/admin/userBlocked" element={<UserBlocked />} />
-      </Routes >
+      </Routes>
       <Footer />
-    </BrowserRouter >
+    </BrowserRouter>
   );
 }
 

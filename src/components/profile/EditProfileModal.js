@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+// import React, { useState } from "react";
 
 import {
   Alert,
@@ -8,13 +8,13 @@ import {
   Button,
   Flex,
   FormControl,
-  FormHelperText,
+  // FormHelperText,
   FormLabel,
   HStack,
   Input,
   InputGroup,
   InputLeftElement,
-  InputRightElement,
+  // InputRightElement,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -24,25 +24,24 @@ import {
   ModalOverlay,
   Select,
   Text,
-  Textarea,
   useDisclosure,
   useToast,
 } from "@chakra-ui/react";
-import { FaDollarSign, FaGenderless } from "react-icons/fa";
+import { FaGenderless } from "react-icons/fa";
 import { IoAddCircle, IoPencil } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { updateProfile } from "../../store/actions/profileActions";
 
 import { uploadUserImage, validateImage } from "../../store/actions/authActions";
-import { BiHide, BiShow } from "react-icons/bi";
+// import { BiHide, BiShow } from "react-icons/bi";
 import { BsFillCalendarDateFill } from "react-icons/bs";
 
 function EditProfileModal({ user }) {
   const error = useSelector((state) => state.profile.error);
   const loading = useSelector((state) => state.profile.loading);
 
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  // const [showPassword, setShowPassword] = useState(false);
+  // const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const dispatch = useDispatch();
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -57,9 +56,11 @@ function EditProfileModal({ user }) {
 
   return (
     <>
-      <Button onClick={onOpen} variant="none" size="sm" _hover={{ color: "blue.600" }}>
+      <Button w="100%" onClick={onOpen} variant="none" size="sm" _hover={{ color: "blue.600", bg: "gray.300" }} 
+      alignItems="center" justifyContent="left" borderRadius="0"
+      >
         {<IoPencil />}
-        <span style={{ marginLeft: "0.6rem" }}>Edit Profile</span>
+        <span  style={{ marginLeft: "0.6rem" }}>Edit Profile</span>
       </Button>
 
       <Modal isOpen={isOpen} onClose={onClose}>

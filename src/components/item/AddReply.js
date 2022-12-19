@@ -15,49 +15,58 @@ export default function AddReply({ comment, setShowAddReply }) {
         e.target.reset();
         setShowAddReply(false);
     };
-
-    return (
-        <Box w="100%">
-            <form onSubmit={handleAddReply}>
-                <Flex direction="column" borderRadius="lg" overflow="hidden" my="2" ml="14">
-                    <Box display="flex" gap="2">
-                        <Image
-                            src={user.image}
-                            alt={user.fullName}
-                            w="8"
-                            h="8"
-                            borderRadius="full"
-                            objectFit="cover"
-                            alignSelf="flex-start"
-                            mt="2"
-                        />
-                        <Flex flexDirection="column" bg="gray.300" p="4" borderRadius="3xl" w="100%">
-                            <Text fontSize="sm" textTransform="capitalize" fontWeight="bold" mb="2">
-                                {user.fullName}
-                            </Text>
-                            <Textarea
-                                name="reply"
-                                placeholder="Write a reply..."
-                                fontSize="sm"
-                                textTransform="capitalize"
-                                resize="none"
-                                rows="1"
-                                onInput={(e) => {
-                                    e.target.style.height = "auto";
-                                    e.target.style.height = e.target.scrollHeight + "px";
-                                }}
-                                borderRadius="3xl"
-                                overflow="hidden"
-                                borderColor="gray.200"
-                                _hover={{ borderColor: "gray.500" }}
-                            />
-                            <Button type="submit" size="sm" colorScheme="blue" mt="2" alignSelf="flex-start">
-                                Reply
-                            </Button>
-                        </Flex>
-                    </Box>
-                </Flex>
-            </form>
-        </Box>
-    );
+    
+  return (
+    <Box w="100%">
+      <form onSubmit={handleAddReply}>
+        <Flex direction="column" borderRadius="lg" overflow="hidden" my="2" ml="14">
+          <Box display="flex" gap="2">
+            <Image
+              src={user.image}
+              alt={user.fullName}
+              w="8"
+              h="8"
+              borderRadius="full"
+              objectFit="cover"
+              alignSelf="flex-start"
+              mt="2"
+            />
+            <Flex flexDirection="column" bg="gray.300" p="4" borderRadius="3xl" w="100%">
+              <Text fontSize="sm" textTransform="capitalize" fontWeight="bold" mb="2">
+                {user.fullName}
+              </Text>
+              <Textarea
+                name="reply"
+                placeholder="Write a reply..."
+                rows="1"
+                resize="none"
+                fontSize="sm"
+                bg="gray.200"
+                textTransform="capitalize"
+                onInput={(e) => {
+                  e.target.style.height = "auto";
+                  e.target.style.height = e.target.scrollHeight + "px";
+                }}
+                borderRadius="3xl"
+                overflow="hidden"
+                borderColor="gray.400"
+                _hover={{ borderColor: "gray.500" }}
+              />
+              <Button
+                type="submit"
+                size="sm"
+                colorScheme="blue"
+                mt="2"
+                alignSelf="flex-start"
+                variant="outline"
+                borderRadius="3xl"
+              >
+                Reply
+              </Button>
+            </Flex>
+          </Box>
+        </Flex>
+      </form>
+    </Box>
+  );
 }

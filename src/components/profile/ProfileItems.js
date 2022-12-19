@@ -132,7 +132,14 @@ function ProfileActiveItems({ items }) {
           </Box>
         ))
       ) : (
-        <p>No items</p>
+        <Box>
+          <Heading fontSize="xl" fontWeight="bold" textTransform="capitalize">
+            No Items
+          </Heading>
+          <Text fontSize="sm" color="gray.500" textTransform="uppercase" mt="2">
+            There are no items in this section
+          </Text>
+        </Box>
       )}
     </Grid>
   );

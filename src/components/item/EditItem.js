@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import {
   Alert,
   AlertIcon,
+  Box,
   Button,
   FormControl,
   FormHelperText,
@@ -42,11 +43,11 @@ function EditItem({ item }) {
 
   function handleEndDate(e) {
     setMinEndDate(e.target.value);
-  };
+  }
 
   async function handleSubmit(e) {
     e.preventDefault();
-    console.log(e.target.itemTitle)
+    console.log(e.target.itemTitle);
     const imageURL = await uploadItemImage();
     console.log(imageURL);
     editItem(dispatch, e, imageURL, userId, item.id, item.itemImage);
@@ -54,7 +55,16 @@ function EditItem({ item }) {
 
   return (
     <>
-      <Button onClick={onOpen} variant="none" size="sm" _hover={{ color: "blue.600" }}>
+      <Button
+        onClick={onOpen}
+        variant="none"
+        size="sm"
+        _hover={{ color: "blue.600", bg: "gray.300" }}
+        w="100%"
+        justifyContent="left"
+        alignItems="center"
+        borderRadius="0"
+      >
         {<IoPencil />}
         <span style={{ marginLeft: "0.6rem" }}>Edit Item</span>
       </Button>
@@ -139,7 +149,15 @@ function EditItem({ item }) {
               <FormControl mt={4} isRequired>
                 <InputGroup>
                   <InputLeftElement children={<FaDollarSign />} />
-                  <Input type="number" name="initialPrice" placeholder="initialPrice" variant="auth" defaultValue={item.initialPrice} />
+
+                  <Input
+                    type="number"
+                    name="initialPrice"
+                    placeholder="initialPrice"
+                    variant="auth"
+                    defaultValue={item.initialPrice}
+                  />
+                  
                 </InputGroup>
               </FormControl>
 
