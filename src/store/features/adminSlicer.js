@@ -69,9 +69,6 @@ export const adminSlice = createSlice({
     name: 'admin',
     initialState,
     reducers: {
-        addReportItem: (state, action) => {
-            state.reportItems = [...state.reportItems, action.payload]
-        },
         getActiveItems: (state, action) => {
             state.item = action.payload
             state.numberACtiveItems = action.payload.length
@@ -112,7 +109,6 @@ export const adminSlice = createSlice({
 })
 
 export const {
-    addReportItem,
     getActiveItems,
     getSoldItems,
     getBlockedItems,

@@ -1,16 +1,18 @@
-import { Box, Flex, IconButton, Image, Menu, MenuButton, MenuItem, MenuList, Text } from "@chakra-ui/react";
+import { Box, Flex, IconButton, Image, Menu, MenuButton, MenuItem, MenuList, Text, useToast, } from "@chakra-ui/react";
 import React from "react";
-import { IoEllipsisVertical } from "react-icons/io5";
-import { useSelector } from "react-redux";
+import { IoEllipsisVertical, IoTrash } from "react-icons/io5";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { showTime } from "../../../store/actions/generalActions";
+import { deleteReply } from "../../../store/actions/replyActions";
 import { selectIsAuth, selectUser } from "../../../store/features/authSlicer";
 import EditReply from "./EditReply";
-import DeleteReply from "./DeleteReply";
 
 export default function Replies({ comment }) {
+  const dispatch = useDispatch();
   const isAuth = useSelector(selectIsAuth);
   const user = useSelector(selectUser);
+  const toast = useToast();
 
   return (
     <Box>
@@ -58,7 +60,14 @@ export default function Replies({ comment }) {
                     shadow="lg"
                   >
                     <MenuItem as={EditReply} reply={reply} />
-                    <MenuItem as={DeleteReply} reply={reply} />
+                    <MenuItem
+                      onClick={() => deleteReply(dispatch, reply, toast)}
+                      icon={<IoTrash />}
+                      bg="gray.200"
+                      _hover={{ bg: "gray.300" }}
+                    >
+                      Delete
+                    </MenuItem>
                   </MenuList>
                 </Menu>
               )}

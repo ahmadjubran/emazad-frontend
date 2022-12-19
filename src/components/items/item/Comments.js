@@ -10,21 +10,24 @@ import {
   MenuList,
   Text,
   VStack,
+  useToast,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { IoEllipsisVertical } from "react-icons/io5";
-import { useSelector } from "react-redux";
+import { IoEllipsisVertical, IoTrash } from "react-icons/io5";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { deleteComment } from "../../../store/actions/commentActions";
 import { showTime } from "../../../store/actions/generalActions";
 import { selectIsAuth, selectUser } from "../../../store/features/authSlicer";
 import AddComment from "./AddComment";
 import AddReply from "./AddReply";
 import EditComment from "./EditComment";
 import Replies from "./Replies";
-import DeleteComment from "./DeleteComment";
 
 export default function Comments({ item }) {
+  const dispatch = useDispatch();
   const isAuth = useSelector(selectIsAuth);
+  const toast = useToast();
 
   const [showComments, setShowComments] = useState(3);
   const [showMore, setShowMore] = useState(false);
@@ -122,7 +125,14 @@ export default function Comments({ item }) {
                     shadow="lg"
                   >
                     <MenuItem as={EditComment} comment={comment} />
-                    <MenuItem as={DeleteComment} commentId={comment.id} />
+                    <MenuItem
+                      icon={<IoTrash />}
+                      bg="gray.200"
+                      _hover={{ bg: "gray.300" }}
+                      onClick={() => deleteComment(dispatch, comment.id, toast)}
+                    >
+                      Delete
+                    </MenuItem>
                   </MenuList>
                 </Menu>
               )}
