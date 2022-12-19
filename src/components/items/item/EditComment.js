@@ -44,7 +44,7 @@ export default function EditComment({ comment }) {
         borderRadius="0"
       >
         {<IoPencil />}
-        <span style={{ marginLeft: "5px" }}>Edit Post</span>
+        <span style={{ marginLeft: "5px" }}>Edit Comment</span>
       </Button>
 
       <Modal isOpen={show} onClose={() => setShow(false)}>

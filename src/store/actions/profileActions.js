@@ -206,7 +206,6 @@ export const updateProfile = (dispatch, payload, imageURL, userId, userImage, to
             console.log(res.data)
             dispatch(updateProfileSuccess(res.data));
             toast({
-                title: 'Profile Updated',
                 description: "Profile updated successfully!",
                 status: 'success',
                 duration: 5000,
@@ -215,9 +214,23 @@ export const updateProfile = (dispatch, payload, imageURL, userId, userImage, to
         })
         .catch((err) => {
             dispatch(getProfileItemsFail(err.response.data));
+            toast({
+                title: 'Error Updating Profile',
+                description: `${err.response.data}` || "Please try again.",
+                status: 'success',
+                duration: 5000,
+                isClosable: true,
+              })
         });
     } catch (error) {
         dispatch(getProfileItemsFail(error.response.data));
+        toast({
+            title: 'Error Updating Profile',
+            description: `${error.response.data}` || "Please try again.",
+            status: 'success',
+            duration: 5000,
+            isClosable: true,
+          })
     }
 };
 

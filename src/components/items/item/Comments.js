@@ -10,10 +10,12 @@ import {
   MenuList,
   Text,
   VStack,
+  useToast,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { IoEllipsisVertical, IoTrash } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { deleteComment } from "../../../store/actions/commentActions";
 import { showTime } from "../../../store/actions/generalActions";
 import { selectIsAuth, selectUser } from "../../../store/features/authSlicer";
@@ -25,6 +27,7 @@ import Replies from "./Replies";
 export default function Comments({ item }) {
   const dispatch = useDispatch();
   const isAuth = useSelector(selectIsAuth);
+  const toast = useToast();
 
   const [showComments, setShowComments] = useState(3);
   const [showMore, setShowMore] = useState(false);
@@ -94,14 +97,16 @@ export default function Comments({ item }) {
                 mt="2"
               />
               <Flex flexDirection="column" bg="gray.300" p="4" borderRadius="3xl">
-                <Text fontSize="sm" textTransform="capitalize" fontWeight="bold">
-                  {comment.User && comment.User.fullName}
-                </Text>
+                <Link to={`/profile/${comment.User.id}`}>
+                  <Text fontSize="sm" textTransform="capitalize" fontWeight="bold">
+                    {comment.User && comment.User.fullName}
+                  </Text>
+                </Link>
                 <Text fontSize="sm" textTransform="capitalize" whiteSpace="pre-line">
                   {comment.comment}
                 </Text>
               </Flex>
-              {isAuth && user.id === comment.userId && user.role === "admin" && (
+              {isAuth && (user.id === comment.userId || user.role === "admin") && (
                 <Menu>
                   <MenuButton
                     as={IconButton}
@@ -124,7 +129,7 @@ export default function Comments({ item }) {
                       icon={<IoTrash />}
                       bg="gray.200"
                       _hover={{ bg: "gray.300" }}
-                      onClick={() => deleteComment(dispatch, comment.id)}
+                      onClick={() => deleteComment(dispatch, comment.id, toast)}
                     >
                       Delete
                     </MenuItem>

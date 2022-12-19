@@ -3,15 +3,17 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addComment } from "../../../store/actions/commentActions";
 import { selectUser } from "../../../store/features/authSlicer";
+import { useToast } from "@chakra-ui/react";
 
 export default function AddComment({ item }) {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
+  const toast = useToast();
 
   const handleAddComment = (e) => {
     e.preventDefault();
     const comment = e.target.comment.value;
-    addComment(dispatch, item.id, comment);
+    addComment(dispatch, item.id, comment, toast);
     e.target.comment.value = "";
     e.target.comment.style.height = "auto";
     e.target.comment.style.height = e.target.comment.scrollHeight + "px";

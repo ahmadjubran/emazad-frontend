@@ -118,7 +118,7 @@ export const addItem = (dispatch, payload, imageURL, userId) => {
   }
 };
 
-export const editItem = (dispatch, payload, imageURL, userId, id, itemImage) => {
+export const editItem = (dispatch, payload, imageURL, userId, id, itemImage, toast) => {
   payload.preventDefault();
 
   const data = {
@@ -143,25 +143,51 @@ export const editItem = (dispatch, payload, imageURL, userId, id, itemImage) => 
       .then((res) => {
         console.log(res.data);
         dispatch(updateItemSuccess(res.data));
+        toast({
+          description: `${res.data.itemTitle} has been updated`,
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        });
       })
       .catch((err) => {
         dispatch(ItemFail(err));
+        toast({
+          title: "Error Updating Item",
+          description: `${err.response.data}` || "Please try again.",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
       });
   } catch (err) {
     dispatch(ItemFail(err));
   }
 };
 
-export const deleteItem = (dispatch, payload) => {
+export const deleteItem = (dispatch, payload, toast) => {
   dispatch(ItemRequest());
 
   axios
     .delete(`${process.env.REACT_APP_HEROKU_API_KEY}/item/${payload}`)
     .then((res) => {
       dispatch(deleteItemSuccess(payload));
+      toast({
+        description: "Item has been deleted",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+      });
     })
     .catch((err) => {
       dispatch(ItemFail(err));
+      toast({
+        title: "Error Deleting Item",
+        description: `${err.response.data}` || "Please try again.",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
     });
 };
 

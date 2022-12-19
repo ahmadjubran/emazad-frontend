@@ -12,6 +12,12 @@ export const handleFavorite = (dispatch, item, allFavorites, toast) => {
         })
         .then((res) => {
           getItem(dispatch, item.id);
+          toast({
+            description: "Item added to favorites.",
+            status: "success",
+            duration: 5000,
+            isClosable: true,
+          });
         })
         .catch((err) => {
           toast({
@@ -28,6 +34,12 @@ export const handleFavorite = (dispatch, item, allFavorites, toast) => {
         .delete(`${process.env.REACT_APP_HEROKU_API_KEY}/favorite/${favorite.id}`)
         .then((res) => {
           getItem(dispatch, item.id);
+          toast({
+            description: "Item removed from favorites.",
+            status: "success",
+            duration: 5000,
+            isClosable: true,
+          });
         })
         .catch((err) => {
           toast({

@@ -50,7 +50,7 @@ function EditItem({ item }) {
     console.log(e.target.itemTitle);
     const imageURL = await uploadItemImage();
     console.log(imageURL);
-    editItem(dispatch, e, imageURL, userId, item.id, item.itemImage);
+    editItem(dispatch, e, imageURL, userId, item.id, item.itemImage, toast);
   }
 
   return (
