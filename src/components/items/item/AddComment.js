@@ -1,8 +1,8 @@
 import { Box, Button, Flex, Heading, Image, Input, Text, Textarea } from "@chakra-ui/react";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addComment } from "../../store/actions/commentActions";
-import { selectUser } from "../../store/features/authSlicer";
+import { addComment } from "../../../store/actions/commentActions";
+import { selectUser } from "../../../store/features/authSlicer";
 
 export default function AddComment({ item }) {
   const dispatch = useDispatch();

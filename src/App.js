@@ -5,9 +5,9 @@ import Signup from "./components/auth/Signup";
 import Verification from "./components/auth/Verification";
 
 import Categories from "./components/Categories";
-import AddItem from "./components/item/AddItem";
-import Item from "./components/item/Item";
-import Items from "./components/item/Items";
+import AddItem from "./components/items/AddItem";
+import Item from "./components/items/item/Item";
+import Items from "./components/items/Items";
 import Hero from "./components/main/Hero";
 import SliderCom from "./components/main/trending/SliderCom";
 import Profile from "./components/profile/Profile";

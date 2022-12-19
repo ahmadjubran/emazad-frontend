@@ -1,9 +1,13 @@
 import { Box, Button, Container, Image, Stack, Text } from "@chakra-ui/react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { selectIsAuth } from "../../store/features/authSlicer";
 
 import coinImage from "../../assets/img/s.webp";
 
 export default function RegisterAd() {
+  const isAuth = useSelector(selectIsAuth);
+
   return (
     <Box bg="gray.100" py="24">
       <Container
@@ -20,15 +24,19 @@ export default function RegisterAd() {
             <Text position={"relative"} color="white" textStyle={"h1"} fontSize="2.2rem">
               Are you ready to start bidding?
             </Text>
-            <Link to="/signup">
+            <Link to={isAuth ? "/items" : "/login"}>
               <Button
                 colorScheme="gray"
                 w="50%"
                 _hover={{ bg: "gray.300" }}
                 boxShadow="md"
-                onClick={() => window.scrollTo(0, 0)}
+                onClick={() => {
+                  window.scrollTo(0, 0);
+                  if (isAuth) {
+                  }
+                }}
               >
-                Join eMazad
+                {isAuth ? "Start Bidding" : "Join eMazad"}
               </Button>
             </Link>
           </Stack>

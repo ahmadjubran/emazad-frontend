@@ -33,7 +33,7 @@ export default function CallToActionWithAnnotation() {
           price for them.
         </Text>
         <Stack direction={"column"} spacing={3} align={"center"} alignSelf={"center"} position={"relative"}>
-          <Link to={user ? "/categories" : "/login"}>
+          <Link to={user ? "/items" : "/login"}>
             <Button
               colorScheme={"blue"}
               bg={"blue.400"}
@@ -41,6 +41,11 @@ export default function CallToActionWithAnnotation() {
               px={6}
               _hover={{
                 bg: "blue.500",
+              }}
+              onClick={() => {
+                window.scrollTo(0, 0);
+                if (user) {
+                }
               }}
             >
               Get Started

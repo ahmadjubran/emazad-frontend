@@ -1,6 +1,6 @@
 import { Box, Flex, Heading, Image, Spacer, Text, VStack } from "@chakra-ui/react";
 import React from "react";
-import { showTime } from "../../store/actions/generalActions";
+import { showTime } from "../../../store/actions/generalActions";
 
 export default function LastBids({ item }) {
   return (
