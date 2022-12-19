@@ -45,94 +45,101 @@ function AboutT() {
 
                 </Flex>
 
+                <Center>
 
-                <Box py='-30'
-                    pos="absolute"
-                    top={{ base: '10%', md: '20%', lg: '28%' }}
-                    left="0"
-                >
-                    <Center py={12}>
-                        <Grid templateColumns={{ sm: 'repeat(1, 1fr)', md: 'repeat(2, 1fr)', lg: 'repeat(3,1fr)' }} gap={5}
-                            // contianer for the card
-                            margin='auto 0'
-                            padding={{ base: '4', md: '8' }}
-                        >
-
-                            <Box px={{ base: '4', md: '8' }} py='6' mb="10">
-                                <Box bg={useColorModeValue('gray.200', 'gray.700')}
-                                    zIndex="10"
-                                    as={Flex} flexDir='column' alignItems='center' justifyContent='center'
-                                    shadow='base' rounded='lg' overflow='hidden'
-                                    p='50px 24px'
-                                >
-                                    <Icon as={MdOutlineSecurity} w={8} h={8} color={useColorModeValue('green.400', 'green.200')} />
-                                    <Text color={useColorModeValue('gray.700', 'gray.200')}
-                                        fontSize='xl' fontWeight='bold' p='6' >
-                                        Secure
-                                    </Text>
-                                    <Box p='6' flex='1 1 auto' >
-                                        <Text color={useColorModeValue('gray.600', 'gray.400')}
-                                            fontSize='md' textAlign='center' >
-                                            Your data and items are safe with us. We use the latest security technologies to protect your data.
+                    <Box py='-30'
+                        pos="absolute"
+                        justifyContent="center"
+                        top={{ base: '10%', md: '20%', lg: '23%' }}
+                        left="0"
+                    >
+                        <Center>
+                            <Grid templateColumns={{ sm: 'repeat(1, 1fr)', md: 'repeat(2, 1fr)', lg: 'repeat(3,1fr)' }} gap={5}
+                                maxW="80%"
+                                margin='auto 0'
+                                padding={{ base: '4', md: '8' }}
+                            >
+                                <Box px={{ base: '4', md: '8' }} py='6' mb="10">
+                                    <Box bg={useColorModeValue('gray.200', 'gray.700')}
+                                        zIndex="10"
+                                        as={Flex} flexDir='column' alignItems='center' justifyContent='center'
+                                        shadow='base' rounded='lg' overflow='hidden'
+                                        p='50px 24px'
+                                    >
+                                        <Icon as={MdOutlineSecurity} w={8} h={8} color={useColorModeValue('green.400', 'green.200')} />
+                                        <Text color={useColorModeValue('gray.700', 'gray.200')}
+                                            fontSize='xl' fontWeight='bold' p='6' >
+                                            Secure
                                         </Text>
-                                    </Box>
+                                        <Box p='6' flex='1 1 auto' >
+                                            <Text color={useColorModeValue('gray.600', 'gray.400')}
+                                                fontSize='md' textAlign='center' >
+                                                Your data is safe with us. We use the latest  technologies to protect your data.
+                                            </Text>
+                                        </Box>
 
+                                    </Box>
                                 </Box>
-                            </Box>
-                            <Box px={{ base: '4', md: '8' }}>
-                                <Box bg={useColorModeValue('gray.200', 'gray.700')}
-                                    zIndex="10"
-                                    as={Flex} flexDir='column' alignItems='center' justifyContent='center'
-                                    shadow='base' rounded='lg' overflow='hidden'
-                                    p='48px 24px'
-                                >
-                                    <Icon as={SiFreecodecamp} w={10} h={10} color={useColorModeValue('blue.400', 'blue.200')} />
-                                    <Text color={useColorModeValue('gray.700', 'gray.200')}
-                                        fontSize='xl' fontWeight='bold' p='6' >
-                                        Free
-                                    </Text>
-                                    <Box p='6' flex='1 1 auto' >
-                                        <Text color={useColorModeValue('gray.600', 'gray.400')}
-                                            fontSize='md' textAlign='center' >
-                                            You can create an account and start bidding for free. No hidden fees.
+                                <Box px={{ base: '4', md: '8' }}>
+                                    <Box bg={useColorModeValue('gray.200', 'gray.700')}
+                                        zIndex="10"
+                                        as={Flex} flexDir='column' alignItems='center' justifyContent='center'
+                                        shadow='base' rounded='lg' overflow='hidden'
+                                        p='48px 24px'
+                                    >
+                                        <Icon as={SiFreecodecamp} w={10} h={10} color={useColorModeValue('blue.400', 'blue.200')} />
+                                        <Text color={useColorModeValue('gray.700', 'gray.200')}
+                                            fontSize='xl' fontWeight='bold' p='6' >
+                                            Free
                                         </Text>
-                                    </Box>
+                                        <Box p='6' flex='1 1 auto' >
+                                            <Text color={useColorModeValue('gray.600', 'gray.400')}
+                                                fontSize='md' textAlign='center' >
+                                                You can create an account and start bidding for free. No hidden fees.
+                                            </Text>
+                                        </Box>
 
+                                    </Box>
                                 </Box>
-                            </Box>
-                            <Box px={{ base: '4', md: '8' }} py='4' mb="8">
-                                <Box
-                                    bg={useColorModeValue('gray.200', 'gray.700')}
-                                    zIndex="10"
-                                    as={Flex} flexDir='column' alignItems='center' justifyContent='center'
-                                    shadow='base' rounded='lg'
-                                    overflow='hidden'
-                                    p='48px 24px'
-                                >
-                                    <Icon as={MdFingerprint} w={8} h={8} color={useColorModeValue('red.400', 'red.200')} />
-                                    <Text color={useColorModeValue('gray.700', 'gray.200')}
-                                        fontSize='xl' fontWeight='bold' p='6' >
-                                        Simple Interface
-                                    </Text>
-                                    <Box p='6' flex='1 1 auto' >
-                                        <Text color={useColorModeValue('gray.600', 'gray.400')}
-                                            fontSize='md' textAlign='center' >
-                                            Sign up and starting bidding right now!
-                                            See how it's easy to use?
+                                <Box px={{ base: '4', md: '8' }} py='6' mb="10">
+                                    <Box
+                                        bg={useColorModeValue('gray.200', 'gray.700')}
+                                        zIndex="10"
+                                        as={Flex} flexDir='column' alignItems='center' justifyContent='center'
+                                        shadow='base' rounded='lg'
+                                        overflow='hidden'
+                                        p='48px 24px'
+                                    >
+                                        <Icon as={MdFingerprint} w={8} h={8} color={useColorModeValue('red.400', 'red.200')} />
+                                        <Text color={useColorModeValue('gray.700', 'gray.200')}
+                                            fontSize='xl' fontWeight='bold' p='6' >
+                                            Simple Interface
                                         </Text>
-                                    </Box>
+                                        <Box p='6' flex='1 1 auto' >
+                                            <Text color={useColorModeValue('gray.600', 'gray.400')}
+                                                fontSize='md' textAlign='center' >
+                                                Sign up and starting bidding right now!
+                                                See how it's easy to use?
+                                            </Text>
+                                        </Box>
 
+                                    </Box>
                                 </Box>
-                            </Box>
-                        </Grid>
-                    </Center>
-                </Box>
-                {/* </Flex >
+                            </Grid>
+                        </Center>
+                    </Box>
+                    {/* </Flex >
                 </Box > */}
+                </Center>
             </Box>
 
             <Spacer />
-            <Box as={Flex} flexDir='column' alignItems='center' justifyContent='center' mt='18rem' mb='3rem' >
+            <Box as={Flex}
+                flexDir='column'
+                alignItems='center'
+                justifyContent='center'
+                mt={{ base: '50%', md: '40%', lg: '23%' }}
+                mb='3rem' >
 
                 <Heading as="h2" size="4xl" color="gray.700" fontWeight="semibold" >
                     Meet our Developers
@@ -158,8 +165,10 @@ function AboutT() {
                         p={6}
                         maxW={'330px'}
                         w={'full'}
-                        bg={useColorModeValue('gray.400', 'gray.800')}
-                        boxShadow={'2xl'}
+                        bg={useColorModeValue('gray.200', 'gray.900')}
+                        border='1px solid'
+                        borderColor={useColorModeValue('gray.300', 'gray.700')}
+                        boxShadow={'lg'}
                         rounded={'lg'}
                         pos={'relative'}
                         zIndex={1}>
@@ -176,7 +185,7 @@ function AboutT() {
                                 pos: 'absolute',
                                 top: 5,
                                 left: 0,
-                                backgroundImage: `url(https://png.pngtree.com/thumb_back/fh260/background/20200821/pngtree-simple-light-blue-background-image_396574.jpg)`,
+                                boxShadow: 'inset 0 0 50px rgba(0,0,0,.2)',
                                 filter: 'blur(15px)',
                                 zIndex: -1,
                             }}
@@ -191,16 +200,17 @@ function AboutT() {
                                 width={282}
                                 objectFit={'cover'}
                                 src={Saeed}
+
                             />
                         </Box>
-                        <Stack pt={10} align={'center'} gap='3'>
+                        <Stack pt={10} align={'center'} gap='3' mb='3'>
                             <Heading fontSize={'2xl'} fontFamily={'body'} fontWeight={500}>
                                 Saeed Kokash
                             </Heading>
                             <Text color={'gray.500'} fontSize={'sm'} textTransform={'uppercase'}>
                                 FULL STACK DEVELOPER
                             </Text>
-                            <Stack direction={'row'} align={'center'} justify={'center'} gap='2'>
+                            <Stack direction={'row'} align={'center'} justify={'center'} gap='2' >
                                 <Icon as={FaLinkedinIn}
                                     w={6} h={6}
                                     color={useColorModeValue('blue.400', 'blue.200')}
@@ -237,8 +247,10 @@ function AboutT() {
                         p={6}
                         maxW={'330px'}
                         w={'full'}
-                        bg={useColorModeValue('gray.400', 'gray.800')}
-                        boxShadow={'2xl'}
+                        bg={useColorModeValue('gray.200', 'gray.900')}
+                        border='1px solid'
+                        borderColor={useColorModeValue('gray.300', 'gray.700')}
+                        boxShadow={'lg'}
                         rounded={'lg'}
                         pos={'relative'}
                         zIndex={1}>
@@ -255,7 +267,7 @@ function AboutT() {
                                 pos: 'absolute',
                                 top: 5,
                                 left: 0,
-                                backgroundImage: `url(${Ahmad})`,
+                                boxShadow: 'inset 0 0 50px rgba(0,0,0,.2)',
                                 filter: 'blur(15px)',
                                 zIndex: -1,
                             }}
@@ -272,7 +284,7 @@ function AboutT() {
                                 src={Ahmad}
                             />
                         </Box>
-                        <Stack pt={10} align={'center'} gap='3'>
+                        <Stack pt={10} align={'center'} gap='3' mb='3'>
                             <Heading fontSize={'2xl'} fontFamily={'body'} fontWeight={500}>
                                 Ahmad Jubran
                             </Heading>
@@ -316,8 +328,10 @@ function AboutT() {
                         p={6}
                         maxW={'330px'}
                         w={'full'}
-                        bg={useColorModeValue('gray.400', 'gray.800')}
-                        boxShadow={'2xl'}
+                        bg={useColorModeValue('gray.200', 'gray.900')}
+                        border='1px solid'
+                        borderColor={useColorModeValue('gray.300', 'gray.700')}
+                        boxShadow={'lg'}
                         rounded={'lg'}
                         pos={'relative'}
                         zIndex={1}>
@@ -334,7 +348,7 @@ function AboutT() {
                                 pos: 'absolute',
                                 top: 5,
                                 left: 0,
-                                backgroundImage: `url(${Yaseer})`,
+                                boxShadow: 'inset 0 0 50px rgba(0,0,0,.2)',
                                 filter: 'blur(15px)',
                                 zIndex: -1,
                             }}
@@ -351,7 +365,7 @@ function AboutT() {
                                 src={Yaseer}
                             />
                         </Box>
-                        <Stack pt={10} align={'center'} gap='3'>
+                        <Stack pt={10} align={'center'} gap='3' mb='3'>
                             <Heading fontSize={'2xl'} fontFamily={'body'} fontWeight={500}>
                                 Yasser Odat
                             </Heading>
@@ -395,8 +409,10 @@ function AboutT() {
                         p={6}
                         maxW={'330px'}
                         w={'full'}
-                        bg={useColorModeValue('gray.400', 'gray.800')}
-                        boxShadow={'2xl'}
+                        bg={useColorModeValue('gray.200', 'gray.900')}
+                        border='1px solid'
+                        borderColor={useColorModeValue('gray.300', 'gray.700')}
+                        boxShadow={'lg'}
                         rounded={'lg'}
                         pos={'relative'}
                         zIndex={1}>
@@ -413,7 +429,7 @@ function AboutT() {
                                 pos: 'absolute',
                                 top: 5,
                                 left: 0,
-                                backgroundImage: `url(${Qais})`,
+                                boxShadow: 'inset 0 0 50px rgba(0,0,0,.2)',
                                 filter: 'blur(15px)',
                                 zIndex: -1,
                             }}
@@ -430,7 +446,7 @@ function AboutT() {
                                 src={Qais}
                             />
                         </Box>
-                        <Stack pt={10} align={'center'} gap='3'>
+                        <Stack pt={10} align={'center'} gap='3' mb='3'>
                             <Heading fontSize={'2xl'} fontFamily={'body'} fontWeight={500}>
                                 Qais Alsgher
                             </Heading>
@@ -474,8 +490,10 @@ function AboutT() {
                         p={6}
                         maxW={'330px'}
                         w={'full'}
-                        bg={useColorModeValue('gray.400', 'gray.800')}
-                        boxShadow={'2xl'}
+                        bg={useColorModeValue('gray.200', 'gray.900')}
+                        border='1px solid'
+                        borderColor={useColorModeValue('gray.300', 'gray.700')}
+                        boxShadow={'lg'}
                         rounded={'lg'}
                         pos={'relative'}
                         zIndex={1}>
@@ -492,7 +510,7 @@ function AboutT() {
                                 pos: 'absolute',
                                 top: 5,
                                 left: 0,
-                                backgroundImage: `url(${Omar})`,
+                                boxShadow: 'inset 0 0 50px rgba(0,0,0,.2)',
                                 filter: 'blur(15px)',
                                 zIndex: -1,
                             }}
@@ -509,7 +527,7 @@ function AboutT() {
                                 src={Omar}
                             />
                         </Box>
-                        <Stack pt={10} align={'center'} gap='3'>
+                        <Stack pt={10} align={'center'} gap='3' mb='3'>
                             <Heading fontSize={'2xl'} fontFamily={'body'} fontWeight={500}>
                                 Omar Qattam
                             </Heading>
@@ -553,8 +571,10 @@ function AboutT() {
                         p={6}
                         maxW={'330px'}
                         w={'full'}
-                        bg={useColorModeValue('gray.400', 'gray.800')}
-                        boxShadow={'2xl'}
+                        bg={useColorModeValue('gray.200', 'gray.900')}
+                        border='1px solid'
+                        borderColor={useColorModeValue('gray.300', 'gray.700')}
+                        boxShadow={'lg'}
                         rounded={'lg'}
                         pos={'relative'}
                         zIndex={1}>
@@ -571,7 +591,7 @@ function AboutT() {
                                 pos: 'absolute',
                                 top: 5,
                                 left: 0,
-                                backgroundImage: `url(${Feras})`,
+                                boxShadow: 'inset 0 0 50px rgba(0,0,0,.2)',
                                 filter: 'blur(15px)',
                                 zIndex: -1,
                             }}
@@ -588,7 +608,7 @@ function AboutT() {
                                 src={Feras}
                             />
                         </Box>
-                        <Stack pt={10} align={'center'} gap='3'>
+                        <Stack pt={10} align={'center'} gap='3' m='3'>
                             <Heading fontSize={'2xl'} fontFamily={'body'} fontWeight={500}>
                                 Firas Yaqop
                             </Heading>
