@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import {
   Alert,
   AlertIcon,
+  Box,
   Button,
   FormControl,
   FormHelperText,
@@ -22,14 +23,20 @@ import {
   Textarea,
   useDisclosure,
   useToast,
+  VStack,
+  HStack,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import { FaDollarSign } from "react-icons/fa";
 import { IoPencil } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { editItem } from "../../../store/actions/itemActions";
+
 import { uploadItemImage, validateImage } from "../../../store/actions/itemActions";
 
 function EditItem({ item }) {
+  const colorBackInput = useColorModeValue('gray.300', 'gray.700');
+  const textColor = useColorModeValue("gray.700", "white");
   const error = useSelector((state) => state.item.error);
   const loading = useSelector((state) => state.item.loading);
   const userId = useSelector((state) => state.auth.user.id);
@@ -45,10 +52,10 @@ function EditItem({ item }) {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    console.log(e.target.itemTitle);
+
     const imageURL = await uploadItemImage();
     console.log(imageURL);
-    editItem(dispatch, e, imageURL, userId, item.id, item.itemImage, toast);
+    editItem(dispatch, e, imageURL, userId, item.id, item.itemImage);
   }
 
   return (
@@ -64,10 +71,10 @@ function EditItem({ item }) {
         borderRadius="0"
       >
         {<IoPencil />}
-        <span style={{ marginLeft: "0.6rem" }}>Edit</span>
+        <span style={{ marginLeft: "0.6rem" }}>Edit Item</span>
       </Button>
 
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal isOpen={isOpen} size='5xl' onClose={onClose} bg='gray.100'>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Edit your item</ModalHeader>
@@ -75,10 +82,152 @@ function EditItem({ item }) {
 
           <form onSubmit={(e) => handleSubmit(e)}>
             <ModalBody pb={6}>
-              <FormControl>
-                <FormLabel>Title</FormLabel>
-                <Input type="text" name="itemTitle" placeholder="Title" variant="auth" defaultValue={item.itemTitle} />
-              </FormControl>
+
+              <HStack spacing={4}>
+                <FormControl>
+                  <FormLabel>Title</FormLabel>
+                  <Input type="text"
+                    name="itemTitle"
+                    placeholder="Title"
+                    variant="auth"
+                    defaultValue={item.itemTitle}
+                    bg={colorBackInput}
+                    color={textColor}
+                  />
+                </FormControl>
+                <FormControl mt={4} isRequired>
+                  <FormLabel>Category Item</FormLabel>
+                  <InputGroup>
+                    <Select name="category"
+                      variant="auth"
+                      defaultValue={item.category}
+                      bg={colorBackInput}
+                      color={textColor}
+                    >
+                      <option disabled>Select Category</option>
+                      <option value="electronics">Electronics</option>
+                      <option value="clothes">Clothes</option>
+                      <option value="realestate">Real Estate</option>
+                      <option value="pets">Pets</option>
+                      <option value="vehicles">Vehicles</option>
+                      <option value="others">Others</option>
+                    </Select>
+                  </InputGroup>
+                </FormControl>
+
+              </HStack>
+
+
+              <HStack spacing={4}>
+                <FormControl mt={10} isRequired>
+                  <InputGroup>
+                    {/* <InputLeftElement pointerEvents="none" children={<TfiEmail/>} /> */}
+                    <Input
+                      type="text"
+                      name="subCategory"
+                      placeholder="subCategory"
+                      variant="auth"
+                      defaultValue={item.subCategory}
+                      bg={colorBackInput}
+                      color={textColor}
+                    />
+                  </InputGroup>
+                </FormControl>
+
+                <FormControl mt={4} isRequired>
+                  <FormLabel mt={4} >Condition Item</FormLabel>
+                  <InputGroup>
+                    {/* <InputLeftElement pointerEvents="none" children={<TfiEmail/>} /> */}
+                    <Select
+                      name="itemCondition" variant="auth"
+                      defaultValue={item.itemCondition}
+                      bg={colorBackInput}
+                      color={textColor}
+                    >
+                      <option disabled>Select Condition</option>
+                      <option value="New">New</option>
+                      <option value="Used">Used</option>
+                    </Select>
+                  </InputGroup>
+                </FormControl>
+              </HStack>
+
+
+              <HStack spacing={4} >
+                <VStack w='100%' gap='3'>
+                  <FormControl isRequired>
+                    <FormLabel  >Condition Item</FormLabel>
+                    <InputGroup>
+                      {/* <InputLeftElement pointerEvents="none" children={<TfiEmail/>} /> */}
+                      <Input
+                        type="datetime-local"
+                        name="startDate"
+                        placeholder="startDate"
+                        min={new Date().toISOString().slice(0, 16)}
+                        variant="auth"
+                        defaultValue={item.startDate && item.startDate.slice(0, 16)}
+                        onChange={(e) => handleEndDate(e)}
+                        bg={colorBackInput}
+                        color={textColor}
+                      />
+                    </InputGroup>
+                  </FormControl>
+
+                  <FormControl isRequired>
+                    <FormLabel  >Condition Item</FormLabel>
+                    <InputGroup>
+                      {/* <InputLeftElement pointerEvents="none" children={<TfiEmail/>} /> */}
+                      <Input
+                        type="datetime-local"
+                        name="endDate"
+                        placeholder="endDate"
+                        min={minEndDate}
+                        variant="auth"
+                        defaultValue={item.endDate && item.endDate.slice(0, 16)}
+                        bg={colorBackInput}
+                        color={textColor}
+                      />
+                    </InputGroup>
+                  </FormControl>
+                </VStack>
+
+                <VStack w='100%' gap='8' >
+                  <FormControl mt='10' isRequired>
+                    <InputGroup>
+                      <InputLeftElement children={<FaDollarSign />} />
+
+                      <Input
+                        type="number"
+                        name="initialPrice"
+                        placeholder="initialPrice"
+                        variant="auth"
+                        defaultValue={item.initialPrice}
+                        bg={colorBackInput}
+                        color={textColor}
+                      />
+
+                    </InputGroup>
+                  </FormControl>
+
+                  <FormControl >
+                    <InputGroup>
+                      {/* <InputLeftElement pointerEvents="none" children={<TfiEmail/>} /> */}
+                      <Input
+                        type="file"
+                        name="itemImage"
+                        multiple="multiple"
+                        placeholder="itemImage"
+                        variant="auth"
+                        onChange={(e) => validateImage(e, toast)}
+                        bg='transparent'
+                        _hover={{ bg: 'transparent', cursor: 'pointer' }}
+                        color={textColor}
+                      />
+                    </InputGroup>
+                    <FormHelperText textAlign="left">you can upload up to 8 images.</FormHelperText>
+                  </FormControl>
+                </VStack>
+              </HStack>
 
               <FormControl mt={4}>
                 <FormLabel>Item Description</FormLabel>
@@ -87,106 +236,14 @@ function EditItem({ item }) {
                   name="itemDescription"
                   placeholder="itemDescription"
                   variant="auth"
+                  rowGap='20'
                   defaultValue={item.itemDescription}
+                  bg={colorBackInput}
+                  color={textColor}
                 />
               </FormControl>
 
-              <FormControl mt={4}>
-                <InputGroup>
-                  {/* <InputLeftElement pointerEvents="none" children={<TfiEmail/>} /> */}
-                  <Input
-                    type="file"
-                    name="itemImage"
-                    multiple="multiple"
-                    placeholder="itemImage"
-                    variant="auth"
-                    onChange={(e) => validateImage(e, toast)}
-                  />
-                </InputGroup>
-                <FormHelperText textAlign="left">you can upload up to 8 images.</FormHelperText>
-              </FormControl>
 
-              <FormControl mt={4} isRequired>
-                <InputGroup>
-                  <Select name="category" variant="auth" defaultValue={item.category}>
-                    <option disabled>Select Category</option>
-                    <option value="electronics">Electronics</option>
-                    <option value="clothes">Clothes</option>
-                    <option value="realestate">Real Estate</option>
-                    <option value="pets">Pets</option>
-                    <option value="vehicles">Vehicles</option>
-                    <option value="others">Others</option>
-                  </Select>
-                </InputGroup>
-              </FormControl>
-
-              <FormControl mt={4} isRequired>
-                <InputGroup>
-                  {/* <InputLeftElement pointerEvents="none" children={<TfiEmail/>} /> */}
-                  <Input
-                    type="text"
-                    name="subCategory"
-                    placeholder="subCategory"
-                    variant="auth"
-                    defaultValue={item.subCategory}
-                  />
-                </InputGroup>
-              </FormControl>
-
-              <FormControl mt={4} isRequired>
-                <InputGroup>
-                  {/* <InputLeftElement pointerEvents="none" children={<TfiEmail/>} /> */}
-                  <Select name="itemCondition" variant="auth" defaultValue={item.itemCondition}>
-                    <option disabled>Select Condition</option>
-                    <option value="New">New</option>
-                    <option value="Used">Used</option>
-                  </Select>
-                </InputGroup>
-              </FormControl>
-
-              <FormControl mt={4} isRequired>
-                <InputGroup>
-                  <InputLeftElement children={<FaDollarSign />} />
-
-                  <Input
-                    type="number"
-                    name="initialPrice"
-                    placeholder="initialPrice"
-                    variant="auth"
-                    defaultValue={item.initialPrice}
-                  />
-                  
-                </InputGroup>
-              </FormControl>
-
-              <FormControl mt={4} isRequired>
-                <InputGroup>
-                  {/* <InputLeftElement pointerEvents="none" children={<TfiEmail/>} /> */}
-                  <Input
-                    type="datetime-local"
-                    name="startDate"
-                    placeholder="startDate"
-                    min={new Date().toISOString().slice(0, 16)}
-                    variant="auth"
-                    defaultValue={item.startDate && item.startDate.slice(0, 16)}
-                    onChange={(e) => handleEndDate(e)}
-                  />
-                </InputGroup>
-              </FormControl>
-
-              <FormControl mt={4} isRequired>
-                <InputGroup>
-                  {/* <InputLeftElement pointerEvents="none" children={<TfiEmail/>} /> */}
-                  <Input
-                    type="datetime-local"
-                    name="endDate"
-                    placeholder="endDate"
-                    min={minEndDate}
-                    variant="auth"
-                    defaultValue={item.endDate && item.endDate.slice(0, 16)}
-                  />
-                </InputGroup>
-              </FormControl>
             </ModalBody>
 
             <ModalFooter>
