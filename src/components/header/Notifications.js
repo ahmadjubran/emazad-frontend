@@ -66,7 +66,7 @@ export default function Notifications(props) {
               Notifications{" "}
             </Heading>
             {notifications &&
-              notifications.map((notification) =>
+              notifications.slice(0, 20).map((notification) =>
                 notification.length === 0 ? (
                   <p>no notifications</p>
                 ) : (

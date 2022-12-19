@@ -63,7 +63,14 @@ export const itemSlice = createSlice({
       state.loading = false;
       state.item = {
         ...state.item,
-        Comments: state.item.Comments.map((comment) => (comment.id === action.payload.id ? action.payload : comment)),
+        Comments: state.item.Comments.map((comment) =>
+          comment.id === action.payload.id
+            ? {
+                ...action.payload,
+                Replies: state.item.Comments.find((comment) => comment.id === action.payload.id).Replies,
+              }
+            : comment
+        ),
       };
     },
 
@@ -78,7 +85,7 @@ export const itemSlice = createSlice({
         ...state.item,
         Comments: state.item.Comments.map((comment) =>
           comment.id === action.payload.commentId
-            ? { ...comment, Replies: comment.Replies ? [action.payload, ...comment.Replies] : [action.payload] }
+            ? { ...comment, Replies: comment.Replies ? [...comment.Replies, action.payload] : [action.payload] }
             : comment
         ),
       };
