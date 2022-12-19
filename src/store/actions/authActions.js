@@ -19,7 +19,7 @@ export const validateImage = (payload, dispatch, toast) => {
       title: "Max file size is 1MB",
       description: "please try again",
       status: "error",
-      duration: 3000,
+      duration: 5000,
       isClosable: true,
       position: "top",
     });
@@ -58,8 +58,6 @@ export const signUp = (dispatch, payload, imageURL, toast) => {
       image: imageURL || null,
     };
 
-    console.log(data);
-
     try {
       if (payload.error) {
         dispatch(authFail(payload.error));
@@ -72,7 +70,7 @@ export const signUp = (dispatch, payload, imageURL, toast) => {
 
             toast({
               title: "Account created.",
-              description: "We've created your account for you.",
+              description: "We've sent a verification email to your email address. Please verify your account.",
               status: "success",
               duration: 5000,
               isClosable: true,
@@ -80,13 +78,34 @@ export const signUp = (dispatch, payload, imageURL, toast) => {
           })
           .catch((err) => {
             dispatch(authFail(err.response.data));
+            toast({
+              title: "Something went wrong.",
+              description: `${err.response.data}` || "Please try again.",
+              status: "error",
+              duration: 5000,
+              isClosable: true,
+            });
           });
       }
     } catch (error) {
       dispatch(authFail(error.response.data));
+      toast({
+              title: "Something went wrong.",
+              description: `${error.response.data}` || "Please try again.",
+              status: "error",
+              duration: 5000,
+              isClosable: true,
+            });
     }
   } else {
     dispatch(authFail("The password entered does not match! Please try again."));
+    toast({
+      title: "Something went wrong.",
+      description: "The password entered does not match! Please try again.",
+      status: "error",
+      duration: 5000,
+      isClosable: true,
+    });
   }
 };
 
@@ -123,20 +142,34 @@ export const login = (dispatch, payload, toast) => {
           localStorage.setItem("userID", res.data.id);
 
           toast({
-            title: "Account created.",
-            description: "We've created your account for you.",
+            title: `Welcome back ${res.data.userName} !`,
+            description: "You are now logged in.",
             status: "success",
             duration: 5000,
             isClosable: true,
           });
         })
         .catch((err) => {
-          console.log(err);
           dispatch(authFail(err.response.data));
+          console.log(err.response.data)
+          toast({
+            title: "Something went wrong.",
+            description: `${err.response.data}` || "Please try again.",
+            status: "error",
+            duration: 5000,
+            isClosable: true,
+          });
         });
     }
   } catch (error) {
     dispatch(authFail(error));
+    toast({
+            title: "Something went wrong.",
+            description: `${error.response.data}` || "Please try again.",
+            status: "error",
+            duration: 5000,
+            isClosable: true,
+          });
   }
 };
 
@@ -152,7 +185,7 @@ export const logout = (dispatch) => {
   }
 };
 
-export const verifyEmail = (dispatch, payload) => {
+export const verifyEmail = (dispatch, payload, toast) => {
   payload.preventDefault();
 
   const user = {
@@ -188,12 +221,33 @@ export const verifyEmail = (dispatch, payload) => {
           localStorage.setItem("userInfo", JSON.stringify(res.data));
           localStorage.setItem("username", res.data.userName);
           localStorage.setItem("userID", res.data.id);
+          toast({
+            title: "Verification successful.",
+            description: `Welcome to eMazad ${res.data.userName}, you are now logged in.`,
+            status: "success",
+            duration: 5000,
+            isClosable: true,
+          });
         })
         .catch((err) => {
           dispatch(authFail(err.response.data));
+          toast({
+            title: "Something went wrong.",
+            description: `${err.response.data}` || "Please try again.",
+            status: "error",
+            duration: 5000,
+            isClosable: true,
+          });
         });
     }
   } catch (error) {
     dispatch(authFail(error));
+    toast({
+      title: "Something went wrong.",
+      description: `${error.response.data}` || "Please try again.",
+      status: "error",
+      duration: 5000,
+      isClosable: true,
+    });
   }
 };

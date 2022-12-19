@@ -44,7 +44,7 @@ export default function EditReply({ reply }) {
         borderRadius="0"
       >
         {<IoPencil />}
-        <span style={{ marginLeft: "5px" }}>Edit Post</span>
+        <span style={{ marginLeft: "5px" }}>Edit Reply</span>
       </Button>
 
       <Modal isOpen={show} onClose={() => setShow(false)}>

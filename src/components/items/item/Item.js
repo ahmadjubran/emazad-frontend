@@ -174,7 +174,7 @@ export default function Item() {
                         icon={<IoTrash />}
                         bg="gray.200"
                         _hover={{ bg: "gray.300" }}
-                        onClick={() => deleteItem(dispatch, item.id)}
+                        onClick={() => deleteItem(dispatch, item.id, toast)}
                       >
                         Delete
                       </MenuItem>

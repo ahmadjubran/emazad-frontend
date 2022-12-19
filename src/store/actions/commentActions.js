@@ -7,7 +7,7 @@ import {
   updateCommentSuccess,
 } from "../features/itemSlicer";
 
-export const addComment = (dispatch, itemId, comment) => {
+export const addComment = (dispatch, itemId, comment, toast) => {
   try {
     dispatch(ItemRequest());
     axios
@@ -18,41 +18,80 @@ export const addComment = (dispatch, itemId, comment) => {
       })
       .then((res) => {
         dispatch(addCommentSuccess(res.data));
+        toast({
+          description: `Comment Added`,
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        });
       })
       .catch((err) => {
         dispatch(ItemFail(err));
+        toast({
+          title: "Error",
+          description: `${err.response.data.message}`,
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
       });
   } catch (err) {
     console.log(err);
   }
 };
 
-export const deleteComment = (dispatch, id) => {
+export const deleteComment = (dispatch, id, toast) => {
   try {
     dispatch(ItemRequest());
     axios
       .delete(`${process.env.REACT_APP_HEROKU_API_KEY}/comment/${id}`)
       .then((res) => {
         dispatch(deleteCommentSuccess(id));
+        toast({
+          description: `Comment Deleted`,
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        });
       })
       .catch((err) => {
         dispatch(ItemFail(err));
+        toast({
+          title: "Error",
+          description: `${err.response.data.message}`,
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });  
       });
   } catch (err) {
     console.log(err);
   }
 };
 
-export const editComment = (dispatch, id, comment) => {
+export const editComment = (dispatch, id, comment, toast) => {
   try {
     dispatch(ItemRequest());
     axios
       .put(`${process.env.REACT_APP_HEROKU_API_KEY}/comment/${id}`, { comment })
       .then((res) => {
         dispatch(updateCommentSuccess(res.data));
+        toast({
+          description: "Comment Updated",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        });  
       })
       .catch((err) => {
         dispatch(ItemFail(err));
+        toast({
+          title: "Error",
+          description: `${err.response.data.message}`,
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
       });
   } catch (err) {
     console.log(err);

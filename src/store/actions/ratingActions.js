@@ -15,9 +15,10 @@ export const handleRating = (dispatch, rating, item, allRating, toast) => {
           getItem(dispatch, item.id);
         })
         .catch((err) => {
+          console.log(err.response.data)
           toast({
             title: "Error",
-            description: "Please login to rate items.",
+            description: `${err.response.data.message}` || "Please try again.",
             status: "error",
             duration: 5000,
             isClosable: true,
@@ -34,7 +35,7 @@ export const handleRating = (dispatch, rating, item, allRating, toast) => {
           .catch((err) => {
             toast({
               title: "Error",
-              description: "Please login to rate items.",
+              description: `${err.response.data.message}` || "Please try again.",
               status: "error",
               duration: 5000,
               isClosable: true,
@@ -50,7 +51,7 @@ export const handleRating = (dispatch, rating, item, allRating, toast) => {
           .catch((err) => {
             toast({
               title: "Error",
-              description: "Please login to rate items.",
+              description: `${err.response.data.message}` || "Please try again.",
               status: "error",
               duration: 5000,
               isClosable: true,

@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Image, Input, Text, Textarea } from "@chakra-ui/react";
+import { Box, Button, Flex, Image, Input, Text, Textarea, useToast } from "@chakra-ui/react";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addReply } from "../../../store/actions/replyActions";
@@ -7,11 +7,12 @@ import { selectUser } from "../../../store/features/authSlicer";
 export default function AddReply({ comment, setShowAddReply }) {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
+  const toast = useToast();
 
   const handleAddReply = (e) => {
     e.preventDefault();
     const reply = e.target.reply.value;
-    addReply(dispatch, comment, reply);
+    addReply(dispatch, comment, reply, toast);
     e.target.reset();
     setShowAddReply(false);
   };

@@ -1,7 +1,8 @@
-import { Box, Flex, IconButton, Image, Menu, MenuButton, MenuItem, MenuList, Text } from "@chakra-ui/react";
+import { Box, Flex, IconButton, Image, Menu, MenuButton, MenuItem, MenuList, Text, useToast, } from "@chakra-ui/react";
 import React from "react";
 import { IoEllipsisVertical, IoTrash } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { showTime } from "../../../store/actions/generalActions";
 import { deleteReply } from "../../../store/actions/replyActions";
 import { selectIsAuth, selectUser } from "../../../store/features/authSlicer";
@@ -11,6 +12,7 @@ export default function Replies({ comment }) {
   const dispatch = useDispatch();
   const isAuth = useSelector(selectIsAuth);
   const user = useSelector(selectUser);
+  const toast = useToast();
 
   return (
     <Box>
@@ -30,14 +32,16 @@ export default function Replies({ comment }) {
                 mt="2"
               />
               <Flex flexDirection="column" bg="gray.300" p="4" borderRadius="3xl">
+                <Link to={`/profile/${reply.User.id}`}>
                 <Text fontSize="sm" textTransform="capitalize" fontWeight="bold">
                   {reply.User && reply.User.fullName}
                 </Text>
+                </Link>
                 <Text fontSize="sm" textTransform="capitalize" whiteSpace="pre-line">
                   {reply.reply}
                 </Text>
               </Flex>
-              {isAuth && user.id === reply.userId && (
+              {isAuth && (user.id === reply.userId || user.role === "admin") && (
                 <Menu>
                   <MenuButton
                     as={IconButton}
@@ -57,7 +61,7 @@ export default function Replies({ comment }) {
                   >
                     <MenuItem as={EditReply} reply={reply} />
                     <MenuItem
-                      onClick={() => deleteReply(dispatch, reply)}
+                      onClick={() => deleteReply(dispatch, reply, toast)}
                       icon={<IoTrash />}
                       bg="gray.200"
                       _hover={{ bg: "gray.300" }}

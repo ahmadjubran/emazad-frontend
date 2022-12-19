@@ -10,6 +10,14 @@ export const addBid = (dispatch, itemId, bidprice, toast) => {
       .post(`${process.env.REACT_APP_HEROKU_API_KEY}/bid`, { itemId, bidprice, userId: localStorage.getItem("userID") })
       .then((res) => {
         dispatch(addBidSuccess(res.data));
+        console.log(res.data)
+        toast({
+          title: "Success",
+          description: `You have successfully bid on this item with a bid price of $${res.data.bidprice}`,
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        });
       })
       .catch((err) => {
         dispatch(ItemFail(err));
@@ -19,7 +27,6 @@ export const addBid = (dispatch, itemId, bidprice, toast) => {
           status: "error",
           duration: 5000,
           isClosable: true,
-          position: "top",
         });
       });
   } catch (err) {

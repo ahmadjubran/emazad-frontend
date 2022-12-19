@@ -14,6 +14,7 @@ import {
   Box,
   Image,
   FormLabel,
+  useToast,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { TfiEmail } from "react-icons/tfi";
@@ -26,6 +27,7 @@ import { verifyEmail } from "../../store/actions/authActions";
 
 function Verification() {
   const dispatch = useDispatch();
+  const toast = useToast();
 
   const error = useSelector((state) => state.auth.error);
   const loading = useSelector((state) => state.auth.loading);
@@ -62,7 +64,7 @@ function Verification() {
           />
 
 
-        <form onSubmit={(e) => verifyEmail(dispatch, e)}>
+        <form onSubmit={(e) => verifyEmail(dispatch, e, toast)}>
 
           <FormControl pb="2em" isRequired>
             <FormLabel color="white.100">Enter Your Email</FormLabel>

@@ -27,15 +27,12 @@ import {
 } from '@chakra-ui/react';
 import { FaBirthdayCake, FaPlus, FaStar } from 'react-icons/fa'
 import { ImHammer2 } from 'react-icons/im'
-import { GiStarsStack } from 'react-icons/gi'
-import { BsFillTelephoneFill, BsFillCalendarCheckFill, BsFillPersonFill } from 'react-icons/bs'
-import { MdSell } from 'react-icons/md'
-import { IoAddCircle, IoAlarmSharp, IoBagCheck, IoEllipsisHorizontalSharp, IoEllipsisVertical, IoHeart, IoStar, IoStarHalf, IoStarOutline } from 'react-icons/io5';
+import { BsFillTelephoneFill, BsFillCalendarCheckFill } from 'react-icons/bs'
+import { IoAddCircle, IoAlarmSharp, IoBagCheck, IoEllipsisHorizontalSharp, IoEllipsisVertical, IoHeart } from 'react-icons/io5';
 import { BiDollar } from 'react-icons/bi'
 
 import { TfiEmail } from "react-icons/tfi";
-import { FaUserAstronaut } from "react-icons/fa";
-import { MdOutlineFavorite, MdReportProblem } from 'react-icons/md';
+import { MdReportProblem } from 'react-icons/md';
 
 import ProfileItems from './ProfileItems';
 import EditProfileModal from './EditProfileModal';
@@ -116,13 +113,11 @@ export default function Profile() {
                 />
               </Flex>
 
-              <VStack align={{ base: 'left', md: 'left' }}>
+              <VStack align="left">
 
                 <HStack >
                   <Text fontSize={{ base: '2xl', md: '3xl' }} fontWeight='bold'> {userProfile.fullName}</Text>
                   <Text color="gray.500"> ({userProfile.userName})</Text>
-
-                  {/* <ProfilePopover /> */}
 
                   <Menu>
                     <MenuButton as={IconButton} icon={<IoEllipsisVertical />} variant="none" fontSize="xl" _hover={{ color: 'blue.500', bg: 'gray.200' }}/>
