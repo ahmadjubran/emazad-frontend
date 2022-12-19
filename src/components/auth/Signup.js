@@ -19,6 +19,7 @@ import {
   InputRightElement,
   Avatar,
   useToast,
+  FormLabel,
 
 } from "@chakra-ui/react";
 
@@ -34,15 +35,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { signUp } from "../../store/actions/authActions";
 import { validateImage, uploadUserImage } from "../../store/actions/authActions";
 
-import saeed from "../../assets/img/saeed.jpg";
-import { FormLabel } from "react-bootstrap";
-
 function Signup() {
   const dispatch = useDispatch();
 
   const error = useSelector((state) => state.auth.error);
   const loading = useSelector((state) => state.auth.loading);
-  const image = useSelector((state) => state.auth.previewImage);
+  const previewImage = useSelector((state) => state.auth.previewImage);
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -70,20 +68,23 @@ function Signup() {
         bgSize="cover"
         bgPosition="center"
         bgRepeat="no-repeat"
-        pt="3em"
-        pb="3em"
+        pt="5em"
+        pb="5em"
       >
         <Heading textStyle="h1" color="white.100" mb="1em">
           Create Account
         </Heading>
 
-        <Box rounded={"lg"} p={8} boxShadow={{ base: 'none', sm: '0 0 60px rgba(0, 0, 0, 0.5)' }} 
+        <Box 
+          rounded={"lg"} p={8} 
+          boxShadow={{ base: 'none', sm: '0 0 60px rgba(0, 0, 0, 0.5)' }} 
+          filter={{ base: 'none', sm: 'drop-shadow(0 0 0.2rem rgba(0, 0, 0, 0.3))' }}
           // bgGradient="linear(to-r, teal.500,blue.500)"
-        >
+          >
           <form onSubmit={(e) => handleSubmit(e)}>
 
           <Flex justify="center" align="center" >
-            <Avatar size="2xl" src={image || saeed} boxShadow={{ base: 'none', sm: '0 0 60px rgba(0, 0, 0, 0.5)' }} mb="1em"/>
+            <Avatar size="2xl" src={previewImage} boxShadow={{ base: 'none', sm: '0 0 60px rgba(0, 0, 0, 0.5)' }} mb="1em"/>
             <FormLabel htmlFor="image" >
               <IoAddCircle style={{ width: '25px', height: '25px', cursor: 'pointer', position: 'absolute' }}/>
             </FormLabel>

@@ -31,7 +31,6 @@ function AddItem() {
   const error = useSelector((state) => state.item.error);
   const loading = useSelector((state) => state.item.loading);
   const userId = useSelector((state) => state.auth.user.id);
-
   const toast = useToast();
 
   // set the date to now in day and time format YYYY-MM-DDTHH:MM
