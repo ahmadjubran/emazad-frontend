@@ -90,12 +90,12 @@ export const signUp = (dispatch, payload, imageURL, toast) => {
     } catch (error) {
       dispatch(authFail(error.response.data));
       toast({
-              title: "Something went wrong.",
-              description: `${error.response.data}` || "Please try again.",
-              status: "error",
-              duration: 5000,
-              isClosable: true,
-            });
+        title: "Something went wrong.",
+        description: `${error.response.data}` || "Please try again.",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
     }
   } else {
     dispatch(authFail("The password entered does not match! Please try again."));
@@ -151,7 +151,7 @@ export const login = (dispatch, payload, toast) => {
         })
         .catch((err) => {
           dispatch(authFail(err.response.data));
-          console.log(err.response.data)
+          console.log(err.response.data);
           toast({
             title: "Something went wrong.",
             description: `${err.response.data}` || "Please try again.",
@@ -164,12 +164,12 @@ export const login = (dispatch, payload, toast) => {
   } catch (error) {
     dispatch(authFail(error));
     toast({
-            title: "Something went wrong.",
-            description: `${error.response.data}` || "Please try again.",
-            status: "error",
-            duration: 5000,
-            isClosable: true,
-          });
+      title: "Something went wrong.",
+      description: `${error.response.data}` || "Please try again.",
+      status: "error",
+      duration: 5000,
+      isClosable: true,
+    });
   }
 };
 

@@ -10,7 +10,7 @@ export const profileSlice = createSlice({
     wonItems: [],
     engagedItems: [],
     favoriteItems: [],
-    rating: {},
+    userRating: {},
     loading: false,
     error: null,
   },
@@ -61,7 +61,7 @@ export const profileSlice = createSlice({
 
     getRatingSuccess: (state, action) => {
       state.loading = false;
-      state.rating = action.payload;
+      state.userRating = action.payload;
     },
 
     updateProfileSuccess: (state, action) => {
@@ -92,7 +92,7 @@ export const selectSoldItems = (state) => state.profile.soldItems;
 export const selectWonItems = (state) => state.profile.wonItems;
 export const selectEngagedItems = (state) => state.profile.engagedItems;
 export const selectFavoriteItems = (state) => state.profile.favoriteItems;
-export const selectRating = (state) => state.profile.rating;
+export const selectUserRating = (state) => state.profile.userRating;
 export const selectProfileLoading = (state) => state.profile.loading;
 export const selectProfileError = (state) => state.profile.error;
 

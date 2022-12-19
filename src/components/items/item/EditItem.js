@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import {
   Alert,
   AlertIcon,
+  Box,
   Button,
   FormControl,
   FormHelperText,
@@ -27,6 +28,7 @@ import { FaDollarSign } from "react-icons/fa";
 import { IoPencil } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { editItem } from "../../../store/actions/itemActions";
+
 import { uploadItemImage, validateImage } from "../../../store/actions/itemActions";
 
 function EditItem({ item }) {
@@ -64,7 +66,7 @@ function EditItem({ item }) {
         borderRadius="0"
       >
         {<IoPencil />}
-        <span style={{ marginLeft: "0.6rem" }}>Edit</span>
+        <span style={{ marginLeft: "0.6rem" }}>Edit Item</span>
       </Button>
 
       <Modal isOpen={isOpen} onClose={onClose}>
