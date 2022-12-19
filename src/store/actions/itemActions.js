@@ -87,20 +87,21 @@ export const getTrendingItems = (dispatch) => {
 };
 
 export const addItem = (dispatch, payload, imageURL, userId) => {
-  payload.preventDefault();
-
+  
+  console.log(payload)
   const data = {
-    itemTitle: payload.target.itemTitle.value,
-    itemDescription: payload.target.itemDescription.value,
+    itemTitle: payload.itemTitle,
+    itemDescription: payload.itemDescription,
     ...(imageURL && { itemImage: imageURL }),
-    category: payload.target.category.value,
-    subCategory: payload.target.subCategory.value,
-    itemCondition: payload.target.itemCondition.value,
-    initialPrice: Number(payload.target.initialPrice.value),
-    startDate: new Date(payload.target.startDate.value).toISOString(),
-    endDate: new Date(payload.target.endDate.value).toISOString(),
+    category: payload.category,
+    subCategory: payload.subCategory,
+    itemCondition: payload.itemCondition,
+    initialPrice: Number(payload.initialPrice),
+    startDate: new Date(payload.startDate).toISOString(),
+    endDate: new Date(payload.endDate).toISOString(),
     userId: userId,
   };
+  console.log(data)
 
   try {
     dispatch(ItemRequest());
@@ -108,7 +109,9 @@ export const addItem = (dispatch, payload, imageURL, userId) => {
       .post(`${process.env.REACT_APP_HEROKU_API_KEY}/item`, data)
       .then((res) => {
         dispatch(addItemSuccess(res.data));
-        payload.target.reset();
+        
+        // payload.target.reset();
+        console.log(res.data)
       })
       .catch((err) => {
         dispatch(ItemFail(err));
@@ -118,7 +121,43 @@ export const addItem = (dispatch, payload, imageURL, userId) => {
   }
 };
 
-export const editItem = (dispatch, payload, imageURL, userId, id, itemImage, toast) => {
+
+// old function:
+
+// export const addItem = (dispatch, payload, imageURL, userId) => {
+//   payload.preventDefault();
+
+//   const data = {
+//     itemTitle: payload.target.itemTitle.value,
+//     itemDescription: payload.target.itemDescription.value,
+//     ...(imageURL && { itemImage: imageURL }),
+//     category: payload.target.category.value,
+//     subCategory: payload.target.subCategory.value,
+//     itemCondition: payload.target.itemCondition.value,
+//     initialPrice: Number(payload.target.initialPrice.value),
+//     startDate: new Date(payload.target.startDate.value).toISOString(),
+//     endDate: new Date(payload.target.endDate.value).toISOString(),
+//     userId: userId,
+//   };
+
+//   try {
+//     dispatch(ItemRequest());
+//     axios
+//       .post(`${process.env.REACT_APP_HEROKU_API_KEY}/item`, data)
+//       .then((res) => {
+//         dispatch(addItemSuccess(res.data));
+//         payload.target.reset();
+//       })
+//       .catch((err) => {
+//         dispatch(ItemFail(err));
+//       });
+//   } catch (err) {
+//     dispatch(ItemFail(err));
+//   }
+// };
+
+
+export const editItem = (dispatch, payload, imageURL, userId, id, itemImage) => {
   payload.preventDefault();
 
   const data = {
@@ -143,51 +182,25 @@ export const editItem = (dispatch, payload, imageURL, userId, id, itemImage, toa
       .then((res) => {
         console.log(res.data);
         dispatch(updateItemSuccess(res.data));
-        toast({
-          description: `${res.data.itemTitle} has been updated`,
-          status: "success",
-          duration: 5000,
-          isClosable: true,
-        });
       })
       .catch((err) => {
         dispatch(ItemFail(err));
-        toast({
-          title: "Error Updating Item",
-          description: `${err.response.data}` || "Please try again.",
-          status: "error",
-          duration: 5000,
-          isClosable: true,
-        });
       });
   } catch (err) {
     dispatch(ItemFail(err));
   }
 };
 
-export const deleteItem = (dispatch, payload, toast) => {
+export const deleteItem = (dispatch, payload) => {
   dispatch(ItemRequest());
 
   axios
     .delete(`${process.env.REACT_APP_HEROKU_API_KEY}/item/${payload}`)
     .then((res) => {
       dispatch(deleteItemSuccess(payload));
-      toast({
-        description: "Item has been deleted",
-        status: "success",
-        duration: 5000,
-        isClosable: true,
-      });
     })
     .catch((err) => {
       dispatch(ItemFail(err));
-      toast({
-        title: "Error Deleting Item",
-        description: `${err.response.data}` || "Please try again.",
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-      });
     });
 };
 
