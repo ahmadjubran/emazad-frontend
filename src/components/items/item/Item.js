@@ -33,7 +33,7 @@ import { addBid } from "../../../store/actions/bidActions";
 import { handleFavorite } from "../../../store/actions/favoriteActions";
 import { showTime, timeLeft } from "../../../store/actions/generalActions";
 import { deleteItem, getItem } from "../../../store/actions/itemActions";
-import { handleRatingFromItem } from "../../../store/actions/ratingActions";
+import { handleRating } from "../../../store/actions/ratingActions";
 import { selectIsAuth, selectUser } from "../../../store/features/authSlicer";
 import { selectItem, selectUserRating } from "../../../store/features/itemSlicer";
 import RenderTimeLeft from "../../../utils/RenderTimeLeft";
@@ -41,6 +41,8 @@ import Carousel from "./Carousel";
 import Comments from "./Comments";
 import EditItem from "./EditItem";
 import LastBids from "./LastBids";
+import AddReport from "./AddReport";
+import DeleteItem from "./DeleteItem";
 
 export default function Item() {
   const item = useSelector(selectItem);
@@ -85,7 +87,7 @@ export default function Item() {
           _hover={{ color: "blue.300" }}
           display="inline"
           cursor="pointer"
-          onClick={() => handleRatingFromItem(dispatch, i, item, userRating.rating, toast)}
+          onClick={() => handleRating(dispatch, i, item, userRating.rating, toast)}
         />
       );
     }
@@ -149,39 +151,36 @@ export default function Item() {
                 alignSelf="center"
                 onClick={() => handleFavorite(dispatch, item, item.Favorites, toast)}
               />
-              {isAuth && item.userId === user.id && (
-                <Menu>
-                  <MenuButton
-                    as={IconButton}
-                    aria-label="Options"
-                    icon={<IoEllipsisVertical />}
-                    variant="none"
-                    size="lg"
-                    alignSelf="center"
-                  />
+              <Menu >
+                <MenuButton
+                  as={IconButton}
+                  aria-label="Options"
+                  icon={<IoEllipsisVertical />}
+                  variant="none"
+                  size="lg"
+                  alignSelf="center"
+                />
 
-                  <MenuList
-                    bg="gray.200"
-                    color="gray.700"
-                    fontSize="sm"
-                    fontWeight="normal"
-                    borderRadius="lg"
-                    shadow="lg"
-                  >
-                    <MenuItem as={EditItem} item={item} />
-                    <Link to="/">
-                      <MenuItem
-                        icon={<IoTrash />}
-                        bg="gray.200"
-                        _hover={{ bg: "gray.300" }}
-                        onClick={() => deleteItem(dispatch, item.id, toast)}
-                      >
-                        Delete
-                      </MenuItem>
-                    </Link>
-                  </MenuList>
-                </Menu>
-              )}
+                <MenuList
+                  bg="gray.200"
+                  color="gray.700"
+                  fontSize="sm"
+                  fontWeight="normal"
+                  borderRadius="lg"
+                  shadow="lg"  
+                  align="center"
+                  jusify="center"                
+                >
+                  {isAuth && item.userId === user.id && (
+                    <>
+                      <MenuItem as={EditItem} item={item} />
+                      <MenuItem as={DeleteItem} itemId={item.id} />
+
+                    </>
+                  )}
+                      <MenuItem as={AddReport} itemId={item.id} />
+                </MenuList>
+              </Menu>
             </Box>
           </Flex>
 
