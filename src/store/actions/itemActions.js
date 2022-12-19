@@ -109,6 +109,7 @@ export const addItem = (dispatch, payload, imageURL, userId) => {
       .post(`${process.env.REACT_APP_HEROKU_API_KEY}/item`, data)
       .then((res) => {
         dispatch(addItemSuccess(res.data));
+        
         // payload.target.reset();
         console.log(res.data)
       })

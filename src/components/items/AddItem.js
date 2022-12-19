@@ -19,6 +19,7 @@ import {
     Grid,
     GridItem,
     Box,
+    Image,
     HStack,
     Center
 } from "@chakra-ui/react";
@@ -28,7 +29,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { addItem } from "../../store/actions/itemActions";
 import { FaDollarSign } from "react-icons/fa";
 import './NewItemForm.css';
-
 import { validateImage, uploadItemImage } from "../../store/actions/itemActions";
 import { Link } from "react-router-dom";
 
@@ -68,16 +68,6 @@ function AddItem() {
     fontSize: "1.2rem",
   };
 
-  const backButtonStyle = {
-    width: "90%",
-    height: "3.1rem",
-    borderRadius: "10px",
-    backgroundColor: "#3182CE",
-    color: "white",
-    fontWeight: "bold",
-    fontSize: "1.2rem",
-  };
-
   // functions:
 
   function handleEndDate(e) {
@@ -87,7 +77,6 @@ function AddItem() {
   async function handleSubmit(e) {
     e.preventDefault();
     const imageURL = await uploadItemImage();
-    console.log(imageURL);
     addItem(dispatch, e, imageURL, userId)
   }
 
@@ -98,38 +87,39 @@ function AddItem() {
         console.log(categories.categories)
     setFormData({...formData, [e.target[0].name]: e.target[0].value});
     
-    console.log(formData)
   };
 
    function handleStep2(e) {
     e.preventDefault();
     setStep(step + 1);
-    console.log(categories.categories)
     setFormData({...formData, [e.target[0].name]: e.target[0].value, [e.target[1].name]: e.target[1].value, [e.target[2].name]: e.target[2].value});
-    console.log(e.target)
-    console.log(formData)
+ 
    
   };
 
   function handleStep3 (e) {
     e.preventDefault();
-    console.log(e.target[0].value, 'whattttttt')
     setStep(step + 1);
-    console.log(categories.categories)
-
      const data = {...formData, [e.target[0].name]: e.target[0].value, [e.target[1].name]: e.target[1].value, [e.target[2].name]: e.target[2].value};
     finishSubmission(data)
   } 
 
   
   function finishSubmission (data) {
+    setStep(step + 1);
+    toast({
+      title: 'Auction Created.',
+      description: "You can view it from your profile page.",
+      status: 'success',
+      duration: 11000,
+      isClosable: true,
+    })
     addItem(dispatch, data, '' ,userId)
   } 
 
 
   useEffect(() => {
-    console.log(formData)
-    console.log(step)
+    
   }, [formData])
 
   return (
@@ -179,8 +169,8 @@ function AddItem() {
                 bg="rgba(0,0,0,0.5)"
 
               >
-          <Text p='2px' borderRadius="lg" key={index} w={{ base: "65px", md: "100px", lg: "200px" }} fontSize = {{ base: "10px", md: "16px", lg: "20px" }}
-> {category.display} </Text>  
+          <Text p='2px' borderRadius="lg" key={index} w={{ base: "65px", md: "100px", lg: "200px" }} 
+          fontSize = {{ base: "10px", md: "16px", lg: "20px" }}> {category.display} </Text>  
               </Center>
             </Box>
             </form> 
@@ -215,9 +205,9 @@ function AddItem() {
     <Box >
       <Text p='8px' color='black' fontSize={{base:'14px', md:'20px', lg:'20px'}} fontWeight='bold'>Describe your product</Text>
       <form onSubmit={(e) => handleStep2(e)}> 
-      <Input type="text" name="itemTitle" placeholder="Title" variant="auth" m='4px' w='100%' bg='white'/>
-      <Textarea type="text" name="itemDescription" placeholder="Description" variant="auth" m='4px' w='100%'/>
-      <Select name="itemCondition" variant="auth" m='4px' w='100%'bg='white'>
+      <Input type="text" name="itemTitle" placeholder="Title" variant="auth" m='4px' w='100%' bg='white' required/>
+      <Textarea type="text" name="itemDescription" placeholder="Description" variant="auth" m='4px' w='100%' required/>
+      <Select name="itemCondition" variant="auth" m='4px' w='100%'bg='white' required>
                 <option disabled>Select Condition</option>
                 <option value="New">New</option>
                 <option value="Used">Used</option>
@@ -228,7 +218,7 @@ function AddItem() {
               </FormControl>
               <Flex justify={'center'} gap={4} m='1rem'>
         <Button onClick={() => setStep(step-1)} style={buttonStyle}> Back </Button>
-        <Button type="submit" style={buttonStyle}>Next</Button>
+        <Button type="submit" style={buttonStyle} >Next</Button>
         </Flex> 
               
               
@@ -240,11 +230,11 @@ function AddItem() {
 
         <Text>Set an initial price</Text>
         <FaDollarSign />
-        <Input type="number" name="initialPrice" placeholder="initialPrice" variant="auth" />
+        <Input type="number" name="initialPrice" placeholder="initialPrice" variant="auth" required/>
         <Text>Start Date</Text>
-        <Input type="datetime-local" name="startDate" placeholder="startDate" min={date} variant="auth" onChange={(e) => handleEndDate(e)}/>
+        <Input type="datetime-local" name="startDate" placeholder="startDate" min={date} variant="auth" onChange={(e) => handleEndDate(e)} required/>
         <Text>End Date</Text>
-        <Input type="datetime-local" name="endDate" placeholder="endDate" min={minEndDate} variant="auth" />
+        <Input type="datetime-local" name="endDate" placeholder="endDate" min={minEndDate} variant="auth" required/>
         <Flex justify={'center'} gap={4} m='1rem'>
         <Button onClick={() => setStep(step-1)} bg={'blue.500'} color='white' _hover={{backgroundColor:'white', color:'blue.500'}} > Back </Button>
         <Button type="submit" bg={'blue.500'} color='white' _hover={{backgroundColor:'white', color:'blue.500'}}>Add Auction</Button>
@@ -254,9 +244,13 @@ function AddItem() {
 
 
       </Box>}
-      <HStack gap='4px'> 
-      
-</HStack>
+      {step == 5 &&
+      <Box >
+        You can view your auction from your profile
+        <Link href='/profile'>View Profile</Link>
+      </Box>}
+
+   
   </Flex>
   </Flex>
   );
