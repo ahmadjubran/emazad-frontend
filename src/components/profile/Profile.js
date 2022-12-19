@@ -92,7 +92,7 @@ export default function Profile() {
 
       <VStack w='80%' h="100%" > 
       
-            <Text fontSize='5xl' fontWeight='bold' color='blue.500' mb="12">Profile</Text>
+            <Text fontSize='5xl' fontWeight='bold' color='blue.500' mb="12" textTransform="uppercase">Profile</Text>
 
             <Grid templateColumns={{ base: 'repeat(1, 1fr)', md: 'repeat(2, 1fr)' }} gap={20} w="100%" h="100%"
             bg="gray.200"
