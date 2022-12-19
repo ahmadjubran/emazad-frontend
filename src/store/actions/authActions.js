@@ -1,6 +1,13 @@
 import axios from "axios";
 
-import { authRequest, authFail, signupSuccess, loginSuccess, logoutSuccess, setPreviewImage } from "../features/authSlicer";
+import {
+  authRequest,
+  authFail,
+  signupSuccess,
+  loginSuccess,
+  logoutSuccess,
+  setPreviewImage,
+} from "../features/authSlicer";
 
 import base64 from "base-64";
 
@@ -9,12 +16,12 @@ export const validateImage = (payload, dispatch, toast) => {
   const file = payload.target.files[0];
   if (file.size >= 1048576) {
     return toast({
-      title: 'Max file size is 1MB',
+      title: "Max file size is 1MB",
       description: "please try again",
-      status: 'error',
+      status: "error",
       duration: 3000,
       isClosable: true,
-      position: 'top'
+      position: "top",
     });
   } else {
     console.log("image added successfully", file);
@@ -24,7 +31,7 @@ export const validateImage = (payload, dispatch, toast) => {
 };
 
 export const uploadUserImage = async () => {
-  if(!image) return null;
+  if (!image) return null;
   const data = new FormData();
   data.append("file", image);
   data.append("upload_preset", "emazad_app");
@@ -51,7 +58,7 @@ export const signUp = (dispatch, payload, imageURL, toast) => {
       image: imageURL || null,
     };
 
-    console.log(data)
+    console.log(data);
 
     try {
       if (payload.error) {
@@ -62,17 +69,14 @@ export const signUp = (dispatch, payload, imageURL, toast) => {
           .post(`${process.env.REACT_APP_HEROKU_API_KEY}/signup`, data)
           .then((res) => {
             dispatch(signupSuccess(res.data));
-        
-              toast({
-              title: 'Account created.',
+
+            toast({
+              title: "Account created.",
               description: "We've created your account for you.",
-              status: 'success',
+              status: "success",
               duration: 5000,
               isClosable: true,
-            })
-
-            // to be removed later
-            // window.location.href = "/login";
+            });
           })
           .catch((err) => {
             dispatch(authFail(err.response.data));
@@ -119,19 +123,15 @@ export const login = (dispatch, payload, toast) => {
           localStorage.setItem("userID", res.data.id);
 
           toast({
-              title: 'Account created.',
-              description: "We've created your account for you.",
-              status: 'success',
-              duration: 5000,
-              isClosable: true,
-            })
-
-          // redirect to home page without refreshing the page
-          window.location.href = "/";
+            title: "Account created.",
+            description: "We've created your account for you.",
+            status: "success",
+            duration: 5000,
+            isClosable: true,
+          });
         })
         .catch((err) => {
-
-          console.log(err)
+          console.log(err);
           dispatch(authFail(err.response.data));
         });
     }
@@ -147,7 +147,6 @@ export const logout = (dispatch) => {
     localStorage.removeItem("userInfo");
     localStorage.removeItem("username");
     localStorage.removeItem("userID");
-    window.location.href = "/";
   } catch (error) {
     dispatch(authFail(error));
   }
@@ -189,7 +188,6 @@ export const verifyEmail = (dispatch, payload) => {
           localStorage.setItem("userInfo", JSON.stringify(res.data));
           localStorage.setItem("username", res.data.userName);
           localStorage.setItem("userID", res.data.id);
-          window.location.href = "/";
         })
         .catch((err) => {
           dispatch(authFail(err.response.data));

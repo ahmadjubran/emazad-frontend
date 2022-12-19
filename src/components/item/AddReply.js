@@ -38,20 +38,29 @@ export default function AddReply({ comment, setShowAddReply }) {
               <Textarea
                 name="reply"
                 placeholder="Write a reply..."
-                fontSize="sm"
-                textTransform="capitalize"
-                resize="none"
                 rows="1"
+                resize="none"
+                fontSize="sm"
+                bg="gray.200"
+                textTransform="capitalize"
                 onInput={(e) => {
                   e.target.style.height = "auto";
                   e.target.style.height = e.target.scrollHeight + "px";
                 }}
                 borderRadius="3xl"
                 overflow="hidden"
-                borderColor="gray.200"
+                borderColor="gray.400"
                 _hover={{ borderColor: "gray.500" }}
               />
-              <Button type="submit" size="sm" colorScheme="blue" mt="2" alignSelf="flex-start">
+              <Button
+                type="submit"
+                size="sm"
+                colorScheme="blue"
+                mt="2"
+                alignSelf="flex-start"
+                variant="outline"
+                borderRadius="3xl"
+              >
                 Reply
               </Button>
             </Flex>

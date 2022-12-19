@@ -1,28 +1,28 @@
-import React from "react";
 import {
-  VStack,
-  Text,
-  Heading,
   Alert,
   AlertIcon,
-  FormControl,
-  Input,
+  Box,
   Button,
   Flex,
-  InputLeftElement,
+  FormControl,
+  Heading,
+  Input,
   InputGroup,
-  Box,
+  InputLeftElement,
+  Text,
   useToast,
   Image,
   FormLabel,
+  VStack,
 } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
-import { TfiEmail } from "react-icons/tfi";
+import React from "react";
 import { FaLock } from "react-icons/fa";
+import { TfiEmail } from "react-icons/tfi";
+import { Link } from "react-router-dom";
 
 import logo from "../../assets/hammer.png";
-
 import { useSelector, useDispatch } from "react-redux";
+
 import { login } from "../../store/actions/authActions";
 
 function Login() {
@@ -47,8 +47,9 @@ function Login() {
         pt="5em"
         pb="5em"
       >
-        <Heading textStyle="h1" color="white.100" mb="1em">Welcome Back!</Heading>
-
+        <Heading textStyle="h1" color="white.100" mb="1em">
+          Welcome Back!
+        </Heading>
 
         <Box 
           rounded={"lg"} p={8} 
@@ -83,29 +84,28 @@ function Login() {
             </InputGroup>
           </FormControl>
 
-          {error && (
-            <Alert status="error" variant="left-accent" mb="1em">
-              <AlertIcon />
-              {error}
-            </Alert>
-          )}
 
-          <Text>{loading ? "Loading..." : ""}</Text>
+            {error && (
+              <Alert status="error" variant="left-accent" mb="1em">
+                <AlertIcon />
+                {error}
+              </Alert>
+            )}
 
-          <Button variant="primary" type="submit" mb="1rem" w="100%">
-            Login
-          </Button>
+            <Text>{loading ? "Loading..." : ""}</Text>
 
-          <Text textAlign="center">
-            Don't have an account?{" "}
-            <Link to='/signup' style={{ color: "white", textDecoration: "none",}}>
-              Signup
-            </Link>
-          </Text>
+            <Button variant="primary" type="submit" mb="1rem" w="100%">
+              <Link to="/">Login</Link>
+            </Button>
 
-        </form>
+            <Text textAlign="center">
+              Don't have an account?{" "}
+              <Link to="/signup" style={{ color: "white", textDecoration: "none" }}>
+                Signup
+              </Link>
+            </Text>
+          </form>
         </Box>
-
       </VStack>
     </Flex>
   );

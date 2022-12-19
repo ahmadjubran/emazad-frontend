@@ -35,10 +35,13 @@ export default function EditReply({ reply }) {
     <>
       <Button
         onClick={() => setShow(true)}
-        color="blue.500"
         variant="none"
         size="sm"
-        _hover={{ color: colorMode === "light" ? "blue.700" : "blue.300" }}
+        _hover={{ color: "blue.600", bg: "gray.300" }}
+        w="100%"
+        justifyContent="left"
+        alignItems="center"
+        borderRadius="0"
       >
         {<IoPencil />}
         <span style={{ marginLeft: "5px" }}>Edit Post</span>
@@ -49,6 +52,7 @@ export default function EditReply({ reply }) {
         <ModalContent
           bg={colorMode === "light" ? "gray.200" : "gray.700"}
           color={colorMode === "light" ? "gray.700" : "gray.200"}
+          borderRadius="3xl"
         >
           <ModalHeader>Edit Reply</ModalHeader>
           <ModalCloseButton />
@@ -61,15 +65,43 @@ export default function EditReply({ reply }) {
                   onChange={(e) => setReplyText(e.target.value)}
                   placeholder="Reply"
                   resize="none"
+                  fontSize="sm"
+                  textTransform="capitalize"
+                  bg={colorMode === "light" ? "gray.100" : "gray.600"}
+                  rows={reply.reply ? reply.reply.split("\n").length : 1}
+                  onInput={(e) => {
+                    e.target.style.height = "auto";
+                    e.target.style.height = e.target.scrollHeight + "px";
+                  }}
+                  borderRadius="3xl"
+                  overflow="hidden"
+                  borderColor="gray.200"
+                  _hover={{ borderColor: "gray.500" }}
                 />
               </FormControl>
             </VStack>
           </ModalBody>
           <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={handleEditReply}>
-              Save
+            <Button
+              type="submit"
+              size="sm"
+              colorScheme="blue"
+              mt="2"
+              alignSelf="flex-start"
+              variant="outline"
+              borderRadius="3xl"
+              onClick={handleEditReply}
+            >
+              Edit
             </Button>
-            <Button variant="ghost" onClick={() => setShow(false)}>
+            <Button
+              onClick={() => setShow(false)}
+              size="sm"
+              mt="2"
+              alignSelf="flex-start"
+              variant="outline"
+              borderRadius="3xl"
+            >
               Cancel
             </Button>
           </ModalFooter>

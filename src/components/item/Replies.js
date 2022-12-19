@@ -1,14 +1,15 @@
 import { Box, Flex, IconButton, Image, Menu, MenuButton, MenuItem, MenuList, Text } from "@chakra-ui/react";
 import React from "react";
-import { IoEllipsisVertical, IoPencil, IoTrash } from "react-icons/io5";
+import { IoEllipsisVertical, IoTrash } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteReply } from "../../store/actions/replyActions";
-import { selectUser } from "../../store/features/authSlicer";
-import EditReply from "./EditReply";
 import { showTime } from "../../store/actions/generalActions";
+import { deleteReply } from "../../store/actions/replyActions";
+import { selectIsAuth, selectUser } from "../../store/features/authSlicer";
+import EditReply from "./EditReply";
 
 export default function Replies({ comment }) {
   const dispatch = useDispatch();
+  const isAuth = useSelector(selectIsAuth);
   const user = useSelector(selectUser);
 
   return (
@@ -36,7 +37,7 @@ export default function Replies({ comment }) {
                   {reply.reply}
                 </Text>
               </Flex>
-              {reply.User.id === user.id && (
+              {isAuth && user.id === reply.userId && (
                 <Menu>
                   <MenuButton
                     as={IconButton}
@@ -47,19 +48,20 @@ export default function Replies({ comment }) {
                     alignSelf="center"
                   />
                   <MenuList
-                    bg="gray.100"
+                    bg="gray.200"
                     color="gray.700"
                     fontSize="sm"
                     fontWeight="normal"
                     borderRadius="lg"
                     shadow="lg"
                   >
-                    <MenuItem as={EditReply} reply={reply}>
-                      <IoPencil />
-                      Edit
-                    </MenuItem>
-                    <MenuItem onClick={() => deleteReply(dispatch, reply)}>
-                      <IoTrash />
+                    <MenuItem as={EditReply} reply={reply} />
+                    <MenuItem
+                      onClick={() => deleteReply(dispatch, reply)}
+                      icon={<IoTrash />}
+                      bg="gray.200"
+                      _hover={{ bg: "gray.300" }}
+                    >
                       Delete
                     </MenuItem>
                   </MenuList>

@@ -1,4 +1,5 @@
 import {
+  Avatar,
   Badge,
   Box,
   Button,
@@ -13,6 +14,7 @@ import {
   Spacer,
   Text,
   useMediaQuery,
+  useToast,
   VStack,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
@@ -32,21 +34,23 @@ import { handleFavorite } from "../../store/actions/favoriteActions";
 import { showTime, timeLeft } from "../../store/actions/generalActions";
 import { deleteItem, getItem } from "../../store/actions/itemActions";
 import { handleRating } from "../../store/actions/ratingActions";
-import { selectUser } from "../../store/features/authSlicer";
+import { selectIsAuth, selectUser } from "../../store/features/authSlicer";
 import { selectItem, selectUserRating } from "../../store/features/itemSlicer";
+import RenderTimeLeft from "../../utils/RenderTimeLeft";
 import Carousel from "./Carousel";
 import Comments from "./Comments";
 import EditItem from "./EditItem";
 import LastBids from "./LastBids";
 
-
 export default function Item() {
   const item = useSelector(selectItem);
+  const isAuth = useSelector(selectIsAuth);
+  const user = useSelector(selectUser);
   const dispatch = useDispatch();
   const { id } = useParams();
   const userRating = useSelector(selectUserRating);
-  const user = useSelector(selectUser);
   const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
+  const toast = useToast();
 
   const [countdown, setCountdown] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
@@ -77,42 +81,17 @@ export default function Item() {
         <Box
           key={i}
           as={star}
-          color={rated && rated.rating >= i ? "teal.500" : "gray.500"}
-          _hover={{ color: "teal.500" }}
+          color={rated && rated.rating >= i ? "blue.500" : "gray.500"}
+          _hover={{ color: "blue.300" }}
           display="inline"
           cursor="pointer"
-          onClick={() => handleRating(dispatch, i, item, userRating.rating)}
+          onClick={() => handleRating(dispatch, i, item, userRating.rating, toast)}
         />
       );
     }
     return stars;
   };
 
-  const renderTimeLeft = (time) => {
-    return (
-      <Box
-        w="100%"
-        h="100%"
-        p="2"
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-        flexDir="column"
-        border="1px solid"
-        borderColor="gray.200"
-        borderRadius="lg"
-      >
-        <Text fontSize="md" color="gray.500">
-          {time === "days" ? "Days" : time === "hours" ? "Hours" : time === "minutes" ? "Minutes" : "Seconds"}
-        </Text>
-        <Text fontSize="xl" fontWeight="bold">
-          {timeLeft(item)[time]}
-        </Text>
-      </Box>
-    );
-  };
-
-  // const EditItem = React.forwardRef((props, ref) => <EditItem {...props} innerRef={ref} />);
   return (
     <VStack w="100%" h="100%" bg="gray.100" p="4" spacing="4">
       <Flex
@@ -128,14 +107,24 @@ export default function Item() {
           <Carousel itemImages={item.itemImage} />
         </Box>
 
-
         <Box w="100%" h="100%" p="4" display="flex" alignItems="start" justifyContent="center" flexDir="column">
           <Flex alignItems="start" gap="4" w="100%" borderBottom="1px solid" borderColor="gray.200" pb="4" h="75px">
-            <Image src={item.User && item.User.image} h="100%" borderRadius="full" bg="gray.100" />
+            <Link to={`/profile/${item.userId}`}>
+              <Image
+                src={item.User && item.User.image}
+                h="60px"
+                w="60px"
+                objectFit="cover"
+                borderRadius="full"
+                bg="gray.100"
+              />
+            </Link>
             <Box>
-              <Heading as="h3" fontWeight="bold" fontSize="xl" textTransform="capitalize" lineHeight="1">
-                {item.User && item.User.fullName}
-              </Heading>
+              <Link to={`/profile/${item.userId}`}>
+                <Heading as="h3" fontWeight="bold" fontSize="xl" textTransform="capitalize" lineHeight="1">
+                  {item.User && item.User.fullName}
+                </Heading>
+              </Link>
               <Box fontSize="sm">
                 {renderStars(userRating.averageRating)} ({userRating.countRating})
               </Box>
@@ -144,7 +133,6 @@ export default function Item() {
               </Text>
             </Box>
             <Spacer />
-            {/* render favorite button */}
             <Box>
               <IconButton
                 aria-label="Favorite"
@@ -159,38 +147,41 @@ export default function Item() {
                 variant="none"
                 size="lg"
                 alignSelf="center"
-                onClick={() => handleFavorite(dispatch, item, item.Favorites)}
+                onClick={() => handleFavorite(dispatch, item, item.Favorites, toast)}
               />
-              <Menu>
-                <MenuButton
-                  as={IconButton}
-                  aria-label="Options"
-                  icon={<IoEllipsisVertical />}
-                  variant="none"
-                  size="lg"
-                  alignSelf="center"
-                />
-                <MenuList
-                  bg="gray.200"
-                  color="gray.700"
-                  fontSize="sm"
-                  fontWeight="normal"
-                  borderRadius="lg"
-                  shadow="lg"
-                >
-                  <MenuItem as={EditItem} item={item} />
-                  <Link to="/">
-                    <MenuItem
-                      icon={<IoTrash />}
-                      bg="gray.200"
-                      _hover={{ bg: "gray.300" }}
-                      onClick={() => deleteItem(dispatch, item.id)}
-                    >
-                      Delete
-                    </MenuItem>
-                  </Link>
-                </MenuList>
-              </Menu>
+              {isAuth && item.userId === user.id && (
+                <Menu>
+                  <MenuButton
+                    as={IconButton}
+                    aria-label="Options"
+                    icon={<IoEllipsisVertical />}
+                    variant="none"
+                    size="lg"
+                    alignSelf="center"
+                  />
+
+                  <MenuList
+                    bg="gray.200"
+                    color="gray.700"
+                    fontSize="sm"
+                    fontWeight="normal"
+                    borderRadius="lg"
+                    shadow="lg"
+                  >
+                    <MenuItem as={EditItem} item={item} />
+                    <Link to="/">
+                      <MenuItem
+                        icon={<IoTrash />}
+                        bg="gray.200"
+                        _hover={{ bg: "gray.300" }}
+                        onClick={() => deleteItem(dispatch, item.id)}
+                      >
+                        Delete
+                      </MenuItem>
+                    </Link>
+                  </MenuList>
+                </Menu>
+              )}
             </Box>
           </Flex>
 
@@ -201,7 +192,7 @@ export default function Item() {
                 <Badge
                   ml="1"
                   fontSize="sm"
-                  colorScheme={item.itemCondition === "New" ? "green" : "yellow"}
+                  colorScheme={item.itemCondition === "New" ? "blue" : "yellow"}
                   p="1"
                   borderRadius="xl"
                 >
@@ -217,63 +208,127 @@ export default function Item() {
           <Text fontSize="md" whiteSpace="pre-line" mt="4" wordBreak="break-word">
             {item.itemDescription}
           </Text>
-
           <Flex w="100%" mt="4" alignItems="center" justifyContent="space-between" gap="4">
-            {renderTimeLeft("days")}
-            {renderTimeLeft("hours")}
-            {renderTimeLeft("minutes")}
-            {renderTimeLeft("seconds")}
+            <RenderTimeLeft item={item} time="days" />
+            <RenderTimeLeft item={item} time="hours" />
+            <RenderTimeLeft item={item} time="minutes" />
+            <RenderTimeLeft item={item} time="seconds" />
           </Flex>
 
-          <Flex w="100%" mt="4" alignItems="center" justifyContent="space-between" gap="4" h="75px">
-            <Box
-              w="100%"
-              h="100%"
-              p="2"
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              flexDir="column"
-              bg="gray.200"
-              borderRadius="lg"
-            >
-              <Text fontSize="md" color="gray.500">
-                {item.latestBid !== 0 ? "Current Bid" : "Starting Bid"}
-              </Text>
-              <Text fontSize="xl" fontWeight="bold">
-                {item.latestBid !== 0 ? item.latestBid : item.initialPrice}$
-              </Text>
-            </Box>
-            <Button
-              w="100%"
-              h="100%"
-              colorScheme="teal"
-              variant="outline"
-              boxShadow="md"
-              onClick={() =>
-                addBid(
-                  dispatch,
-                  item.id,
-                  item.latestBid !== 0
-                    ? Math.ceil(item.latestBid + item.initialPrice * 0.01)
-                    : Math.ceil(item.initialPrice + item.initialPrice * 0.01)
-                )
-              }
-              disabled={user === null}
-            >
-              <Flex alignItems="center" justifyContent="center" w="100%" h="100%" flexDir="column">
-                <Text fontSize="md" color="gray.500" mb="2">
-                  Bid Now
-                </Text>
-                <Text fontSize="xl" fontWeight="bold">
-                  {item.latestBid !== 0
-                    ? Math.ceil(item.latestBid + item.initialPrice * 0.01)
-                    : Math.ceil(item.initialPrice + item.initialPrice * 0.01)}
-                  $
-                </Text>
+          {item.status === "sold" ? (
+            <Flex w="100%" mt="4" alignItems="center" justifyContent="space-between" gap="4">
+              <Box
+                p="4"
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+                flexDir="column"
+                bg={item.latestBid === 0 ? "red.100" : "blue.100"}
+                borderRadius="lg"
+                border="1px solid"
+                borderColor={item.latestBid === 0 ? "red.200" : "blue.200"}
+                boxShadow="md"
+                gap="2"
+                w="full"
+                h="full"
+              >
+                {item.latestBid !== 0 ? (
+                  <>
+                    <Link to={`/profile/${item.Bids && item.Bids[0].User.id}`}>
+                      <Avatar
+                        size="lg"
+                        name={item.Bids && item.Bids[0].User.fullName}
+                        src={item.Bids && item.Bids[0].User.image}
+                        border="1px solid"
+                        borderColor="gray.300"
+                        filter="grayscale(100%)"
+                        _hover={{ filter: "grayscale(0%)" }}
+                      />
+                    </Link>
+                    <Text fontSize="md" color="gray.500">
+                      <Link to={`/profile/${item.Bids && item.Bids[0].User.id}`}>
+                        <Text
+                          as="span"
+                          fontWeight="bold"
+                          color="gray.700"
+                          textTransform="capitalize"
+                          _hover={{ color: "blue.500" }}
+                        >
+                          {item.Bids && item.Bids[0].User.fullName}
+                        </Text>
+                      </Link>{" "}
+                      won this item with a bid of{" "}
+                      <Text as="span" fontWeight="bold" color="gray.700">
+                        ${item.latestBid}
+                      </Text>
+                    </Text>
+                  </>
+                ) : (
+                  <Text>Didn't get any bids</Text>
+                )}
+              </Box>
+            </Flex>
+          ) : (
+            <>
+              <Flex w="100%" mt="4" alignItems="center" justifyContent="space-between" gap="4" h="75px">
+                <Box
+                  w="100%"
+                  h="100%"
+                  p="2"
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="center"
+                  flexDir="column"
+                  bg="gray.200"
+                  borderRadius="lg"
+                >
+                  <Text fontSize="md" color="gray.500">
+                    {item.latestBid !== 0 ? "Current Bid" : "Starting Bid"}
+                  </Text>
+                  <Text fontSize="xl" fontWeight="bold">
+                    {item.latestBid !== 0 ? item.latestBid : item.initialPrice}$
+                  </Text>
+                </Box>
+                <Button
+                  w="100%"
+                  h="100%"
+                  colorScheme="blue"
+                  variant="outline"
+                  boxShadow="md"
+                  onClick={() =>
+                    item.status === "active" &&
+                    addBid(
+                      dispatch,
+                      item.id,
+                      item.latestBid !== 0
+                        ? Math.ceil(item.latestBid + item.initialPrice * 0.01)
+                        : Math.ceil(item.initialPrice),
+                      toast
+                    )
+                  }
+                  disabled={item.status !== "active" || !isAuth}
+                >
+                  {item.status === "active" ? (
+                    <Flex alignItems="center" justifyContent="center" w="100%" h="100%" flexDir="column">
+                      <Text fontSize="md" color="gray.500" mb="2">
+                        Bid Now
+                      </Text>
+                      <Text fontSize="xl" fontWeight="bold">
+                        {item.latestBid !== 0
+                          ? Math.ceil(item.latestBid + item.initialPrice * 0.01)
+                          : Math.ceil(item.initialPrice)}
+                        $
+                      </Text>
+                    </Flex>
+                  ) : (
+                    <Text fontSize="lg" color="gray.700" textTransform="uppercase">
+                      Start Soon
+                    </Text>
+                  )}
+                </Button>
               </Flex>
-            </Button>
-          </Flex>
+            </>
+          )}
         </Box>
       </Flex>
       <Flex

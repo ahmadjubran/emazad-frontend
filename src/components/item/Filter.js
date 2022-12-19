@@ -43,7 +43,6 @@ export default function Filter() {
               localStorage.setItem("category", category.name);
               localStorage.setItem("subCategory", subcategory);
             }}
-            // onClick={() => toggleSubcategories(category.name)}
             position="relative"
             borderBottom="1px solid"
             borderColor="gray.200"
@@ -52,12 +51,6 @@ export default function Filter() {
           >
             <Box
               ml="8"
-              // onClick={() => {
-              //   getItems(dispatch, "active", category.name, subcategory);
-              //   toggleSubcategories("");
-              //   localStorage.setItem("category", category.name);
-              //   localStorage.setItem("subCategory", subcategory);
-              // }}
               
               fontSize="sm"
               fontWeight="normal"

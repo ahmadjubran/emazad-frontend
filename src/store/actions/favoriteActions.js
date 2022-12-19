@@ -1,7 +1,7 @@
 import axios from "axios";
 import { getItem } from "./itemActions";
 
-export const handleFavorite = (dispatch, item, allFavorites) => {
+export const handleFavorite = (dispatch, item, allFavorites, toast) => {
   try {
     let favorite = allFavorites.find((favorite) => Number(favorite.userId) === Number(localStorage.getItem("userID")));
     if (!favorite) {
@@ -14,7 +14,14 @@ export const handleFavorite = (dispatch, item, allFavorites) => {
           getItem(dispatch, item.id);
         })
         .catch((err) => {
-          console.log(err);
+          toast({
+            title: "Error",
+            description: "Please login to favorite items.",
+            status: "error",
+            duration: 5000,
+            isClosable: true,
+            position: "top",
+          });
         });
     } else {
       axios
@@ -23,10 +30,17 @@ export const handleFavorite = (dispatch, item, allFavorites) => {
           getItem(dispatch, item.id);
         })
         .catch((err) => {
-          console.log(err);
+          toast({
+            title: "Error",
+            description: "Please login to favorite items.",
+            status: "error",
+            duration: 5000,
+            isClosable: true,
+            position: "top",
+          });
         });
     }
-  } catch (err) {
-    console.log(err);
+  } catch (error) {
+    console.log(error);
   }
 };

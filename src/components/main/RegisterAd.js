@@ -1,56 +1,47 @@
-import {
-  Container,
-  Stack,
-  Text,
-  Button,
-  Image,
-} from '@chakra-ui/react';
+import { Box, Button, Container, Image, Stack, Text } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 
-import coinImage from '../../assets/img/s.webp'
-import littleCoins from '../../assets/img/t.webp'
-import AuctionBanner from '../../assets/img/Auction-Banner.png'
-import eMazad from '../../assets/logo.png'
-
+import coinImage from "../../assets/img/s.webp";
 
 export default function RegisterAd() {
-
-  function openLink (link) {
-    window.open(link);
-  };
-
   return (
-    <Container maxW={'75%'} maxH={'30rem'} bg={'rgb(31,84,105)'} 
-    bgGradient='linear-gradient(90deg, rgba(31,84,105,1) 0%, rgba(24,119,140,1) 35%, rgba(105,235,250,1) 100%)'
-    my={'24px'}
-    borderRadius={'5px'}
-    boxShadow={'2xl'}>
-      <Stack
-        direction={{ base: 'column', md: 'row' }}
-        spacing={{ base: 10, md: 32 }}
-        py={{ base: 10, md: 20 }}>
-        <Stack flex={1} spacing={{ base: 5, md: 10 }} align='center'>
-          {/* <Image position={'relative'} src ={littleCoins} alt="littleCoins" width='50px' p='0' m='0' opacity='0.7' right='15rem'/> */}
-          <Text
-           as={'span'}
-           position={'relative'}
-           left='10rem'
-          p={'45px'} color='white' textStyle={'h1'} fontSize='2.2rem' > Do you want to buy or sell at auction? </Text>
-          <Button variant='light' w={'240px'} h={'55px'} left='10rem' p={'2rem'} textStyle={'h1'} fontSize='1.3rem' onClick={()=> openLink('https://emazad.netlify.app/signup')}> Join eMazad ► </Button>
+    <Box bg="gray.100" py="24">
+      <Container
+        maxW={"85%"}
+        maxH={"30rem"}
+        bg="blue.500"
+        bgGradient="linear-gradient(90deg, blue.600 0%, blue.500 35%, blue.400 100%)"
+        my={"24px"}
+        borderRadius={"2xl"}
+        boxShadow={"2xl"}
+      >
+        <Stack direction={{ base: "column", md: "row" }} p="12" align="center" justify="center" spacing="24">
+          <Stack align="left" justify="center" gap="8">
+            <Text position={"relative"} color="white" textStyle={"h1"} fontSize="2.2rem">
+              Are you ready to start bidding?
+            </Text>
+            <Link to="/signup">
+              <Button
+                colorScheme="gray"
+                w="50%"
+                _hover={{ bg: "gray.300" }}
+                boxShadow="md"
+                onClick={() => window.scrollTo(0, 0)}
+              >
+                Join eMazad
+              </Button>
+            </Link>
           </Stack>
-          <Stack flex={1} spacing={{ base: 5, md: 10 }}>
-            {/* <Image src={AuctionBanner} alt="AuctionBanner" width='500px'/> */}
-          <Image src={coinImage} alt="coin" width='500px'/>
+          <Stack>
+            <Image
+              src={coinImage}
+              alt="coin"
+              width="200px"
+              filter="drop-shadow(0px 0px 0.75rem rgba(0, 0, 0, 0.5)) grayscale(100%)"
+            />
           </Stack>
-          </Stack>
-
-    </Container>
-  )
+        </Stack>
+      </Container>
+    </Box>
+  );
 }
-
-//  background: rgb(31,84,105);
-// background: linear-gradient(90deg, rgba(31,84,105,1) 0%, rgba(24,119,140,1) 35%, rgba(105,235,250,1) 100%);
-
-
-// grey background
-/* <Container maxW={'8xl'} maxH={'30rem'} bg={'rgb(176,174,174)'} 
-bgGradient='linear-gradient(61deg, rgba(176,174,174,1) 0%, rgba(237,237,237,1) 100%)' */
