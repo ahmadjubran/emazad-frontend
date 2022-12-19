@@ -1,6 +1,4 @@
-import logo from "../../assets/logo.png";
-import newLogo from "../../assets/newLogo.png";
-import newLogo2 from "../../assets/newLogo2.png";
+import logo from "../../assets/img/logo/logo.png";
 import Nav from "./Nav";
 
 import {
@@ -26,7 +24,7 @@ export default function Header() {
     <VStack w="100%" h="100%" bg="gray.100" pt="1rem">
       <Flex display="flex" justifyContent="space-between" alignItems="center" width="100%" height="100px" px="5%">
         <Link to="/">
-          <img src={newLogo} alt="logo" width="100px" />
+          <img src={logo} alt="logo" width="100px" />
         </Link>
         {isLargerThan768 ? (
           <Nav />
