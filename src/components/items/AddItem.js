@@ -46,6 +46,8 @@ function AddItem() {
 
   const [minEndDate, setMinEndDate] = useState();
   const [step, setStep] = useState(1);
+  const [previewImage, setPreviewImage] = useState();
+  const [imageURL, setImageURL] = useState();
   const [formData , setFormData] = useState({
     category: '',
     subcategory: '',
@@ -74,23 +76,25 @@ function AddItem() {
     setMinEndDate(e.target.value);
   };
   
-  async function handleSubmit(e) {
-    e.preventDefault();
-    const imageURL = await uploadItemImage();
-    addItem(dispatch, e, imageURL, userId)
-  }
+  // async function handleSubmit(e) {
+  //   e.preventDefault();
+  //   const imageURL = await uploadItemImage();
+  //   addItem(dispatch, e, imageURL, userId)
+  // }
 
   function handleChange(e) {
     e.preventDefault();
     setStep(step + 1);
 
-        console.log(categories.categories)
+        // console.log(categories.categories)
     setFormData({...formData, [e.target[0].name]: e.target[0].value});
     
   };
 
-   function handleStep2(e) {
+   async function handleStep2(e) {
     e.preventDefault();
+    const imageURL = await uploadItemImage();
+    setImageURL(imageURL)
     setStep(step + 1);
     setFormData({...formData, [e.target[0].name]: e.target[0].value, [e.target[1].name]: e.target[1].value, [e.target[2].name]: e.target[2].value});
  
@@ -114,7 +118,7 @@ function AddItem() {
       duration: 11000,
       isClosable: true,
     })
-    addItem(dispatch, data, '' ,userId)
+    addItem(dispatch, data, imageURL ,userId, toast)
   } 
 
 
@@ -213,7 +217,7 @@ function AddItem() {
                 <option value="Used">Used</option>
               </Select>
               <FormControl pb="1em">
-              <Input type="file" name="itemImage" multiple="multiple" placeholder="itemImage" variant="auth" m='4px' w='100%'/>
+              <Input type="file" name="itemImage" multiple="multiple" placeholder="itemImage" variant="auth" m='4px' w='100%' onChange={(e) => validateImage(e, toast)}/>
               <FormHelperText textAlign="left" m='4px' w='100%'>You can upload up to 8 images.</FormHelperText>
               </FormControl>
               <Flex justify={'center'} gap={4} m='1rem'>
