@@ -42,6 +42,7 @@ import Comments from "./Comments";
 import EditItem from "./EditItem";
 import LastBids from "./LastBids";
 import AddReport from "./AddReport";
+import DeleteItem from "./DeleteItem";
 
 export default function Item() {
   const item = useSelector(selectItem);
@@ -173,19 +174,11 @@ export default function Item() {
                   {isAuth && item.userId === user.id && (
                     <>
                       <MenuItem as={EditItem} item={item} />
-                      <Link to="/">
-                        <MenuItem
-                          icon={<IoTrash />}
-                          bg="gray.200"
-                          _hover={{ bg: "gray.300" }}
-                          onClick={() => deleteItem(dispatch, item.id, toast)}
-                        >
-                          Delete
-                        </MenuItem>
-                      </Link>
+                      <MenuItem as={DeleteItem} itemId={item.id} />
+
                     </>
                   )}
-                  <MenuItem as={AddReport} itemId={item.id} />
+                      <MenuItem as={AddReport} itemId={item.id} />
                 </MenuList>
               </Menu>
             </Box>

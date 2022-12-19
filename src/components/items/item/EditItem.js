@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import {
   Alert,
   AlertIcon,
-  Box,
   Button,
   FormControl,
   FormHelperText,
@@ -28,7 +27,6 @@ import { FaDollarSign } from "react-icons/fa";
 import { IoPencil } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { editItem } from "../../../store/actions/itemActions";
-
 import { uploadItemImage, validateImage } from "../../../store/actions/itemActions";
 
 function EditItem({ item }) {
