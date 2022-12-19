@@ -19,13 +19,13 @@ import {
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import {
-  IoEllipsisVertical,
-  IoHeart,
-  IoHeartOutline,
-  IoStar,
-  IoStarHalf,
-  IoStarOutline,
-  IoTrash,
+    IoEllipsisVertical,
+    IoHeart,
+    IoHeartOutline,
+    IoStar,
+    IoStarHalf,
+    IoStarOutline,
+    IoTrash,
 } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
@@ -52,30 +52,31 @@ export default function Item() {
   const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
   const toast = useToast();
 
-  const [countdown, setCountdown] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
-  useEffect(() => {
-    getItem(dispatch, id);
-  }, [dispatch, id]);
+    const [countdown, setCountdown] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCountdown(timeLeft);
-    }, 1000);
-    return () => clearInterval(interval);
-  }, [countdown]);
+    useEffect(() => {
+        getItem(dispatch, id);
+    }, [dispatch, id]);
 
-  const renderStars = (rating) => {
-    const rated =
-      userRating.rating &&
-      userRating.rating.find((rating) => Number(rating.userId) === Number(localStorage.getItem("userID")));
-    if (rated) rating = rated.rating;
-    const stars = [];
-    let star;
-    for (let i = 1; i <= 5; i++) {
-      if (i <= rating) star = IoStar;
-      else if (i === Math.ceil(rating) && !Number.isInteger(rating)) star = IoStarHalf;
-      else star = IoStarOutline;
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCountdown(timeLeft);
+        }, 1000);
+        return () => clearInterval(interval);
+    }, [countdown]);
+
+    const renderStars = (rating) => {
+        const rated =
+            userRating.rating &&
+            userRating.rating.find((rating) => Number(rating.userId) === Number(localStorage.getItem("userID")));
+        if (rated) rating = rated.rating;
+        const stars = [];
+        let star;
+        for (let i = 1; i <= 5; i++) {
+            if (i <= rating) star = IoStar;
+            else if (i === Math.ceil(rating) && !Number.isInteger(rating)) star = IoStarHalf;
+            else star = IoStarOutline;
 
       stars.push(
         <Box

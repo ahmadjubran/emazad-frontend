@@ -14,19 +14,25 @@ import { BiEditAlt } from 'react-icons/bi';
 import { FaUserSlash } from 'react-icons/fa';
 import { BsFillEyeFill } from 'react-icons/bs';
 import ReportItemMessage from './ReportItemMessage';
-
+import EditItem from "../item/EditItem";
+import { useDispatch } from 'react-redux';
+// import { deleteItem } from '../../store/actions/itemActions';
+import { blockedUsers, deletItemReporteds } from '../../store/actions/adminActions';
+import { Link } from "react-router-dom";
 function ReportRow(props) {
-    const { logo, startDate, endDate, condetion, title, category, reportItem } = props;
+    const { logo, startDate, endDate, condetion, title, category, reportItem, item } = props;
     const textColor = useColorModeValue("gray.700", "white");
+    const dispatch = useDispatch();
     const { onOpen, isOpen, onClose } = useDisclosure()
     const btnRef = React.useRef()
 
     return (
         <>
-            <Tr>
+            <Tr >
                 <Td minWidth={{ sm: "250px" }} pl="0px">
                     <Flex align="center" py=".8rem" minWidth="100%" flexWrap="nowrap">
-                        <Avatar src={logo[0]} w="50px" borderRadius="12px" me="18px" />
+                        <Avatar as={Link} to={`/item/${item.id}`}
+                            src={logo[0]} w="50px" borderRadius="12px" me="18px" />
                         <Flex direction="column">
                             <Text
                                 fontSize="md"
@@ -73,14 +79,15 @@ function ReportRow(props) {
                 </Td>
                 <Td>
                     <Flex direction="row" alighItems="center" gap='3'>
-                        <Icon as={BiEditAlt}
+                        {/* <Icon as={BiEditAlt}
                             fontSize='xl'
                             _hover={{
                                 color: '#5BCCD9',
                                 cursor: 'pointer',
                                 transform: 'scale(1.2)',
                             }}
-                        ></Icon>
+                        ></Icon>*/}
+                        <EditItem item={item} />
                         <Icon as={BsFillEyeFill}
                             fontSize='xl'
                             _hover={{
@@ -97,14 +104,22 @@ function ReportRow(props) {
                                 color: 'red',
                                 cursor: 'pointer',
                                 transform: 'scale(1.2)',
-                            }} ></Icon>
+                            }}
+                            onClick={() =>
+                                deletItemReporteds(dispatch, item.id)
+                            }
+                        ></Icon>
                         <Icon as={FaUserSlash}
                             fontSize='xl'
                             _hover={{
                                 color: 'red',
                                 cursor: 'pointer',
                                 transform: 'scale(1.2)',
-                            }} ></Icon>
+                            }}
+                            onClick={() =>
+                                blockedUsers(dispatch, item.userId)
+                            }
+                        ></Icon>
                     </Flex>
                 </Td>
             </Tr >

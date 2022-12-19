@@ -1,15 +1,15 @@
 import {
-  Box,
-  Flex,
-  Heading,
-  IconButton,
-  Image,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
-  Text,
-  VStack,
+    Box,
+    Flex,
+    Heading,
+    IconButton,
+    Image,
+    Menu,
+    MenuButton,
+    MenuItem,
+    MenuList,
+    Text,
+    VStack,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { IoEllipsisVertical, IoTrash } from "react-icons/io5";
@@ -23,6 +23,7 @@ import EditComment from "./EditComment";
 import Replies from "./Replies";
 
 export default function Comments({ item }) {
+
   const dispatch = useDispatch();
   const isAuth = useSelector(selectIsAuth);
 
@@ -32,31 +33,31 @@ export default function Comments({ item }) {
   const [showAddReply, setShowAddReply] = useState(null);
   const user = useSelector(selectUser);
 
-  useEffect(() => {
-    if (item.Comments && item.Comments.length > showComments) {
-      setShowMore(true);
-    } else {
-      setShowMore(false);
-    }
-  }, [showComments, item.Comments]);
+    useEffect(() => {
+        if (item.Comments && item.Comments.length > showComments) {
+            setShowMore(true);
+        } else {
+            setShowMore(false);
+        }
+    }, [showComments, item.Comments]);
 
-  const handleShowMore = () => {
-    setShowComments(showComments + 3);
-    setShowLess(true);
-  };
+    const handleShowMore = () => {
+        setShowComments(showComments + 3);
+        setShowLess(true);
+    };
 
-  const handleShowLess = () => {
-    setShowComments(3);
-    setShowLess(false);
-  };
+    const handleShowLess = () => {
+        setShowComments(3);
+        setShowLess(false);
+    };
 
-  const handleShowAddReply = (id) => {
-    if (showAddReply === id) {
-      setShowAddReply(null);
-    } else {
-      setShowAddReply(id);
-    }
-  };
+    const handleShowAddReply = (id) => {
+        if (showAddReply === id) {
+            setShowAddReply(null);
+        } else {
+            setShowAddReply(id);
+        }
+    };
 
   return (
     <Box

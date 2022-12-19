@@ -8,15 +8,20 @@ import {
     useColorModeValue,
 } from "@chakra-ui/react";
 import React from "react";
-function UserBlockedRow(props) {
-    const { logo, name, email, phone } = props;
-    const textColor = useColorModeValue("gray.700", "white");
+import { activationUsers } from '../../store/actions/adminActions';
+import { useDispatch } from 'react-redux';
+import { Link } from "react-router-dom";
 
+function UserBlockedRow(props) {
+    const { logo, name, email, phone, id } = props;
+    const textColor = useColorModeValue("gray.700", "white");
+    const dispatch = useDispatch();
     return (
         < Tr >
             <Td minWidth={{ sm: "250px" }} pl="0px">
                 <Flex align="center" py=".8rem" minWidth="100%" flexWrap="nowrap">
-                    <Avatar src={logo[0]} w="50px" borderRadius="12px" me="18px" />
+                    <Avatar as={Link} to={`/profile/${id}`}
+                        src={logo[0]} w="50px" borderRadius="12px" me="18px" />
                     <Flex direction="column">
                         <Text
                             fontSize="md"
@@ -48,6 +53,10 @@ function UserBlockedRow(props) {
                         fontWeight="bold"
                         cursor="pointer"
                         _hover={{ color: 'red' }}
+
+                        onClick={() => {
+                            activationUsers(dispatch, id)
+                        }}
                     >
                         Remove Block
                     </Text>

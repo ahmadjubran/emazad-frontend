@@ -1,18 +1,18 @@
 import {
-  Button,
-  FormControl,
-  FormLabel,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
-  Textarea,
-  useColorMode,
-  useToast,
-  VStack,
+    Button,
+    FormControl,
+    FormLabel,
+    Modal,
+    ModalBody,
+    ModalCloseButton,
+    ModalContent,
+    ModalFooter,
+    ModalHeader,
+    ModalOverlay,
+    Textarea,
+    useColorMode,
+    useToast,
+    VStack,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { IoPencil } from "react-icons/io5";
@@ -20,16 +20,16 @@ import { useDispatch } from "react-redux";
 import { editComment } from "../../store/actions/commentActions";
 
 export default function EditComment({ comment }) {
-  const dispatch = useDispatch();
-  const toast = useToast();
-  const { colorMode } = useColorMode();
-  const [commentText, setCommentText] = useState(comment.text);
-  const [show, setShow] = useState(false);
+    const dispatch = useDispatch();
+    const toast = useToast();
+    const { colorMode } = useColorMode();
+    const [commentText, setCommentText] = useState(comment.text);
+    const [show, setShow] = useState(false);
 
-  const handleEditComment = () => {
-    editComment(dispatch, comment.id, commentText, toast);
-    setShow(false);
-  };
+    const handleEditComment = () => {
+        editComment(dispatch, comment.id, commentText, toast);
+        setShow(false);
+    };
 
   return (
     <>

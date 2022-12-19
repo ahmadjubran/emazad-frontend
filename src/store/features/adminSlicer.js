@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 const data = {
-    labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12',
-        '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30'],
+    labels: [],
     datasets: [
         {
             label: 'My Balance',
@@ -25,6 +24,34 @@ const data = {
         },
     ],
 }
+
+const dataPie = {
+    labels: ['Active Items', 'Sold Items'],
+    datasets: [
+        {
+            label: '# of Votes',
+            data: [],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                // 'rgba(255, 206, 86, 0.2)',
+                // 'rgba(75, 192, 192, 0.2)',
+                // 'rgba(153, 102, 255, 0.2)',
+                // 'rgba(255, 159, 64, 0.2)',
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                // 'rgba(255, 206, 86, 1)',
+                // 'rgba(75, 192, 192, 1)',
+                // 'rgba(153, 102, 255, 1)',
+                // 'rgba(255, 159, 64, 1)',
+            ],
+            borderWidth: 1,
+        },
+    ],
+};
+
 const initialState = {
     item: [],
     reportItems: [],
@@ -33,6 +60,7 @@ const initialState = {
     numberACtiveItems: 0,
     numberSoldItems: 0,
     data: data,
+    dataPie: dataPie,
     messageError: null,
 
 }
@@ -58,7 +86,21 @@ export const adminSlice = createSlice({
             state.numberUser = action.payload
         },
         getDataChart: (state, action) => {
-            state.data.datasets[0].data = action.payload
+            state.data.datasets[0].data = action.payload.arr2;
+            state.data.labels = action.payload.arr3;
+            state.dataPie.datasets[0].data = [state.numberACtiveItems, state.numberSoldItems];
+            // console.log(state.dataPie);
+        },
+        blockedUser: (state, action) => {
+            state.userBlocked = [...state.userBlocked, action.payload]
+        },
+        activationUser: (state, action) => {
+            const usersBlock = state.userBlocked.filter(user => user.id !== action.payload)
+            state.userBlocked = usersBlock;
+        },
+        deletItemReported: (state, action) => {
+            const itemsReported = state.reportItems.filter(item => item.id !== action.payload)
+            state.reportItems = itemsReported;
         },
         getActiveItemsError: (state, action) => {
             state.messageError = action.payload
@@ -73,6 +115,9 @@ export const {
     getUserBlocked,
     getNumerUser,
     getDataChart,
+    blockedUser,
+    activationUser,
+    deletItemReported,
     getActiveItemsError
 } = adminSlice.actions;
 export const activeItems = (state) => state.admin;

@@ -1,21 +1,21 @@
 import React, { useState } from "react";
 
 import {
-  VStack,
-  Text,
-  Heading,
-  Alert,
-  AlertIcon,
-  FormControl,
-  Input,
-  Button,
-  Flex,
-  InputLeftElement,
-  InputGroup,
-  Textarea,
-  FormHelperText,
-  Select,
-  useToast,
+    VStack,
+    Text,
+    Heading,
+    Alert,
+    AlertIcon,
+    FormControl,
+    Input,
+    Button,
+    Flex,
+    InputLeftElement,
+    InputGroup,
+    Textarea,
+    FormHelperText,
+    Select,
+    useToast,
 } from "@chakra-ui/react";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -163,12 +163,12 @@ function AddItem() {
               Signup
             </Link>
           </Text> */}
-        </form>
-      </VStack>
-    </Flex>
- 
+                </form>
+            </VStack>
+        </Flex>
 
-  );
+
+    );
 }
 
 export default AddItem;

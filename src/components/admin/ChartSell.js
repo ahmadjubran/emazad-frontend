@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react'
 import { Line } from 'react-chartjs-2'
 import "chart.js/auto";
 import { useSelector } from 'react-redux';
@@ -15,7 +14,7 @@ const options = {
             grid: {
                 borderDash: [3, 3],
             },
-            // beginAtZero: true, // this works
+            beginAtZero: true, // this works
         },
     },
     plugins: {

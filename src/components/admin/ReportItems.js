@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
     Flex,
     Table,
@@ -10,13 +10,19 @@ import {
     Box,
     Heading
 } from "@chakra-ui/react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import caption from '../../assets/caption.json';
 import Admin from "./Admin";
 import ReportRow from "./ReportRow";
+import { getBlockedItem } from '../../store/actions/adminActions';
 function ReportItems() {
     const textColor = useColorModeValue("gray.700", "white");
     const admin = useSelector((state) => state.admin);
+    const dispatch = useDispatch();
+    useEffect(() => {
+        getBlockedItem(dispatch);
+    }, [dispatch]);
+
     return (
         console.log(admin.reportItems),
         <Admin>
@@ -64,6 +70,7 @@ function ReportItems() {
                                             endDate={row.endDate}
                                             startDate={row.startDate}
                                             reportItem={row.Reports}
+                                            item={row}
                                         />
                                     );
                                 })}

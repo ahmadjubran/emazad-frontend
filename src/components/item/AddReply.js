@@ -5,17 +5,17 @@ import { addReply } from "../../store/actions/replyActions";
 import { selectUser } from "../../store/features/authSlicer";
 
 export default function AddReply({ comment, setShowAddReply }) {
-  const dispatch = useDispatch();
-  const user = useSelector(selectUser);
+    const dispatch = useDispatch();
+    const user = useSelector(selectUser);
 
-  const handleAddReply = (e) => {
-    e.preventDefault();
-    const reply = e.target.reply.value;
-    addReply(dispatch, comment, reply);
-    e.target.reset();
-    setShowAddReply(false);
-  };
-
+    const handleAddReply = (e) => {
+        e.preventDefault();
+        const reply = e.target.reply.value;
+        addReply(dispatch, comment, reply);
+        e.target.reset();
+        setShowAddReply(false);
+    };
+    
   return (
     <Box w="100%">
       <form onSubmit={handleAddReply}>

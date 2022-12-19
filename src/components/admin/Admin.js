@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {
     Text,
     Flex,
-    Image,
+    Avatar,
     Link,
     Icon,
     useMediaQuery
@@ -68,7 +68,7 @@ function Admin({ children }) {
                             gap='5'
 
                         >
-                            <Image src={user.image} alt="admin" borderRadius='full' boxSize='120px' w='80%' h='55%' />
+                            <Avatar size={sizeSlide ? '2xl' : 'md'} src={user.image} alt="admin" borderRadius='full' />
                             <Text as="h1" size="xl">Admin : {user.fullName}</Text>
                         </Flex>
 
