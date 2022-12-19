@@ -6,11 +6,11 @@ import "../../../App.css";
 import { addBid } from "../../../store/actions/bidActions";
 import { timeLeft } from "../../../store/actions/generalActions";
 import { getItem, getTrendingItems } from "../../../store/actions/itemActions";
+import { selectIsAuth } from "../../../store/features/authSlicer";
 import { selectTrendingItems } from "../../../store/features/itemSlicer";
 import RenderTimeLeft from "../../../utils/RenderTimeLeft";
 import Title from "../../Title";
 import ChakraCarousel from "./ChakraCarousel";
-import { selectIsAuth } from "../../../store/features/authSlicer";
 
 function SliderCom() {
   const dispatch = useDispatch();
@@ -50,7 +50,14 @@ function SliderCom() {
             flex={1}
           >
             <Box w="full" h="20rem" bg="gray.300">
-              <Link to={`/item/${item.id}`} style={{ width: "100%" }} onClick={() => getItem(dispatch, item.id)}>
+              <Link
+                to={`/item/${item.id}`}
+                style={{ width: "100%" }}
+                onClick={() => {
+                  getItem(dispatch, item.id);
+                  window.scrollTo(0, 0);
+                }}
+              >
                 <Image
                   src={
                     item.itemImage[0].startsWith("http")

@@ -19,24 +19,24 @@ import {
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import {
-    IoEllipsisVertical,
-    IoHeart,
-    IoHeartOutline,
-    IoStar,
-    IoStarHalf,
-    IoStarOutline,
-    IoTrash,
+  IoEllipsisVertical,
+  IoHeart,
+  IoHeartOutline,
+  IoStar,
+  IoStarHalf,
+  IoStarOutline,
+  IoTrash,
 } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import { addBid } from "../../store/actions/bidActions";
-import { handleFavorite } from "../../store/actions/favoriteActions";
-import { showTime, timeLeft } from "../../store/actions/generalActions";
-import { deleteItem, getItem } from "../../store/actions/itemActions";
-import { handleRating } from "../../store/actions/ratingActions";
-import { selectIsAuth, selectUser } from "../../store/features/authSlicer";
-import { selectItem, selectUserRating } from "../../store/features/itemSlicer";
-import RenderTimeLeft from "../../utils/RenderTimeLeft";
+import { addBid } from "../../../store/actions/bidActions";
+import { handleFavorite } from "../../../store/actions/favoriteActions";
+import { showTime, timeLeft } from "../../../store/actions/generalActions";
+import { deleteItem, getItem } from "../../../store/actions/itemActions";
+import { handleRating } from "../../../store/actions/ratingActions";
+import { selectIsAuth, selectUser } from "../../../store/features/authSlicer";
+import { selectItem, selectUserRating } from "../../../store/features/itemSlicer";
+import RenderTimeLeft from "../../../utils/RenderTimeLeft";
 import Carousel from "./Carousel";
 import Comments from "./Comments";
 import EditItem from "./EditItem";
@@ -52,31 +52,30 @@ export default function Item() {
   const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
   const toast = useToast();
 
+  const [countdown, setCountdown] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
-    const [countdown, setCountdown] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+  useEffect(() => {
+    getItem(dispatch, id);
+  }, [dispatch, id]);
 
-    useEffect(() => {
-        getItem(dispatch, id);
-    }, [dispatch, id]);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCountdown(timeLeft);
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [countdown]);
 
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setCountdown(timeLeft);
-        }, 1000);
-        return () => clearInterval(interval);
-    }, [countdown]);
-
-    const renderStars = (rating) => {
-        const rated =
-            userRating.rating &&
-            userRating.rating.find((rating) => Number(rating.userId) === Number(localStorage.getItem("userID")));
-        if (rated) rating = rated.rating;
-        const stars = [];
-        let star;
-        for (let i = 1; i <= 5; i++) {
-            if (i <= rating) star = IoStar;
-            else if (i === Math.ceil(rating) && !Number.isInteger(rating)) star = IoStarHalf;
-            else star = IoStarOutline;
+  const renderStars = (rating) => {
+    const rated =
+      userRating.rating &&
+      userRating.rating.find((rating) => Number(rating.userId) === Number(localStorage.getItem("userID")));
+    if (rated) rating = rated.rating;
+    const stars = [];
+    let star;
+    for (let i = 1; i <= 5; i++) {
+      if (i <= rating) star = IoStar;
+      else if (i === Math.ceil(rating) && !Number.isInteger(rating)) star = IoStarHalf;
+      else star = IoStarOutline;
 
       stars.push(
         <Box

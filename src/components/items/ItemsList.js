@@ -10,8 +10,8 @@ import {
   Image,
   Spacer,
   Text,
-  useToast,
   UnorderedList,
+  useToast,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { IoArrowForward } from "react-icons/io5";
@@ -20,9 +20,9 @@ import { Link } from "react-router-dom";
 import { addBid } from "../../store/actions/bidActions";
 import { timeLeft } from "../../store/actions/generalActions";
 import { getItem, getItems } from "../../store/actions/itemActions";
+import { selectIsAuth } from "../../store/features/authSlicer";
 import { selectItems } from "../../store/features/itemSlicer";
 import RenderTimeLeft from "../../utils/RenderTimeLeft";
-import { selectIsAuth } from "../../store/features/authSlicer";
 
 export default function ItemsList() {
   const dispatch = useDispatch();
@@ -41,6 +41,10 @@ export default function ItemsList() {
     }, 1000);
     return () => clearInterval(interval);
   }, [countdown]);
+
+  useEffect(() => {
+    getItems(dispatch, "active", category ? category : null, subCategory ? subCategory : null);
+  }, [dispatch]);
 
   useEffect(() => {
     setCategory(localStorage.getItem("category"));

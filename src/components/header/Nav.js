@@ -1,8 +1,7 @@
 import { ListItem, UnorderedList, useMediaQuery } from "@chakra-ui/react";
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import {  useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { getItems } from "../../store/actions/itemActions";
 import Norifications from "./Notifications";
 import UserMenu from "./UserMenu";
 
@@ -10,7 +9,6 @@ export default function Nav() {
   const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
   const isAuth = useSelector((state) => state.auth.isAuth);
   const [currentTab, setCurrentTab] = useState("home");
-  const dispatch = useDispatch();
 
   return (
     <UnorderedList
@@ -44,7 +42,6 @@ export default function Nav() {
           setCurrentTab("items");
           localStorage.removeItem("category");
           localStorage.removeItem("subCategory");
-          getItems(dispatch, "active");
         }}
       >
         <Link to={"/items"}>items</Link>

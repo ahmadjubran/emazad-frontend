@@ -27,9 +27,9 @@ import {
 import { FaDollarSign } from "react-icons/fa";
 import { IoPencil } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
-import { editItem } from "../../store/actions/itemActions";
+import { editItem } from "../../../store/actions/itemActions";
 
-import { uploadItemImage, validateImage } from "../../store/actions/itemActions";
+import { uploadItemImage, validateImage } from "../../../store/actions/itemActions";
 
 function EditItem({ item }) {
   const error = useSelector((state) => state.item.error);

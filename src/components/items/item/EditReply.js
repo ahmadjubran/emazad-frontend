@@ -1,35 +1,35 @@
 import {
-    Button,
-    FormControl,
-    FormLabel,
-    Modal,
-    ModalBody,
-    ModalCloseButton,
-    ModalContent,
-    ModalFooter,
-    ModalHeader,
-    ModalOverlay,
-    Textarea,
-    useColorMode,
-    useToast,
-    VStack,
+  Button,
+  FormControl,
+  FormLabel,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Textarea,
+  useColorMode,
+  useToast,
+  VStack,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { IoPencil } from "react-icons/io5";
 import { useDispatch } from "react-redux";
-import { editComment } from "../../store/actions/commentActions";
+import { editReply } from "../../../store/actions/replyActions";
 
-export default function EditComment({ comment }) {
-    const dispatch = useDispatch();
-    const toast = useToast();
-    const { colorMode } = useColorMode();
-    const [commentText, setCommentText] = useState(comment.text);
-    const [show, setShow] = useState(false);
+export default function EditReply({ reply }) {
+  const dispatch = useDispatch();
+  const toast = useToast();
+  const { colorMode } = useColorMode();
+  const [replyText, setReplyText] = useState(reply.reply);
+  const [show, setShow] = useState(false);
 
-    const handleEditComment = () => {
-        editComment(dispatch, comment.id, commentText, toast);
-        setShow(false);
-    };
+  const handleEditReply = () => {
+    editReply(dispatch, reply.id, replyText, toast);
+    setShow(false);
+  };
 
   return (
     <>
@@ -54,22 +54,21 @@ export default function EditComment({ comment }) {
           color={colorMode === "light" ? "gray.700" : "gray.200"}
           borderRadius="3xl"
         >
-          <ModalHeader>Edit Comment</ModalHeader>
+          <ModalHeader>Edit Reply</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <VStack spacing="4" w="100%">
-              <FormControl id="comment" isRequired>
-                <FormLabel>Comment</FormLabel>
+              <FormControl id="reply" isRequired>
+                <FormLabel>Reply</FormLabel>
                 <Textarea
-                  value={commentText}
-                  onChange={(e) => setCommentText(e.target.value)}
-                  placeholder="Write a comment..."
-                  fontSize="sm"
-                  defaultValue={comment.comment}
-                  textTransform="capitalize"
+                  value={replyText}
+                  onChange={(e) => setReplyText(e.target.value)}
+                  placeholder="Reply"
                   resize="none"
+                  fontSize="sm"
+                  textTransform="capitalize"
                   bg={colorMode === "light" ? "gray.100" : "gray.600"}
-                  rows={comment.comment && comment.comment.split("\n").length}
+                  rows={reply.reply ? reply.reply.split("\n").length : 1}
                   onInput={(e) => {
                     e.target.style.height = "auto";
                     e.target.style.height = e.target.scrollHeight + "px";
@@ -82,7 +81,6 @@ export default function EditComment({ comment }) {
               </FormControl>
             </VStack>
           </ModalBody>
-
           <ModalFooter>
             <Button
               type="submit"
@@ -92,7 +90,7 @@ export default function EditComment({ comment }) {
               alignSelf="flex-start"
               variant="outline"
               borderRadius="3xl"
-              onClick={handleEditComment}
+              onClick={handleEditReply}
             >
               Edit
             </Button>

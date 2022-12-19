@@ -1,7 +1,6 @@
 import { Box, Button, Flex, Image, Text } from "@chakra-ui/react";
 import React from "react";
 import { IoChevronBack, IoChevronForward } from "react-icons/io5";
-import "./carousel.css";
 
 export default function Carousel({ itemImages }) {
   const [currentImage, setCurrentImage] = React.useState(0);
@@ -66,7 +65,15 @@ export default function Carousel({ itemImages }) {
 
   return (
     <Box position="relative" h="full">
-      <Box className="carousel" h="30rem">
+      <Box
+        h="30rem"
+        overflowX="hidden"
+        display="inline-flex"
+        scrollSnapType="x mandatory"
+        scrollbarWidth="none"
+        webkitOverflowScrolling="touch"
+        msOverflowStyle="none"
+      >
         {itemImages &&
           itemImages.map((image, i) => (
             <Box

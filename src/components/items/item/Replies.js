@@ -2,13 +2,12 @@ import { Box, Flex, IconButton, Image, Menu, MenuButton, MenuItem, MenuList, Tex
 import React from "react";
 import { IoEllipsisVertical, IoTrash } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
-import { showTime } from "../../store/actions/generalActions";
-import { deleteReply } from "../../store/actions/replyActions";
-import { selectIsAuth, selectUser } from "../../store/features/authSlicer";
+import { showTime } from "../../../store/actions/generalActions";
+import { deleteReply } from "../../../store/actions/replyActions";
+import { selectIsAuth, selectUser } from "../../../store/features/authSlicer";
 import EditReply from "./EditReply";
 
 export default function Replies({ comment }) {
-
   const dispatch = useDispatch();
   const isAuth = useSelector(selectIsAuth);
   const user = useSelector(selectUser);
