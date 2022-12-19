@@ -11,6 +11,8 @@ import {
   InputLeftElement,
   Text,
   useToast,
+  Image,
+  FormLabel,
   VStack,
 } from "@chakra-ui/react";
 import React from "react";
@@ -18,7 +20,9 @@ import { FaLock } from "react-icons/fa";
 import { TfiEmail } from "react-icons/tfi";
 import { Link } from "react-router-dom";
 
-import { useDispatch, useSelector } from "react-redux";
+import logo from "../../assets/hammer.png";
+import { useSelector, useDispatch } from "react-redux";
+
 import { login } from "../../store/actions/authActions";
 
 function Login() {
@@ -30,8 +34,8 @@ function Login() {
   const toast = useToast();
 
   return (
-    <Flex direction={{ base: "column", md: "row" }} justify="center" align="center" w="100%" h="70vh">
-      <VStack
+    <Flex direction={{ base: "column", md: "row" }} justify="center" align="center" w="100%" h="100%">
+      <VStack 
         w="100%"
         h="100%"
         bgImage="https://bia.lighting/wp-content/uploads/2016/04/Sign-Up-Background.png"
@@ -40,39 +44,46 @@ function Login() {
         bgSize="cover"
         bgPosition="center"
         bgRepeat="no-repeat"
-        pt="3em"
-        pb="3em"
+        pt="5em"
+        pb="5em"
       >
         <Heading textStyle="h1" color="white.100" mb="1em">
           Welcome Back!
         </Heading>
 
-        <Box
-          rounded={"lg"}
-          p={8}
-          boxShadow={{ base: "none", sm: "0 0 60px rgba(0, 0, 0, 0.5)" }}
-          // bgGradient="linear(to-r, teal.500,blue.500)"
+        <Box 
+          rounded={"lg"} p={8} 
+          boxShadow={{ base: 'none', sm: '0 0 60px rgba(0, 0, 0, 0.5)' }} 
+          filter={{ base: 'none', sm: 'drop-shadow(0 0 0.75rem rgba(0, 0, 0, 0.3))' }}
+          align="center"
         >
-          <form onSubmit={(e) => login(dispatch, e, toast)}>
-            <FormControl pb="2em" isRequired>
-              <InputGroup>
-                <InputLeftElement pointerEvents="none" children={<TfiEmail />} />
-                <Input type="email" name="email" placeholder="email" autoComplete="email" variant="auth" />
-              </InputGroup>
-            </FormControl>
 
-            <FormControl pb="2em" isRequired>
-              <InputGroup>
-                <InputLeftElement pointerEvents="none" children={<FaLock />} />
-                <Input
-                  type="password"
-                  name="password"
-                  placeholder="password"
-                  autoComplete="current-password"
-                  variant="auth"
-                />
-              </InputGroup>
-            </FormControl>
+        <Image src={logo} 
+        alt="logo" 
+        w="70%" 
+        mb="1em" 
+        transition="all 0.3s ease-in-out"
+        _hover={{ transform: "scale(1.1)" }}
+
+        />
+        <form onSubmit={(e) => login(dispatch, e, toast)}>
+
+          <FormControl pb="2em" isRequired>
+            <FormLabel color="white.100">Enter Your Email</FormLabel>
+            <InputGroup>
+              <InputLeftElement pointerEvents="none" children={<TfiEmail/>} />
+              <Input type="email" name="email" placeholder="email" autoComplete="email" variant='auth'/>
+            </InputGroup>
+          </FormControl>
+
+          <FormControl pb="2em" isRequired>
+            <FormLabel color="white.100">Enter Your Password</FormLabel>
+            <InputGroup>
+              <InputLeftElement pointerEvents="none" children={<FaLock />} />
+              <Input type="password" name="password" placeholder="password" autoComplete="current-password" variant='auth'/>
+            </InputGroup>
+          </FormControl>
+
 
             {error && (
               <Alert status="error" variant="left-accent" mb="1em">
