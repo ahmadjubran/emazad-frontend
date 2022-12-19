@@ -33,16 +33,16 @@ import { addBid } from "../../../store/actions/bidActions";
 import { handleFavorite } from "../../../store/actions/favoriteActions";
 import { showTime, timeLeft } from "../../../store/actions/generalActions";
 import { deleteItem, getItem } from "../../../store/actions/itemActions";
-import { handleRating } from "../../../store/actions/ratingActions";
+import { handleRatingFromItem } from "../../../store/actions/ratingActions";
 import { selectIsAuth, selectUser } from "../../../store/features/authSlicer";
 import { selectItem, selectUserRating } from "../../../store/features/itemSlicer";
 import RenderTimeLeft from "../../../utils/RenderTimeLeft";
+import AddReport from "./AddReport";
 import Carousel from "./Carousel";
 import Comments from "./Comments";
+import DeleteItem from "./DeleteItem";
 import EditItem from "./EditItem";
 import LastBids from "./LastBids";
-import AddReport from "./AddReport";
-import DeleteItem from "./DeleteItem";
 
 export default function Item() {
   const item = useSelector(selectItem);
@@ -87,7 +87,7 @@ export default function Item() {
           _hover={{ color: "blue.300" }}
           display="inline"
           cursor="pointer"
-          onClick={() => handleRating(dispatch, i, item, userRating.rating, toast)}
+          onClick={() => handleRatingFromItem(dispatch, i, item, userRating.rating, toast)}
         />
       );
     }
@@ -151,7 +151,7 @@ export default function Item() {
                 alignSelf="center"
                 onClick={() => handleFavorite(dispatch, item, item.Favorites, toast)}
               />
-              <Menu >
+              <Menu>
                 <MenuButton
                   as={IconButton}
                   aria-label="Options"
@@ -167,18 +167,17 @@ export default function Item() {
                   fontSize="sm"
                   fontWeight="normal"
                   borderRadius="lg"
-                  shadow="lg"  
+                  shadow="lg"
                   align="center"
-                  jusify="center"                
+                  jusify="center"
                 >
                   {isAuth && item.userId === user.id && (
                     <>
                       <MenuItem as={EditItem} item={item} />
                       <MenuItem as={DeleteItem} itemId={item.id} />
-
                     </>
                   )}
-                      <MenuItem as={AddReport} itemId={item.id} />
+                  <MenuItem as={AddReport} itemId={item.id} />
                 </MenuList>
               </Menu>
             </Box>
