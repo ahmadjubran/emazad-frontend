@@ -1,5 +1,6 @@
 import axios from "axios";
 import {
+    addReportItem,
     getActiveItems,
     getSoldItems,
     getBlockedItems,
@@ -11,6 +12,40 @@ import {
     deletItemReported,
     getActiveItemsError
 } from "../features/adminSlicer";
+
+export const addReport = (dispatch, payload, itemId, userId, toast) => {
+    payload.preventDefault();
+  
+    const data = {
+        reportTitle: payload.target.reportTitle.value,
+        reportMessage: payload.target.reportMessage.value,
+        reportReason: payload.target.reportReason.value,
+        userId: userId,
+        itemId: itemId,
+    };
+  
+    try {
+      axios
+        .post(`${process.env.REACT_APP_HEROKU_API_KEY}/report`, data)
+        .then((res) => {
+          dispatch(addReportItem(res.data));
+          toast({
+            title: "Item Reported",
+            description: `Your report has been sent to the admin`,
+            status: "success",
+            duration: 5000,
+            isClosable: true,
+            position: "top", 
+          });
+        })
+        .catch((err) => {
+          dispatch(getActiveItemsError(err));
+        });
+    } catch (err) {
+      dispatch(getActiveItemsError(err));
+    }
+  };
+    
 
 export const getActiveItem = (dispatch) => {
     axios.get(`${process.env.REACT_APP_HEROKU_API_KEY}/items/active`)

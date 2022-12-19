@@ -41,6 +41,7 @@ import Carousel from "./Carousel";
 import Comments from "./Comments";
 import EditItem from "./EditItem";
 import LastBids from "./LastBids";
+import AddReport from "./AddReport";
 
 export default function Item() {
   const item = useSelector(selectItem);
@@ -149,39 +150,44 @@ export default function Item() {
                 alignSelf="center"
                 onClick={() => handleFavorite(dispatch, item, item.Favorites, toast)}
               />
-              {isAuth && item.userId === user.id && (
-                <Menu>
-                  <MenuButton
-                    as={IconButton}
-                    aria-label="Options"
-                    icon={<IoEllipsisVertical />}
-                    variant="none"
-                    size="lg"
-                    alignSelf="center"
-                  />
+              <Menu >
+                <MenuButton
+                  as={IconButton}
+                  aria-label="Options"
+                  icon={<IoEllipsisVertical />}
+                  variant="none"
+                  size="lg"
+                  alignSelf="center"
+                />
 
-                  <MenuList
-                    bg="gray.200"
-                    color="gray.700"
-                    fontSize="sm"
-                    fontWeight="normal"
-                    borderRadius="lg"
-                    shadow="lg"
-                  >
-                    <MenuItem as={EditItem} item={item} />
-                    <Link to="/">
-                      <MenuItem
-                        icon={<IoTrash />}
-                        bg="gray.200"
-                        _hover={{ bg: "gray.300" }}
-                        onClick={() => deleteItem(dispatch, item.id, toast)}
-                      >
-                        Delete
-                      </MenuItem>
-                    </Link>
-                  </MenuList>
-                </Menu>
-              )}
+                <MenuList
+                  bg="gray.200"
+                  color="gray.700"
+                  fontSize="sm"
+                  fontWeight="normal"
+                  borderRadius="lg"
+                  shadow="lg"  
+                  align="center"
+                  jusify="center"                
+                >
+                  {isAuth && item.userId === user.id && (
+                    <>
+                      <MenuItem as={EditItem} item={item} />
+                      <Link to="/">
+                        <MenuItem
+                          icon={<IoTrash />}
+                          bg="gray.200"
+                          _hover={{ bg: "gray.300" }}
+                          onClick={() => deleteItem(dispatch, item.id, toast)}
+                        >
+                          Delete
+                        </MenuItem>
+                      </Link>
+                    </>
+                  )}
+                  <MenuItem as={AddReport} itemId={item.id} />
+                </MenuList>
+              </Menu>
             </Box>
           </Flex>
 

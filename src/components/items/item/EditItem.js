@@ -66,7 +66,7 @@ function EditItem({ item }) {
         borderRadius="0"
       >
         {<IoPencil />}
-        <span style={{ marginLeft: "0.6rem" }}>Edit Item</span>
+        <span style={{ marginLeft: "0.6rem" }}>Edit</span>
       </Button>
 
       <Modal isOpen={isOpen} onClose={onClose}>
