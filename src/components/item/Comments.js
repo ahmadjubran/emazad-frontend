@@ -12,11 +12,11 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { IoEllipsisVertical, IoPencil, IoTrash } from "react-icons/io5";
+import { IoEllipsisVertical, IoTrash } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteComment } from "../../store/actions/commentActions";
 import { showTime } from "../../store/actions/generalActions";
-import { selectUser } from "../../store/features/authSlicer";
+import { selectIsAuth, selectUser } from "../../store/features/authSlicer";
 import AddComment from "./AddComment";
 import AddReply from "./AddReply";
 import EditComment from "./EditComment";
@@ -24,6 +24,8 @@ import Replies from "./Replies";
 
 export default function Comments({ item }) {
   const dispatch = useDispatch();
+  const isAuth = useSelector(selectIsAuth);
+
   const [showComments, setShowComments] = useState(3);
   const [showMore, setShowMore] = useState(false);
   const [showLess, setShowLess] = useState(false);
@@ -57,7 +59,16 @@ export default function Comments({ item }) {
   };
 
   return (
-    <Box w="100%" border="1px" borderColor="gray.300" borderRadius="2xl" boxShadow="md" bg="gray.200" pt="4">
+    <Box
+      w="100%"
+      border="1px"
+      borderColor="gray.300"
+      borderRadius="2xl"
+      boxShadow="md"
+      bg="gray.200"
+      pt="4"
+      id="comments"
+    >
       <Heading
         as="h3"
         size="md"
@@ -90,7 +101,7 @@ export default function Comments({ item }) {
                   {comment.comment}
                 </Text>
               </Flex>
-              {comment.User.id === user.id && (
+              {isAuth && user.id === comment.userId && (
                 <Menu>
                   <MenuButton
                     as={IconButton}
@@ -101,19 +112,20 @@ export default function Comments({ item }) {
                     alignSelf="center"
                   />
                   <MenuList
-                    bg="gray.100"
+                    bg="gray.200"
                     color="gray.700"
                     fontSize="sm"
                     fontWeight="normal"
                     borderRadius="lg"
                     shadow="lg"
                   >
-                    <MenuItem as={EditComment} comment={comment}>
-                      <IoPencil />
-                      Edit
-                    </MenuItem>
-                    <MenuItem onClick={() => deleteComment(dispatch, comment.id)}>
-                      <IoTrash />
+                    <MenuItem as={EditComment} comment={comment} />
+                    <MenuItem
+                      icon={<IoTrash />}
+                      bg="gray.200"
+                      _hover={{ bg: "gray.300" }}
+                      onClick={() => deleteComment(dispatch, comment.id)}
+                    >
                       Delete
                     </MenuItem>
                   </MenuList>
@@ -124,9 +136,11 @@ export default function Comments({ item }) {
               <Text fontSize="sm" color="gray.500" ml="14">
                 {showTime(comment.createdAt)}
               </Text>
-              <Text fontSize="sm" color="blue.500" cursor="pointer" onClick={() => handleShowAddReply(comment.id)}>
-                Reply
-              </Text>
+              {isAuth && (
+                <Text fontSize="sm" color="blue.500" cursor="pointer" onClick={() => handleShowAddReply(comment.id)}>
+                  Reply
+                </Text>
+              )}
             </Flex>
             <Box>
               <Replies comment={comment} showTime={showTime} />
@@ -168,7 +182,7 @@ export default function Comments({ item }) {
           </Text>
         )}
       </VStack>
-      <AddComment item={item} />
+      {isAuth && <AddComment item={item} />}
     </Box>
   );
 }

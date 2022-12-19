@@ -12,7 +12,7 @@ export default function UserMenu({ setCurrentTab }) {
   return (
     <Menu>
       <MenuButton _hover={{ color: "blue.500" }}>
-        <IoPersonCircleOutline size="26px" />
+        <IoPersonCircleOutline size="32px" />
       </MenuButton>
       <MenuList borderRadius="2xl" boxShadow="md">
         <Link to={`/profile/${user.id}`} onClick={() => setCurrentTab("profile")}>

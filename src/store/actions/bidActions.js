@@ -2,7 +2,7 @@ import axios from "axios";
 
 import { addBidSuccess, ItemFail, ItemRequest } from "../features/itemSlicer";
 
-export const addBid = (dispatch, itemId, bidprice) => {
+export const addBid = (dispatch, itemId, bidprice, toast) => {
   try {
     dispatch(ItemRequest());
 
@@ -13,6 +13,14 @@ export const addBid = (dispatch, itemId, bidprice) => {
       })
       .catch((err) => {
         dispatch(ItemFail(err));
+        toast({
+          title: "Error",
+          description: `${err.response.data.message}`,
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+          position: "top",
+        });
       });
   } catch (err) {
     console.log(err);
