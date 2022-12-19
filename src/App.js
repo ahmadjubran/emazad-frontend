@@ -20,7 +20,7 @@ import AdminItems from "./components/admin/Items";
 import ReportItems from "./components/admin/ReportItems";
 import UserBlocked from "./components/admin/UserBlocked";
 import Contact from "./components/Contact";
-import Footer from "./components/footer/Footer";
+import NewFooter from "./components/footer/NewFooter";
 import Header from "./components/header/Header";
 import RegisterBanner from "./components/main/RegisterAd";
 import NewsLetter from "./components/main/Subscribe";
@@ -46,7 +46,7 @@ function App() {
               <Categories />
 
               <RegisterBanner />
-              <NewsLetter />
+              {/* <NewsLetter /> */}
             </>
           }
         />
@@ -76,7 +76,7 @@ function App() {
         <Route exact path="/admin/reportitems" element={<ReportItems />} />
         <Route exact path="/admin/userBlocked" element={<UserBlocked />} />
       </Routes>
-      <Footer />
+      <NewFooter />
     </BrowserRouter>
   );
 }
