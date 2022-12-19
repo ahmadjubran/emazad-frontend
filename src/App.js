@@ -14,7 +14,7 @@ import Profile from "./components/profile/Profile";
 
 import { useSelector } from "react-redux";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import About from "./components/About";
+import Aboutt from "./components/AboutT";
 import Dashboard from "./components/admin/Dashboard";
 import AdminItems from "./components/admin/Items";
 import ReportItems from "./components/admin/ReportItems";
@@ -61,7 +61,7 @@ function App() {
 
         <Route exact path="/signup" element={isAuth ? <Navigate to="/" /> : <Signup />} />
 
-        <Route exact path="/about" element={<About />} />
+        <Route exact path="/about" element={<Aboutt />} />
 
         <Route exact path="/contact" element={<Contact />} />
 
