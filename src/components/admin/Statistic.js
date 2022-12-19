@@ -17,7 +17,7 @@ function Statistic() {
     console.log("from card")
     return (
         console.log(admin),
-        <Box pt={5} px={{ base: 2, sm: 12, md: 17 }}>
+        <Box pt={3} px={{ base: 2, sm: 12, md: 17 }}>
             <chakra.h1
                 textAlign={'center'}
                 fontSize={'4xl'}

@@ -6,6 +6,9 @@ import {
     getUserBlocked,
     getNumerUser,
     getDataChart,
+    blockedUser,
+    activationUser,
+    deletItemReported,
     getActiveItemsError
 } from "../features/adminSlicer";
 
@@ -64,17 +67,60 @@ export const getNumberUsers = (dispatch) => {
         )
 }
 
+export const blockedUsers = (dispatch, payload) => {
+    axios.put(`${process.env.REACT_APP_HEROKU_API_KEY}/profile/${payload}`, {
+        status: "blocked"
+    }, {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+    })
+        .then((res) => {
+            console.log(res.data);
+            dispatch(blockedUser(res.data));
+        }).catch((err) => {
+            dispatch(getActiveItemsError(err.response.data));
+        }
+        )
+}
+
+export const activationUsers = (dispatch, payload) => {
+    axios.put(`${process.env.REACT_APP_HEROKU_API_KEY}/profile/${payload}`, {
+        status: "active"
+    }, {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+    }).then((res) => {
+        dispatch(activationUser(payload));
+    }).catch((err) => {
+        dispatch(getActiveItemsError(err.response.data));
+    }
+    )
+}
+
+export const deletItemReporteds = (dispatch, payload) => {
+    axios.delete(`${process.env.REACT_APP_HEROKU_API_KEY}/item/${payload}`, {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+    }).then((res) => {
+        dispatch(deletItemReported(payload));
+    }).catch((err) => {
+        dispatch(getActiveItemsError(err.response.data));
+    }
+    )
+}
+
 
 export const getDataCharts = async (dispatch, payload) => {
-    console.log("from action data charts")
     let arr = [];
     let arr2 = [];
+    let arr3 = [];
     switch (payload.case) {
         case "Sold Items":
             payload.data.forEach((item) => {
                 let date = item.endDate.slice(0, 10);
-                console.log(date);
-                // console.log(item.data);
                 let obj = arr.find((i) => i.date === date);
                 if (obj) {
                     obj.count++;
@@ -85,15 +131,13 @@ export const getDataCharts = async (dispatch, payload) => {
             )
             for (let i = arr.length - 1; i >= 0; i--) {
                 arr2.push(arr[i].count);
+                arr3.push(arr[i].date.slice(5, 10));
             }
-            console.log(arr2)
-            dispatch(getDataChart(arr2));
+            dispatch(getDataChart({ arr2, arr3 }));
             break;
         case "Active Items":
             payload.data.forEach((item) => {
                 let date = item.startDate.slice(0, 10);
-                console.log(date);
-                // console.log(item.data);
                 let obj = arr.find((i) => i.date === date);
                 if (obj) {
                     obj.count++;
@@ -104,9 +148,10 @@ export const getDataCharts = async (dispatch, payload) => {
             )
             for (let i = arr.length - 1; i >= 0; i--) {
                 arr2.push(arr[i].count);
+                arr3.push(arr[i].date.slice(5, 10));
+
             }
-            console.log(arr2);
-            dispatch(getDataChart(arr2));
+            dispatch(getDataChart({ arr2, arr3 }));
             break;
         case "Users":
             await axios.get(`${process.env.REACT_APP_HEROKU_API_KEY}/users`, {
@@ -118,7 +163,6 @@ export const getDataCharts = async (dispatch, payload) => {
                 users.forEach((user) => {
                     let date = user.createdAt.slice(0, 10);
                     console.log(date);
-                    // console.log(item.data);
                     let obj = arr.find((i) => i.date === date);
                     if (obj) {
                         obj.count++;
@@ -129,9 +173,9 @@ export const getDataCharts = async (dispatch, payload) => {
                 )
                 for (let i = arr.length - 1; i >= 0; i--) {
                     arr2.push(arr[i].count);
+                    arr3.push(arr[i].date.slice(5, 10));
                 }
-                console.log(arr2);
-                dispatch(getDataChart(arr2));
+                dispatch(getDataChart({ arr2, arr3 }));
             }).catch((err) => {
                 dispatch(getActiveItemsError(err.response.data));
             }

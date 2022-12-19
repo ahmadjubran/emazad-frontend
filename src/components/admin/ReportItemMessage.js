@@ -20,15 +20,15 @@ function ReportItemMessage(props) {
                 finalFocusRef={props.btnRef}
             >
                 <DrawerOverlay />
-                <DrawerContent>
+                <DrawerContent bg='gray.100'>
                     <DrawerCloseButton />
                     <DrawerHeader>Report Messages</DrawerHeader>
 
-                    <DrawerBody>
+                    <DrawerBody overflowY="auto">
                         {
                             props.reportItem.map((message, index) => {
                                 return (
-                                    <Flex key={index} direction="column" mb="15px">
+                                    <Flex key={index} direction="column" mb="15px" bg='gray.300' p="10px" borderRadius="10px">
                                         <Text fontSize="xl" color="gray.700" fontWeight="bold">
                                             From : {message.User.fullName}
                                         </Text>

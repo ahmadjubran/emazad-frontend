@@ -138,8 +138,8 @@ function EditItem({ item }) {
 
               <FormControl mt={4} isRequired>
                 <InputGroup>
-                <InputLeftElement children={<FaDollarSign />} />
-              <Input type="number" name="initialPrice" placeholder="initialPrice" variant="auth" defaultValue={item.initialPrice}/>
+                  <InputLeftElement children={<FaDollarSign />} />
+                  <Input type="number" name="initialPrice" placeholder="initialPrice" variant="auth" defaultValue={item.initialPrice} />
                 </InputGroup>
               </FormControl>
 

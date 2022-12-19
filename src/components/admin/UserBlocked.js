@@ -22,7 +22,15 @@ function UserBlocked() {
         console.log(admin),
         <Admin>
             <Box my='22px' h='100hv' w='100%'
-                overflowX={{ sm: "scroll", xl: "hidden" }}>
+                overflowX={{ sm: "scroll", xl: "hidden" }}
+                border='1px solid'
+                borderColor='gray.300'
+                borderRadius='2xl'
+                bg='gray.200'
+                padding='1rem'
+                mr='1.2rem'
+                boxShadow='md'
+            >
                 <Box p='6px 0px 22px 0px'>
                     <Flex direction='column'>
                         <Heading color={textColor} fontWeight='bold' pb='.5rem' textAlign={'center'} textTransform='uppercase'>
@@ -50,6 +58,7 @@ function UserBlocked() {
                                     return (
                                         <UserBlockedRow
                                             key={row.id}
+                                            id={row.id}
                                             logo={row.image}
                                             name={row.fullName}
                                             email={row.email}
