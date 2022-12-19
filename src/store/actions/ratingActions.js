@@ -1,7 +1,7 @@
 import axios from "axios";
 import { getItem } from "./itemActions";
 
-export const handleRating = (dispatch, rating, item, allRating) => {
+export const handleRating = (dispatch, rating, item, allRating, toast) => {
   try {
     let rated = allRating.find((rating) => Number(rating.userId) === Number(localStorage.getItem("userID")));
     if (!rated) {
@@ -15,7 +15,14 @@ export const handleRating = (dispatch, rating, item, allRating) => {
           getItem(dispatch, item.id);
         })
         .catch((err) => {
-          console.log(err);
+          toast({
+            title: "Error",
+            description: "Please login to rate items.",
+            status: "error",
+            duration: 5000,
+            isClosable: true,
+            position: "top",
+          });
         });
     } else {
       if (rated.rating === rating) {
@@ -25,7 +32,14 @@ export const handleRating = (dispatch, rating, item, allRating) => {
             getItem(dispatch, item.id);
           })
           .catch((err) => {
-            console.log(err);
+            toast({
+              title: "Error",
+              description: "Please login to rate items.",
+              status: "error",
+              duration: 5000,
+              isClosable: true,
+              position: "top",
+            });
           });
       } else {
         axios
@@ -34,7 +48,14 @@ export const handleRating = (dispatch, rating, item, allRating) => {
             getItem(dispatch, item.id);
           })
           .catch((err) => {
-            console.log(err);
+            toast({
+              title: "Error",
+              description: "Please login to rate items.",
+              status: "error",
+              duration: 5000,
+              isClosable: true,
+              position: "top",
+            });
           });
       }
     }

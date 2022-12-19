@@ -1,4 +1,4 @@
-import { Badge, Box, Button, Container, Flex, Heading, Image, Text } from "@chakra-ui/react";
+import { Badge, Box, Button, Container, Flex, Heading, Image, Text, useToast } from "@chakra-ui/react";
 import "fontsource-inter/500.css";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,11 +8,15 @@ import { addBid } from "../../../store/actions/bidActions";
 import { timeLeft } from "../../../store/actions/generalActions";
 import { getItem, getTrendingItems } from "../../../store/actions/itemActions";
 import { selectTrendingItems } from "../../../store/features/itemSlicer";
+import RenderTimeLeft from "../../../utils/RenderTimeLeft";
 import Title from "../../Title";
 import ChakraCarousel from "./ChakraCarousel";
+import { selectIsAuth } from "../../../store/features/authSlicer";
 
 function SliderCom() {
   const dispatch = useDispatch();
+  const toast = useToast();
+  const isAuth = useSelector(selectIsAuth);
   const trendingItems = useSelector(selectTrendingItems);
   const [countdown, setCountdown] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
@@ -23,36 +27,12 @@ function SliderCom() {
     return () => clearInterval(interval);
   }, [countdown]);
 
-  const renderTimeLeft = (item, time) => {
-    return (
-      <Box
-        w="100%"
-        h="100%"
-        p="2"
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-        flexDir="column"
-        border="1px solid"
-        borderColor="gray.300"
-        borderRadius="lg"
-      >
-        <Text fontSize="md" color="gray.500">
-          {time === "days" ? "Days" : time === "hours" ? "Hours" : time === "minutes" ? "Minutes" : "Seconds"}
-        </Text>
-        <Text fontSize="xl" fontWeight="bold">
-          {timeLeft(item)[time]}
-        </Text>
-      </Box>
-    );
-  };
-
   useEffect(() => {
     getTrendingItems(dispatch);
   }, [dispatch]);
 
   return (
-    <Container maxW="100%" px="24" m="0" important bg="gray.100">
+    <Container maxW="100%" px="24" pb="24" m="0" important bg="gray.100">
       <Title>Trending</Title>
       <ChakraCarousel gap={32}>
         {trendingItems.slice(0, 11).map((item) => (
@@ -63,7 +43,7 @@ function SliderCom() {
             borderColor="gray.300"
             justifyContent="space-between"
             flexDirection="column"
-            bg="gray.200"
+            bg="gray.50"
             borderRadius="lg"
             w="full"
             h="full"
@@ -79,11 +59,7 @@ function SliderCom() {
                       : `${process.env.REACT_APP_HEROKU_API_KEY}/${item.itemImage[0].split("/").pop()}`
                   }
                   alt="carousel"
-                  objectFit={
-                    item.itemImage && item.itemImage.width > item.itemImage && item.itemImage.height
-                      ? "cover"
-                      : "contain"
-                  }
+                  objectFit="cover"
                   w="full"
                   h="full"
                 />
@@ -95,7 +71,7 @@ function SliderCom() {
                 <Badge
                   ml="1"
                   fontSize="sm"
-                  colorScheme={item.itemCondition === "New" ? "green" : "yellow"}
+                  colorScheme={item.itemCondition === "New" ? "blue" : "yellow"}
                   p="1"
                   borderRadius="xl"
                 >
@@ -110,10 +86,10 @@ function SliderCom() {
               </Text>
             </Flex>
             <Flex w="100%" alignItems="center" justifyContent="space-between" gap="4" p="4">
-              {renderTimeLeft(item, "days")}
-              {renderTimeLeft(item, "hours")}
-              {renderTimeLeft(item, "minutes")}
-              {renderTimeLeft(item, "seconds")}
+              <RenderTimeLeft item={item} time="days" />
+              <RenderTimeLeft item={item} time="hours" />
+              <RenderTimeLeft item={item} time="minutes" />
+              <RenderTimeLeft item={item} time="seconds" />
             </Flex>
             <Box>
               <Flex w="100%" alignItems="center" justifyContent="space-between" gap="4" h="75px" px="4" mb="4">
@@ -138,7 +114,7 @@ function SliderCom() {
                 <Button
                   w="100%"
                   h="100%"
-                  colorScheme="teal"
+                  colorScheme="blue"
                   variant="outline"
                   boxShadow="md"
                   onClick={() =>
@@ -147,9 +123,11 @@ function SliderCom() {
                       item.id,
                       item.latestBid !== 0
                         ? Math.ceil(item.latestBid + item.initialPrice * 0.01)
-                        : Math.ceil(item.initialPrice + item.initialPrice * 0.01)
+                        : Math.ceil(item.initialPrice + item.initialPrice * 0.01),
+                      toast
                     )
                   }
+                  disabled={item.timeLeft === 0 || !isAuth}
                 >
                   <Flex alignItems="center" justifyContent="center" w="100%" h="100%" flexDir="column">
                     <Text fontSize="md" color="gray.500" mb="2">

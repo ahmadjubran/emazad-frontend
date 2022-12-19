@@ -10,11 +10,11 @@ function Categories() {
   const dispatch = useDispatch();
 
   return (
-    <Flex direction="column" p="6" justifyContent="center" alignItems="center" bg="gray.100" gap="8">
+    <Flex direction="column" p="6" justifyContent="center" alignItems="center" bg="gray.100" gap="8" w="100%">
       <Title>Categories</Title>
-      <Grid templateColumns={{ base: "repeat(1, 1fr)", md: "repeat(2, 1fr)", lg: "repeat(3, 1fr)" }} gap={6}>
+      <Grid templateColumns={{ base: "repeat(1, 1fr)", md: "repeat(2, 1fr)", lg: "repeat(3, 1fr)" }} gap={6} w="90%">
         {categories.categories.map((category, index) => (
-          <GridItem key={index}>
+          <GridItem key={index} w="100%">
             <Link
               to={`/items`}
               onClick={() => {
@@ -24,8 +24,8 @@ function Categories() {
               }}
             >
               <Box
-                w={{ base: "300px", md: "350px", lg: "400px" }}
-                h={{ base: "150px", md: "200px", lg: "250px" }}
+                w="100%"
+                h="15rem"
                 bgImage={`url(${category.image})`}
                 bgRepeat="no-repeat"
                 bgSize="cover"
