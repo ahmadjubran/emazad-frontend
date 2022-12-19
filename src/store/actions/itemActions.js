@@ -254,6 +254,7 @@ export const uploadItemImage = async () => {
       data.append("file", image);
       data.append("upload_preset", "emazad_app");
       return axios.post("https://api.cloudinary.com/v1_1/skokash/image/upload", data).then((res) => {
+        image = [];
         return res.data.secure_url;
       });
     });
