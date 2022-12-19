@@ -12,10 +12,8 @@ import Hero from "./components/main/Hero";
 import SliderCom from "./components/main/trending/SliderCom";
 import Profile from "./components/profile/Profile";
 
-import "@fortawesome/fontawesome-free/css/all.min.css";
 import { useSelector } from "react-redux";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import "./assets/styles/tailwind.css";
 import About from "./components/About";
 import Dashboard from "./components/admin/Dashboard";
 import AdminItems from "./components/admin/Items";

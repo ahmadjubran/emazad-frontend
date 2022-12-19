@@ -1,5 +1,4 @@
 import { Badge, Box, Button, Container, Flex, Heading, Image, Text, useToast } from "@chakra-ui/react";
-import "fontsource-inter/500.css";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
