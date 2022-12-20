@@ -148,17 +148,11 @@ function EditItem({ item }) {
                 <FormControl isRequired>
                   <FormLabel fontWeight="bold" ml="2" mt='4' requiredIndicator>Sub Category</FormLabel>
                   <InputGroup>
-                     {/* <Input
-                      type="text"
-                      name="subCategory"
-                      placeholder="subCategory"
-                      defaultValue={item.subCategory}
-                      bg={colorMode === "light" ? "gray.100" : "gray.600"}
+                     <Select name='subCategory' 
+                     defaultValue={item.subCategory}
+                     bg={colorMode === "light" ? "gray.100" : "gray.600"}
                       borderRadius="3xl"
-                      color={textColor}
-                    /> */}
-
-                     <Select name='subCategory' bg='white' defaultValue={item.subCategory} >
+                      color={textColor}>
                       
                       {categories.categories.map((category, index) => (
                         category.name === item.category && category.subcategories.map((subcategory, index) => (
