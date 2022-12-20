@@ -11,7 +11,7 @@ import Items from "./components/items/Items";
 import Hero from "./components/main/Hero";
 import SliderCom from "./components/main/trending/SliderCom";
 import Profile from "./components/profile/Profile";
-
+import NotFound from "./components/404";
 import { useSelector } from "react-redux";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Aboutt from "./components/AboutT";
@@ -75,6 +75,7 @@ function App() {
         <Route exact path="/admin/solditems" element={<AdminItems />} />
         <Route exact path="/admin/reportitems" element={<ReportItems />} />
         <Route exact path="/admin/userBlocked" element={<UserBlocked />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
       <NewFooter />
     </BrowserRouter>

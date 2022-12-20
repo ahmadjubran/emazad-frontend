@@ -146,7 +146,7 @@ function Admin({ children }) {
                                     to='/admin/userBlocked'
                                     display={sizeSlide ? 'flex' : 'none'}
                                     _hover={{ textDecor: 'none', color: '#5BCCD9' }}
-                                >Users Blocked </Link>
+                                >Blocked Users</Link>
                             </Flex>
                             <Flex flexDir="row" alignItems='center' justifyContent='center' gap='3' fontSize='xl'
                                 fontWeight='bold' _hover={{ color: '#5BCCD9' }}
@@ -165,7 +165,7 @@ function Admin({ children }) {
                                     to='/admin/reportitems'
                                     display={sizeSlide ? 'flex' : 'none'}
                                     _hover={{ textDecor: 'none', color: '#5BCCD9' }}
-                                >Report Items</Link>
+                                >Reported Items</Link>
                             </Flex>
                         </Flex>
 
