@@ -54,4 +54,19 @@ This is a simple bidding app that allows users to bid on items and the highest b
 - backend: items must have bearerAuth (FOR LATER...)
 - Backward button (FOR LATER...)
 
--TESTTTTTT
+# New List
+- Contact (EmailJS) -Yaser
+- About Page
+- Edit Profile -Qais
+- Edit Item, to be working only on STANDBY STATUS!!! - Qais 
+- SocketIO
+- Admin -Saeed
+- isAuth
+- Colors for everything
+- Scroll up for most of the things
+- BarerAuth to be removed from user stuff, kept only on adding or editing or deleting things
+- Report or anything that needs signing in!
+- 404 Page -Yaser
+- Add Auction to be inside { isAuth ? }
+- Admin Dashboard button from profile
+- 
