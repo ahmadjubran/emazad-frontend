@@ -9,25 +9,37 @@ import {
   setPreviewImage,
 } from "../features/authSlicer";
 
+import { setEditPreviewImage } from "../features/profileSlicer";
+
 import base64 from "base-64";
 
 let image = null;
 export const validateImage = (payload, dispatch, toast) => {
-  const file = payload.target.files[0];
-  if (file.size >= 1048576) {
-    return toast({
-      title: "Max file size is 1MB",
-      description: "please try again",
-      status: "error",
-      duration: 5000,
-      isClosable: true,
-      position: "top",
-    });
+  if (payload === null) {
+
+    // console.log("image removed successfully");
+    dispatch(setEditPreviewImage());
+    return (image = null);
+
   } else {
-    console.log("image added successfully", file);
-    dispatch(setPreviewImage(URL.createObjectURL(file)));
-    return (image = file);
+    const file = payload.target.files[0];
+    if (file.size >= 1048576) {
+      return toast({
+        title: "Max file size is 1MB",
+        description: "please try again",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "top",
+      });
+    } else {
+      // console.log("image added successfully", file);
+      dispatch(setPreviewImage(URL.createObjectURL(file)));
+      dispatch(setEditPreviewImage(URL.createObjectURL(file)));
+      return (image = file);
+    }
   }
+  
 };
 
 export const uploadUserImage = async () => {
