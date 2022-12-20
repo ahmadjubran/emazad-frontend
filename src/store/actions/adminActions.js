@@ -52,9 +52,9 @@ export const addReport = (dispatch, payload, itemId, userId, toast) => {
 
 export const getActiveItem = (dispatch) => {
   axios
-    .get(`${process.env.REACT_APP_HEROKU_API_KEY}/items/active`)
+    .get(`${process.env.REACT_APP_HEROKU_API_KEY}/items/active?page=0&limit=9999`)
     .then((res) => {
-      dispatch(getActiveItems(res.data));
+      dispatch(getActiveItems(res.data.items));
     })
     .catch((err) => {
       dispatch(getActiveItemsError(err.response.data));
@@ -63,9 +63,9 @@ export const getActiveItem = (dispatch) => {
 
 export const getSoldItem = (dispatch) => {
   axios
-    .get(`${process.env.REACT_APP_HEROKU_API_KEY}/items/sold`)
+    .get(`${process.env.REACT_APP_HEROKU_API_KEY}/items/sold?page=0&limit=9999`)
     .then((res) => {
-      dispatch(getSoldItems(res.data));
+      dispatch(getSoldItems(res.data.items));
     })
     .catch((err) => {
       dispatch(getActiveItemsError(err.response.data));
