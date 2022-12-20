@@ -1,9 +1,9 @@
-import { Box, Heading, Text, Button } from '@chakra-ui/react';
+import { Heading, Text, Button, Flex } from '@chakra-ui/react';
 import {Link } from "react-router-dom";
 
 export default function NotFound() {
   return (
-    <Box textAlign="center" py={24} px={6}>
+    <Flex textAlign="center" py={24} px={6} h={{ base: '35vh', lg: '62vh' }} w="100%" bg="gray.100" justify="center" direction="column">
       <Heading
         display="inline-block"
         as="h2"
@@ -28,6 +28,6 @@ export default function NotFound() {
         Go to Home
       </Button>
       </Link>
-    </Box>
+    </Flex>
   );
 }
