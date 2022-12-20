@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import {
   Alert,
   AlertIcon,
-  Box,
   Button,
   FormControl,
   FormHelperText,
@@ -55,7 +54,7 @@ function EditItem({ item }) {
 
     const imageURL = await uploadItemImage();
     console.log(imageURL);
-    editItem(dispatch, e, imageURL, userId, item.id, item.itemImage);
+    editItem(dispatch, e, imageURL, userId, item.id, item.itemImage, toast);
   }
 
   return (
