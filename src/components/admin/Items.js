@@ -15,7 +15,7 @@ import ItemsRow from "./ItemsRow";
 import caption from '../../assets/caption.json';
 import Admin from "./Admin";
 const Items = () => {
-    const textColor = useColorModeValue("gray.700", "white");
+    const textColor = useColorModeValue("blue.500", "white");
     const admin = useSelector((state) => state.admin);
     return (
         <Admin>

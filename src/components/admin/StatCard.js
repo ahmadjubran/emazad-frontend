@@ -26,9 +26,8 @@ function StatCard(props) {
             _hover={{
                 transition: '0.3s',
                 transform: 'translateY(-3px)',
-                bg: '#5BCCD9',
+                bg: 'blue.300',
                 cursor: 'pointer',
-
             }}
             onClick={() => {
                 switch (title) {
