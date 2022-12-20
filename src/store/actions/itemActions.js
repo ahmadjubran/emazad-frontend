@@ -87,7 +87,6 @@ export const getTrendingItems = (dispatch) => {
 };
 
 export const addItem = (dispatch, payload, imageURL, userId, toast) => {
-  
   const data = {
     itemTitle: payload.itemTitle,
     itemDescription: payload.itemDescription,
@@ -104,7 +103,11 @@ export const addItem = (dispatch, payload, imageURL, userId, toast) => {
   try {
     dispatch(ItemRequest());
     axios
-      .post(`${process.env.REACT_APP_HEROKU_API_KEY}/item`, data)
+      .post(`${process.env.REACT_APP_HEROKU_API_KEY}/item`, data, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
       .then((res) => {
         dispatch(addItemSuccess(res.data));
         toast({
@@ -148,7 +151,11 @@ export const editItem = (dispatch, payload, imageURL, userId, id, itemImage, toa
   try {
     dispatch(ItemRequest());
     axios
-      .put(`${process.env.REACT_APP_HEROKU_API_KEY}/item/${id}`, data)
+      .put(`${process.env.REACT_APP_HEROKU_API_KEY}/item/${id}`, data, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
       .then((res) => {
         console.log(res.data);
         dispatch(updateItemSuccess(res.data));
@@ -178,7 +185,11 @@ export const deleteItem = (dispatch, payload, toast) => {
   dispatch(ItemRequest());
 
   axios
-    .delete(`${process.env.REACT_APP_HEROKU_API_KEY}/item/${payload}`)
+    .delete(`${process.env.REACT_APP_HEROKU_API_KEY}/item/${payload}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
     .then((res) => {
       dispatch(deleteItemSuccess(payload));
       toast({
@@ -187,7 +198,6 @@ export const deleteItem = (dispatch, payload, toast) => {
         duration: 5000,
         isClosable: true,
       });
-      
     })
     .catch((err) => {
       dispatch(ItemFail(err));

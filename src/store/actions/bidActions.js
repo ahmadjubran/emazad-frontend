@@ -7,7 +7,15 @@ export const addBid = (dispatch, itemId, bidprice, toast) => {
     dispatch(ItemRequest());
 
     axios
-      .post(`${process.env.REACT_APP_HEROKU_API_KEY}/bid`, { itemId, bidprice, userId: localStorage.getItem("userID") })
+      .post(
+        `${process.env.REACT_APP_HEROKU_API_KEY}/bid`,
+        { itemId, bidprice, userId: localStorage.getItem("userID") },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      )
       .then((res) => {
         dispatch(addBidSuccess(res.data));
         console.log(res.data);

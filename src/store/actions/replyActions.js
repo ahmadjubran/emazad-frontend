@@ -5,11 +5,19 @@ export const addReply = (dispatch, comment, reply, toast) => {
   try {
     dispatch(ItemRequest());
     axios
-      .post(`${process.env.REACT_APP_HEROKU_API_KEY}/reply`, {
-        commentId: comment.id,
-        reply,
-        userId: localStorage.getItem("userID"),
-      })
+      .post(
+        `${process.env.REACT_APP_HEROKU_API_KEY}/reply`,
+        {
+          commentId: comment.id,
+          reply,
+          userId: localStorage.getItem("userID"),
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      )
       .then((res) => {
         dispatch(addReplySuccess(res.data));
         toast({
@@ -38,7 +46,11 @@ export const deleteReply = (dispatch, reply, toast) => {
   try {
     dispatch(ItemRequest());
     axios
-      .delete(`${process.env.REACT_APP_HEROKU_API_KEY}/reply/${reply.id}`)
+      .delete(`${process.env.REACT_APP_HEROKU_API_KEY}/reply/${reply.id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
       .then((res) => {
         dispatch(deleteReplySuccess(reply));
         toast({
@@ -67,7 +79,15 @@ export const editReply = (dispatch, id, reply, toast) => {
   try {
     dispatch(ItemRequest());
     axios
-      .put(`${process.env.REACT_APP_HEROKU_API_KEY}/reply/${id}`, { reply })
+      .put(
+        `${process.env.REACT_APP_HEROKU_API_KEY}/reply/${id}`,
+        { reply },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      )
       .then((res) => {
         dispatch(updateReplySuccess(res.data));
         toast({

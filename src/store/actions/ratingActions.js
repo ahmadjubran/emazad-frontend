@@ -7,11 +7,19 @@ export const handleRatingFromItem = (dispatch, rating, item, allRating, toast) =
     let rated = allRating.find((rating) => Number(rating.userId) === Number(localStorage.getItem("userID")));
     if (!rated) {
       axios
-        .post(`${process.env.REACT_APP_HEROKU_API_KEY}/rating`, {
-          rating,
-          ratedId: item.userId,
-          userId: localStorage.getItem("userID"),
-        })
+        .post(
+          `${process.env.REACT_APP_HEROKU_API_KEY}/rating`,
+          {
+            rating,
+            ratedId: item.userId,
+            userId: localStorage.getItem("userID"),
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        )
         .then((res) => {
           getItem(dispatch, item.id);
         })
@@ -29,7 +37,11 @@ export const handleRatingFromItem = (dispatch, rating, item, allRating, toast) =
     } else {
       if (rated.rating === rating) {
         axios
-          .delete(`${process.env.REACT_APP_HEROKU_API_KEY}/rating/${rated.id}`)
+          .delete(`${process.env.REACT_APP_HEROKU_API_KEY}/rating/${rated.id}`, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          })
           .then((res) => {
             getItem(dispatch, item.id);
           })
@@ -45,7 +57,15 @@ export const handleRatingFromItem = (dispatch, rating, item, allRating, toast) =
           });
       } else {
         axios
-          .put(`${process.env.REACT_APP_HEROKU_API_KEY}/rating/${rated.id}`, { rating })
+          .put(
+            `${process.env.REACT_APP_HEROKU_API_KEY}/rating/${rated.id}`,
+            { rating },
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+            }
+          )
           .then((res) => {
             getItem(dispatch, item.id);
           })
@@ -71,11 +91,19 @@ export const handleRatingFromProfile = (dispatch, rating, id, allRating, toast) 
     let rated = allRating.find((rating) => Number(rating.userId) === Number(localStorage.getItem("userID")));
     if (!rated) {
       axios
-        .post(`${process.env.REACT_APP_HEROKU_API_KEY}/rating`, {
-          rating,
-          ratedId: id,
-          userId: localStorage.getItem("userID"),
-        })
+        .post(
+          `${process.env.REACT_APP_HEROKU_API_KEY}/rating`,
+          {
+            rating,
+            ratedId: id,
+            userId: localStorage.getItem("userID"),
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        )
         .then((res) => {
           getUserProfile(dispatch, id);
         })
@@ -93,7 +121,11 @@ export const handleRatingFromProfile = (dispatch, rating, id, allRating, toast) 
     } else {
       if (rated.rating === rating) {
         axios
-          .delete(`${process.env.REACT_APP_HEROKU_API_KEY}/rating/${rated.id}`)
+          .delete(`${process.env.REACT_APP_HEROKU_API_KEY}/rating/${rated.id}`, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          })
           .then((res) => {
             getUserProfile(dispatch, id);
           })
@@ -109,7 +141,15 @@ export const handleRatingFromProfile = (dispatch, rating, id, allRating, toast) 
           });
       } else {
         axios
-          .put(`${process.env.REACT_APP_HEROKU_API_KEY}/rating/${rated.id}`, { rating })
+          .put(
+            `${process.env.REACT_APP_HEROKU_API_KEY}/rating/${rated.id}`,
+            { rating },
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+            }
+          )
           .then((res) => {
             getUserProfile(dispatch, id);
           })

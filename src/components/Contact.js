@@ -13,43 +13,40 @@ import {
   InputLeftElement,
   Text,
   Textarea,
+  useToast,
   VStack,
   Wrap,
   WrapItem,
 } from "@chakra-ui/react";
+import emailjs from "@emailjs/browser";
+import { useRef } from "react";
 import { BsFacebook, BsInstagram, BsLinkedin, BsPerson, BsWhatsapp } from "react-icons/bs";
 import { MdEmail, MdLocationOn, MdOutlineEmail, MdPhone } from "react-icons/md";
-import { useRef } from "react";
-import emailjs from "@emailjs/browser";
-import { useToast } from "@chakra-ui/react";
-
-
 
 export default function Contact() {
   const toast = useToast();
 
-const form = useRef();
+  const form = useRef();
 
-function sendEmail(e) {
-  e.preventDefault();
-  emailjs.sendForm("service_xq50kw5", "template_dco31gp", form.current, "IX5VyXcqhp-pd31y4").then(
-    (result) => {
-      console.log(result.text);
-    },
-    (error) => {
-      console.log(error.text);
-    }
-  );
-  e.target.reset();
-  toast({
-    title: "Your message has been sent successfully",
-    description: "We will contact you as soon as possible",
-    status: "success",
-    duration: 4000,
-    isClosable: true,
-  });
-
-}
+  function sendEmail(e) {
+    e.preventDefault();
+    emailjs.sendForm("service_xq50kw5", "template_dco31gp", form.current, "IX5VyXcqhp-pd31y4").then(
+      (result) => {
+        console.log(result.text);
+      },
+      (error) => {
+        console.log(error.text);
+      }
+    );
+    e.target.reset();
+    toast({
+      title: "Your message has been sent successfully",
+      description: "We will contact you as soon as possible",
+      status: "success",
+      duration: 4000,
+      isClosable: true,
+    });
+  }
 
   return (
     <Container bg="gray.100" maxW="full" mt={0} centerContent overflow="hidden">
@@ -72,11 +69,10 @@ function sendEmail(e) {
                     Any questions or remarks? Feel free to contact us!
                   </Text>
                   <Box py={{ base: 5, sm: 5, md: 8, lg: 10 }}>
-                    <VStack pl={0} spacing={3} alignItems="flex-start">
+                    <VStack pl={0} spacing={3} alignItems="flex-start" w="full">
                       <Button
                         size="md"
                         height="48px"
-                        width="200px"
                         variant="ghost"
                         leftIcon={<MdPhone color="rgb(49,130,206)" size="20px" />}
                       >
@@ -85,7 +81,6 @@ function sendEmail(e) {
                       <Button
                         size="md"
                         height="48px"
-                        width="200px"
                         variant="ghost"
                         leftIcon={<MdEmail color="rgb(49,130,206)" size="20px" />}
                       >
@@ -94,7 +89,6 @@ function sendEmail(e) {
                       <Button
                         size="md"
                         height="48px"
-                        width="200px"
                         variant="ghost"
                         leftIcon={<MdLocationOn color="rgb(49,130,206)" size="20px" />}
                       >
@@ -105,23 +99,26 @@ function sendEmail(e) {
                   <HStack mt={{ lg: 10, md: 10 }} spacing={5} px={5} alignItems="flex-start">
                     <IconButton
                       aria-label="facebook"
+                      color="gray.600"
                       variant="ghost"
                       size="lg"
                       isRound={true}
                       _hover={{ color: "rgb(49,130,206)" }}
                       icon={<BsFacebook size="28px" />}
                     />
-                      <IconButton
-                        aria-label="instagram"
-                        variant="ghost"
-                        size="lg"
-                        isRound={true}
-                        _hover={{ color: "rgb(49,130,206)" }}
-                        icon={<BsInstagram size="28px" />}
-                      />
+                    <IconButton
+                      aria-label="instagram"
+                      variant="ghost"
+                      color="gray.600"
+                      size="lg"
+                      isRound={true}
+                      _hover={{ color: "rgb(49,130,206)" }}
+                      icon={<BsInstagram size="28px" />}
+                    />
                     <IconButton
                       aria-label="linkedin"
                       variant="ghost"
+                      color="gray.600"
                       size="lg"
                       isRound={true}
                       _hover={{ color: "rgb(49,130,206)" }}
@@ -130,6 +127,7 @@ function sendEmail(e) {
                     <IconButton
                       aria-label="whatsapp"
                       variant="ghost"
+                      color="gray.600"
                       size="lg"
                       isRound={true}
                       _hover={{ color: "rgb(49,130,206)" }}
@@ -143,37 +141,53 @@ function sendEmail(e) {
                   <Box m={8}>
                     <VStack spacing={5}>
                       <form ref={form} onSubmit={sendEmail}>
-                      <FormControl id="name">
-                        <FormLabel>Your Name</FormLabel>
-                        <InputGroup borderColor="gray.50">
-                          <InputLeftElement pointerEvents="none" children={<BsPerson color="gray.800" />} />
-                          <Input type="text" size="md" borderRadius="full" bg="gray.100" borderColor="gray.400" name={"user_name"} placeholder="name"/>
-                        </InputGroup>
-                      </FormControl>
-                      <FormControl id="name">
-                        <FormLabel>Mail</FormLabel>
-                        <InputGroup borderColor="#E0E1E7">
-                          <InputLeftElement pointerEvents="none" children={<MdOutlineEmail color="gray.800" />} />
-                          <Input type="email" size="md" borderRadius="full" bg="gray.100" borderColor="gray.400" name={"user_email"} placeholder="email"/>
-                        </InputGroup>
-                      </FormControl>
-                      <FormControl id="name">
-                        <FormLabel>Message</FormLabel>
-                        <Textarea
-                          size="md"
-                          resize="none"
-                          borderRadius="3xl"
-                          bg="gray.100"
-                          borderColor="gray.400"
-                          placeholder="message"
-                          name={"message"}
-                        />
-                      </FormControl>
-                      <FormControl id="name" float="right">
-                        <Button variant="outline" colorScheme="blue" size="md" borderRadius="full" type="submit">
-                          Send Message
-                        </Button>
-                      </FormControl>
+                        <FormControl id="name">
+                          <FormLabel>Your Name</FormLabel>
+                          <InputGroup borderColor="gray.50">
+                            <InputLeftElement pointerEvents="none" children={<BsPerson color="gray.800" />} />
+                            <Input
+                              type="text"
+                              size="md"
+                              borderRadius="full"
+                              bg="gray.100"
+                              borderColor="gray.400"
+                              name={"user_name"}
+                              placeholder="name"
+                            />
+                          </InputGroup>
+                        </FormControl>
+                        <FormControl id="name">
+                          <FormLabel>Mail</FormLabel>
+                          <InputGroup borderColor="#E0E1E7">
+                            <InputLeftElement pointerEvents="none" children={<MdOutlineEmail color="gray.800" />} />
+                            <Input
+                              type="email"
+                              size="md"
+                              borderRadius="full"
+                              bg="gray.100"
+                              borderColor="gray.400"
+                              name={"user_email"}
+                              placeholder="email"
+                            />
+                          </InputGroup>
+                        </FormControl>
+                        <FormControl id="name">
+                          <FormLabel>Message</FormLabel>
+                          <Textarea
+                            size="md"
+                            resize="none"
+                            borderRadius="3xl"
+                            bg="gray.100"
+                            borderColor="gray.400"
+                            placeholder="message"
+                            name={"message"}
+                          />
+                        </FormControl>
+                        <FormControl id="name" float="right" mt={5}>
+                          <Button variant="outline" colorScheme="blue" size="md" borderRadius="full" type="submit">
+                            Send Message
+                          </Button>
+                        </FormControl>
                       </form>
                     </VStack>
                   </Box>
