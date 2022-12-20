@@ -64,8 +64,8 @@ export default function Profile() {
   const dispatch = useDispatch();
   const toast = useToast();
   const { id } = useParams();
-  const { userProfile, activeItems, standByItems, soldItems, wonItems, engagedItems, favoriteItems, userRating } =
-    useSelector((state) => state.profile);
+  const { userProfile, activeItems, standByItems, soldItems, wonItems, engagedItems, favoriteItems, userRating } = useSelector((state) => state.profile);
+  const { isAuth } = useSelector((state) => state.auth);
 
   useEffect(() => {
     getUserProfile(dispatch, id);
@@ -211,10 +211,11 @@ export default function Profile() {
 
       <Tabs isFitted variant="enclosed-colored" colorScheme="blue" w="80%">
         <TabList>
+          { isAuth && userProfile.id === Number(localStorage.getItem("userID")) && (
           <Tab gap="3">
-            {" "}
             <IoAddCircle size="1.5rem" /> Create a New Auction
           </Tab>
+          )}
           <Tab onClick={() => getProfileActiveItems(dispatch, id)} gap="3">
             <ImHammer2 /> Active Items
           </Tab>
@@ -238,8 +239,9 @@ export default function Profile() {
             Favorite Items
           </Tab>
         </TabList>
+          <TabPanels>
 
-        <TabPanels>
+        { isAuth && userProfile.id === Number(localStorage.getItem("userID")) && (
           <TabPanel>
             <Link to="/additem">
               <Button
@@ -250,7 +252,7 @@ export default function Profile() {
                 minHeight={{ sm: "200px", md: "100%" }}
                 height="300px"
                 w="100%"
-              >
+                >
                 <Flex direction="column" justifyContent="center" align="center">
                   <Icon as={FaPlus} fontSize="lg" mb="12px" />
                   <Text fontSize="lg" fontWeight="bold">
@@ -260,6 +262,7 @@ export default function Profile() {
               </Button>
             </Link>
           </TabPanel>
+          )}
 
           <TabPanel>
             <ProfileItems items={activeItems} />
