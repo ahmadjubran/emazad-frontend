@@ -42,6 +42,7 @@ export default function Filter() {
               toggleSubcategories("");
               localStorage.setItem("category", category.name);
               localStorage.setItem("subCategory", subcategory);
+              window.scrollTo(0, 0);
             }}
             position="relative"
             borderBottom="1px solid"
@@ -49,15 +50,7 @@ export default function Filter() {
             p="2"
             _hover={{ bg: "gray.100", color: "blue.500" }}
           >
-            <Box
-              ml="8"
-              
-              fontSize="sm"
-              fontWeight="normal"
-              display="flex"
-              alignItems="center"
-              gap="2"
-            >
+            <Box ml="8" fontSize="sm" fontWeight="normal" display="flex" alignItems="center" gap="2">
               <IoChevronForward />
               <Text>{subcategory}</Text>
             </Box>

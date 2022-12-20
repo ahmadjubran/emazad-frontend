@@ -133,7 +133,14 @@ export default function ItemsList() {
                   flex={1}
                 >
                   <Box w="full" h="15rem">
-                    <Link to={`/item/${item.id}`} style={{ width: "100%" }} onClick={() => getItem(dispatch, item.id)}>
+                    <Link
+                      to={`/item/${item.id}`}
+                      style={{ width: "100%" }}
+                      onClick={() => {
+                        getItem(dispatch, item.id);
+                        window.scrollTo(0, 0);
+                      }}
+                    >
                       <Image
                         src={
                           item.itemImage[0].startsWith("http")
@@ -191,7 +198,10 @@ export default function ItemsList() {
                       >
                         {item.latestBid !== 0 ? (
                           <>
-                            <Link to={`/profile/${item.Bids && item.Bids[0].User.id}`}>
+                            <Link
+                              to={`/profile/${item.Bids && item.Bids[0].User.id}`}
+                              onClick={() => window.scrollTo(0, 0)}
+                            >
                               <Avatar
                                 size="md"
                                 name={item.Bids && item.Bids[0].User.fullName}
@@ -203,7 +213,10 @@ export default function ItemsList() {
                               />
                             </Link>
                             <Text fontSize="sm" color="gray.500">
-                              <Link to={`/profile/${item.Bids && item.Bids[0].User.id}`}>
+                              <Link
+                                to={`/profile/${item.Bids && item.Bids[0].User.id}`}
+                                onClick={() => window.scrollTo(0, 0)}
+                              >
                                 <Text
                                   as="span"
                                   fontWeight="bold"

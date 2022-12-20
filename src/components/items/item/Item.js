@@ -232,7 +232,7 @@ export default function Item() {
               >
                 {item.latestBid !== 0 ? (
                   <>
-                    <Link to={`/profile/${item.Bids && item.Bids[0].User.id}`}>
+                    <Link to={`/profile/${item.Bids && item.Bids[0].User.id}`} onClick={() => window.scrollTo(0, 0)}>
                       <Avatar
                         size="lg"
                         name={item.Bids && item.Bids[0].User.fullName}
@@ -244,7 +244,7 @@ export default function Item() {
                       />
                     </Link>
                     <Text fontSize="md" color="gray.500">
-                      <Link to={`/profile/${item.Bids && item.Bids[0].User.id}`}>
+                      <Link to={`/profile/${item.Bids && item.Bids[0].User.id}`} onClick={() => window.scrollTo(0, 0)}>
                         <Text
                           as="span"
                           fontWeight="bold"

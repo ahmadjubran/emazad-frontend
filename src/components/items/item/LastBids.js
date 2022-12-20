@@ -1,5 +1,6 @@
 import { Box, Flex, Heading, Image, Spacer, Text, VStack } from "@chakra-ui/react";
 import React from "react";
+import { Link } from "react-router-dom";
 import { showTime } from "../../../store/actions/generalActions";
 
 export default function LastBids({ item }) {
@@ -47,17 +48,21 @@ export default function LastBids({ item }) {
               boxShadow="md"
             >
               <Flex alignItems="center" gap="2">
-                <Image
-                  src={bid.User.image}
-                  alt={bid.User.fullName}
-                  w="10"
-                  h="10"
-                  borderRadius="full"
-                  objectFit="cover"
-                />
-                <Text fontSize="md" fontWeight="bold" textTransform="capitalize">
-                  {bid.User.fullName}
-                </Text>
+                <Link to={`/profile/${bid.User.id}`} onClick={() => window.scrollTo(0, 0)}>
+                  <Image
+                    src={bid.User.image}
+                    alt={bid.User.fullName}
+                    w="10"
+                    h="10"
+                    borderRadius="full"
+                    objectFit="cover"
+                  />
+                </Link>
+                <Link to={`/profile/${bid.User.id}`} onClick={() => window.scrollTo(0, 0)}>
+                  <Text fontSize="md" fontWeight="bold" textTransform="capitalize">
+                    {bid.User.fullName}
+                  </Text>
+                </Link>
               </Flex>
               <Spacer />
               <Flex alignItems="center" gap="12">

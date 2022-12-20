@@ -21,6 +21,7 @@ function Categories() {
                 localStorage.setItem("category", category.name);
                 localStorage.setItem("subCategory", "All");
                 getItems(dispatch, "active", category.name);
+                window.scrollTo(0, 0);
               }}
             >
               <Box

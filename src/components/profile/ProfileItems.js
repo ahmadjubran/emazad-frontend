@@ -41,7 +41,14 @@ function ProfileActiveItems({ items }) {
               flex={1}
             >
               <Box w="full" h="15rem">
-                <Link to={`/item/${item.id}`} style={{ width: "100%" }} onClick={() => getItem(dispatch, item.id)}>
+                <Link
+                  to={`/item/${item.id}`}
+                  style={{ width: "100%" }}
+                  onClick={() => {
+                    getItem(dispatch, item.id);
+                    window.scrollTo(0, 0);
+                  }}
+                >
                   <Image
                     src={
                       item.itemImage[0].startsWith("http")
@@ -99,7 +106,10 @@ function ProfileActiveItems({ items }) {
                   >
                     {item.latestBid !== 0 ? (
                       <>
-                        <Link to={`/profile/${item.Bids && item.Bids[0].User.id}`}>
+                        <Link
+                          to={`/profile/${item.Bids && item.Bids[0].User.id}`}
+                          onClick={() => window.scrollTo(0, 0)}
+                        >
                           <Avatar
                             size="md"
                             name={item.Bids && item.Bids[0].User.fullName}
@@ -111,7 +121,10 @@ function ProfileActiveItems({ items }) {
                           />
                         </Link>
                         <Text fontSize="sm" color="gray.500">
-                          <Link to={`/profile/${item.Bids && item.Bids[0].User.id}`}>
+                          <Link
+                            to={`/profile/${item.Bids && item.Bids[0].User.id}`}
+                            onClick={() => window.scrollTo(0, 0)}
+                          >
                             <Text
                               as="span"
                               fontWeight="bold"
@@ -163,43 +176,29 @@ function ProfileActiveItems({ items }) {
                         {item.latestBid !== 0 ? item.latestBid : item.initialPrice}$
                       </Text>
                     </Box>
-                    <Button
-                      w="100%"
-                      h="100%"
-                      colorScheme="blue"
-                      variant="outline"
-                      boxShadow="md"
-                      onClick={() =>
-                        item.status === "active" &&
-                        addBid(
-                          dispatch,
-                          item.id,
-                          item.latestBid !== 0
-                            ? Math.ceil(item.latestBid + item.initialPrice * 0.01)
-                            : Math.ceil(item.initialPrice),
-                          toast
-                        )
-                      }
-                      disabled={item.status !== "active" || !isAuth}
+                    <Link
+                      to={`/item/${item.id}`}
+                      onClick={() => window.scrollTo(0, 0)}
+                      style={{ width: "100%", height: "100%" }}
                     >
-                      {item.status === "active" ? (
-                        <Flex alignItems="center" justifyContent="center" w="100%" h="100%" flexDir="column">
-                          <Text fontSize="md" color="gray.500" mb="2">
-                            Bid Now
-                          </Text>
-                          <Text fontSize="xl" fontWeight="bold">
-                            {item.latestBid !== 0
-                              ? Math.ceil(item.latestBid + item.initialPrice * 0.01)
-                              : Math.ceil(item.initialPrice)}
-                            $
-                          </Text>
-                        </Flex>
-                      ) : (
-                        <Text fontSize="lg" color="gray.500" textTransform="uppercase">
-                          Start Soon
+                      <Box
+                        w="full"
+                        h="full"
+                        display="flex"
+                        alignItems="center"
+                        justifyContent="center"
+                        borderRadius="lg"
+                        border="1px solid"
+                        borderColor="gray.300"
+                        boxShadow="md"
+                        cursor="pointer"
+                        _hover={{ bg: "gray.100" }}
+                      >
+                        <Text fontSize="lg" color="blue.500" textTransform="uppercase" fontWeight="bold">
+                          Go to Item
                         </Text>
-                      )}
-                    </Button>
+                      </Box>
+                    </Link>
                   </Flex>
                 </>
               )}

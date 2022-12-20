@@ -54,10 +54,10 @@ export default function Notifications(props) {
             borderRadius="full"
             textAlign="center"
           >
-            {notifications.filter((notification) => notification.status === "unread").length > 9 ? (
+            {notifications.slice(0, 20).filter((notification) => notification.status === "unread").length > 9 ? (
               <p>9+</p>
             ) : (
-              notifications.filter((notification) => notification.status === "unread").length
+              notifications.slice(0, 20).filter((notification) => notification.status === "unread").length
             )}
           </Text>
         </MenuButton>
@@ -80,7 +80,7 @@ export default function Notifications(props) {
                       borderRadius="2xl"
                       boxShadow="md"
                       p="4"
-                      bg={notification.status === "unread" ? "gray.50" : "gray.200"}
+                      bg={notification.status === "unread" ? "gray.200" : "gray.50"}
                       border="1px solid"
                       borderColor={notification.status === "unread" ? "gray.200" : "gray.300"}
                       onClick={() => markAsRead(notification.id)}
