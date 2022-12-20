@@ -1,16 +1,19 @@
 import { Flex, Heading, Menu, MenuButton, MenuItem, MenuList, Text } from "@chakra-ui/react";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IoNotificationsOutline, IoTimeOutline } from "react-icons/io5";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { showTime } from "../../store/actions/generalActions";
 import { selectUser } from "../../store/features/authSlicer";
-import Title from "../Title";
 
 export default function Notifications(props) {
   const [notifications, setNotifications] = useState([]);
   const user = useSelector(selectUser);
+
+  useEffect(() => {
+    getNotifications();
+  }, []);
 
   const getNotifications = () => {
     axios
