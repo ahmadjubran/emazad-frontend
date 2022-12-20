@@ -13,8 +13,20 @@ export const profileSlice = createSlice({
     userRating: {},
     loading: false,
     error: null,
+    previewImage: false,
   },
   reducers: {
+
+    setEditPreviewImage: (state, action) => {
+      state.previewImage = action.payload;
+    },
+
+    setResetPreviewImage: (state) => {
+
+      console.log("reset preview image")
+      state.previewImage = false;
+    },
+
     getProfileItemsRequest: (state) => {
       state.loading = true;
     },
@@ -83,6 +95,8 @@ export const {
   getProfileItemsRequest,
   getProfileItemsFail,
   updateProfileSuccess,
+  setEditPreviewImage,
+  setResetPreviewImage
 } = profileSlice.actions;
 
 export const selectUserProfile = (state) => state.profile.userProfile;
