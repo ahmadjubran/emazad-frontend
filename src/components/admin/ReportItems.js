@@ -39,7 +39,7 @@ function ReportItems() {
                 <Box p='6px 0px 22px 0px'>
                     <Flex direction='column'>
                         <Heading color={textColor} fontWeight='bold' pb='.5rem' textAlign={'center'} textTransform='uppercase'>
-                            report Items
+                            Reported Items
                         </Heading>
                     </Flex>
                 </Box>

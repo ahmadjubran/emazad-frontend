@@ -110,11 +110,7 @@ function AddItem() {
 
   return (
    
-    <Flex justify="center" align='center' 
-    web
-    
-    bgGradient="linear-gradient(90deg, blue.600 0%, blue.500 35%, blue.400 100%)"
-    > 
+    <Flex justify="center" align='center' bgGradient="linear-gradient(90deg, blue.600 0%, blue.500 35%, blue.400 100%)"> 
     <Flex  direction="column" p="6" justifyContent="center" align='center'  
     gap='6' boxShadow='lg' w='75%' h='70vh' my ='14px'
     className="glassBG"   
