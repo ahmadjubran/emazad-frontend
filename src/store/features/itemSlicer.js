@@ -7,6 +7,7 @@ const initialState = {
   error: null,
   userRating: {},
   trendingItems: [],
+  count: 0,
 };
 
 export const itemSlice = createSlice({
@@ -24,7 +25,8 @@ export const itemSlice = createSlice({
 
     getItemsSuccess: (state, action) => {
       state.loading = false;
-      state.items = action.payload;
+      state.items = action.payload.items;
+      state.count = action.payload.count;
     },
 
     getItemSuccess: (state, action) => {
@@ -171,6 +173,7 @@ export const {
 } = itemSlice.actions;
 
 export const selectItems = (state) => state.item.items;
+export const selectCount = (state) => state.item.count;
 export const selectItem = (state) => state.item.item;
 export const selectTrendingItems = (state) => state.item.trendingItems;
 export const selectUserRating = (state) => state.item.userRating;

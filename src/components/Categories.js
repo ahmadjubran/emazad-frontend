@@ -1,14 +1,10 @@
 import { Box, Center, Flex, Grid, GridItem, Text } from "@chakra-ui/react";
 import React from "react";
-import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import categories from "../assets/categories.json";
-import { getItems } from "../store/actions/itemActions";
 import Title from "./Title";
 
 function Categories() {
-  const dispatch = useDispatch();
-
   return (
     <Flex direction="column" p="6" justifyContent="center" alignItems="center" bg="gray.100" gap="8" w="100%">
       <Title>Categories</Title>
@@ -20,7 +16,6 @@ function Categories() {
               onClick={() => {
                 localStorage.setItem("category", category.name);
                 localStorage.setItem("subCategory", "All");
-                getItems(dispatch, "active", category.name);
                 window.scrollTo(0, 0);
               }}
             >

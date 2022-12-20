@@ -38,7 +38,7 @@ export default function Filter() {
             textTransform="capitalize"
             cursor="pointer"
             onClick={() => {
-              getItems(dispatch, "active", category.name, subcategory);
+              getItems(dispatch, 0, "active", category.name, subcategory);
               toggleSubcategories("");
               localStorage.setItem("category", category.name);
               localStorage.setItem("subCategory", subcategory);
@@ -64,6 +64,7 @@ export default function Filter() {
     <Box>
       <Box
         p="4"
+        pt="5"
         bg="gray.50"
         borderRadius="lg"
         mb="4"
@@ -71,13 +72,13 @@ export default function Filter() {
         borderColor="gray.300"
         boxShadow="md"
         onClick={() => {
-          getItems(dispatch, "active");
+          getItems(dispatch, 0, "active");
           localStorage.removeItem("category");
           localStorage.removeItem("subCategory");
         }}
         cursor="pointer"
       >
-        <Text fontSize="4xl" fontWeight="bold" textTransform="uppercase" lineHeight="1.2">
+        <Text fontSize="3xl" fontWeight="bold" color="gray.700" textTransform="uppercase" lineHeight="1.2">
           Items
         </Text>
       </Box>
@@ -94,6 +95,16 @@ export default function Filter() {
         borderColor="gray.300"
         overflow="hidden"
       >
+        <ListItem
+          fontSize="lg"
+          fontWeight="bold"
+          textTransform="uppercase"
+          p="5"
+          borderBottom="1px solid"
+          borderColor="gray.300"
+        >
+          Categories
+        </ListItem>
         {categories.categories.map((category, index) => (
           <ListItem key={index}>
             <Link
@@ -103,7 +114,7 @@ export default function Filter() {
               fontSize="md"
               borderBottom={index === categories.categories.length - 1 ? "none" : "1px solid"}
               borderColor="gray.300"
-              p="4"
+              p="6"
               onClick={() => toggleSubcategories(category.name)}
               textDecoration="none"
               _hover={{ textDecoration: "none", color: "blue.500", bg: "gray.100" }}

@@ -57,6 +57,7 @@ export const signUp = (dispatch, payload, imageURL, toast) => {
       birthDate: payload.target.birthDate.value,
       image: imageURL || null,
     };
+    console.log("data", data);
 
     try {
       if (payload.error) {
