@@ -12,22 +12,24 @@ import {
   updateItemSuccess,
 } from "../features/itemSlicer";
 
-export const getItems = (dispatch, status, category, subCategory) => {
+export const getItems = (dispatch, page, status, category, subCategory) => {
   try {
     dispatch(ItemRequest());
 
     let url = "";
 
     if (!status && !category && !subCategory) {
-      url = `${process.env.REACT_APP_HEROKU_API_KEY}/items`;
+      url = `${process.env.REACT_APP_HEROKU_API_KEY}/items?page=${page}&limit=9`;
     } else if (status && !category && !subCategory) {
-      url = `${process.env.REACT_APP_HEROKU_API_KEY}/items/${status}`;
+      url = `${process.env.REACT_APP_HEROKU_API_KEY}/items/${status}?page=${page}&limit=9`;
     } else if (status && category && !subCategory) {
-      url = `${process.env.REACT_APP_HEROKU_API_KEY}/items/${status}/${category === "All" ? "" : category}`;
+      url = `${process.env.REACT_APP_HEROKU_API_KEY}/items/${status}/${
+        category === "All" ? "" : category
+      }?page=${page}&limit=9`;
     } else if (status && category && subCategory) {
       url = `${process.env.REACT_APP_HEROKU_API_KEY}/items/${status}/${category}/${
         subCategory === "All" ? "" : subCategory
-      }`;
+      }?page=${page}&limit=9`;
     }
 
     axios
