@@ -55,19 +55,26 @@ This is a simple bidding app that allows users to bid on items and the highest b
 - Backward button (FOR LATER...)
 
 # New List
-- Contact (EmailJS) -Yaser
-- About Page
+- SocketIO
+- Pagging 
+
+- Admin -Saeed
+
 - Edit Profile -Qais
 - Edit Item, to be working only on STANDBY STATUS!!! - Qais 
-- SocketIO
-- Admin -Saeed
-- isAuth
-- Colors for everything
-- Scroll up for most of the things
-- BarerAuth to be removed from user stuff, kept only on adding or editing or deleting things
-- Report or anything that needs signing in!
-- Add Auction to be inside { isAuth ? }
- 
 
+- isAuth (cheking only!)
+- Report or anything that needs signing in!
+
+- BarerAuth to be removed from user stuff, kept only on adding or editing or deleting things
+- Colors for everything
+
+- Notifications to switch colors unread, read / slice 20 for +9
+- Scroll up for most of the things -Ahmad
+- Items sorting inside profile -Ahmad
+- About Page -Ahmad
+
+- Add Auction to be inside { isAuth ? }
+- Contact (EmailJS) -Yaser Done
 - 404 Page -Yaser Done
 - Admin Dashboard button from profile -Saeed Done

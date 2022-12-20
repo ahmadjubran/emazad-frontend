@@ -17,8 +17,8 @@ import {
   Wrap,
   WrapItem,
 } from "@chakra-ui/react";
-import { BsDiscord, BsGithub, BsPerson } from "react-icons/bs";
-import { MdEmail, MdFacebook, MdLocationOn, MdOutlineEmail, MdPhone } from "react-icons/md";
+import { BsFacebook, BsInstagram, BsLinkedin, BsPerson, BsWhatsapp } from "react-icons/bs";
+import { MdEmail, MdLocationOn, MdOutlineEmail, MdPhone } from "react-icons/md";
 import { useRef } from "react";
 import emailjs from "@emailjs/browser";
 import { useToast } from "@chakra-ui/react";
@@ -26,6 +26,7 @@ import { useToast } from "@chakra-ui/react";
 
 
 export default function Contact() {
+  const toast = useToast();
 
 const form = useRef();
 
@@ -40,6 +41,13 @@ function sendEmail(e) {
     }
   );
   e.target.reset();
+  toast({
+    title: "Your message has been sent successfully",
+    description: "We will contact you as soon as possible",
+    status: "success",
+    duration: 4000,
+    isClosable: true,
+  });
 
 }
 
@@ -61,7 +69,7 @@ function sendEmail(e) {
                 <Box>
                   <Heading>Contact</Heading>
                   <Text mt={{ sm: 3, md: 3, lg: 5 }} color="gray.500">
-                    Fill up the form to contact
+                    Any questions or remarks? Feel free to contact us!
                   </Text>
                   <Box py={{ base: 5, sm: 5, md: 8, lg: 10 }}>
                     <VStack pl={0} spacing={3} alignItems="flex-start">
@@ -81,7 +89,7 @@ function sendEmail(e) {
                         variant="ghost"
                         leftIcon={<MdEmail color="rgb(49,130,206)" size="20px" />}
                       >
-                        emazad@gmail.com
+                        info.emazad@gmail.com
                       </Button>
                       <Button
                         size="md"
@@ -101,23 +109,31 @@ function sendEmail(e) {
                       size="lg"
                       isRound={true}
                       _hover={{ color: "rgb(49,130,206)" }}
-                      icon={<MdFacebook size="28px" />}
+                      icon={<BsFacebook size="28px" />}
                     />
+                      <IconButton
+                        aria-label="instagram"
+                        variant="ghost"
+                        size="lg"
+                        isRound={true}
+                        _hover={{ color: "rgb(49,130,206)" }}
+                        icon={<BsInstagram size="28px" />}
+                      />
                     <IconButton
-                      aria-label="github"
+                      aria-label="linkedin"
                       variant="ghost"
                       size="lg"
                       isRound={true}
                       _hover={{ color: "rgb(49,130,206)" }}
-                      icon={<BsGithub size="28px" />}
+                      icon={<BsLinkedin size="28px" />}
                     />
                     <IconButton
-                      aria-label="discord"
+                      aria-label="whatsapp"
                       variant="ghost"
                       size="lg"
                       isRound={true}
                       _hover={{ color: "rgb(49,130,206)" }}
-                      icon={<BsDiscord size="28px" />}
+                      icon={<BsWhatsapp size="28px" />}
                     />
                   </HStack>
                 </Box>
@@ -131,14 +147,14 @@ function sendEmail(e) {
                         <FormLabel>Your Name</FormLabel>
                         <InputGroup borderColor="gray.50">
                           <InputLeftElement pointerEvents="none" children={<BsPerson color="gray.800" />} />
-                          <Input type="text" size="md" borderRadius="full" bg="gray.100" borderColor="gray.400" name={"user_name"} />
+                          <Input type="text" size="md" borderRadius="full" bg="gray.100" borderColor="gray.400" name={"user_name"} placeholder="name"/>
                         </InputGroup>
                       </FormControl>
                       <FormControl id="name">
                         <FormLabel>Mail</FormLabel>
                         <InputGroup borderColor="#E0E1E7">
                           <InputLeftElement pointerEvents="none" children={<MdOutlineEmail color="gray.800" />} />
-                          <Input type="text" size="md" borderRadius="full" bg="gray.100" borderColor="gray.400" name={"user_email"}/>
+                          <Input type="email" size="md" borderRadius="full" bg="gray.100" borderColor="gray.400" name={"user_email"} placeholder="email"/>
                         </InputGroup>
                       </FormControl>
                       <FormControl id="name">
