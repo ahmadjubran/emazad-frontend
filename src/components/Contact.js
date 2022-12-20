@@ -19,8 +19,30 @@ import {
 } from "@chakra-ui/react";
 import { BsDiscord, BsGithub, BsPerson } from "react-icons/bs";
 import { MdEmail, MdFacebook, MdLocationOn, MdOutlineEmail, MdPhone } from "react-icons/md";
+import { useRef } from "react";
+import emailjs from "@emailjs/browser";
+import { useToast } from "@chakra-ui/react";
 
-export default function contact() {
+
+
+export default function Contact() {
+
+const form = useRef();
+
+function sendEmail(e) {
+  e.preventDefault();
+  emailjs.sendForm("service_xq50kw5", "template_dco31gp", form.current, "IX5VyXcqhp-pd31y4").then(
+    (result) => {
+      console.log(result.text);
+    },
+    (error) => {
+      console.log(error.text);
+    }
+  );
+  e.target.reset();
+
+}
+
   return (
     <Container bg="gray.100" maxW="full" mt={0} centerContent overflow="hidden">
       <Flex>
@@ -39,7 +61,7 @@ export default function contact() {
                 <Box>
                   <Heading>Contact</Heading>
                   <Text mt={{ sm: 3, md: 3, lg: 5 }} color="gray.500">
-                    Fill up the form below to contact
+                    Fill up the form to contact
                   </Text>
                   <Box py={{ base: 5, sm: 5, md: 8, lg: 10 }}>
                     <VStack pl={0} spacing={3} alignItems="flex-start">
@@ -104,18 +126,19 @@ export default function contact() {
                 <Box bg="gray.200" borderRadius="2xl" p={5} boxShadow="md" border="1px" borderColor="gray.400">
                   <Box m={8}>
                     <VStack spacing={5}>
+                      <form ref={form} onSubmit={sendEmail}>
                       <FormControl id="name">
                         <FormLabel>Your Name</FormLabel>
                         <InputGroup borderColor="gray.50">
                           <InputLeftElement pointerEvents="none" children={<BsPerson color="gray.800" />} />
-                          <Input type="text" size="md" borderRadius="full" bg="gray.100" borderColor="gray.400" />
+                          <Input type="text" size="md" borderRadius="full" bg="gray.100" borderColor="gray.400" name={"user_name"} />
                         </InputGroup>
                       </FormControl>
                       <FormControl id="name">
                         <FormLabel>Mail</FormLabel>
                         <InputGroup borderColor="#E0E1E7">
                           <InputLeftElement pointerEvents="none" children={<MdOutlineEmail color="gray.800" />} />
-                          <Input type="text" size="md" borderRadius="full" bg="gray.100" borderColor="gray.400" />
+                          <Input type="text" size="md" borderRadius="full" bg="gray.100" borderColor="gray.400" name={"user_email"}/>
                         </InputGroup>
                       </FormControl>
                       <FormControl id="name">
@@ -127,13 +150,15 @@ export default function contact() {
                           bg="gray.100"
                           borderColor="gray.400"
                           placeholder="message"
+                          name={"message"}
                         />
                       </FormControl>
                       <FormControl id="name" float="right">
-                        <Button variant="outline" colorScheme="blue" size="md" borderRadius="full">
+                        <Button variant="outline" colorScheme="blue" size="md" borderRadius="full" type="submit">
                           Send Message
                         </Button>
                       </FormControl>
+                      </form>
                     </VStack>
                   </Box>
                 </Box>
