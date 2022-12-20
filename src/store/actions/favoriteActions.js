@@ -6,10 +6,18 @@ export const handleFavorite = (dispatch, item, allFavorites, toast) => {
     let favorite = allFavorites.find((favorite) => Number(favorite.userId) === Number(localStorage.getItem("userID")));
     if (!favorite) {
       axios
-        .post(`${process.env.REACT_APP_HEROKU_API_KEY}/favorite`, {
-          itemId: item.id,
-          userId: localStorage.getItem("userID"),
-        })
+        .post(
+          `${process.env.REACT_APP_HEROKU_API_KEY}/favorite`,
+          {
+            itemId: item.id,
+            userId: localStorage.getItem("userID"),
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        )
         .then((res) => {
           getItem(dispatch, item.id);
           toast({
@@ -31,7 +39,11 @@ export const handleFavorite = (dispatch, item, allFavorites, toast) => {
         });
     } else {
       axios
-        .delete(`${process.env.REACT_APP_HEROKU_API_KEY}/favorite/${favorite.id}`)
+        .delete(`${process.env.REACT_APP_HEROKU_API_KEY}/favorite/${favorite.id}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        })
         .then((res) => {
           getItem(dispatch, item.id);
           toast({
