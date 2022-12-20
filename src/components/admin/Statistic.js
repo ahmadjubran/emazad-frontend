@@ -22,7 +22,10 @@ function Statistic() {
                 textAlign={'center'}
                 fontSize={'4xl'}
                 py={10}
-                fontWeight={'bold'}>
+                fontWeight={'bold'}
+                textTransform={'uppercase'}
+                color={'blue.400'}
+                >
                 Dashboard
             </chakra.h1>
             <SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ base: 5, lg: 8 }}>

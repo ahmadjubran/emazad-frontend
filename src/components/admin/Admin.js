@@ -32,7 +32,7 @@ function Admin({ children }) {
                 flexDir='row'
                 gap={sizeSlide ? '7' : '3'}
                 overflow='auto'
-                h='calc(100vh - 120px)'
+                h='calc(100vh - 80px)'
                 w='100%'
             >
                 <Flex
@@ -80,19 +80,19 @@ function Admin({ children }) {
                                     as={ReachLink}
                                     to='/admin/dashboard'
                                 >
-                                    <Icon as={FiHome} fontSize='3xl' color='#5BCCD9' />
+                                    <Icon as={FiHome} fontSize='3xl' color='blue.500' />
                                 </Link>
                                 <Link
                                     as={ReachLink}
                                     to='/admin/dashboard'
                                     display={sizeSlide ? 'flex' : 'none'}
-                                    _hover={{ textDecor: 'none', color: '#5BCCD9' }}
+                                    _hover={{ textDecor: 'none', color: 'blue.500' }}
                                 >
                                     Dashboard
                                 </Link>
                             </Flex>
                             <Flex flexDir="row" alignItems='center' justifyContent='center' gap='3' fontSize='xl'
-                                fontWeight='bold' _hover={{ color: '#5BCCD9' }}
+                                fontWeight='bold' _hover={{ color: 'blue.500' }}
                                 onClick={() => {
                                     getActiveItem(dispatch);
                                 }}
@@ -101,17 +101,17 @@ function Admin({ children }) {
                                     as={ReachLink}
                                     to='/admin/activeItems'
                                 >
-                                    <Icon as={TbDatabase} fontSize='2xl' color='#5BCCD9' />
+                                    <Icon as={TbDatabase} fontSize='2xl' color='blue.500' />
                                 </Link>
                                 <Link
                                     as={ReachLink}
                                     to='/admin/activeItems'
                                     display={sizeSlide ? 'flex' : 'none'}
-                                    _hover={{ textDecor: 'none', color: '#5BCCD9' }}
+                                    _hover={{ textDecor: 'none', color: 'blue.500' }}
                                 >Active Items</Link>
                             </Flex>
                             <Flex flexDir="row" alignItems='center' justifyContent='center' gap='3' fontSize='xl'
-                                fontWeight='bold' _hover={{ color: '#5BCCD9' }}
+                                fontWeight='bold' _hover={{ color: 'blue.500' }}
                                 onClick={() => {
                                     getSoldItem(dispatch);
                                 }}
@@ -120,17 +120,17 @@ function Admin({ children }) {
                                     as={ReachLink}
                                     to='/admin/solditems'
                                 >
-                                    <Icon as={TbDatabaseOff} fontSize='2xl' color='#5BCCD9' />
+                                    <Icon as={TbDatabaseOff} fontSize='2xl' color='blue.500' />
                                 </Link>
                                 <Link
                                     as={ReachLink}
                                     to='/admin/solditems'
                                     display={sizeSlide ? 'flex' : 'none'}
-                                    _hover={{ textDecor: 'none', color: '#5BCCD9' }}
+                                    _hover={{ textDecor: 'none', color: 'blue.500' }}
                                 > Sold Items</Link>
                             </Flex>
                             <Flex flexDir="row" alignItems='center' justifyContent='center' gap='3' fontSize='xl'
-                                fontWeight='bold' _hover={{ color: '#5BCCD9' }}
+                                fontWeight='bold' _hover={{ color: 'blue.500' }}
                                 onClick={() => {
                                     getUsersBlocked(dispatch);
                                 }}
@@ -139,17 +139,17 @@ function Admin({ children }) {
                                     as={ReachLink}
                                     to='/admin/userBlocked'
                                 >
-                                    <Icon as={FaUsersSlash} fontSize='2xl' color='#5BCCD9' />
+                                    <Icon as={FaUsersSlash} fontSize='2xl' color='blue.500' />
                                 </Link>
                                 <Link
                                     as={ReachLink}
                                     to='/admin/userBlocked'
                                     display={sizeSlide ? 'flex' : 'none'}
-                                    _hover={{ textDecor: 'none', color: '#5BCCD9' }}
+                                    _hover={{ textDecor: 'none', color: 'blue.500' }}
                                 >Blocked Users</Link>
                             </Flex>
                             <Flex flexDir="row" alignItems='center' justifyContent='center' gap='3' fontSize='xl'
-                                fontWeight='bold' _hover={{ color: '#5BCCD9' }}
+                                fontWeight='bold' _hover={{ color: 'blue.500' }}
                                 onClick={() => {
                                     getBlockedItem(dispatch);
                                 }}
@@ -158,19 +158,19 @@ function Admin({ children }) {
                                     as={ReachLink}
                                     to='/admin/reportitems'
                                 >
-                                    <Icon as={MdReport} fontSize='2xl' color='#5BCCD9' />
+                                    <Icon as={MdReport} fontSize='2xl' color='blue.500' />
                                 </Link>
                                 <Link
                                     as={ReachLink}
                                     to='/admin/reportitems'
                                     display={sizeSlide ? 'flex' : 'none'}
-                                    _hover={{ textDecor: 'none', color: '#5BCCD9' }}
+                                    _hover={{ textDecor: 'none', color: 'blue.500' }}
                                 >Reported Items</Link>
                             </Flex>
                         </Flex>
 
-                        <Flex textAlign='center'>
-                            <Text>Create By Bid Hammer Team
+                        <Flex textAlign='center' w="70%">
+                            <Text>Create By eMazad Team
                                 &#169; 2022</Text>
                         </Flex>
                     </Flex>

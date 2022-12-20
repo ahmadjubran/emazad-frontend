@@ -58,7 +58,7 @@ This is a simple bidding app that allows users to bid on items and the highest b
 - SocketIO
 - Pagging 
 
-- Admin -Saeed
+- Admin -Saeed (checking with ahmad)
 
 - Edit Profile -Qais
 - Edit Item, to be working only on STANDBY STATUS!!! - Qais 

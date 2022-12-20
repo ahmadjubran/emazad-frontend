@@ -16,7 +16,7 @@ import Admin from "./Admin";
 import UserBlockedRow from "./UserBlockedRow";
 
 function UserBlocked() {
-    const textColor = useColorModeValue("gray.700", "white");
+    const textColor = useColorModeValue("blue.500", "white");
     const admin = useSelector((state) => state.admin);
     return (
         console.log(admin),
@@ -34,7 +34,7 @@ function UserBlocked() {
                 <Box p='6px 0px 22px 0px'>
                     <Flex direction='column'>
                         <Heading color={textColor} fontWeight='bold' pb='.5rem' textAlign={'center'} textTransform='uppercase'>
-                            Users Bloked
+                            Users Blocked
                         </Heading>
                     </Flex>
                 </Box>

@@ -25,23 +25,27 @@ function Dashboard() {
         <Admin  >
             <Flex flexDir='column' w='100%' overflow='auto'>
                 <Statistic />
-                <Grid templateColumns={{ base: "1fr", md: "1fr auto", lg: "1fr auto auto  " }} gap={5} alignItems="center" justifyContent='space-evenly' mt='10'>
-                    <Box overflow='auto' w='80%' p='15'
+                <Grid templateColumns={{ base: "1fr", md: "1fr auto", lg: "1fr auto" }} gap={5} 
+                alignItems="center"
+                justifyContent="center"
+                mt='10'
+                w="100%"
+                >
+                    <Box overflow='auto'
                         border='1px solid'
                         borderColor='gray.300'
                         borderRadius='2xl'
                         bg='gray.200'
-                        padding='1rem'
-                        mr='1.2rem'
+                        p='1rem'
                         boxShadow='md'
-
                     >
                         <Chart minW={{ base: "100%", md: "100%", lg: "100%" }} h='90%' />
                     </Box>
+
                     <Box >
-                        <PieChart w='100%' />
+                        <PieChart/>
                     </Box>
-                    {/* <PieChart w='100%' /> */}
+
 
                 </Grid>
             </Flex>

@@ -16,7 +16,7 @@ import Admin from "./Admin";
 import ReportRow from "./ReportRow";
 import { getBlockedItem } from '../../store/actions/adminActions';
 function ReportItems() {
-    const textColor = useColorModeValue("gray.700", "white");
+    const textColor = useColorModeValue("blue.500", "white");
     const admin = useSelector((state) => state.admin);
     const dispatch = useDispatch();
     useEffect(() => {
