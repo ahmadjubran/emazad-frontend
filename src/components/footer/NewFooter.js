@@ -1,16 +1,16 @@
-import { Box, Container, SimpleGrid, Stack, Text, Input, IconButton, Button, Image, useToast } from "@chakra-ui/react";
-import { FaFacebook, FaTwitter, FaYoutube } from "react-icons/fa";
+import { Box, Button, Container, IconButton, Image, Input, SimpleGrid, Stack, Text, useToast } from "@chakra-ui/react";
 import { BiMailSend } from "react-icons/bi";
+import { FaFacebook, FaTwitter, FaYoutube } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
-import footerLogo from "../../assets/img/logo/footerLogo.png";
 import { RiInstagramFill } from "react-icons/ri";
+import footerLogo from "../../assets/img/logo/footerLogo.png";
 
 import emailjs from "@emailjs/browser";
 import { useRef } from "react";
 
-import { selectUser } from "../../store/features/authSlicer";
 import { useSelector } from "react-redux";
+import { selectUser } from "../../store/features/authSlicer";
 
 export default function LargeWithNewsletter() {
   const user = useSelector(selectUser);
@@ -38,17 +38,15 @@ export default function LargeWithNewsletter() {
   }
 
   return (
-    <Box bg="gray.50" 
-    boxShadow={"0 0 10px 0 rgba(0,0,0,0.1)"}
-    >
+    <Box bg="gray.50" boxShadow={"0 0 10px 0 rgba(0,0,0,0.1)"}>
       <Container as={Stack} maxW={"6xl"} py={10}>
         <SimpleGrid templateColumns={{ sm: "1fr 1fr", md: "2fr 1fr 1fr 2fr" }} spacing={8}>
           <Stack spacing={2} justify="center" align="center">
-            <Link to="/">
+            <Link to="/" onClick={() => window.scrollTo(0, 0)}>
               <Image src={footerLogo} alt="footer-logo" w="250px" />
             </Link>
             <Text fontSize={"sm"}>© 2022 eMazad All rights reserved</Text>
-            <Stack direction={"row"} spacing={3} >
+            <Stack direction={"row"} spacing={3}>
               <Button label={"Facebook"} href={"#"} borderRadius="full">
                 <FaFacebook />
               </Button>
@@ -67,12 +65,18 @@ export default function LargeWithNewsletter() {
             <Text fontWeight="bold" fontSize={"lg"} mb={2}>
               Useful Links
             </Text>
-            <Link to="/about">About us</Link>
-            <Link to="/contact">Contact us</Link>
-            <Link to={user ? `/profile/${user.id}` : "/login"}
-            
-            >Profile</Link>
-            <Link to="/items">Items</Link>
+            <Link to="/about" onClick={() => window.scrollTo(0, 0)}>
+              About us
+            </Link>
+            <Link to="/contact" onClick={() => window.scrollTo(0, 0)}>
+              Contact us
+            </Link>
+            <Link to={user ? `/profile/${user.id}` : "/login"} onClick={() => window.scrollTo(0, 0)}>
+              {user ? "Profile" : "Login"}
+            </Link>
+            <Link to="/items" onClick={() => window.scrollTo(0, 0)}>
+              Items
+            </Link>
           </Stack>
           <Stack align={"flex-start"}>
             <Text fontWeight="bold" fontSize={"lg"} mb={2}>
@@ -87,9 +91,8 @@ export default function LargeWithNewsletter() {
             <Text fontWeight="bold" fontSize={"lg"} mb={2}>
               Subscribe to our Newsletter
             </Text>
-              <form ref={form} onSubmit={sendEmail}>
-            <Stack direction={"row"}>
-
+            <form ref={form} onSubmit={sendEmail}>
+              <Stack direction={"row"}>
                 <Input
                   name={"user_email"}
                   type={"email"}
@@ -102,7 +105,7 @@ export default function LargeWithNewsletter() {
                     bg: "gray.300",
                   }}
                   isRequired
-                  />
+                />
                 <IconButton
                   as="button"
                   type="submit"
@@ -112,10 +115,9 @@ export default function LargeWithNewsletter() {
                   }}
                   aria-label="Subscribe"
                   icon={<BiMailSend />}
-                  
-                  />
-            </Stack>
-              </form>
+                />
+              </Stack>
+            </form>
           </Stack>
         </SimpleGrid>
       </Container>

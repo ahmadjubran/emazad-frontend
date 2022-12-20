@@ -52,7 +52,7 @@ export default function CallToActionWithAnnotation() {
             </Button>
           </Link>
           <Link to="/about">
-            <Button variant={"link"} colorScheme={"blue"} size={"sm"}>
+            <Button variant={"link"} colorScheme={"blue"} size={"sm"} onClick={() => window.scrollTo(0, 0)}>
               Learn more
             </Button>
           </Link>

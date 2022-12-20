@@ -19,9 +19,9 @@ import { showTime } from "../../../store/actions/generalActions";
 import { selectIsAuth, selectUser } from "../../../store/features/authSlicer";
 import AddComment from "./AddComment";
 import AddReply from "./AddReply";
+import DeleteComment from "./DeleteComment";
 import EditComment from "./EditComment";
 import Replies from "./Replies";
-import DeleteComment from "./DeleteComment";
 
 export default function Comments({ item }) {
   const isAuth = useSelector(selectIsAuth);
@@ -84,17 +84,19 @@ export default function Comments({ item }) {
         item.Comments.slice(0, showComments).map((comment) => (
           <Box gap="2" borderBottom="1px solid" borderColor="gray.300" pb="4" m="4" key={comment.id}>
             <Flex alignItems="flex-start" gap="2">
-              <Image
-                src={comment.User.image}
-                alt={comment.User.fullName}
-                w="10"
-                h="10"
-                borderRadius="full"
-                objectFit="cover"
-                mt="2"
-              />
+              <Link to={`/profile/${comment.User.id}`} onClick={() => window.scrollTo(0, 0)}>
+                <Image
+                  src={comment.User.image}
+                  alt={comment.User.fullName}
+                  w="10"
+                  h="10"
+                  borderRadius="full"
+                  objectFit="cover"
+                  mt="2"
+                />
+              </Link>
               <Flex flexDirection="column" bg="gray.300" p="4" borderRadius="3xl">
-                <Link to={`/profile/${comment.User.id}`}>
+                <Link to={`/profile/${comment.User.id}`} onClick={() => window.scrollTo(0, 0)}>
                   <Text fontSize="sm" textTransform="capitalize" fontWeight="bold">
                     {comment.User && comment.User.fullName}
                   </Text>

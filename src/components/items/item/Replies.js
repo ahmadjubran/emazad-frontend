@@ -5,8 +5,8 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { showTime } from "../../../store/actions/generalActions";
 import { selectIsAuth, selectUser } from "../../../store/features/authSlicer";
-import EditReply from "./EditReply";
 import DeleteReply from "./DeleteReply";
+import EditReply from "./EditReply";
 
 export default function Replies({ comment }) {
   const isAuth = useSelector(selectIsAuth);
@@ -18,22 +18,23 @@ export default function Replies({ comment }) {
         comment.Replies.map((reply) => (
           <Flex key={reply.id} direction="column" borderRadius="lg" overflow="hidden" my="2" ml="14">
             <Flex alignItems="flex-start" gap="2">
-              {" "}
-              <Image
-                src={reply.User.image}
-                alt={reply.User.fullName}
-                w="8"
-                h="8"
-                borderRadius="full"
-                objectFit="cover"
-                alignSelf="flex-start"
-                mt="2"
-              />
+              <Link to={`/profile/${reply.User.id}`} onClick={() => window.scrollTo(0, 0)}>
+                <Image
+                  src={reply.User.image}
+                  alt={reply.User.fullName}
+                  w="8"
+                  h="8"
+                  borderRadius="full"
+                  objectFit="cover"
+                  alignSelf="flex-start"
+                  mt="2"
+                />
+              </Link>
               <Flex flexDirection="column" bg="gray.300" p="4" borderRadius="3xl">
-                <Link to={`/profile/${reply.User.id}`}>
-                <Text fontSize="sm" textTransform="capitalize" fontWeight="bold">
-                  {reply.User && reply.User.fullName}
-                </Text>
+                <Link to={`/profile/${reply.User.id}`} onClick={() => window.scrollTo(0, 0)}>
+                  <Text fontSize="sm" textTransform="capitalize" fontWeight="bold">
+                    {reply.User && reply.User.fullName}
+                  </Text>
                 </Link>
                 <Text fontSize="sm" textTransform="capitalize" whiteSpace="pre-line">
                   {reply.reply}

@@ -32,8 +32,6 @@ export default function RegisterAd() {
                 boxShadow="md"
                 onClick={() => {
                   window.scrollTo(0, 0);
-                  if (isAuth) {
-                  }
                 }}
               >
                 {isAuth ? "Start Bidding" : "Join eMazad"}
