@@ -1,4 +1,4 @@
-import { Box, Container, SimpleGrid, Stack, Text, Input, IconButton, Button, Image } from "@chakra-ui/react";
+import { Box, Container, SimpleGrid, Stack, Text, Input, IconButton, Button, Image, useToast } from "@chakra-ui/react";
 import { FaFacebook, FaTwitter, FaYoutube } from "react-icons/fa";
 import { BiMailSend } from "react-icons/bi";
 import { Link } from "react-router-dom";
@@ -14,6 +14,7 @@ import { useSelector } from "react-redux";
 
 export default function LargeWithNewsletter() {
   const user = useSelector(selectUser);
+  const toast = useToast();
 
   const form = useRef();
 
@@ -28,6 +29,12 @@ export default function LargeWithNewsletter() {
       }
     );
     e.target.reset();
+    toast({
+      title: "You have subscribed successfully",
+      status: "success",
+      duration: 4000,
+      isClosable: true,
+    });
   }
 
   return (
@@ -85,14 +92,16 @@ export default function LargeWithNewsletter() {
 
                 <Input
                   name={"user_email"}
-                  type={"text"}
+                  type={"email"}
                   id="email"
                   placeholder={"Your email address"}
                   bg="gray.200"
                   border={0}
+                  fontSize={"sm"}
                   _focus={{
                     bg: "gray.300",
                   }}
+                  isRequired
                   />
                 <IconButton
                   as="button"
