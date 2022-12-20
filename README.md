@@ -66,7 +66,8 @@ This is a simple bidding app that allows users to bid on items and the highest b
 - Scroll up for most of the things
 - BarerAuth to be removed from user stuff, kept only on adding or editing or deleting things
 - Report or anything that needs signing in!
-- 404 Page -Yaser
 - Add Auction to be inside { isAuth ? }
-- Admin Dashboard button from profile
-- 
+ 
+
+- 404 Page -Yaser Done
+- Admin Dashboard button from profile -Saeed Done
