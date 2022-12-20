@@ -86,9 +86,8 @@ export const getTrendingItems = (dispatch) => {
   }
 };
 
-export const addItem = (dispatch, payload, imageURL, userId) => {
+export const addItem = (dispatch, payload, imageURL, userId, toast) => {
   
-  console.log(payload)
   const data = {
     itemTitle: payload.itemTitle,
     itemDescription: payload.itemDescription,
@@ -101,7 +100,6 @@ export const addItem = (dispatch, payload, imageURL, userId) => {
     endDate: new Date(payload.endDate).toISOString(),
     userId: userId,
   };
-  console.log(data)
 
   try {
     dispatch(ItemRequest());
@@ -109,55 +107,29 @@ export const addItem = (dispatch, payload, imageURL, userId) => {
       .post(`${process.env.REACT_APP_HEROKU_API_KEY}/item`, data)
       .then((res) => {
         dispatch(addItemSuccess(res.data));
-        
-        // payload.target.reset();
-        console.log(res.data)
+        toast({
+          title: "Item added successfully",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        });
       })
       .catch((err) => {
         dispatch(ItemFail(err));
+        toast({
+          title: "Error Creating Item",
+          description: `${err.response.data.message}` || "Please try again.",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
       });
   } catch (err) {
     dispatch(ItemFail(err));
   }
 };
 
-
-// old function:
-
-// export const addItem = (dispatch, payload, imageURL, userId) => {
-//   payload.preventDefault();
-
-//   const data = {
-//     itemTitle: payload.target.itemTitle.value,
-//     itemDescription: payload.target.itemDescription.value,
-//     ...(imageURL && { itemImage: imageURL }),
-//     category: payload.target.category.value,
-//     subCategory: payload.target.subCategory.value,
-//     itemCondition: payload.target.itemCondition.value,
-//     initialPrice: Number(payload.target.initialPrice.value),
-//     startDate: new Date(payload.target.startDate.value).toISOString(),
-//     endDate: new Date(payload.target.endDate.value).toISOString(),
-//     userId: userId,
-//   };
-
-//   try {
-//     dispatch(ItemRequest());
-//     axios
-//       .post(`${process.env.REACT_APP_HEROKU_API_KEY}/item`, data)
-//       .then((res) => {
-//         dispatch(addItemSuccess(res.data));
-//         payload.target.reset();
-//       })
-//       .catch((err) => {
-//         dispatch(ItemFail(err));
-//       });
-//   } catch (err) {
-//     dispatch(ItemFail(err));
-//   }
-// };
-
-
-export const editItem = (dispatch, payload, imageURL, userId, id, itemImage) => {
+export const editItem = (dispatch, payload, imageURL, userId, id, itemImage, toast) => {
   payload.preventDefault();
 
   const data = {
@@ -173,8 +145,6 @@ export const editItem = (dispatch, payload, imageURL, userId, id, itemImage) => 
     userId: userId,
   };
 
-  console.log(data);
-
   try {
     dispatch(ItemRequest());
     axios
@@ -182,25 +152,52 @@ export const editItem = (dispatch, payload, imageURL, userId, id, itemImage) => 
       .then((res) => {
         console.log(res.data);
         dispatch(updateItemSuccess(res.data));
+        toast({
+          title: "Item updated",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        });
       })
       .catch((err) => {
         dispatch(ItemFail(err));
+        toast({
+          title: "Error Updating Item",
+          description: `${err.response.data.message}` || "Please try again.",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
       });
   } catch (err) {
     dispatch(ItemFail(err));
   }
 };
 
-export const deleteItem = (dispatch, payload) => {
+export const deleteItem = (dispatch, payload, toast) => {
   dispatch(ItemRequest());
 
   axios
     .delete(`${process.env.REACT_APP_HEROKU_API_KEY}/item/${payload}`)
     .then((res) => {
       dispatch(deleteItemSuccess(payload));
+      toast({
+        title: "Item deleted",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+      });
+      
     })
     .catch((err) => {
       dispatch(ItemFail(err));
+      toast({
+        title: "Error Deleting Item",
+        description: `${err.response.data.message}` || "Please try again.",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
     });
 };
 
@@ -254,10 +251,10 @@ export const uploadItemImage = async () => {
       data.append("file", image);
       data.append("upload_preset", "emazad_app");
       return axios.post("https://api.cloudinary.com/v1_1/skokash/image/upload", data).then((res) => {
-        image = [];
         return res.data.secure_url;
       });
     });
+    image = [];
     return Promise.all(uploaders).then((urls) => {
       return urls;
     });

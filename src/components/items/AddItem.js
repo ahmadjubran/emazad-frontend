@@ -1,17 +1,11 @@
 import React, { useState, useEffect } from "react";
 
 import {
-    VStack,
     Text,
-    Heading,
-    Alert,
-    AlertIcon,
     FormControl,
     Input,
     Button,
     Flex,
-    InputLeftElement,
-    InputGroup,
     Textarea,
     FormHelperText,
     Select,
@@ -20,7 +14,6 @@ import {
     GridItem,
     Box,
     Image,
-    HStack,
     Center
 } from "@chakra-ui/react";
 
@@ -35,8 +28,8 @@ import { Link } from "react-router-dom";
 function AddItem() {
   const dispatch = useDispatch();
 
-  const error = useSelector((state) => state.item.error);
-  const loading = useSelector((state) => state.item.loading);
+  // const error = useSelector((state) => state.item.error);
+  // const loading = useSelector((state) => state.item.loading);
   const userId = useSelector((state) => state.auth.user.id);
   const toast = useToast();
 
@@ -72,23 +65,21 @@ function AddItem() {
 
   // functions:
 
+  function handleImageChange(e) {
+    e.preventDefault();
+    validateImage(e, toast);
+    const files = Array.from(e.target.files);
+    setPreviewImage(files.map((file) => URL.createObjectURL(file)));
+  }
+
   function handleEndDate(e) {
     setMinEndDate(e.target.value);
   };
-  
-  // async function handleSubmit(e) {
-  //   e.preventDefault();
-  //   const imageURL = await uploadItemImage();
-  //   addItem(dispatch, e, imageURL, userId)
-  // }
 
   function handleChange(e) {
     e.preventDefault();
     setStep(step + 1);
-
-        // console.log(categories.categories)
     setFormData({...formData, [e.target[0].name]: e.target[0].value});
-    
   };
 
    async function handleStep2(e) {
@@ -97,8 +88,6 @@ function AddItem() {
     setImageURL(imageURL)
     setStep(step + 1);
     setFormData({...formData, [e.target[0].name]: e.target[0].value, [e.target[1].name]: e.target[1].value, [e.target[2].name]: e.target[2].value});
- 
-   
   };
 
   function handleStep3 (e) {
@@ -111,13 +100,6 @@ function AddItem() {
   
   function finishSubmission (data) {
     setStep(step + 1);
-    toast({
-      title: 'Auction Created.',
-      description: "You can view it from your profile page.",
-      status: 'success',
-      duration: 11000,
-      isClosable: true,
-    })
     addItem(dispatch, data, imageURL ,userId, toast)
   } 
 
@@ -140,7 +122,7 @@ function AddItem() {
       
     {step == 1 &&
     <>
-    <Text bg='black' opacity='0.84' color='white' p='10px' fontSize={{base:'14px', md:'20px', lg:'24px'}} borderRadius='8px' >What do you want to sell?</Text>
+    <Text opacity='0.84' color='gray.700' fontWeight="bold" p='10px' fontSize={{base:'14px', md:'20px', lg:'32px'}} borderRadius='8px' >What do you want to sell?</Text>
     <Grid templateColumns={{ base: "repeat(2, 1fr)", md: "repeat(2, 1fr)", lg: "repeat(3, 1fr)" }} gap={6}>
     {categories.categories.map((category, index) => (
 
@@ -184,7 +166,7 @@ function AddItem() {
     </>}
     {step == 2 &&
     <Box justify={'center'}>
-        <Text m='10px' p='8px' color='black' fontSize={{base:'14px', md:'20px', lg:'20px'}} fontWeight='bold'>Select a suitable subcategory for your product</Text>
+        <Text m='10px' p='8px' color='black' fontSize={{base:'14px', md:'20px', lg:'20px'}} fontWeight='bold'>Select a suitable subcategory for your product!</Text>
       <form onSubmit={(e) => handleChange(e)}>
       <Select name='subCategory' bg='white' >
       {categories.categories.map((category, index) => (
@@ -217,10 +199,18 @@ function AddItem() {
                 <option value="Used">Used</option>
               </Select>
               <FormControl pb="1em">
-              <Input type="file" name="itemImage" multiple="multiple" placeholder="itemImage" variant="auth" m='4px' w='100%' onChange={(e) => validateImage(e, toast)}/>
+              <Input type="file" name="itemImage" multiple="multiple" placeholder="itemImage" variant="auth" m='4px' w='100%' onChange={(e) => handleImageChange(e, toast)}/>
+
               <FormHelperText textAlign="left" m='4px' w='100%'>You can upload up to 8 images.</FormHelperText>
               </FormControl>
-              <Flex justify={'center'} gap={4} m='1rem'>
+
+              <Flex wrap="wrap" spacing="6" rounded="lg" shadow="md" bg="gray.200" p="4">
+                {previewImage && previewImage.map((image, index) => (
+                <Image key={index} src={image} alt="preview" w='120px' h='120px' m='4px' borderRadius="full" objectFit="cover" boxShadow='md'/>
+                ))}
+              </Flex>
+
+              <Flex justify='space-evenly' my="2em" w="100%" gap={4}>
         <Button onClick={() => setStep(step-1)} style={buttonStyle}> Back </Button>
         <Button type="submit" style={buttonStyle} >Next</Button>
         </Flex> 
@@ -249,10 +239,12 @@ function AddItem() {
 
       </Box>}
       {step == 5 &&
-      <Box >
-        You can view your auction from your profile
-        <Link href='/profile'>View Profile</Link>
-      </Box>}
+      <Flex>
+        <Text m='10px' p='8px' color='black' fontSize={{base:'14px', md:'20px', lg:'20px'}} fontWeight='bold'>You can view your auction from your profile</Text>
+        <Link to={`/profile/${userId}`}>
+          <Button>View Profile</Button>
+        </Link>
+      </Flex>}
 
    
   </Flex>
@@ -262,317 +254,3 @@ function AddItem() {
 
 
 export default AddItem;
-
-
-
-
-/*
-
-
-import React, {useEffect, useState} from "react";
-import {
-  Box,
-  Flex,
-  Heading,
-  Button,
-  InputGroup,
-  Textarea,
-  FormControl,
-  FormLabel,
-  HStack,
-  Input,
-  Link,
-  Switch,
-  Text,
-  Icon,
-  DarkMode,
-  FormHelperText,
-  Select,
-  InputLeftElement,
-  Alert,
-  VStack,
-  AlertIcon,
-  Center,
-  Grid,
-  GridItem,
-  useToast
-} from "@chakra-ui/react";
-import categories from "./categories.json";
-
-import './style.css'
-import { FaDollarSign } from "react-icons/fa";
-export default function NewForm() {
-
-  const [step, setStep] = useState(1);
-  const date = new Date().toISOString().slice(0, 16);  
-  const [minEndDate, setMinEndDate] = useState();
-
-  function handleEndDate(e) {
-    setMinEndDate(e.target.value);
-  };
-
-  const [formData , setFormData] = useState({
-    category: '',
-    subcategory: '',
-    itemTitle: '',
-    itemDescription: '',
-    itemCondition: '',
-    itemImage: '',
-    initialPrice: '',
-    startDate: '',
-    endDate: '',
-  });
-
-  function handleChange(e) {
-    e.preventDefault();
-    setStep(step + 1);
-    console.log(e.target[0].name, e.target[0].value)
-    console.log(categories.categories)
-    setFormData({...formData, [e.target[0].name]: e.target[0].value});
-    console.log(formData)
-  };
-
-
-useEffect(() => {
-  console.log(formData)
-}, [formData])
-  return (
-    <Flex justify="center" align='center'  className="gridentBG"> 
-    <Flex  direction="column" p="6" justifyContent="center" align='center'  
-    gap='6' boxShadow='lg' w='75%' h='70vh' my ='14px'
-    className="glassBG"   
-    >
-      
-    {step == 1 &&
-    <>
-    <Text >What do you want to sell?</Text>
-    <Grid templateColumns={{ base: "repeat(1, 1fr)", md: "repeat(2, 1fr)", lg: "repeat(3, 1fr)" }} gap={6}>
-    {categories.categories.map((category, index) => (
-
-        <GridItem >
-          <form onSubmit={(e) => handleChange(e)}>
-            
-            <Input type="hidden" name="category" value={category.name} key={category.key}/>
-            <Box
-              w={{ base: "118px", md: "170px", lg: "225px" }}
-              h={{ base: "80px", md: "118px", lg: "175px" }}
-              bgRepeat="no-repeat"
-              bgSize="cover"
-              borderRadius="lg"
-              name="electronics"
-              overflow="hidden"
-              type="submit"
-              opacity="0.9"
-              transition= "all 0.3s ease-out"
-               _hover={{opacity: "1", p:'8px'}}
-              as="button"
-               >
-              <Center
-                w="100%"
-                h="100%"
-                bgImage={`url(${category.image})`}
-                color="white"
-                fontSize="2xl"
-                fontWeight="bold"
-                textTransform="capitalize"
-              >
-          <Text bg='black' opacity='0.9' p='2px' borderRadius="lg"> {category.display} </Text>  
-              </Center>
-            </Box>
-            </form> 
-        </GridItem>  ))}
-      
-    </Grid>
-    </>}
-    {step == 2 &&
-    <Box>
-        <Text m='10px'>Select a suitable subcategory for your product</Text>
-      <form onSubmit={(e) => handleChange(e)}>
-      <Select name='subcategory' >
-      {categories.categories.map((category, index) => (
-        category.name == formData.category && category.subcategories.map((subcategory, index) => (
-         
-              <option value={subcategory}>{subcategory}</option>
-            
-        ))
-        
-        ))}
-        </Select>
-        <Button type="submit"  >Next1</Button>
-      </form> 
-      
-      
-      </Box>}
-    {step == 3 &&
-    <Box>
-      <Text>Describe your product</Text>
-      <Input type="text" name="itemTitle" placeholder="Title" variant="auth" m='4px' w='100%'/>
-      <Textarea type="text" name="itemDescription" placeholder="Description" variant="auth" m='4px' w='100%'/>
-      <Select name="itemCondition" variant="auth" m='4px' w='100%'>
-                <option disabled>Select Condition</option>
-                <option value="New">New</option>
-                <option value="Used">Used</option>
-              </Select>
-              <FormControl pb="1em">
-              <Input type="file" name="itemImage" multiple="multiple" placeholder="itemImage" variant="auth" m='4px' w='100%'/>
-              <FormHelperText textAlign="left" m='4px' w='100%'>You can upload up to 8 images.</FormHelperText>
-              </FormControl>
-
-      </Box>}
-      {step == 4 &&
-      <Box>
-        <Text>Set an initial price</Text>
-        <FaDollarSign />
-        <Input type="number" name="initialPrice" placeholder="initialPrice" variant="auth" />
-        <Text>Start Date</Text>
-        <Input type="datetime-local" name="startDate" placeholder="startDate" min={date} variant="auth" onChange={(e) => handleEndDate(e)}/>
-        <Text>End Date</Text>
-        <Input type="datetime-local" name="endDate" placeholder="endDate" min={minEndDate} variant="auth" />
-
-
-      </Box>}
-      <HStack gap='4px'> 
-      {step > 1 && 
-      <Button onClick={() => setStep(step-1)}> Back </Button>
-      }
-      {step > 1 && step < 4 && 
-      <> 
-      <Button onClick={(e) => handleChange (e)}> Next </Button>
-      </>
-      }
-      {step == 4 && 
-      <Button onClick={() => setStep(step+1)}> Add Auction </Button>
-      }
-</HStack>
-  </Flex>
-  </Flex>
-  );
-}
-
-
-
-
-.gridentBG{
-    background: linear-gradient(90deg, #3182ce 50%, #7078ee 100%);
-    animation: gradientBG 10s ease infinite;
-}
-
-// .glassBG {
-//    /* important */
-// /* From https://css.glass */
-// background: rgba(255, 255, 255, 0.56);
-// border-radius: 16px;
-// box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-// backdrop-filter: blur(19px);
-// -webkit-backdrop-filter: blur(19px);
-// border: 1px solid rgba(255, 255, 255, 0.27);
-// }
-
-
-
-// OLD FORM: 
-
-// <Flex direction={{ base: "column", md: "row" }} justify="center" align="center" w="100%" h="70vh">
-    
-// <VStack
-//   w="100%"
-//   h="100%"
-//   justify="center"
-//   align="center"
-//   bgSize="cover"
-//   bgPosition="center"
-//   bgRepeat="no-repeat"
-// >
-//   <Link to={`/profile/${userId}`}>
-//      <Button>Back to Profile</Button>
-//   </Link>
-//   <Heading textStyle="h1" mb="1em">
-//     Create Item
-//   </Heading>
-
-//   <form onSubmit={(e) => handleSubmit(e)}>
-//     <FormControl pb="1em" isRequired>
-//       <InputGroup>
-//         <Input type="text" name="itemTitle" placeholder="Title" variant="auth" />
-//       </InputGroup>
-//     </FormControl>
-
-//     <FormControl pb="1em" isRequired>
-//       <InputGroup>
-//         <Textarea type="text" name="itemDescription" placeholder="itemDescription" variant="auth" />
-//       </InputGroup>
-//     </FormControl>
-
-//     <FormControl pb="1em">
-//       <InputGroup>
-//         <Input type="file" name="itemImage" multiple="multiple" placeholder="itemImage" variant="auth" onChange={(e) => validateImage(e, toast)}/>
-//       </InputGroup>
-//       <FormHelperText textAlign="left">you can upload up to 8 images.</FormHelperText>
-//     </FormControl>
-
-//     <FormControl pb="1em" isRequired>
-//       <InputGroup>
-//         <Select name="category" variant="auth">
-//           <option disabled>Select Category</option>
-//           <option value="electronics">Electronics</option>
-//           <option value="clothes">Clothes</option>
-//           <option value="realestate">Real Estate</option>
-//           <option value="pets">Pets</option>
-//           <option value="vehicles">Vehicles</option>
-//           <option value="others">Others</option>
-//         </Select>
-//       </InputGroup>
-//     </FormControl>
-
-//     <FormControl pb="1em" isRequired>
-//       <InputGroup>
-//         <Input type="text" name="subCategory" placeholder="subCategory" variant="auth" />
-//       </InputGroup>
-//     </FormControl>
-
-//     <FormControl pb="1em" isRequired>
-//       <InputGroup>
-//         <Select name="itemCondition" variant="auth">
-//           <option disabled>Select Condition</option>
-//           <option value="New">New</option>
-//           <option value="Used">Used</option>
-//         </Select>
-//       </InputGroup>
-//     </FormControl>
-
-//     <FormControl pb="1em" isRequired>
-//       <InputGroup>
-//         <InputLeftElement children={<FaDollarSign />} />
-//         <Input type="number" name="initialPrice" placeholder="initialPrice" variant="auth" />
-//       </InputGroup>
-//     </FormControl>
-
-//     <FormControl pb="1em" isRequired>
-//       <InputGroup>
-//         <Input type="datetime-local" name="startDate" placeholder="startDate" min={date} variant="auth" onChange={(e) => handleEndDate(e)}/>
-//       </InputGroup>
-//     </FormControl>
-
-//     <FormControl pb="1em" isRequired>
-//       <InputGroup>
-//         <Input type="datetime-local" name="endDate" placeholder="endDate" min={minEndDate} variant="auth" />
-//       </InputGroup>
-//     </FormControl>
-
-//     {error && (
-//       <Alert status="error" variant="left-accent" mb="1em">
-//         <AlertIcon />
-//         {error}
-//       </Alert>
-//     )}
-
-//     <Text>{loading ? "Loading..." : ""}</Text>
-
-//     <Button variant="primary" type="submit" mb="1rem">
-//       Add Item
-//     </Button>
-
-  
-//           </form>
-//       </VStack>
-//   </Flex>
