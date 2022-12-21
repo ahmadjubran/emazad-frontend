@@ -9,7 +9,6 @@ import { getItem, getTrendingItems } from "../../../store/actions/itemActions";
 import { selectIsAuth } from "../../../store/features/authSlicer";
 import { selectTrendingItems } from "../../../store/features/itemSlicer";
 import RenderTimeLeft from "../../../utils/RenderTimeLeft";
-import Title from "../../Title";
 import ChakraCarousel from "./ChakraCarousel";
 
 function SliderCom() {
@@ -32,7 +31,9 @@ function SliderCom() {
 
   return (
     <Container maxW="100%" px="24" pb="24" m="0" important bg="gray.100">
-      <Title>Trending</Title>
+      <Text fontSize="4xl" fontWeight="bold" textAlign={{ base: "center" }} textTransform="uppercase" mb={5}>
+        Trending
+      </Text>
       <ChakraCarousel gap={32}>
         {trendingItems.slice(0, 11).map((item) => (
           <Flex
@@ -67,7 +68,7 @@ function SliderCom() {
                   alt="carousel"
                   objectFit="cover"
                   w="full"
-                  h="full"
+                  h="20rem"
                 />
               </Link>
             </Box>
@@ -87,7 +88,7 @@ function SliderCom() {
               <Text fontSize="xs" color="gray.500" textTransform="uppercase">
                 {item.category} - {item.subCategory}
               </Text>
-              <Text fontSize="sm" mt="2" noOfLines={2} wordBreak="break-word" whiteSpace="pre-wrap">
+              <Text fontSize="sm" mt="2" noOfLines={2} wordBreak="break-word" whiteSpace="pre-wrap" h="2.5rem">
                 {item.itemDescription}
               </Text>
             </Flex>
@@ -128,8 +129,8 @@ function SliderCom() {
                       dispatch,
                       item.id,
                       item.latestBid !== 0
-                        ? Math.ceil(item.latestBid + item.initialPrice * 0.01)
-                        : Math.ceil(item.initialPrice + item.initialPrice * 0.01),
+                        ? Math.ceil(item.latestBid + item.initialPrice * 0.05)
+                        : Math.ceil(item.initialPrice),
                       toast
                     )
                   }
@@ -141,8 +142,8 @@ function SliderCom() {
                     </Text>
                     <Text fontSize="xl" fontWeight="bold">
                       {item.latestBid !== 0
-                        ? Math.ceil(item.latestBid + item.initialPrice * 0.01)
-                        : Math.ceil(item.initialPrice + item.initialPrice * 0.01)}
+                        ? Math.ceil(item.latestBid + item.initialPrice * 0.05)
+                        : Math.ceil(item.initialPrice)}
                       $
                     </Text>
                   </Flex>

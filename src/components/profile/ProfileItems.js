@@ -58,7 +58,7 @@ function ProfileActiveItems({ items }) {
                     alt="carousel"
                     objectFit="cover"
                     w="full"
-                    h="full"
+                    h="15rem"
                   />
                 </Link>
               </Box>
@@ -78,7 +78,7 @@ function ProfileActiveItems({ items }) {
                 <Text fontSize="xs" color="gray.500" textTransform="uppercase">
                   {item.category} - {item.subCategory}
                 </Text>
-                <Text fontSize="sm" mt="2" noOfLines={2} wordBreak="break-word" whiteSpace="pre-wrap">
+                <Text fontSize="sm" mt="2" noOfLines={2} wordBreak="break-word" whiteSpace="pre-wrap" h="2.5rem">
                   {item.itemDescription}
                 </Text>
               </Flex>

@@ -1,13 +1,14 @@
 import { Box, Center, Flex, Grid, GridItem, Text } from "@chakra-ui/react";
 import React from "react";
 import { Link } from "react-router-dom";
-import categories from "../assets/categories.json";
-import Title from "./Title";
+import categories from "../../assets/categories.json";
 
 function Categories() {
   return (
     <Flex direction="column" p="6" justifyContent="center" alignItems="center" bg="gray.100" gap="8" w="100%">
-      <Title>Categories</Title>
+      <Text fontSize="4xl" fontWeight="bold" textAlign={{ base: "center" }} textTransform="uppercase" mb={5}>
+        Categories
+      </Text>
       <Grid templateColumns={{ base: "repeat(1, 1fr)", md: "repeat(2, 1fr)", lg: "repeat(3, 1fr)" }} gap={6} w="90%">
         {categories.categories.map((category, index) => (
           <GridItem key={index} w="100%">

@@ -150,7 +150,7 @@ export const editItem = (dispatch, payload, imageURL, userId, id, itemImage, toa
     userId: userId,
   };
 
-  console.log(data)
+  console.log(data);
 
   try {
     dispatch(ItemRequest());
