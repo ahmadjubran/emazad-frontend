@@ -189,7 +189,7 @@ export default function ItemsList() {
                       alt="carousel"
                       objectFit="cover"
                       w="full"
-                      h="full"
+                      h="15rem"
                     />
                   </Link>
                 </Box>
@@ -209,7 +209,7 @@ export default function ItemsList() {
                   <Text fontSize="xs" color="gray.500" textTransform="uppercase">
                     {item.category} - {item.subCategory}
                   </Text>
-                  <Text fontSize="sm" mt="2" noOfLines={2} wordBreak="break-word" whiteSpace="pre-wrap">
+                  <Text fontSize="sm" mt="2" noOfLines={2} wordBreak="break-word" whiteSpace="pre-wrap" h="2.5rem">
                     {item.itemDescription}
                   </Text>
                 </Flex>
@@ -319,7 +319,7 @@ export default function ItemsList() {
                             dispatch,
                             item.id,
                             item.latestBid !== 0
-                              ? Math.ceil(item.latestBid + item.initialPrice * 0.01)
+                              ? Math.ceil(item.latestBid + item.initialPrice * 0.05)
                               : Math.ceil(item.initialPrice),
                             toast
                           )
@@ -333,7 +333,7 @@ export default function ItemsList() {
                             </Text>
                             <Text fontSize="xl" fontWeight="bold">
                               {item.latestBid !== 0
-                                ? Math.ceil(item.latestBid + item.initialPrice * 0.01)
+                                ? Math.ceil(item.latestBid + item.initialPrice * 0.05)
                                 : Math.ceil(item.initialPrice)}
                               $
                             </Text>

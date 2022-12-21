@@ -1,13 +1,11 @@
 import { Avatar, Flex, Icon, Td, Text, Tr, useColorModeValue, useDisclosure } from "@chakra-ui/react";
 import React from "react";
-import { BiEditAlt } from "react-icons/bi";
 import { BsFillEyeFill } from "react-icons/bs";
 import { FaUserSlash } from "react-icons/fa";
 import { RiDeleteBin5Fill } from "react-icons/ri";
 import { useDispatch } from "react-redux";
 import EditItem from "../items/item/EditItem";
 import ReportItemMessage from "./ReportItemMessage";
-// import { deleteItem } from '../../store/actions/itemActions';
 import { Link } from "react-router-dom";
 import { blockedUsers, deletItemReporteds } from "../../store/actions/adminActions";
 function ReportRow(props) {

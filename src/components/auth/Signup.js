@@ -79,7 +79,6 @@ function Signup() {
           rounded={"lg"} p={8} 
           boxShadow={{ base: 'none', sm: '0 0 60px rgba(0, 0, 0, 0.5)' }} 
           filter={{ base: 'none', sm: 'drop-shadow(0 0 0.2rem rgba(0, 0, 0, 0.3))' }}
-          // bgGradient="linear(to-r, teal.500,blue.500)"
           >
           <form onSubmit={(e) => handleSubmit(e)}>
 

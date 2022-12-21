@@ -1,134 +1,126 @@
-import { Box } from "@chakra-ui/react";
-export default function Footer() {
-  function openLink(link) {
-    window.open(link, "_blank");
+import { Box, Button, Container, IconButton, Image, Input, SimpleGrid, Stack, Text, useToast } from "@chakra-ui/react";
+import { BiMailSend } from "react-icons/bi";
+import { FaFacebook, FaTwitter, FaYoutube } from "react-icons/fa";
+import { Link } from "react-router-dom";
+
+import { RiInstagramFill } from "react-icons/ri";
+import footerLogo from "../../assets/img/logo/footerLogo.png";
+
+import emailjs from "@emailjs/browser";
+import { useRef } from "react";
+
+import { useSelector } from "react-redux";
+import { selectUser } from "../../store/features/authSlicer";
+
+export default function LargeWithNewsletter() {
+  const user = useSelector(selectUser);
+  const toast = useToast();
+
+  const form = useRef();
+
+  function sendEmail(e) {
+    e.preventDefault();
+    emailjs.sendForm("service_xq50kw5", "template_ui2hs4l", form.current, "IX5VyXcqhp-pd31y4").then(
+      (result) => {
+        console.log(result.text);
+      },
+      (error) => {
+        console.log(error.text);
+      }
+    );
+    e.target.reset();
+    toast({
+      title: "You have subscribed successfully",
+      status: "success",
+      duration: 4000,
+      isClosable: true,
+    });
   }
 
   return (
-    <Box bg="gray.100" pt="24">
-      <footer className="relative bg-blueGray-200 pt-8 pb-6 mt-20">
-        <div
-          className="bottom-auto top-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden -mt-20 h-20"
-          style={{ transform: "translateZ(0)" }}
-        >
-          <svg
-            className="absolute bottom-0 overflow-hidden"
-            xmlns="http://www.w3.org/2000/svg"
-            preserveAspectRatio="none"
-            version="1.1"
-            viewBox="0 0 2560 100"
-            x="0"
-            y="0"
-          >
-            <polygon className="text-blueGray-200 fill-current" points="2560 0 2560 100 0 100"></polygon>
-          </svg>
-        </div>
-        <div className="container mx-auto px-4">
-          <div className="flex flex-wrap text-center lg:text-left">
-            <div className="w-full lg:w-6/12 px-4">
-              <h4
-                className="text-3xl font-semibold"
-                style={{ color: "#51b8c4", cursor: "pointer" }}
-                onClick={() => openLink("https://emazad.netlify.app/")}
-              >
-                e<span style={{ color: "#1f5469" }}>Mazad</span>{" "}
-              </h4>
-              <h5 className="text-lg mt-0 mb-2 text-blueGray-600">
-                Online auctions platform: Where every penny matters.
-              </h5>
-              <div className="mt-6 lg:mb-0 mb-6">
-                <button
-                  className="bg-white text-lightBlue-400 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
-                  type="button"
-                >
-                  <i className="fab fa-twitter"></i>
-                </button>
-                <button
-                  className="bg-white text-lightBlue-600 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
-                  type="button"
-                >
-                  <i className="fab fa-facebook-square"></i>
-                </button>
-                <button
-                  className="bg-white text-pink-400 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
-                  type="button"
-                >
-                  <i className="fab fa-dribbble"></i>
-                </button>
-                <button
-                  className="bg-white text-blueGray-800 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
-                  type="button"
-                  onClick={() => openLink("https://github.com/Bid-Hammers")}
-                >
-                  <i className="fab fa-github"></i>
-                </button>
-              </div>
-            </div>
-            <div className="w-full lg:w-6/12 px-4">
-              <div className="flex flex-wrap items-top mb-6">
-                <div className="w-full lg:w-4/12 px-4 ml-auto">
-                  <span className="block uppercase text-blueGray-500 text-sm font-semibold mb-2">Useful Links</span>
-                  <ul className="list-unstyled">
-                    <li>
-                      <a
-                        className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                        href="https://emazad.netlify.app/about"
-                      >
-                        About Us
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                        href="https://emazad.netlify.app/FAQ"
-                      >
-                        FAQ
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                        href="https://github.com/Bid-Hammers"
-                      >
-                        Github
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-                <div className="w-full lg:w-4/12 px-4">
-                  <span className="block uppercase text-blueGray-500 text-sm font-semibold mb-2">Other Resources</span>
-                  <ul className="list-unstyled">
-                    <li>
-                      <a
-                        className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                        href="https://emazad.netlify.app/tos"
-                      >
-                        Terms of Service
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                        href="https://emazad.netlify.app/contact"
-                      >
-                        Contact Us
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-          <hr className="my-6 border-blueGray-300" />
-          <div className="flex flex-wrap items-center md:justify-between justify-center">
-            <div className="w-full md:w-4/12 px-4 mx-auto text-center">
-              <div className="text-sm text-blueGray-500 font-semibold py-1">
-                Copyright © {new Date().getFullYear()} Designed by eMazad Team.
-              </div>
-            </div>
-          </div>
-        </div>
-      </footer>
+    <Box bg="gray.50" boxShadow={"0 0 10px 0 rgba(0,0,0,0.1)"}>
+      <Container as={Stack} maxW={"6xl"} py={10}>
+        <SimpleGrid templateColumns={{ sm: "1fr 1fr", md: "2fr 1fr 1fr 2fr" }} spacing={8}>
+          <Stack spacing={2} justify="center" align="center">
+            <Link to="/" onClick={() => window.scrollTo(0, 0)}>
+              <Image src={footerLogo} alt="footer-logo" w="250px" />
+            </Link>
+            <Text fontSize={"sm"}>© 2022 eMazad All rights reserved</Text>
+            <Stack direction={"row"} spacing={3}>
+              <Button label={"Facebook"} href={"#"} borderRadius="full">
+                <FaFacebook />
+              </Button>
+              <Button label={"Twitter"} href={"#"} borderRadius="full">
+                <FaTwitter />
+              </Button>
+              <Button label={"YouTube"} href={"#"} borderRadius="full">
+                <FaYoutube />
+              </Button>
+              <Button label={"Instagram"} href={"#"} borderRadius="full">
+                <RiInstagramFill />
+              </Button>
+            </Stack>
+          </Stack>
+          <Stack align={"flex-start"}>
+            <Text fontWeight="bold" fontSize={"lg"} mb={2}>
+              Useful Links
+            </Text>
+            <Link to="/about" onClick={() => window.scrollTo(0, 0)}>
+              About us
+            </Link>
+            <Link to="/contact" onClick={() => window.scrollTo(0, 0)}>
+              Contact us
+            </Link>
+            <Link to={user ? `/profile/${user.id}` : "/login"} onClick={() => window.scrollTo(0, 0)}>
+              {user ? "Profile" : "Login"}
+            </Link>
+            <Link to="/items" onClick={() => window.scrollTo(0, 0)}>
+              Items
+            </Link>
+          </Stack>
+          <Stack align={"flex-start"}>
+            <Text fontWeight="bold" fontSize={"lg"} mb={2}>
+              Support
+            </Text>
+            <Link href={"#"}>Help Center</Link>
+            <Link href={"#"}>Terms of Service</Link>
+            <Link href={"#"}>Legal</Link>
+            <Link href={"#"}>Privacy Policy</Link>
+          </Stack>
+          <Stack align={"flex-start"}>
+            <Text fontWeight="bold" fontSize={"lg"} mb={2}>
+              Subscribe to our Newsletter
+            </Text>
+            <form ref={form} onSubmit={sendEmail}>
+              <Stack direction={"row"}>
+                <Input
+                  name={"user_email"}
+                  type={"email"}
+                  id="email"
+                  placeholder={"Your email address"}
+                  bg="gray.200"
+                  border={0}
+                  fontSize={"sm"}
+                  _focus={{
+                    bg: "gray.300",
+                  }}
+                  isRequired
+                />
+                <IconButton
+                  as="button"
+                  type="submit"
+                  colorScheme="blue"
+                  _hover={{
+                    bg: "blue.700",
+                  }}
+                  aria-label="Subscribe"
+                  icon={<BiMailSend />}
+                />
+              </Stack>
+            </form>
+          </Stack>
+        </SimpleGrid>
+      </Container>
     </Box>
   );
 }
