@@ -2,7 +2,7 @@ import { extendTheme } from "@chakra-ui/react";
 
 const theme = extendTheme({
   config: {
-    initialColorMode: "dark",
+    initialColorMode: "light",
     useSystemColorMode: false,
   },
 
@@ -126,8 +126,7 @@ const theme = extendTheme({
           _hover: {
             bg: "darkBlue.200",
             color: "grey.200",
-          }
-
+          },
         },
 
         success: {
